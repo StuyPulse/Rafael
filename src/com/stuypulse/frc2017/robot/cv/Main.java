@@ -1,0 +1,56 @@
+package com.stuypulse.frc2017.robot.cv;
+
+import java.io.File;
+
+import stuyvision.VisionModule;
+import stuyvision.ModuleRunner;
+import stuyvision.capture.CaptureSource.ResizeDimension;
+import stuyvision.capture.DeviceCaptureSource;
+import stuyvision.capture.VideoCaptureSource;
+import stuyvision.capture.ImageCaptureSource;
+import stuyvision.gui.VisionGui;
+
+public class Main {
+
+    final static String BOILER_IMAGE_PATH = "images/LED Boiler/";
+    final static String GEAR_IMAGE_PATH = "images/LED Peg/";
+
+    final static int MAX_IMAGES = 32;
+
+    public static void main(String[] args) {
+        ModuleRunner runner = new ModuleRunner(5);
+        processBoilerSamples(runner);
+        // processGearSamples(runner);
+        VisionGui.begin(args, runner);
+    }
+
+    public static void processCamera(ModuleRunner runner) {
+        runner.addMapping(new DeviceCaptureSource(0), new BoilerVision());
+    }
+
+    public static File[] getFiles(String path) {
+        path = Main.class.getResource("").getPath() + "../" + path;
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+            path = path.substring(1);
+        }
+        File directory = new File(path);
+        File[] directoryListing = directory.listFiles();
+        return directoryListing;
+    }
+
+    public static void processBoilerSamples(ModuleRunner runner) {
+        File[] samples = getFiles(BOILER_IMAGE_PATH);
+        for (int i = 0; i < samples.length && i < MAX_IMAGES; i++) {
+            String path = "../" + BOILER_IMAGE_PATH + samples[i].getName();
+            runner.addMapping(new ImageCaptureSource(path), new BoilerVision());
+        }
+    }
+
+    public static void processGearSamples(ModuleRunner runner) {
+        File[] samples = getFiles(GEAR_IMAGE_PATH);
+        for (int i = 0; i < samples.length && i < MAX_IMAGES; i++) {
+            String path = "../" + GEAR_IMAGE_PATH + samples[i].getName();
+            runner.addMapping(new ImageCaptureSource(path), new GearVision());
+        }
+    }
+}
