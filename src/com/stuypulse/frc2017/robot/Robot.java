@@ -1,5 +1,5 @@
 
-package com.stuypulse.frc2017;
+package com.stuypulse.frc2017.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import com.stuypulse.frc2017.commands.ExampleCommand;
-import com.stuypulse.frc2017.subsystems.ExampleSubsystem;
+import com.stuypulse.frc2017.robot.commands.ExampleCommand;
+import com.stuypulse.frc2017.robot.subsystems.ExampleSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the

@@ -1,4 +1,4 @@
-package com.stuypulse.frc2017.subsystems;
+package com.stuypulse.frc2017.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
