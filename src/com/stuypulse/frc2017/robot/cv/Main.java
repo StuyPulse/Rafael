@@ -31,7 +31,7 @@ public class Main {
     public static File[] getFiles(String path) {
         path = System.getProperty("user.dir") + path;
         if (System.getProperty("os.name").toLowerCase().contains("windows")) {
-            path = path.substring(1);
+            path = path.replace('/', '\\');
         }
         File directory = new File(path);
         File[] directoryListing = directory.listFiles();
