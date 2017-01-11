@@ -12,8 +12,8 @@ import stuyvision.gui.VisionGui;
 
 public class Main {
 
-    final static String BOILER_IMAGE_PATH = "images/LED Boiler/";
-    final static String GEAR_IMAGE_PATH = "images/LED Peg/";
+    final static String BOILER_IMAGE_PATH = "/images/LED Boiler/";
+    final static String GEAR_IMAGE_PATH = "/images/LED Peg/";
 
     final static int MAX_IMAGES = 32;
 
@@ -29,7 +29,7 @@ public class Main {
     }
 
     public static File[] getFiles(String path) {
-        path = Main.class.getResource("").getPath() + "../" + path;
+        path = System.getProperty("user.dir") + path;
         if (System.getProperty("os.name").toLowerCase().contains("windows")) {
             path = path.substring(1);
         }
@@ -41,7 +41,7 @@ public class Main {
     public static void processBoilerSamples(ModuleRunner runner) {
         File[] samples = getFiles(BOILER_IMAGE_PATH);
         for (int i = 0; i < samples.length && i < MAX_IMAGES; i++) {
-            String path = "../" + BOILER_IMAGE_PATH + samples[i].getName();
+            String path = System.getProperty("user.dir") + BOILER_IMAGE_PATH + samples[i].getName();
             runner.addMapping(new ImageCaptureSource(path), new BoilerVision());
         }
     }
@@ -49,7 +49,7 @@ public class Main {
     public static void processGearSamples(ModuleRunner runner) {
         File[] samples = getFiles(GEAR_IMAGE_PATH);
         for (int i = 0; i < samples.length && i < MAX_IMAGES; i++) {
-            String path = "../" + GEAR_IMAGE_PATH + samples[i].getName();
+            String path = System.getProperty("user.dir") + GEAR_IMAGE_PATH + samples[i].getName();
             runner.addMapping(new ImageCaptureSource(path), new GearVision());
         }
     }
