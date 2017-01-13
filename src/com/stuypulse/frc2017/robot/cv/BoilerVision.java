@@ -145,6 +145,10 @@ public class BoilerVision extends VisionModule {
     }
 
     public boolean aspectRatioThreshold(double width, double height) {
+        // Boiler targets are always wider than they are taller
+        if (height > width) {
+            return false;
+        }
         double ratio = width / height;
         return (minGoalRatio.value() < ratio && ratio < maxGoalRatio.value())
                 || (1 / maxGoalRatio.value() < ratio && ratio < 1 / minGoalRatio.value());
