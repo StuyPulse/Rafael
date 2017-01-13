@@ -22,10 +22,10 @@ public class BoilerVision extends VisionModule {
     public IntegerSliderVariable minHue = new IntegerSliderVariable("Min Hue", 64,  0, 255);
     public IntegerSliderVariable maxHue = new IntegerSliderVariable("Max Hue", 95, 0, 255);
 
-    public IntegerSliderVariable minSaturation = new IntegerSliderVariable("Min Saturation", 105, 0, 255);
+    public IntegerSliderVariable minSaturation = new IntegerSliderVariable("Min Saturation", 160, 0, 255);
     public IntegerSliderVariable maxSaturation = new IntegerSliderVariable("Max Saturation", 255, 0, 255);
 
-    public IntegerSliderVariable minValue = new IntegerSliderVariable("Min Value", 90, 0, 255);
+    public IntegerSliderVariable minValue = new IntegerSliderVariable("Min Value", 75, 0, 255);
     public IntegerSliderVariable maxValue = new IntegerSliderVariable("Max Value", 255, 0, 255);
 
     public DoubleSliderVariable minGoalRatio = new DoubleSliderVariable("Min Goal Ratio", 1.1, 1.0, 10.0);

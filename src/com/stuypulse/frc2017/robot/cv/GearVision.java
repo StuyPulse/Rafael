@@ -33,7 +33,7 @@ public class GearVision extends VisionModule {
     public DoubleSliderVariable maxGoalRatio = new DoubleSliderVariable("Max Ratio", 3.0, 1.0, 10.0);
 
     public DoubleSliderVariable minGoalArea = new DoubleSliderVariable("Min Area", 50.0, 0.0, 10000);
-    public DoubleSliderVariable maxGoalArea = new DoubleSliderVariable("Max Area", 30000.0, 0.0, 10000);
+    public DoubleSliderVariable maxGoalArea = new DoubleSliderVariable("Max Area", 10000.0, 0.0, 10000);
 
     public void run(Mat frame) {
         postImage(frame, "Original");
