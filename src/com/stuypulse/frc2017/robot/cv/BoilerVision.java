@@ -117,12 +117,9 @@ public class BoilerVision extends VisionModule {
             //     Imgproc.line(drawn, points[j], points[(j + 1) % 4], new Scalar(0, 255, 0));
             // }
         }
-        if (pointsList.size() < 4) {
-            return null;
-        }
 
         // Draw a bounding rectangle around the two detected rectangles
-        MatOfPoint p = new MatOfPoint(pointsList.get(0), pointsList.get(1), pointsList.get(2), pointsList.get(3));
+        MatOfPoint p = new MatOfPoint(pointsList.toArray(new Point[pointsList.size()]));
         Rect combined = Imgproc.boundingRect(p);
         Imgproc.rectangle(drawn, new Point(combined.x, combined.y), new Point(combined.x+combined.width, combined.y+combined.height), new Scalar(0, 255, 0), 1);
 
