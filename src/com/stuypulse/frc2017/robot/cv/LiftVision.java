@@ -181,4 +181,8 @@ public class LiftVision extends VisionModule {
         double ratio = height / width;
         return minGoalRatio.value() < ratio && ratio < maxGoalRatio.value();
     }
+    
+    public DeviceCaptureSource getLiftCamera(){
+    	return liftCamera;
+    }
 }

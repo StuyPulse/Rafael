@@ -176,4 +176,8 @@ public class BoilerVision extends VisionModule {
         double ratio = width / height;
         return minGoalRatio.value() < ratio && ratio < maxGoalRatio.value();
     }
+    
+    public DeviceCaptureSource getBoilerCamera(){
+    	return boilerCamera;
+    }
 }
