@@ -152,11 +152,10 @@ public class LiftVision extends VisionModule {
 
     public boolean aspectRatioThreshold(double width, double height) {
         // Lift targets are always taller than they are wide
-        if (width > height) {
-            return false;
-        }
-        double ratio = width / height;
-        return (minGoalRatio.value() < ratio && ratio < maxGoalRatio.value())
-                || (1 / maxGoalRatio.value() < ratio && ratio < 1 / minGoalRatio.value());
+        // if (width > height) {
+        //     return false;
+        // }
+        double ratio = height / width;
+        return minGoalRatio.value() < ratio && ratio < maxGoalRatio.value();
     }
 }

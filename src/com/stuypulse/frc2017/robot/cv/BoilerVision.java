@@ -174,7 +174,6 @@ public class BoilerVision extends VisionModule {
             return false;
         }
         double ratio = width / height;
-        return (minGoalRatio.value() < ratio && ratio < maxGoalRatio.value())
-                || (1 / maxGoalRatio.value() < ratio && ratio < 1 / minGoalRatio.value());
+        return minGoalRatio.value() < ratio && ratio < maxGoalRatio.value();
     }
 }
