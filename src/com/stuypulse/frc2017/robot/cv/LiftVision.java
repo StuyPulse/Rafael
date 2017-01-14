@@ -30,10 +30,10 @@ public class LiftVision extends VisionModule {
     public IntegerSliderVariable minValue = new IntegerSliderVariable("Min Value", 60, 0, 255);
     public IntegerSliderVariable maxValue = new IntegerSliderVariable("Max Value", 255, 0, 255);
 
-    public DoubleSliderVariable minGoalRatio = new DoubleSliderVariable("Min Ratio", 1.0, 1.0, 10.0);
-    public DoubleSliderVariable maxGoalRatio = new DoubleSliderVariable("Max Ratio", 3.0, 1.0, 10.0);
+    public DoubleSliderVariable minGoalRatio = new DoubleSliderVariable("Min Ratio", 0.5, 0.5, 10.0);
+    public DoubleSliderVariable maxGoalRatio = new DoubleSliderVariable("Max Ratio", 3.0, 0.5, 10.0);
 
-    public DoubleSliderVariable minGoalArea = new DoubleSliderVariable("Min Area", 50.0, 0.0, 10000);
+    public DoubleSliderVariable minGoalArea = new DoubleSliderVariable("Min Area", 25.0, 0.0, 10000);
     public DoubleSliderVariable maxGoalArea = new DoubleSliderVariable("Max Area", 10000.0, 0.0, 10000);
 
     private DeviceCaptureSource liftCamera;
@@ -50,7 +50,9 @@ public class LiftVision extends VisionModule {
     }
 
     public void run(Mat frame) {
-        postImage(frame, "Original");
+        if (hasGuiApp()) {
+            postImage(frame, "Original");
+        }
 
         Mat filtered = new Mat();
         Imgproc.cvtColor(frame, filtered, Imgproc.COLOR_BGR2HSV);
@@ -61,7 +63,9 @@ public class LiftVision extends VisionModule {
         Imgproc.medianBlur(channels.get(0), channels.get(0), 5);
 
         Core.inRange(channels.get(0), new Scalar(minHue.value()), new Scalar(maxHue.value()), channels.get(0));
-        postImage(channels.get(0), "Hue-Filtered Frame");
+        if (hasGuiApp()) {
+            postImage(channels.get(0), "Hue-Filtered Frame");
+        }
 
         Mat dilateKernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(5, 5));
         Imgproc.dilate(channels.get(0), channels.get(0), dilateKernel);
@@ -70,15 +74,21 @@ public class LiftVision extends VisionModule {
         Imgproc.erode(channels.get(0), channels.get(0), erodeKernel);
 
         Core.inRange(channels.get(1), new Scalar(minSaturation.value()), new Scalar(maxSaturation.value()), channels.get(1));
-        postImage(channels.get(1), "Saturation-Filtered Frame");
+        if (hasGuiApp()) {
+            postImage(channels.get(1), "Saturation-Filtered Frame");
+        }
 
         Core.inRange(channels.get(2), new Scalar(minValue.value()), new Scalar(maxValue.value()), channels.get(2));
-        postImage(channels.get(2), "Value-Filtered Frame");
+        if (hasGuiApp()) {
+            postImage(channels.get(2), "Value-Filtered Frame");
+        }
 
         Core.bitwise_and(channels.get(0), channels.get(1), filtered);
         Core.bitwise_and(filtered, channels.get(2), filtered);
 
-        postImage(filtered, "Final HSV filtering");
+        if (hasGuiApp()) {
+            postImage(filtered, "Final HSV filtering");
+        }
 
         filterLift(frame, filtered);
 
@@ -162,7 +172,9 @@ public class LiftVision extends VisionModule {
             //     Imgproc.line(drawn, points[j], points[(j + 1) % 4], new Scalar(0, 255, 0));
             // }
         }
-        postImage(drawn, "Detected");
+        if (hasGuiApp()) {
+            postImage(drawn, "Detected");
+        }
 
         for (int i = 0; i < contours.size(); i++) {
             contours.get(i).release();

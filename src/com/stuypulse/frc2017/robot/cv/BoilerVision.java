@@ -36,20 +36,22 @@ public class BoilerVision extends VisionModule {
     public DoubleSliderVariable maxGoalArea = new DoubleSliderVariable("Max Goal Area", 1500.0, 0.0, 10000);
 
     private DeviceCaptureSource boilerCamera;
-    
+
     public void initializeCamera() {
-    	boilerCamera = Camera.initializeCamera(RobotMap.BOILER_CAMERA_PORT);
+        boilerCamera = Camera.initializeCamera(RobotMap.BOILER_CAMERA_PORT);
     }
-    
+
     public void processImage() {
-    	if (boilerCamera == null) {
-    		initializeCamera();
-    	}
-    	// TODO: Create non-GUI processing method and invoke here
+        if (boilerCamera == null) {
+            initializeCamera();
+        }
+        // TODO: Create non-GUI processing method and invoke here
     }
-    
+
     public void run(Mat frame) {
-        postImage(frame, "Original");
+        if (hasGuiApp()) {
+            postImage(frame, "Original");
+        }
 
         Mat filtered = new Mat();
         Imgproc.cvtColor(frame, filtered, Imgproc.COLOR_BGR2HSV);
@@ -59,7 +61,9 @@ public class BoilerVision extends VisionModule {
 
         // Filter the hue channel
         Core.inRange(channels.get(0), new Scalar(minHue.value()), new Scalar(maxHue.value()), channels.get(0));
-        postImage(channels.get(0), "Hue-Filtered Frame");
+        if (hasGuiApp()) {
+            postImage(channels.get(0), "Hue-Filtered Frame");
+        }
 
         // Dilate then erode the hue channel
         Mat dilateKernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(5, 5));
@@ -70,17 +74,23 @@ public class BoilerVision extends VisionModule {
 
         // Filter the saturation channel
         Core.inRange(channels.get(1), new Scalar(minSaturation.value()), new Scalar(maxSaturation.value()), channels.get(1));
-        postImage(channels.get(1), "Saturation-Filtered Frame");
+        if (hasGuiApp()) {
+            postImage(channels.get(1), "Saturation-Filtered Frame");
+        }
 
         // Filter the value channel
         Core.inRange(channels.get(2), new Scalar(minValue.value()), new Scalar(maxValue.value()), channels.get(2));
-        postImage(channels.get(2), "Value-Filtered Frame");
+        if (hasGuiApp()) {
+            postImage(channels.get(2), "Value-Filtered Frame");
+        }
 
         // Combine all the channels
         Core.bitwise_and(channels.get(0), channels.get(1), filtered);
         Core.bitwise_and(channels.get(2), filtered, filtered);
 
-        postImage(filtered, "Final HSV filtering");
+        if (hasGuiApp()) {
+            postImage(filtered, "Final HSV filtering");
+        }
 
         filterBoiler(frame, filtered);
         for (int i = 0; i < channels.size(); i++) {
@@ -156,7 +166,9 @@ public class BoilerVision extends VisionModule {
         String offsets = "x: " + vector[0] + "\ny: " + vector[1] + "\nangle: " + vector[2];
         String direction = (vector[0] > 0 ? "LEFT" : "RIGHT") + " and " + (vector[1] > 0 ? "BACKWARDS" : "FORWARDS");
 
-        postImage(drawn, "Detected");
+        if (hasGuiApp()) {
+            postImage(drawn, "Detected");
+        }
 
         for (int i = 0; i < contours.size(); i++) {
             contours.get(i).release();
