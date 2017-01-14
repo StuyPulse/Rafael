@@ -3,20 +3,21 @@ package com.stuypulse.frc2017.robot.cv;
 import java.util.ArrayList;
 
 import org.opencv.core.Core;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
-import org.opencv.core.RotatedRect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
+
+import com.stuypulse.frc2017.robot.RobotMap;
+
 import stuyvision.VisionModule;
+import stuyvision.capture.DeviceCaptureSource;
 import stuyvision.gui.DoubleSliderVariable;
 import stuyvision.gui.IntegerSliderVariable;
-import stuyvision.gui.VisionGui;
 
 public class BoilerVision extends VisionModule {
     public IntegerSliderVariable minHue = new IntegerSliderVariable("Min Hue", 64,  0, 255);
@@ -34,6 +35,19 @@ public class BoilerVision extends VisionModule {
     public DoubleSliderVariable minGoalArea = new DoubleSliderVariable("Min Goal Area", 50.0, 0.0, 10000);
     public DoubleSliderVariable maxGoalArea = new DoubleSliderVariable("Max Goal Area", 1500.0, 0.0, 10000);
 
+    private DeviceCaptureSource boilerCamera;
+    
+    public void initializeCamera() {
+    	boilerCamera = Camera.initializeCamera(RobotMap.BOILER_CAMERA_PORT);
+    }
+    
+    public void processImage() {
+    	if (boilerCamera == null) {
+    		initializeCamera();
+    	}
+    	// TODO: Create non-GUI processing method and invoke here
+    }
+    
     public void run(Mat frame) {
         postImage(frame, "Original");
 

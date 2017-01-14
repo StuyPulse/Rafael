@@ -2,22 +2,22 @@ package com.stuypulse.frc2017.robot.cv;
 
 import java.util.ArrayList;
 
-import stuyvision.VisionModule;
-import stuyvision.gui.VisionGui;
-import stuyvision.gui.IntegerSliderVariable;
-import stuyvision.gui.DoubleSliderVariable;
-
 import org.opencv.core.Core;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
-import org.opencv.core.RotatedRect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
+
+import com.stuypulse.frc2017.robot.RobotMap;
+
+import stuyvision.VisionModule;
+import stuyvision.capture.DeviceCaptureSource;
+import stuyvision.gui.DoubleSliderVariable;
+import stuyvision.gui.IntegerSliderVariable;
 
 public class LiftVision extends VisionModule {
     public IntegerSliderVariable minHue = new IntegerSliderVariable("Min Hue", 64,  0, 255);
@@ -35,6 +35,19 @@ public class LiftVision extends VisionModule {
     public DoubleSliderVariable minGoalArea = new DoubleSliderVariable("Min Area", 50.0, 0.0, 10000);
     public DoubleSliderVariable maxGoalArea = new DoubleSliderVariable("Max Area", 10000.0, 0.0, 10000);
 
+    private DeviceCaptureSource liftCamera;
+    
+    public void initializeCamera() {
+    	liftCamera = Camera.initializeCamera(RobotMap.LIFT_CAMERA_PORT);
+    }
+    
+    public void processImage() {
+    	if (liftCamera == null) {
+    		initializeCamera();
+    	}
+    	// TODO: Create non-GUI processing method and invoke here
+    }
+    
     public void run(Mat frame) {
         postImage(frame, "Original");
 
