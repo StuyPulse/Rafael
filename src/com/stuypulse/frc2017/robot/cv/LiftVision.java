@@ -66,10 +66,10 @@ public class LiftVision extends VisionModule {
 
         postImage(filtered, "Final HSV filtering");
 
-        filterGear(frame, filtered);
+        filterLift(frame, filtered);
     }
 
-    public void filterGear(Mat original, Mat filtered) {
+    public void filterLift(Mat original, Mat filtered) {
 
         Mat drawn = original.clone();
 
@@ -117,7 +117,7 @@ public class LiftVision extends VisionModule {
     }
 
     public boolean aspectRatioThreshold(double width, double height) {
-        // Gear targets are always taller than they are wider
+        // Lift targets are always taller than they are wide
         if (width > height) {
             return false;
         }

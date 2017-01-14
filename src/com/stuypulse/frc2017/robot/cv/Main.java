@@ -13,14 +13,14 @@ import stuyvision.gui.VisionGui;
 public class Main {
 
     final static String BOILER_IMAGE_PATH = "/images/LED Boiler/";
-    final static String GEAR_IMAGE_PATH = "/images/LED Peg/";
+    final static String LIFT_IMAGE_PATH = "/images/LED Peg/";
 
     final static int MAX_IMAGES = 32;
 
     public static void main(String[] args) {
         ModuleRunner runner = new ModuleRunner(5);
-        processBoilerSamples(runner);
-        // processGearSamples(runner);
+        // processBoilerSamples(runner);
+        processLiftSamples(runner);
         VisionGui.begin(args, runner);
     }
 
@@ -46,10 +46,10 @@ public class Main {
         }
     }
 
-    public static void processGearSamples(ModuleRunner runner) {
-        File[] samples = getFiles(GEAR_IMAGE_PATH);
+    public static void processLiftSamples(ModuleRunner runner) {
+        File[] samples = getFiles(LIFT_IMAGE_PATH);
         for (int i = 0; i < samples.length && i < MAX_IMAGES; i++) {
-            String path = System.getProperty("user.dir") + GEAR_IMAGE_PATH + samples[i].getName();
+            String path = System.getProperty("user.dir") + LIFT_IMAGE_PATH + samples[i].getName();
             runner.addMapping(new ImageCaptureSource(path), new LiftVision());
         }
     }
