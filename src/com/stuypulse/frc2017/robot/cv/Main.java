@@ -50,7 +50,7 @@ public class Main {
         File[] samples = getFiles(GEAR_IMAGE_PATH);
         for (int i = 0; i < samples.length && i < MAX_IMAGES; i++) {
             String path = System.getProperty("user.dir") + GEAR_IMAGE_PATH + samples[i].getName();
-            runner.addMapping(new ImageCaptureSource(path), new GearVision());
+            runner.addMapping(new ImageCaptureSource(path), new LiftVision());
         }
     }
 }

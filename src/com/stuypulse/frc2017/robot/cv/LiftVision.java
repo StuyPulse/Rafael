@@ -19,7 +19,7 @@ import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
-public class GearVision extends VisionModule {
+public class LiftVision extends VisionModule {
     public IntegerSliderVariable minHue = new IntegerSliderVariable("Min Hue", 64,  0, 255);
     public IntegerSliderVariable maxHue = new IntegerSliderVariable("Max Hue", 95, 0, 255);
 
