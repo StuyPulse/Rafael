@@ -80,6 +80,14 @@ public class LiftVision extends VisionModule {
         postImage(filtered, "Final HSV filtering");
 
         filterLift(frame, filtered);
+
+        // Free all mats
+        for (int i = 0; i < channels.size(); i++) {
+            channels.get(i).release();
+        }
+        dilateKernel.release();
+        erodeKernel.release();
+        filtered.release();
     }
 
     public void filterLift(Mat original, Mat filtered) {
@@ -87,7 +95,8 @@ public class LiftVision extends VisionModule {
         Mat drawn = original.clone();
 
         ArrayList<MatOfPoint> contours = new ArrayList<MatOfPoint>();
-        Imgproc.findContours(filtered, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+        Mat hierarchy = new Mat();
+        Imgproc.findContours(filtered, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
 
         MatOfPoint2f approxCurve = new MatOfPoint2f();
 
@@ -100,6 +109,10 @@ public class LiftVision extends VisionModule {
             MatOfPoint points = new MatOfPoint(approxCurve.toArray());
 
             Rect rect = Imgproc.boundingRect(points);
+
+            points.release();
+            contour2f.release();
+
             double area = rect.area();
             if (area < minGoalArea.value() || area > maxGoalArea.value()) {
                 continue;
@@ -127,6 +140,14 @@ public class LiftVision extends VisionModule {
             // }
         }
         postImage(drawn, "Detected");
+
+        for (int i = 0; i < contours.size(); i++) {
+            contours.get(i).release();
+        }
+
+        hierarchy.release();
+        approxCurve.release();
+        drawn.release();
     }
 
     public boolean aspectRatioThreshold(double width, double height) {

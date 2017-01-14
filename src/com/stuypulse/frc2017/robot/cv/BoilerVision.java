@@ -83,6 +83,10 @@ public class BoilerVision extends VisionModule {
         postImage(filtered, "Final HSV filtering");
 
         filterBoiler(frame, filtered);
+        for (int i = 0; i < channels.size(); i++) {
+            channels.get(i).release();
+        }
+        filtered.release();
     }
 
     public double[] filterBoiler(Mat original, Mat filtered) {
@@ -130,6 +134,8 @@ public class BoilerVision extends VisionModule {
             // for (int j = 0; j < points.length; j++) {
             //     Imgproc.line(drawn, points[j], points[(j + 1) % 4], new Scalar(0, 255, 0));
             // }
+            points.release();
+            contour2f.release();
         }
 
         // Draw a bounding rectangle around the two detected rectangles
@@ -151,6 +157,13 @@ public class BoilerVision extends VisionModule {
         String direction = (vector[0] > 0 ? "LEFT" : "RIGHT") + " and " + (vector[1] > 0 ? "BACKWARDS" : "FORWARDS");
 
         postImage(drawn, "Detected");
+
+        for (int i = 0; i < contours.size(); i++) {
+            contours.get(i).release();
+        }
+        approxCurve.release();
+        p.release();
+        drawn.release();
 
         return vector;
     }
