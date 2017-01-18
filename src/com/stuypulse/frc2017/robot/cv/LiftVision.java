@@ -193,6 +193,23 @@ public class LiftVision extends VisionModule {
         double ratio = height / width;
         return minGoalRatio.value() < ratio && ratio < maxGoalRatio.value();
     }
+
+    public double rectAreaRatio(ArrayList<Rect> rects) {
+        // Assumes that rects contains the two rectangles
+        // representing the two lift vision targets
+        // Returns the ratio of the areas of the two
+        // rectangles from L : R
+        Rect leftRect;
+        Rect rightRect;
+        if(rects.get(0).x < rects.get(1).x) {
+            leftRect = rects.get(0);
+            rightRect = rects.get(1);
+        } else {
+            leftRect = rects.get(1);
+            rightRect = rects.get(0);
+        }
+        return leftRect.area() / rightRect.area();
+    }
     
     public DeviceCaptureSource getLiftCamera(){
     	return liftCamera;
