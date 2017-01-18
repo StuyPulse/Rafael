@@ -1,14 +1,21 @@
 
 package com.stuypulse.frc2017.robot;
 
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import stuyvision.capture.DeviceCaptureSource;
+
+import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
 
 import com.stuypulse.frc2017.robot.commands.ExampleCommand;
+import com.stuypulse.frc2017.robot.cv.Camera;
 import com.stuypulse.frc2017.robot.subsystems.ExampleSubsystem;
 
 /**
@@ -96,6 +103,35 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+
+		System.out.println("In teleopInit()");
+        UsbCamera boilerCamera = new UsbCamera("Boiler Camera", 2);
+        UsbCamera liftCamera = new UsbCamera("Lift Camera", 3);
+
+        System.out.println("Initialized cameras");
+
+        boilerCamera.setResolution(160, 120);
+        liftCamera.setResolution(160, 120);
+
+        System.out.println("Set resolutions");
+
+        CvSink boilerSink = new CvSink("Boiler Camera Sink");
+        boilerSink.setSource(boilerCamera);
+        System.out.println("Set boiler source");
+        CvSink liftSink = new CvSink("Lift Camera Sink");
+        liftSink.setSource(liftCamera);
+        System.out.println("Set lift source");
+
+        Mat boilerFrame = new Mat();
+        Mat liftFrame = new Mat();
+
+        boilerSink.grabFrame(boilerFrame);
+        liftSink.grabFrame(liftFrame);
+        System.out.println("Read frames");
+
+        Imgcodecs.imwrite("/tmp/boiler.png", boilerFrame);
+        Imgcodecs.imwrite("/tmp/lift.png", liftFrame);
+        System.out.println("Wrote images");
 	}
 
 	/**
