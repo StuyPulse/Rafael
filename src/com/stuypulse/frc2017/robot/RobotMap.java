@@ -19,4 +19,17 @@ public class RobotMap {
 	
 	public static int BOILER_CAMERA_PORT = 0;
 	public static int LIFT_CAMERA_PORT = 1;
+	
+	///Gamepad Ports
+	
+	public static final int DRIVER_PAD_PORT = 0;
+	public static final int OPERATOR_PAD_PORT = 1;
+	
+	/// Ports
+
+	public static final int FRONT_LEFT_MOTOR_PORT = -1;
+	public static final int FRONT_RIGHT_MOTOR_PORT = -1;
+	public static final int BACK_LEFT_MOTOR_PORT = -1;
+	public static final int BACK_RIGHT_MOTOR_PORT = -1;
+		
 }
