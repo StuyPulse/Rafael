@@ -13,3 +13,7 @@ hs_err_pid*
 dist/
 build/
 bin/
+
+# Editor files
+*~
+*.sw[a-z]
