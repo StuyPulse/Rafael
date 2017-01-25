@@ -19,11 +19,11 @@ public class LiftVectorMath {
             double intermediate_dist,
             double final_dist
             ) {
-        Vector peg = lift_left.add(lift_right).scale(0.5);
-        Vector lift_ltr = lift_right.sub(lift_left);
-        Vector from_peg = lift_ltr.rotate(-90).withMagnitude(intermediate_dist);
-        Vector m1 = peg.sub(from_peg);
-        Vector m2 = lift_ltr.rotate(90).withMagnitude(intermediate_dist - final_dist);
+        Vector peg = lift_left.plus(lift_right).scaleBy(0.5);
+        Vector lift_ltr = lift_right.minus(lift_left);
+        Vector from_peg = lift_ltr.rotateBy(-90).withMagnitude(intermediate_dist);
+        Vector m1 = peg.minus(from_peg);
+        Vector m2 = lift_ltr.rotateBy(90).withMagnitude(intermediate_dist - final_dist);
         return new Vector[] {m1, m2};
     }
 

@@ -47,14 +47,14 @@ public class Vector {
      */
     public Vector withMagnitude(double magnitude) {
         double scalar = magnitude / this.getMagnitude();
-        return this.scale(scalar);
+        return this.scaleBy(scalar);
     }
 
     /**
      * @param degs
      * @return {@code this} rotated {@code degs} degrees.
      */
-    public Vector rotate(double degs) {
+    public Vector rotateBy(double degs) {
         double result_degs = this.getDegrees() + degs;
         return Vector.fromPolar(result_degs, this.getMagnitude());
     }
@@ -62,21 +62,21 @@ public class Vector {
     /**
      * @return the sum of {@code this} and {@code v}.
      */
-    public Vector add(Vector v) {
+    public Vector plus(Vector v) {
         return new Vector(this.dx + v.dx, this.dy + v.dy);
     }
 
     /**
      * @return the difference of {@code this} and {@code v}.
      */
-    public Vector sub(Vector v) {
+    public Vector minus(Vector v) {
         return new Vector(this.dx - v.dx, this.dy - v.dy);
     }
 
     /**
      * @return {@code this} scaled by {@code factor}
      */
-    public Vector scale(double factor) {
+    public Vector scaleBy(double factor) {
         return new Vector(factor * this.dx, factor * this.dy);
     }
 
@@ -85,7 +85,7 @@ public class Vector {
      * @return the complex product (treating the Vectors as complex
      * numbers) of {@code this} and {@code v}.
      */
-    public Vector mult(Vector v) {
+    public Vector times(Vector v) {
         return new Vector(this.dx * v.dx, this.dy * v.dx + this.dx * v.dy);
     }
 
