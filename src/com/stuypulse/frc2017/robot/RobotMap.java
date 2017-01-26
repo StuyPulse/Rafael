@@ -38,5 +38,5 @@ public class RobotMap {
 	public static final int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_A = -1;
 	public static final int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_B = -1;
 
-	public static final double DRIVETRAIN_ENCODER_INCHES_PER_PULSE = -1;
+	public static final double DRIVETRAIN_ENCODER_INCHES_PER_PULSE = 23.56;
 }
