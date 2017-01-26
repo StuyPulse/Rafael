@@ -2,6 +2,7 @@ package com.stuypulse.frc2017.robot.cv;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -13,6 +14,7 @@ import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
+import com.stuypulse.frc2017.robot.CVConstants;
 import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.util.Vector;
 
@@ -228,6 +230,59 @@ public class LiftVision extends VisionModule {
             rightRect = rects.get(0);
         }
         return leftRect.area() / rightRect.area();
+    }
+
+    public double getLeftMostX(MatOfPoint points) {
+        List<Point> coords = points.toList();
+        double leftMostX = coords.get(0).x;
+        for(int i = 0; i < coords.size(); i++) {
+            if(coords.get(i).x < leftMostX) {
+                leftMostX = coords.get(i).x;
+            }
+        }
+        return leftMostX;
+    }
+
+    public double getHeight(MatOfPoint points) {
+        List<Point> coords = points.toList();
+        double topY = coords.get(0).y;
+        double bottomY = coords.get(0).y;
+        for(int i = 0; i < coords.size(); i++) {
+            if(Math.abs(getLeftMostX(points) - coords.get(i).x) <= CVConstants.LIFT_HEIGHT_X_THRESHOLD) {
+               if(coords.get(i).y > bottomY) {
+                   bottomY = coords.get(i).y;
+               } else if(coords.get(i).y < topY) {
+                   topY = coords.get(i).y;
+               }
+            }
+        }
+        return bottomY - topY;
+    }
+
+    public double getWidth(MatOfPoint points) {
+        List<Point> coords = points.toList();
+        double leftX = getLeftMostX(points);
+        double rightX = coords.get(0).x;
+        for(int i = 0; i < coords.size(); i++) {
+            if(coords.get(i).x > rightX) {
+                rightX = coords.get(i).x;
+            }
+        }
+        return rightX - leftX;
+    }
+
+    public Vector[] getTargetVectors(ArrayList<MatOfPoint> contours) {
+        Vector leftTarget;
+        Vector rightTarget;
+        if(getLeftMostX(contours.get(0)) < getLeftMostX(contours.get(1))) {
+            leftTarget = new Vector(getWidth(contours.get(0)), getHeight(contours.get(0)));
+            rightTarget = new Vector(getWidth(contours.get(1)), getHeight(contours.get(1)));
+        } else {
+            rightTarget = new Vector(getWidth(contours.get(0)), getHeight(contours.get(0)));
+            leftTarget = new Vector(getWidth(contours.get(1)), getHeight(contours.get(1)));
+        }
+        Vector[] targets = {leftTarget, rightTarget};
+        return targets;
     }
     
     public DeviceCaptureSource getLiftCamera(){
