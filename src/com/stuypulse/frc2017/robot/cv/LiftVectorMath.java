@@ -3,7 +3,7 @@ package com.stuypulse.frc2017.robot.cv;
 import com.stuypulse.frc2017.util.Vector;
 
 public class LiftVectorMath {
-    /**
+    	/**
      * @param lift_left Position of the left edge of the lift
      * relative to the lift camera
      * @param lift_right Position of the right edge of the lift
@@ -33,5 +33,5 @@ public class LiftVectorMath {
         Vector m2 = lift_ltr.rotateBy(90).withMagnitude(intermediate_dist - final_dist);
         return new Vector[] {m1, m2};
     }
-
+    
 }

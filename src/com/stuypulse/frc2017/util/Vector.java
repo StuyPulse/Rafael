@@ -1,5 +1,7 @@
 package com.stuypulse.frc2017.util;
 
+import org.opencv.core.Point;
+
 public class Vector {
     private final double dx;
     private final double dy;
@@ -95,6 +97,24 @@ public class Vector {
             return v.dx == this.dx && v.dy == this.dy;
         }
         return false;
+    }
+    
+    /** 
+     * 
+     * @return a point equivalent of the vector
+     */
+    public Point getPoint() {
+    	return new Point(dx, dy);
+    }
+    
+    /////// Accessors and Modifiers /////////
+    
+    public double getX() {
+    	return dx;
+    }
+
+    public double getY() {
+    	return dy;
     }
 }
 

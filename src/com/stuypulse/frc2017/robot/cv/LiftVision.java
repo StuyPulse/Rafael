@@ -14,6 +14,7 @@ import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 import com.stuypulse.frc2017.robot.RobotMap;
+import com.stuypulse.frc2017.util.Vector;
 
 import stuyvision.VisionModule;
 import stuyvision.capture.DeviceCaptureSource;
@@ -175,6 +176,24 @@ public class LiftVision extends VisionModule {
         if (hasGuiApp()) {
             postImage(drawn, "Detected");
         }
+        
+        // Post vector diagram of calculated path
+        /*
+        if (hasGuiApp()) {
+        	double distance_lift_left = liftMath.get
+        	Vector[] vectors = LiftVectorMath.getPath(
+        			lift_left, 
+        			lift_right, 
+        			intermediate_dist, 
+        			final_dist);
+        	// Using image width and height for consistency. You can actually use any dimension.
+        	VectorDrawer drawer = new VectorDrawer(drawn.width(), drawn.height());
+        	drawer.addVectors(vectors);
+        	Mat vectorDiagram = drawer.getImage();
+        	postImage(vectorDiagram, "Vector Diagram");
+        	
+        }
+        */
 
         for (int i = 0; i < contours.size(); i++) {
             contours.get(i).release();

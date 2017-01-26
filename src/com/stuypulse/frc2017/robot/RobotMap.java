@@ -6,6 +6,7 @@ package com.stuypulse.frc2017.robot;
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
  */
+
 public class RobotMap {
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
@@ -31,5 +32,11 @@ public class RobotMap {
 	public static final int FRONT_RIGHT_MOTOR_PORT = -1;
 	public static final int BACK_LEFT_MOTOR_PORT = -1;
 	public static final int BACK_RIGHT_MOTOR_PORT = -1;
-		
+
+	public static final int DRIVETRAIN_ENCODER_LEFT_CHANNEL_A = -1;
+	public static final int DRIVETRAIN_ENCODER_LEFT_CHANNEL_B = -1;
+	public static final int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_A = -1;
+	public static final int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_B = -1;
+
+	public static final double DRIVETRAIN_ENCODER_INCHES_PER_PULSE = -1;
 }
