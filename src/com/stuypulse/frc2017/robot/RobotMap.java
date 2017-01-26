@@ -28,10 +28,10 @@ public class RobotMap {
 	
 	/// Ports
 
-	public static final int FRONT_LEFT_MOTOR_PORT = -1;
-	public static final int FRONT_RIGHT_MOTOR_PORT = -1;
-	public static final int BACK_LEFT_MOTOR_PORT = -1;
-	public static final int BACK_RIGHT_MOTOR_PORT = -1;
+	public static final int FRONT_LEFT_MOTOR_PORT = 1;
+	public static final int FRONT_RIGHT_MOTOR_PORT = 3;
+	public static final int BACK_LEFT_MOTOR_PORT = 0;
+	public static final int BACK_RIGHT_MOTOR_PORT = 2;
 
 	public static final int DRIVETRAIN_ENCODER_LEFT_CHANNEL_A = -1;
 	public static final int DRIVETRAIN_ENCODER_LEFT_CHANNEL_B = -1;
