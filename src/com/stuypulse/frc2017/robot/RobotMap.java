@@ -34,12 +34,14 @@ public class RobotMap {
 	public static final int BACK_RIGHT_MOTOR_PORT = 2;
 	
 	public static final int BLENDER_MOTOR_PORT = -1;
-
+	
+	public static final int SHOOTER_MOTOR_PORT = -1;
+	
 	public static final int DRIVETRAIN_ENCODER_LEFT_CHANNEL_A = -1;
 	public static final int DRIVETRAIN_ENCODER_LEFT_CHANNEL_B = -1;
 	public static final int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_A = -1;
 	public static final int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_B = -1;
-	
+
 	public static final int GEAR_TRAP_RIGHT_SOLENOID_PORT = -1;
 	public static final int GEAR_TRAP_LEFT_SOLENOID_PORT = -1;
 	public static final int GEAR_PUSHER_SOLENOID_PORT = -1;
@@ -53,8 +55,6 @@ public class RobotMap {
 	//Physical Constants
 	
 	public static final double DRIVETRAIN_ENCODER_INCHES_PER_PULSE = 23.56;
-	
-	
-	
 
+	public static final double SHOOTER_ENCODER_MAXSPEED = -1;
 }
