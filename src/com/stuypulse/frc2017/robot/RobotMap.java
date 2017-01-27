@@ -39,6 +39,22 @@ public class RobotMap {
 	public static final int DRIVETRAIN_ENCODER_LEFT_CHANNEL_B = -1;
 	public static final int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_A = -1;
 	public static final int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_B = -1;
-
+	
+	public static final int GEAR_TRAP_RIGHT_SOLENOID_PORT = -1;
+	public static final int GEAR_TRAP_LEFT_SOLENOID_PORT = -1;
+	public static final int GEAR_PUSHER_SOLENOID_PORT = -1;
+	
+	//Solenoid Channels
+	
+	public static final int PCM_1 = -1;
+	public static final int PCM_2 = -1;
+	public static final int PCM_3 = -1;
+	
+	//Physical Constants
+	
 	public static final double DRIVETRAIN_ENCODER_INCHES_PER_PULSE = 23.56;
+	
+	
+	
+
 }
