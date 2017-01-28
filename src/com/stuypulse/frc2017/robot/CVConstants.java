@@ -16,4 +16,8 @@ public interface CVConstants {
 
     double CAMERA_HEIGHT_FROM_GROUND = 6.0; // TODO: SET EXACT
 
+    int CAMERA_FRAME_PX_HEIGHT = 270;
+
+    int CAMERA_FRAME_PX_WIDTH = 360;
+
 }

@@ -1,10 +1,10 @@
 package com.stuypulse.frc2017.robot.cv;
 
-import org.opencv.core.Mat;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.videoio.Videoio;
+import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_VIEWING_ANGLE_X;
+import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_VIEWING_ANGLE_Y;
+import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FRAME_PX_HEIGHT;
+import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FRAME_PX_WIDTH;
 
-import stuyvision.VisionModule;
 import stuyvision.capture.DeviceCaptureSource;
 
 public class Camera {
@@ -31,5 +31,27 @@ public class Camera {
         configureCamera(cameraPort);
         camera.setBufferSize(2);
         return camera;
+    }
+
+    /**
+     * @param xPx Number of pixels in x
+     * @return Corresponding angle difference along that height (in degrees)
+     * 
+     * This approximates the actual relationship between pixels and degrees as
+     * a linear one. TODO: Use pinhole camera method to improve precision.
+     */
+    public static double frameXPxToDegrees(double dx) {
+        return CAMERA_VIEWING_ANGLE_X * dx / CAMERA_FRAME_PX_WIDTH;
+    }
+
+    /**
+     * @param yPx Number of pixels in y
+     * @return Corresponding angle difference along that height (in degrees)
+     * 
+     * This approximates the actual relationship between pixels and degrees as
+     * a linear one. TODO: Use pinhole camera method to improve precision.
+     */
+    public static double frameYPxToDegrees(double dy) {
+        return CAMERA_VIEWING_ANGLE_Y * dy / CAMERA_FRAME_PX_HEIGHT;
     }
 }
