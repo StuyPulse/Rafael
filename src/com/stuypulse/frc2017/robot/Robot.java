@@ -5,6 +5,7 @@ import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
 import com.stuypulse.frc2017.robot.cv.Camera;
+import com.stuypulse.frc2017.robot.subsystems.Blender;
 import com.stuypulse.frc2017.robot.subsystems.Drivetrain;
 import com.stuypulse.frc2017.robot.subsystems.Shooter;
 
@@ -29,6 +30,8 @@ public class Robot extends IterativeRobot {
     public static Drivetrain drivetrain;
     
     public static Shooter shooter;
+    
+    public static Blender blender;
 
     public static OI oi;
 
@@ -46,6 +49,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         drivetrain = new Drivetrain();
         shooter = new Shooter();
+        blender = new Blender();
         oi = new OI();
         // chooser.addDefault("Default Auto", new ExampleCommand());
         // chooser.addObject("My Auto", new MyAutoCommand());
