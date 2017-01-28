@@ -2,8 +2,8 @@ package com.stuypulse.frc2017.robot.cv;
 
 import com.stuypulse.frc2017.util.Vector;
 
-public class LiftVectorMath {
-    	/**
+public class LiftMath {
+    /**
      * @param lift_left Position of the left edge of the lift
      * relative to the lift camera
      * @param lift_right Position of the right edge of the lift
