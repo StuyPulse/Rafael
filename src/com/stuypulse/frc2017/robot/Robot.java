@@ -6,6 +6,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 
 import com.stuypulse.frc2017.robot.cv.Camera;
 import com.stuypulse.frc2017.robot.subsystems.Drivetrain;
+import com.stuypulse.frc2017.robot.subsystems.Winch;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.UsbCamera;
@@ -26,7 +27,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
     public static Drivetrain drivetrain;
-
+    public static Winch winch;
     public static OI oi;
 
     Command autonomousCommand;
@@ -43,6 +44,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         drivetrain = new Drivetrain();
         oi = new OI();
+        winch = new Winch();
         // chooser.addDefault("Default Auto", new ExampleCommand());
         // chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
