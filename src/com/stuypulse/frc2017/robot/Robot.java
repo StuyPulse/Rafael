@@ -6,6 +6,8 @@ import org.opencv.imgcodecs.Imgcodecs;
 
 import com.stuypulse.frc2017.robot.cv.Camera;
 import com.stuypulse.frc2017.robot.subsystems.Drivetrain;
+import com.stuypulse.frc2017.robot.subsystems.GearPusher;
+import com.stuypulse.frc2017.robot.subsystems.GearTrap;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.UsbCamera;
@@ -26,7 +28,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
     public static Drivetrain drivetrain;
-
+    public static GearPusher gearpusher;
+    public static GearTrap geartrap;
+    
     public static OI oi;
 
     Command autonomousCommand;
