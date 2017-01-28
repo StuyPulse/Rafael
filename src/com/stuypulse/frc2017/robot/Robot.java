@@ -6,8 +6,12 @@ import org.opencv.imgcodecs.Imgcodecs;
 
 import com.stuypulse.frc2017.robot.cv.Camera;
 import com.stuypulse.frc2017.robot.subsystems.Drivetrain;
+<<<<<<< HEAD
 import com.stuypulse.frc2017.robot.subsystems.GearPusher;
 import com.stuypulse.frc2017.robot.subsystems.GearTrap;
+=======
+import com.stuypulse.frc2017.robot.subsystems.Shooter;
+>>>>>>> b9f25f37c0a68b8388c3e435d1f911fb7f53f9f6
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.UsbCamera;
@@ -28,9 +32,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
     public static Drivetrain drivetrain;
+<<<<<<< HEAD
     public static GearPusher gearpusher;
     public static GearTrap geartrap;
     
+=======
+    
+    public static Shooter shooter;
+
+>>>>>>> b9f25f37c0a68b8388c3e435d1f911fb7f53f9f6
     public static OI oi;
 
     Command autonomousCommand;
@@ -46,6 +56,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void robotInit() {
         drivetrain = new Drivetrain();
+        shooter = new Shooter();
         oi = new OI();
         // chooser.addDefault("Default Auto", new ExampleCommand());
         // chooser.addObject("My Auto", new MyAutoCommand());

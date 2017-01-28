@@ -20,7 +20,8 @@ public class Blender extends Subsystem {
 		if (direction) {
 			blenderMotor.set(RobotMap.BLENDER_MOTOR_SPEED);
 		} else {
-			blenderMotor.set(RobotMap.BLENDER_MOTOR_SPEED * -1);
+		// We don't need to make it go at the same speed to unjam it, b/c that would be overkill.
+			blenderMotor.set(RobotMap.BLENDER_MOTOR_SPEED * -1/2);
 		}
 	}
 
