@@ -38,3 +38,4 @@ public class ShooterCutPowerCommand extends Command {
     protected void interrupted() {
     }
 }
+
