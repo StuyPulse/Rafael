@@ -7,7 +7,7 @@ package com.stuypulse.frc2017.robot;
  * floating around.
  */
 
-public class RobotMap {
+public interface RobotMap {
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
 	// public static int leftMotor = 1;
@@ -17,44 +17,46 @@ public class RobotMap {
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
-	
-	public static int BOILER_CAMERA_PORT = 0;
-	public static int LIFT_CAMERA_PORT = 1;
-	
-	///Gamepad Ports
-	
-	public static final int DRIVER_PAD_PORT = 0;
-	public static final int OPERATOR_PAD_PORT = 1;
-	
+
+	int BOILER_CAMERA_PORT = 0;
+	int LIFT_CAMERA_PORT = 1;
+
+	/// Gamepad Ports
+
+	int DRIVER_PAD_PORT = 0;
+	int OPERATOR_PAD_PORT = 1;
+
 	/// Ports
 
-	public static final int FRONT_LEFT_MOTOR_PORT = 1;
-	public static final int FRONT_RIGHT_MOTOR_PORT = 3;
-	public static final int BACK_LEFT_MOTOR_PORT = 0;
-	public static final int BACK_RIGHT_MOTOR_PORT = 2;
-	
-	public static final int BLENDER_MOTOR_PORT = -1;
-	
-	public static final int SHOOTER_MOTOR_PORT = -1;
-	
-	public static final int DRIVETRAIN_ENCODER_LEFT_CHANNEL_A = -1;
-	public static final int DRIVETRAIN_ENCODER_LEFT_CHANNEL_B = -1;
-	public static final int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_A = -1;
-	public static final int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_B = -1;
+	int FRONT_LEFT_MOTOR_PORT = 1;
+	int FRONT_RIGHT_MOTOR_PORT = 3;
+	int BACK_LEFT_MOTOR_PORT = 0;
+	int BACK_RIGHT_MOTOR_PORT = 2;
 
-	public static final int GEAR_TRAP_RIGHT_SOLENOID_PORT = -1;
-	public static final int GEAR_TRAP_LEFT_SOLENOID_PORT = -1;
-	public static final int GEAR_PUSHER_SOLENOID_PORT = -1;
-	
-	//Solenoid Channels
-	
-	public static final int PCM_1 = -1;
-	public static final int PCM_2 = -1;
-	public static final int PCM_3 = -1;
-	
-	//Physical Constants
-	
-	public static final double DRIVETRAIN_ENCODER_INCHES_PER_PULSE = 23.56;
+	int BLENDER_MOTOR_PORT = -1;
 
-	public static final double SHOOTER_ENCODER_MAXSPEED = -1;
+	int SHOOTER_MOTOR_PORT = -1;
+
+	int DRIVETRAIN_ENCODER_LEFT_CHANNEL_A = -1;
+	int DRIVETRAIN_ENCODER_LEFT_CHANNEL_B = -1;
+	int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_A = -1;
+	int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_B = -1;
+
+	int GEAR_TRAP_RIGHT_SOLENOID_PORT = -1;
+	int GEAR_TRAP_LEFT_SOLENOID_PORT = -1;
+	int GEAR_PUSHER_SOLENOID_PORT = -1;
+
+	// Solenoid Channels
+
+	int PCM_1 = -1;
+	int PCM_2 = -1;
+	int PCM_3 = -1;
+
+	// Physical Constants
+
+	double DRIVETRAIN_ENCODER_INCHES_PER_PULSE = 23.56;
+
+	double SHOOTER_ENCODER_MAXSPEED = -1;
+
+	double BLENDER_MOTOR_SPEED = 0.2;
 }
