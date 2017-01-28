@@ -10,4 +10,10 @@ public interface CVConstants {
 
     public static double CAMERA_HEIGHT = 6.0;
 
+    double CAMERA_VIEWING_ANGLE_X = 61; // angular width of frame
+
+    double CAMERA_VIEWING_ANGLE_Y = 34.3; // angular height of frame
+
+    double CAMERA_HEIGHT_FROM_GROUND = 6.0; // TODO: SET EXACT
+
 }
