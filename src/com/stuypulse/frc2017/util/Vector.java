@@ -116,5 +116,8 @@ public class Vector {
     public double getY() {
     	return dy;
     }
-}
 
+    public String toString() {
+        return "< " + dx + " , " + dy + " >";
+    }
+}

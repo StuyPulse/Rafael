@@ -21,6 +21,8 @@ public class Main {
         ModuleRunner runner = new ModuleRunner(5);
         // processBoilerSamples(runner);
         processLiftSamples(runner);
+        //DeviceCaptureSource cam = Camera.initializeCamera(0);
+        //runner.addMapping(cam, new LiftVision());
         VisionGui.begin(args, runner);
     }
 

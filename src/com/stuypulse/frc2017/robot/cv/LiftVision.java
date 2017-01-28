@@ -99,6 +99,7 @@ public class LiftVision extends VisionModule {
         for (int i = 0; i < channels.size(); i++) {
             channels.get(i).release();
         }
+
         dilateKernel.release();
         erodeKernel.release();
         filtered.release();
@@ -175,10 +176,16 @@ public class LiftVision extends VisionModule {
             //     Imgproc.line(drawn, points[j], points[(j + 1) % 4], new Scalar(0, 255, 0));
             // }
         }
-        if (hasGuiApp()) {
-            postImage(drawn, "Detected");
+
+        String s = "";
+        Vector[] vectors = getTargetVectors(contours);
+        for(Vector v: vectors) {
+            s += v + "\n";
         }
-        
+        if (hasGuiApp()) {
+            postImage(drawn,s);
+        }
+
         // Post vector diagram of calculated path
         /*
         if (hasGuiApp()) {
