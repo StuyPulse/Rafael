@@ -15,7 +15,7 @@ public class Winch extends Subsystem {
     private CANTalon winchMotor;
 
     public Winch() {
-        winchMotor = new CANTalon(RobotMap.WINCH_MOTOR);
+        winchMotor = new CANTalon(RobotMap.WINCH_MOTOR_PORT);
     }
 
     public void startWinch() {
