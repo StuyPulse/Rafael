@@ -5,6 +5,7 @@ import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
 import com.stuypulse.frc2017.robot.cv.Camera;
+import com.stuypulse.frc2017.robot.subsystems.Blender;
 import com.stuypulse.frc2017.robot.subsystems.Drivetrain;
 import com.stuypulse.frc2017.robot.subsystems.Winch;
 
@@ -29,6 +30,8 @@ public class Robot extends IterativeRobot {
     public static Drivetrain drivetrain;
     public static Winch winch;
     public static OI oi;
+    public static Blender blender; 
+    
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
