@@ -21,16 +21,16 @@ public class LiftVectorMath {
             double intermediate_dist,
             double final_dist
             ) {
-        // Get average distance between pegs (approximate center of peg)
+        // Get average distance between lift targets (approximate position of peg)
         Vector peg = lift_left.plus(lift_right).scaleBy(0.5);
-        // Get visual width of lift target
+        // Get distance between left and right lift strips
         Vector lift_ltr = lift_right.minus(lift_left);
-        // Get parallel displacement vector from lift target
+        // Get vector from peg to point on our path where we stop and turn
         Vector from_peg = lift_ltr.rotateBy(-90).withMagnitude(intermediate_dist);
-        // Get vector where the bot will rotate towards the target.
-        Vector m1 = peg.minus(from_peg);
-        // Get vector where the bot will stop, right in front of the peg.
-        Vector m2 = lift_ltr.rotateBy(90).withMagnitude(intermediate_dist - final_dist);
+        // Get vector from current location to point on our path where we stop and turn
+        Vector m1 = peg.plus(from_peg);
+        // Get vector from m1 to where the bot will stop, right in front of the peg.
+        Vector m2 = from_peg.scaleBy(-1.0).withMagnitude(intermediate_dist - final_dist);
         return new Vector[] {m1, m2};
     }
     
