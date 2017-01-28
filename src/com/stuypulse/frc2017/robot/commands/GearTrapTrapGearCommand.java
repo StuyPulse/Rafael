@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class TrapGearCommand extends Command {
+public class GearTrapTrapGearCommand extends Command {
 
-    public TrapGearCommand() {
+    public GearTrapTrapGearCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.geartrap);

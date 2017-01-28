@@ -7,17 +7,17 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ReleaseGearCommand extends Command {
+public class GearPusherRetractGearCommand extends Command {
 
-    public ReleaseGearCommand() {
+    public GearPusherRetractGearCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.geartrap);
+    	requires(Robot.gearpusher);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.geartrap.released();
+    	Robot.gearpusher.retract();
     }
 
     // Called repeatedly when this Command is scheduled to run
