@@ -6,6 +6,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 
 import com.stuypulse.frc2017.robot.cv.Camera;
 import com.stuypulse.frc2017.robot.subsystems.Drivetrain;
+import com.stuypulse.frc2017.robot.subsystems.Shooter;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.UsbCamera;
@@ -26,6 +27,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
     public static Drivetrain drivetrain;
+    
+    public static Shooter shooter;
 
     public static OI oi;
 
@@ -42,6 +45,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void robotInit() {
         drivetrain = new Drivetrain();
+        shooter = new Shooter();
         oi = new OI();
         // chooser.addDefault("Default Auto", new ExampleCommand());
         // chooser.addObject("My Auto", new MyAutoCommand());
