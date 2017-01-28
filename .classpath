@@ -8,6 +8,10 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="lib/stuyvision.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRLib.jar"/>
+<<<<<<< HEAD
+	<classpathentry kind="lib" path="/Users/PrathamRawat/Downloads/CTRE_FRCLibs_NON-WINDOWS_v4.4.1.9/java/lib/CTRLib.jar"/>
+=======
 	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar"/>
+>>>>>>> b9f25f37c0a68b8388c3e435d1f911fb7f53f9f6
 	<classpathentry kind="output" path="bin"/>
 </classpath>

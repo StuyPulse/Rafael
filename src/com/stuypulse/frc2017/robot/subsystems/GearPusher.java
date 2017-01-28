@@ -13,7 +13,7 @@ public class GearPusher extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 
-	private Solenoid gearPusherPiston;
+	public Solenoid gearPusherPiston;
 	// We are assuming there are only two states to this Solenoid.
 	// The speed of the piston might play a role.
 
@@ -21,6 +21,7 @@ public class GearPusher extends Subsystem {
 
 	public GearPusher() {
 		gearPusherPiston = new Solenoid(RobotMap.PCM_3, RobotMap.GEAR_PUSHER_SOLENOID_PORT);
+		pushed = false;
 	}
 
 	public void initDefaultCommand() {
@@ -35,6 +36,14 @@ public class GearPusher extends Subsystem {
 	public void push(boolean push) {
 		gearPusherPiston.set(push);
 		pushed = push;
+	}
+	
+	public void extend() {
+		gearPusherPiston.set(true);
+	}
+	
+	public void retract() {
+		gearPusherPiston.set(false);
 	}
 
 }
