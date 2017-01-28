@@ -1,5 +1,8 @@
 package com.stuypulse.frc2017.robot.cv;
 
+import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_Y;
+import static com.stuypulse.frc2017.robot.CVConstants.LIFT_TARGET_Y;
+
 import com.stuypulse.frc2017.util.Vector;
 
 public class LiftMath {
@@ -34,4 +37,24 @@ public class LiftMath {
         return new Vector[] {m1, m2};
     }
     
+    /**
+     * @param stripY Y-position in the frame of a reflexite strip, measured from the top
+     * of the strip to the center of the frame.
+     * @return Distance to the reflexite strip.
+     */
+    public static double stripYToDistance(double stripY) {
+        return (LIFT_TARGET_Y - CAMERA_Y) * Math.tan(Camera.frameYPxToDegrees(stripY));
+    }
+
+    /**
+     * @param stripX X position in frame of the center of the reflexite strip.
+     * @return Angle between where the camera is pointing and the reflexite strip.
+     */
+    public static double stripXToAngle(double stripX) {
+        return Camera.frameXPxToDegrees(stripX);
+    }
+
+    public static Vector stripFramePosToPhysicalPos(double stripX, double stripY) {
+        return Vector.fromPolar(stripXToAngle(stripX), stripYToDistance(stripY));
+    }
 }

@@ -41,7 +41,7 @@ public class Camera {
      * a linear one. TODO: Use pinhole camera method to improve precision.
      */
     public static double frameXPxToDegrees(double dx) {
-        return CAMERA_VIEWING_ANGLE_X * dx / CAMERA_FRAME_PX_WIDTH;
+        return dx * CAMERA_VIEWING_ANGLE_X / CAMERA_FRAME_PX_WIDTH;
     }
 
     /**
@@ -52,6 +52,6 @@ public class Camera {
      * a linear one. TODO: Use pinhole camera method to improve precision.
      */
     public static double frameYPxToDegrees(double dy) {
-        return CAMERA_VIEWING_ANGLE_Y * dy / CAMERA_FRAME_PX_HEIGHT;
+        return dy * CAMERA_VIEWING_ANGLE_Y / CAMERA_FRAME_PX_HEIGHT;
     }
 }
