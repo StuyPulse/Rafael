@@ -4,12 +4,10 @@ public interface CVConstants {
 
     // TODO
     // Tune threshold for the possible offset of the y coordinate of the target
-    public static double LIFT_HEIGHT_X_THRESHOLD = 5;
+    double LIFT_HEIGHT_X_THRESHOLD = 5;
 
     // Position of top of a reflexite strip relative to the ground
-    public static double LIFT_TARGET_Y = 15.75;
-
-    public static double CAMERA_HEIGHT = 6.0;
+    double LIFT_TARGET_Y = 15.75;
 
     double CAMERA_VIEWING_ANGLE_X = 61; // angular width of frame
 
