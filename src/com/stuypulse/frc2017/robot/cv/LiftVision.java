@@ -42,14 +42,14 @@ public class LiftVision extends VisionModule {
     private DeviceCaptureSource liftCamera;
 
     public void initializeCamera() {
-    	liftCamera = Camera.initializeCamera(RobotMap.LIFT_CAMERA_PORT);
+        liftCamera = Camera.initializeCamera(RobotMap.LIFT_CAMERA_PORT);
     }
 
     public void processImage() {
-    	if (liftCamera == null) {
-    		initializeCamera();
-    	}
-    	// TODO: Create non-GUI processing method and invoke here
+        if (liftCamera == null) {
+            initializeCamera();
+        }
+        // TODO: Create non-GUI processing method and invoke here
     }
 
     public void run(Mat frame) {
@@ -189,18 +189,17 @@ public class LiftVision extends VisionModule {
         // Post vector diagram of calculated path
         /*
         if (hasGuiApp()) {
-        	double distance_lift_left = liftMath.get
-        	Vector[] vectors = LiftVectorMath.getPath(
-        			lift_left, 
-        			lift_right, 
-        			intermediate_dist, 
-        			final_dist);
-        	// Using image width and height for consistency. You can actually use any dimension.
-        	VectorDrawer drawer = new VectorDrawer(drawn.width(), drawn.height());
-        	drawer.addVectors(vectors);
-        	Mat vectorDiagram = drawer.getImage();
-        	postImage(vectorDiagram, "Vector Diagram");
-        	
+            double distance_lift_left = liftMath.get
+            Vector[] vectors = LiftVectorMath.getPath(
+                    lift_left,
+                    lift_right,
+                    intermediate_dist,
+                    final_dist);
+            // Using image width and height for consistency. You can actually use any dimension.
+            VectorDrawer drawer = new VectorDrawer(drawn.width(), drawn.height());
+            drawer.addVectors(vectors);
+            Mat vectorDiagram = drawer.getImage();
+            postImage(vectorDiagram, "Vector Diagram");
         }
         */
 
