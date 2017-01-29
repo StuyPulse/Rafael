@@ -278,21 +278,46 @@ public class LiftVision extends VisionModule {
         return rightX - leftX;
     }
 
+    public double getCenterX(MatOfPoint points) {
+        List<Point> coords = points.toList();
+        double rightMostX = coords.get(0).x;
+        for(int i = 0; i < coords.size(); i++) {
+            if(coords.get(i).x > rightMostX) {
+                rightMostX = coords.get(i).x;
+            }
+        }
+        return (getLeftMostX(points) + rightMostX) / 2;
+    }
+
+    public double getCenterY(MatOfPoint points) {
+        List<Point> coords = points.toList();
+        double bottomMostY = coords.get(0).y;
+        double topMostY = coords.get(0).y;
+        for(int i = 0; i < coords.size(); i++) {
+            if(coords.get(i).y > bottomMostY) {
+                bottomMostY = coords.get(i).y;
+            }
+            else if(coords.get(i).y < topMostY) {
+                topMostY = coords.get(i).y;
+            }
+        }
+        return (bottomMostY + topMostY) / 2;
+    }
+
     public Vector[] getTargetVectors(ArrayList<MatOfPoint> contours) {
         Vector leftTarget;
         Vector rightTarget;
         if(getLeftMostX(contours.get(0)) < getLeftMostX(contours.get(1))) {
-            leftTarget = new Vector(getWidth(contours.get(0)), getHeight(contours.get(0)));
-            rightTarget = new Vector(getWidth(contours.get(1)), getHeight(contours.get(1)));
+            leftTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(0)), getCenterY(contours.get(0)));
+            rightTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(1)), getCenterY(contours.get(1)));
         } else {
-            rightTarget = new Vector(getWidth(contours.get(0)), getHeight(contours.get(0)));
-            leftTarget = new Vector(getWidth(contours.get(1)), getHeight(contours.get(1)));
+            rightTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(0)), getCenterY(contours.get(0)));
+            leftTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(1)), getCenterY(contours.get(1)));
         }
-        Vector[] targets = {leftTarget, rightTarget};
-        return targets;
+        return new Vector[] {leftTarget, rightTarget};
     }
     
     public DeviceCaptureSource getLiftCamera(){
-    	return liftCamera;
+        return liftCamera;
     }
 }
