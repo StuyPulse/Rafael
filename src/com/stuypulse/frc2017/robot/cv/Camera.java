@@ -2,8 +2,10 @@ package com.stuypulse.frc2017.robot.cv;
 
 import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_VIEWING_ANGLE_X;
 import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_VIEWING_ANGLE_Y;
-import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FRAME_PX_HEIGHT;
+import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FOCAL_LENGTH_X;
+import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FOCAL_LENGTH_Y;
 import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FRAME_PX_WIDTH;
+import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FRAME_PX_HEIGHT;
 
 import stuyvision.capture.DeviceCaptureSource;
 
@@ -34,24 +36,26 @@ public class Camera {
     }
 
     /**
-     * @param xPx Number of pixels in x
+     * @param xCoor Center x-coordinate of the reflexite strip.
      * @return Corresponding angle difference along that height (in degrees)
      * 
-     * This approximates the actual relationship between pixels and degrees as
-     * a linear one. TODO: Use pinhole camera method to improve precision.
+     * Uses pinhole camera method.
      */
-    public static double frameXPxToDegrees(double dx) {
-        return dx * CAMERA_VIEWING_ANGLE_X / CAMERA_FRAME_PX_WIDTH;
+    public static double frameXPxToDegrees(double xCoor) {
+        // return xPx * CAMERA_VIEWING_ANGLE_X / CAMERA_FRAME_PX_WIDTH;
+        return (180 * Math.atan(xCoor - (CAMERA_FRAME_PX_WIDTH / 2 - 0.5)) / Math.PI)
+                / CAMERA_FOCAL_LENGTH_X;
     }
 
     /**
-     * @param yPx Number of pixels in y
+     * @param yCoor Center y-coordinate of the reflexite strip.
      * @return Corresponding angle difference along that height (in degrees)
      * 
-     * This approximates the actual relationship between pixels and degrees as
-     * a linear one. TODO: Use pinhole camera method to improve precision.
+     * Uses pinhole method.
      */
-    public static double frameYPxToDegrees(double dy) {
-        return dy * CAMERA_VIEWING_ANGLE_Y / CAMERA_FRAME_PX_HEIGHT;
+    public static double frameYPxToDegrees(double yCoor) {
+        // return yPx * CAMERA_VIEWING_ANGLE_Y / CAMERA_FRAME_PX_HEIGHT;
+        return (180 * Math.atan(yCoor - (CAMERA_FRAME_PX_HEIGHT / 2 - 0.5)) / Math.PI)
+                / CAMERA_FOCAL_LENGTH_Y;
     }
 }

@@ -2,6 +2,8 @@ package com.stuypulse.frc2017.robot.cv;
 
 import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_Y;
 import static com.stuypulse.frc2017.robot.CVConstants.LIFT_TARGET_Y;
+import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FOCAL_LENGTH_Y;
+import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FRAME_PX_HEIGHT;
 
 import com.stuypulse.frc2017.util.Vector;
 
@@ -14,7 +16,7 @@ public class LiftMath {
      * @param intermediate_dist Distance from the peg base (along the
      * lift's normal) which the bot should go to before rotating and
      * approaching the peg head-on.
-     * @param final_dist Distace from the peg to stop at
+     * @param final_dist Distance from the peg to stop at
      * @return Path along which the robot should move, expressed as an
      * array of vectors describing discrete linear movements.
      */
@@ -36,18 +38,19 @@ public class LiftMath {
         Vector m2 = from_peg.scaleBy(-1.0).withMagnitude(intermediate_dist - final_dist);
         return new Vector[] {m1, m2};
     }
-    
+
     /**
-     * @param stripY Y-position in the frame of a reflexite strip, measured from the top
-     * of the strip to the center of the frame.
-     * @return Distance to the reflexite strip.
+     * @param stripY Center y-coordinate of reflexite strip.
+     * @return Distance from camera to the reflexite strip.
      */
     public static double stripYToDistance(double stripY) {
-        return (LIFT_TARGET_Y - CAMERA_Y) * Math.tan(Camera.frameYPxToDegrees(stripY));
+        //return (LIFT_TARGET_Y - CAMERA_Y) * Math.tan(Camera.frameYPxToDegrees(stripY));
+        return ((LIFT_TARGET_Y - CAMERA_Y) * CAMERA_FOCAL_LENGTH_Y)
+                / (stripY - (CAMERA_FRAME_PX_HEIGHT / 2) - 0.5);
     }
 
     /**
-     * @param stripX X position in frame of the center of the reflexite strip.
+     * @param stripX Center x-coordinate of reflexite
      * @return Angle between where the camera is pointing and the reflexite strip.
      */
     public static double stripXToAngle(double stripX) {

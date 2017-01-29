@@ -19,4 +19,8 @@ public interface CVConstants {
 
     int CAMERA_FRAME_PX_WIDTH = 360;
 
+    double CAMERA_FOCAL_LENGTH_X = CAMERA_FRAME_PX_WIDTH / (2 * Math.tan((180 * CAMERA_VIEWING_ANGLE_X / 2)) / Math.PI);
+
+    double CAMERA_FOCAL_LENGTH_Y = CAMERA_FRAME_PX_HEIGHT / (2 * Math.tan((180 * CAMERA_VIEWING_ANGLE_Y / 2)) / Math.PI);
+
 }
