@@ -1,8 +1,8 @@
 package com.stuypulse.frc2017.robot.subsystems;
 
+import com.ctre.CANTalon;
 import com.stuypulse.frc2017.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 

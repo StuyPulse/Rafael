@@ -1,6 +1,6 @@
 package com.stuypulse.frc2017.robot.commands;
 
-import org.usfirst.frc.team694.robot.Robot;
+import com.stuypulse.frc2017.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 

@@ -1,7 +1,7 @@
 package com.stuypulse.frc2017.robot.subsystems;
 
-import org.usfirst.frc.team694.robot.RobotMap;
-import org.usfirst.frc.team694.robot.commands.SonarTest;
+import com.stuypulse.frc2017.robot.RobotMap;
+import com.stuypulse.frc2017.robot.commands.SonarTest;
 
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
