@@ -46,9 +46,9 @@ public interface RobotMap {
 
 	int GEAR_TRAP_RIGHT_SOLENOID_PORT = -1;
 	int GEAR_TRAP_LEFT_SOLENOID_PORT = -1;
-	int GEAR_PUSHER_SOLENOID_PORT = -1;
-	
-    
+	int GEAR_PUSHER_SOLENOID_PORT = -1;	
+	int BALL_TRAP_SOLENOID_PORT = -1;
+
 	// Solenoid Channels
 
 	int PCM_1 = -1;
@@ -61,6 +61,5 @@ public interface RobotMap {
 
 	double SHOOTER_ENCODER_MAXSPEED = -1;
 
-	
 	double BLENDER_MOTOR_SPEED = 0.2;
 }
