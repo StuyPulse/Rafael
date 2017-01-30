@@ -17,7 +17,7 @@ public class GearPusherAutoCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.gearpusher.extend();
+    		Robot.gearpusher.extend();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -28,10 +28,11 @@ public class GearPusherAutoCommand extends Command {
     protected boolean isFinished() {
         return Robot.gearpusher.gearPusherPiston.get();
     }
+    
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.gearpusher.retract();
+    		Robot.gearpusher.retract();
     }
 
     // Called when another command which requires one or more of the same
