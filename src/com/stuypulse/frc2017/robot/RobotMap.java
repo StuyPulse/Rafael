@@ -41,4 +41,8 @@ public class RobotMap {
 	public static final int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_B = -1;
 
 	public static final double DRIVETRAIN_ENCODER_INCHES_PER_PULSE = 23.56;
+    public static final int LEFT_ECHO_PIN = 0;
+    public static final int RIGHT_ECHO_PIN = 8;
+    public static final int LEFT_TRIGGER_PIN = 1;
+    public static final int RIGHT_TRIGGER_PIN = 9;
 }
