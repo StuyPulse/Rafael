@@ -24,7 +24,7 @@ import stuyvision.gui.DoubleSliderVariable;
 import stuyvision.gui.IntegerSliderVariable;
 
 public class LiftVision extends VisionModule {
-    public IntegerSliderVariable minHue = new IntegerSliderVariable("Min Hue", 64,  0, 255);
+    public IntegerSliderVariable minHue = new IntegerSliderVariable("Min Hue", 60,  0, 255);
     public IntegerSliderVariable maxHue = new IntegerSliderVariable("Max Hue", 95, 0, 255);
 
     public IntegerSliderVariable minSaturation = new IntegerSliderVariable("Min Saturation", 50, 0, 255);
@@ -178,12 +178,20 @@ public class LiftVision extends VisionModule {
         }
 
         String s = "";
-        Vector[] vectors = getTargetVectors(contours);
-        for(Vector v: vectors) {
-            s += v + "\n";
-        }
-        if (hasGuiApp()) {
-            postImage(drawn,s);
+        if (contours.size() == 2) {
+	        Vector[] vectors = getTargetVectors(contours);
+	        Point center1 = new Point(CVConstants.CAMERA_FRAME_PX_WIDTH / 2 + getCenterX(contours.get(0)), CVConstants.CAMERA_FRAME_PX_HEIGHT / 2 +  getCenterY(contours.get(0)));
+	        Point center2 = new Point(CVConstants.CAMERA_FRAME_PX_WIDTH / 2 + getCenterX(contours.get(1)), CVConstants.CAMERA_FRAME_PX_HEIGHT / 2 + getCenterY(contours.get(1)));
+	        System.out.println("center1: " + center1);
+	        System.out.println("center2: " + center2);
+	        Imgproc.circle(drawn, center1, 1, new Scalar(0,0,255), 2);
+	        Imgproc.circle(drawn, center2, 1, new Scalar(0,0,255), 2);
+	        for(Vector v: vectors) {
+	            s += v + "\n";
+	        }
+	        if (hasGuiApp()) {
+	            postImage(drawn, s);
+	        }
         }
 
         // Post vector diagram of calculated path
@@ -285,7 +293,7 @@ public class LiftVision extends VisionModule {
                 rightMostX = coords.get(i).x;
             }
         }
-        return (getLeftMostX(points) + rightMostX) / 2;
+        return (getLeftMostX(points) + rightMostX) / 2 - CVConstants.CAMERA_FRAME_PX_WIDTH / 2;
     }
 
     public double getCenterY(MatOfPoint points) {
@@ -300,19 +308,19 @@ public class LiftVision extends VisionModule {
                 topMostY = coords.get(i).y;
             }
         }
-        return (bottomMostY + topMostY) / 2;
+        return (bottomMostY + topMostY) / 2 - CVConstants.CAMERA_FRAME_PX_HEIGHT / 2;
     }
 
     public Vector[] getTargetVectors(ArrayList<MatOfPoint> contours) {
         Vector leftTarget;
         Vector rightTarget;
-        if(getLeftMostX(contours.get(0)) < getLeftMostX(contours.get(1))) {
-            leftTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(0)), getCenterY(contours.get(0)));
-            rightTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(1)), getCenterY(contours.get(1)));
-        } else {
-            rightTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(0)), getCenterY(contours.get(0)));
-            leftTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(1)), getCenterY(contours.get(1)));
-        }
+    	if(getLeftMostX(contours.get(0)) < getLeftMostX(contours.get(1))) {
+    		rightTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(1)), getCenterY(contours.get(1)));
+    		leftTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(0)), getCenterY(contours.get(0)));
+    	} else {
+    		leftTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(1)), getCenterY(contours.get(1)));
+    		rightTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(0)), getCenterY(contours.get(0)));
+    	}
         return new Vector[] {leftTarget, rightTarget};
     }
     

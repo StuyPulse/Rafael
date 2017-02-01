@@ -1,11 +1,10 @@
 package com.stuypulse.frc2017.robot.cv;
 
-import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_VIEWING_ANGLE_X;
-import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_VIEWING_ANGLE_Y;
-import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FOCAL_LENGTH_X;
 import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FOCAL_LENGTH_Y;
-import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FRAME_PX_WIDTH;
 import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FRAME_PX_HEIGHT;
+import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FRAME_PX_WIDTH;
+
+import com.stuypulse.frc2017.robot.CVConstants;
 
 import stuyvision.capture.DeviceCaptureSource;
 
@@ -42,9 +41,10 @@ public class Camera {
      * Uses pinhole camera method.
      */
     public static double frameXPxToDegrees(double xCoor) {
-        // return xPx * CAMERA_VIEWING_ANGLE_X / CAMERA_FRAME_PX_WIDTH;
-        return (180 * Math.atan(xCoor - (CAMERA_FRAME_PX_WIDTH / 2 - 0.5)) / Math.PI)
-                / CAMERA_FOCAL_LENGTH_X;
+        return xCoor * CVConstants.CAMERA_VIEWING_ANGLE_X / CAMERA_FRAME_PX_WIDTH;
+    	//return (xCoor - CAMERA_FRAME_PX_WIDTH / 2) * (CAMERA_VIEWING_ANGLE_X / CAMERA_FRAME_PX_WIDTH);
+        //return (180 * Math.atan(xCoor - (CAMERA_FRAME_PX_WIDTH / 2 - 0.5)) / Math.PI)
+        //        / CAMERA_FOCAL_LENGTH_X;
     }
 
     /**
@@ -54,8 +54,17 @@ public class Camera {
      * Uses pinhole method.
      */
     public static double frameYPxToDegrees(double yCoor) {
+    	return yCoor * CVConstants.CAMERA_VIEWING_ANGLE_Y / CVConstants.CAMERA_FRAME_PX_HEIGHT;
         // return yPx * CAMERA_VIEWING_ANGLE_Y / CAMERA_FRAME_PX_HEIGHT;
-        return (180 * Math.atan(yCoor - (CAMERA_FRAME_PX_HEIGHT / 2 - 0.5)) / Math.PI)
-                / CAMERA_FOCAL_LENGTH_Y;
+        //return (180 * Math.atan(yCoor - (CAMERA_FRAME_PX_HEIGHT / 2 - 0.5)) / Math.PI)
+        //        / CAMERA_FOCAL_LENGTH_Y;
+    }
+    
+    public static void main(String[] args) {
+    	System.out.println("360px in X: " + frameXPxToDegrees(180));
+    	System.out.println("270px in Y: " + frameYPxToDegrees(135));
+    	System.out.println("WITH CONV TO DEGS");
+    	System.out.println("360px in X: " + LiftMath.radiansToDegrees(frameXPxToDegrees(180)));
+    	System.out.println("270px in Y: " + LiftMath.radiansToDegrees(frameYPxToDegrees(135)));
     }
 }

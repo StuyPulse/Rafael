@@ -38,13 +38,17 @@ public class LiftMath {
         Vector m2 = from_peg.scaleBy(-1.0).withMagnitude(intermediate_dist - final_dist);
         return new Vector[] {m1, m2};
     }
+    
+    public static double radiansToDegrees(double rads) {
+    	return rads / Math.PI * 180.0;
+    }
 
     /**
      * @param stripY Center y-coordinate of reflexite strip.
      * @return Distance from camera to the reflexite strip.
      */
     public static double stripYToDistance(double stripY) {
-        //return (LIFT_TARGET_Y - CAMERA_Y) * Math.tan(Camera.frameYPxToDegrees(stripY));
+        //return (LIFT_TARGET_Y - CAMERA_Y) * Math.tan((Math.PI / 180.0) * Camera.frameYPxToDegrees(stripY));
         return ((LIFT_TARGET_Y - CAMERA_Y) * CAMERA_FOCAL_LENGTH_Y)
                 / (stripY - (CAMERA_FRAME_PX_HEIGHT / 2) - 0.5);
     }

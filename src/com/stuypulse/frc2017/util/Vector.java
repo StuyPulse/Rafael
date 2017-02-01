@@ -118,6 +118,6 @@ public class Vector {
     }
 
     public String toString() {
-        return "< " + dx + " , " + dy + " >";
+        return "Magnitude (in): " + getMagnitude() + "\nDegrees: " + getDegrees() + "\ndx: " + dx + "\ndy: " + dy;
     }
 }

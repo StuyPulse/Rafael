@@ -20,9 +20,9 @@ public class Main {
     public static void main(String[] args) {
         ModuleRunner runner = new ModuleRunner(5);
         // processBoilerSamples(runner);
-        processLiftSamples(runner);
-        //DeviceCaptureSource cam = Camera.initializeCamera(0);
-        //runner.addMapping(cam, new LiftVision());
+        // processLiftSamples(runner);
+        DeviceCaptureSource cam = Camera.initializeCamera(0);
+        runner.addMapping(cam, new LiftVision());
         VisionGui.begin(args, runner);
     }
 
