@@ -24,6 +24,9 @@ public class DrivetrainTankDriveCommand extends Command {
     	double leftJoystick = Robot.oi.driverPad.getLeftY();
     	double rightJoystick = Robot.oi.driverPad.getRightY();
     	Robot.drivetrain.tankDrive(leftJoystick, rightJoystick);
+/*    	System.out.println("Encoder Left: " + Robot.drivetrain.leftEncoderDistance());
+    	System.out.println("Encoder Right: " + Robot.drivetrain.rightEncoderDistance());
+    	System.out.println("****************************************");*/
     }
 
     // Make this return true when this Command no longer needs to run execute()

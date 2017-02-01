@@ -45,8 +45,14 @@ public class RobotMap {
 	public static final int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_B = -1;
 
 	public static final double DRIVETRAIN_ENCODER_INCHES_PER_PULSE = 23.56;
-    public static final int LEFT_ECHO_PIN = 0;
-    public static final int RIGHT_ECHO_PIN = 8;
-    public static final int LEFT_TRIGGER_PIN = 1;
-    public static final int RIGHT_TRIGGER_PIN = 9;
+	
+	// Sonar Ports
+	public static final int SONAR_ONE_TRIGGER_PIN = 0;
+    public static final int SONAR_ONE_ECHO_PIN = 1;
+    public static final int SONAR_TWO_TRIGGER_PIN = 2;
+    public static final int SONAR_TWO_ECHO_PIN = 3;
+    public static final int SONAR_THREE_TRIGGER_PIN = 4;
+    public static final int SONAR_THREE_ECHO_PIN = 5;
+    public static final int SONAR_FOUR_TRIGGER_PIN = 13;
+    public static final int SONAR_FOUR_ECHO_PIN = 12;
 }

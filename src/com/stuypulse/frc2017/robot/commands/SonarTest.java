@@ -21,11 +21,13 @@ public class SonarTest extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        System.out.println("Left: " +  Robot.sonar.getRangeInchesLeft());
-        System.out.println("Right: " + Robot.sonar.getRangeInchesRight());
+        System.out.println("One: " +  Robot.sonar.getRangeInchesOne());
+        System.out.println("Two: " + Robot.sonar.getRangeInchesTwo());
+/*        System.out.println("Three: " +  Robot.sonar.getRangeInchesThree());
+        System.out.println("Four: " + Robot.sonar.getRangeInchesFour());*/
 //        System.out.println(Robot.sonar.activatedRight());
 //        System.out.println(Robot.sonar.activatedLeft());
-        System.out.println("Angle;" + Robot.sonar.getAngle());
+//        System.out.println("Angle: " + Robot.sonar.getAngle());
         System.out.println("================================");
     }
 

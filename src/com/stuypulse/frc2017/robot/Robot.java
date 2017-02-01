@@ -43,13 +43,14 @@ public class Robot extends IterativeRobot {
     @Override
     public void robotInit() {
         drivetrain = new Drivetrain();
+        sonar = new Sonar();
         oi = new OI();
         // chooser.addDefault("Default Auto", new ExampleCommand());
         // chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
 
-        boilerCamera = new UsbCamera("Boiler Camera", 0);
-        liftCamera = new UsbCamera("Lift Camera", 1);
+//        boilerCamera = new UsbCamera("Boiler Camera", 0);
+//        liftCamera = new UsbCamera("Lift Camera", 1);
     }
 
     /**
@@ -111,30 +112,30 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null)
             autonomousCommand.cancel();
 
-        boilerCamera.setResolution(160, 120);
-        liftCamera.setResolution(160, 120);
-        System.out.println("Set resolutions");
-
-        CvSink boilerSink = new CvSink("Boiler Camera Sink");
-        boilerSink.setSource(boilerCamera);
-        System.out.println("Set boiler source");
-        CvSink liftSink = new CvSink("Lift Camera Sink");
-        liftSink.setSource(liftCamera);
-        System.out.println("Set lift source");
-
-        Mat boilerFrame = new Mat();
-        Mat liftFrame = new Mat();
-
-        Camera.configureCamera(0);
-        Camera.configureCamera(1);
-
-        boilerSink.grabFrame(boilerFrame);
-        liftSink.grabFrame(liftFrame);
-        System.out.println("Read frames");
-
-        Imgcodecs.imwrite("/tmp/boiler.png", boilerFrame);
-        Imgcodecs.imwrite("/tmp/lift.png", liftFrame);
-        System.out.println("Wrote images");
+//        boilerCamera.setResolution(160, 120);
+//        liftCamera.setResolution(160, 120);
+//        System.out.println("Set resolutions");
+//
+//        CvSink boilerSink = new CvSink("Boiler Camera Sink");
+//        boilerSink.setSource(boilerCamera);
+//        System.out.println("Set boiler source");
+//        CvSink liftSink = new CvSink("Lift Camera Sink");
+//        liftSink.setSource(liftCamera);
+//        System.out.println("Set lift source");
+//
+//        Mat boilerFrame = new Mat();
+//        Mat liftFrame = new Mat();
+//
+//        Camera.configureCamera(0);
+//        Camera.configureCamera(1);
+//
+//        boilerSink.grabFrame(boilerFrame);
+//        liftSink.grabFrame(liftFrame);
+//        System.out.println("Read frames");
+//
+//        Imgcodecs.imwrite("/tmp/boiler.png", boilerFrame);
+//        Imgcodecs.imwrite("/tmp/lift.png", liftFrame);
+//        System.out.println("Wrote images");
     }
 
     /**
