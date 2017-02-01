@@ -38,9 +38,13 @@ public class LiftMath {
         Vector m2 = from_peg.scaleBy(-1.0).withMagnitude(intermediate_dist - final_dist);
         return new Vector[] {m1, m2};
     }
-    
+
     public static double radiansToDegrees(double rads) {
     	return rads / Math.PI * 180.0;
+    }
+
+    public static double degreesToRadians(double degs) {
+        return degs * Math.PI / 180.0;
     }
 
     /**
