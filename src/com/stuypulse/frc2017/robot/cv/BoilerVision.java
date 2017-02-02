@@ -41,14 +41,22 @@ public class BoilerVision extends VisionModule {
         boilerCamera = Camera.initializeCamera(RobotMap.BOILER_CAMERA_PORT);
     }
 
-    public void processImage() {
+    public double[] processImage() {
         if (boilerCamera == null) {
             initializeCamera();
         }
-        // TODO: Create non-GUI processing method and invoke here
+        Mat raw = new Mat();
+        Mat frame = new Mat();
+        boilerCamera.readSized(raw, frame);
+        double[] reading = hsvThresholding(frame);
+        return reading;
     }
 
     public void run(Mat frame) {
+        hsvThresholding(frame);
+    }
+
+    public double[] hsvThresholding(Mat frame) {
         if (hasGuiApp()) {
             postImage(frame, "Original");
         }
@@ -92,11 +100,12 @@ public class BoilerVision extends VisionModule {
             postImage(filtered, "Final HSV filtering");
         }
 
-        filterBoiler(frame, filtered);
+        double reading[] = filterBoiler(frame, filtered);
         for (int i = 0; i < channels.size(); i++) {
             channels.get(i).release();
         }
         filtered.release();
+        return reading;
     }
 
     public double[] filterBoiler(Mat original, Mat filtered) {
@@ -128,22 +137,6 @@ public class BoilerVision extends VisionModule {
             pointsList.add(new Point(rect.x, rect.y));
             pointsList.add(new Point(rect.x + rect.width, rect.y + rect.height));
 
-            // RotatedRect strategy
-            // MatOfPoint2f tmp = new MatOfPoint2f();
-            // contours.get(i).convertTo(tmp, CvType.CV_32FC1);
-            // RotatedRect r = Imgproc.minAreaRect(tmp);
-            // double area = r.size.area();
-            // if (area < minGoalArea.value() || area > maxGoalArea.value()) {
-            //     continue;
-            // }
-            // if (!aspectRatioThreshold(r.size.width, r.size.height)) {
-            //     continue;
-            // }
-            // Point[] points = new Point[4];
-            // r.points(points);
-            // for (int j = 0; j < points.length; j++) {
-            //     Imgproc.line(drawn, points[j], points[(j + 1) % 4], new Scalar(0, 255, 0));
-            // }
             points.release();
             contour2f.release();
         }
@@ -188,7 +181,7 @@ public class BoilerVision extends VisionModule {
         double ratio = width / height;
         return minGoalRatio.value() < ratio && ratio < maxGoalRatio.value();
     }
-    
+
     public DeviceCaptureSource getBoilerCamera(){
     	return boilerCamera;
     }

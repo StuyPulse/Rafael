@@ -3,6 +3,7 @@ package com.stuypulse.frc2017.robot;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
+import com.stuypulse.frc2017.robot.cv.BoilerVision;
 import com.stuypulse.frc2017.robot.cv.Camera;
 import com.stuypulse.frc2017.robot.subsystems.BallGate;
 import com.stuypulse.frc2017.robot.subsystems.Blender;
@@ -54,6 +55,7 @@ public class Robot extends IterativeRobot {
     IRSensor irsensor;
 
     public static Vector[] cvVector;
+    public static BoilerVision boilerVision;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -71,6 +73,10 @@ public class Robot extends IterativeRobot {
         oi = new OI();
         irsensor = new IRSensor();
         // TODO: setup auton chooser
+
+        boilerVision = new BoilerVision();
+        // chooser.addDefault("Default Auto", new ExampleCommand());
+        // chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
 
         boilerCamera = new UsbCamera("Boiler Camera", 0);
