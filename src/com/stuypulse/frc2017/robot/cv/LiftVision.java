@@ -182,6 +182,8 @@ public class LiftVision extends VisionModule {
 	        Vector[] vectors = getTargetVectors(contours);
 	        Point center1 = new Point(CVConstants.CAMERA_FRAME_PX_WIDTH / 2 + getCenterX(contours.get(0)), CVConstants.CAMERA_FRAME_PX_HEIGHT / 2 +  getCenterY(contours.get(0)));
 	        Point center2 = new Point(CVConstants.CAMERA_FRAME_PX_WIDTH / 2 + getCenterX(contours.get(1)), CVConstants.CAMERA_FRAME_PX_HEIGHT / 2 + getCenterY(contours.get(1)));
+	        //Point center1 = new Point(getCenterX(contours.get(0)), getCenterY(contours.get(0)));
+	        //Point center2 = new Point(getCenterX(contours.get(1)), getCenterY(contours.get(1)));
 	        System.out.println("center1: " + center1);
 	        System.out.println("center2: " + center2);
 	        Imgproc.circle(drawn, center1, 1, new Scalar(0,0,255), 2);
@@ -309,6 +311,7 @@ public class LiftVision extends VisionModule {
             }
         }
         return (bottomMostY + topMostY) / 2 - CVConstants.CAMERA_FRAME_PX_HEIGHT / 2;
+        //return topMostY - CVConstants.CAMERA_FRAME_PX_HEIGHT / 2;
     }
 
     public Vector[] getTargetVectors(ArrayList<MatOfPoint> contours) {

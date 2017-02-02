@@ -1,10 +1,10 @@
 package com.stuypulse.frc2017.robot.cv;
 
+import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FRAME_PX_HEIGHT;
 import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_Y;
 import static com.stuypulse.frc2017.robot.CVConstants.LIFT_TARGET_Y;
-import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FOCAL_LENGTH_Y;
-import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FRAME_PX_HEIGHT;
 
+import com.stuypulse.frc2017.robot.CVConstants;
 import com.stuypulse.frc2017.util.Vector;
 
 public class LiftMath {
@@ -52,20 +52,26 @@ public class LiftMath {
      * @return Distance from camera to the reflexite strip.
      */
     public static double stripYToDistance(double stripY) {
-        //return (LIFT_TARGET_Y - CAMERA_Y) * Math.tan((Math.PI / 180.0) * Camera.frameYPxToDegrees(stripY));
-        return ((LIFT_TARGET_Y - CAMERA_Y) * CAMERA_FOCAL_LENGTH_Y)
-                / (stripY - (CAMERA_FRAME_PX_HEIGHT / 2) - 0.5);
+    	System.out.println("Argument to stripYToDistance is " + stripY);
+    	double angle = 2*Camera.frameYPxToDegrees(stripY);
+    	System.out.println("Angle to stripY is " + angle + " degrees");
+        return (LIFT_TARGET_Y - CAMERA_Y) / Math.tan(Math.toRadians(angle));
+        //return ((LIFT_TARGET_Y - CAMERA_Y) * CVConstants.CAMERA_FOCAL_LENGTH_X)
+        //        / (stripY - (CAMERA_FRAME_PX_HEIGHT / 2) - 0.5);
     }
 
     /**
      * @param stripX Center x-coordinate of reflexite
-     * @return Angle between where the camera is pointing and the reflexite strip.
+     * @return Angle between where the camera is pointing and the reflexite stnrip.
      */
     public static double stripXToAngle(double stripX) {
         return Camera.frameXPxToDegrees(stripX);
     }
 
     public static Vector stripFramePosToPhysicalPos(double stripX, double stripY) {
+    	//System.out.println("Angle: " + stripXToAngle(stripX));
+    	//System.out.println("Z: " + stripYToDistance(stripY));
+        //System.out.println("Magnitude: " + stripYToDistance(stripY) / Math.cos(stripXToAngle(stripX)));
         return Vector.fromPolar(stripXToAngle(stripX), stripYToDistance(stripY));
     }
 }
