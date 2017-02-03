@@ -6,6 +6,7 @@ import com.stuypulse.frc2017.robot.commands.DrivetrainPiotrDriveCommand;
 import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -18,11 +19,15 @@ public class Drivetrain extends Subsystem {
 	private CANTalon frontRightWheel;
 	private CANTalon backLeftWheel;
     private CANTalon backRightWheel;
-
+    
+    private Solenoid gearShift;
+    
     private RobotDrive robotDrive;
     
     private Encoder leftEncoder;
     private Encoder rightEncoder;
+    
+    private boolean shifted;
 
 	// Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -33,6 +38,10 @@ public class Drivetrain extends Subsystem {
     	backLeftWheel = new CANTalon(RobotMap.BACK_LEFT_MOTOR_PORT);
     	backRightWheel = new CANTalon(RobotMap.BACK_RIGHT_MOTOR_PORT);
 
+    	gearShift = new Solenoid(RobotMap.GEAR_SHIFT_SOLENOID_PORT, RobotMap.GEAR_SHIFT);
+    	
+    	shifted = false;
+    	
     	robotDrive = new RobotDrive(backLeftWheel, frontLeftWheel, backRightWheel, frontRightWheel);
 
     	leftEncoder = new Encoder(RobotMap.DRIVETRAIN_ENCODER_LEFT_CHANNEL_A, RobotMap.DRIVETRAIN_ENCODER_LEFT_CHANNEL_B);
@@ -70,6 +79,16 @@ public class Drivetrain extends Subsystem {
 
     public double rightEncoderDistance() {
     	return Math.abs(rightEncoder.getDistance());
+    }
+    
+    public void manualGearShift(boolean shift) {
+    	gearShift.set(shift);
+    	shifted = shift;
+    }
+    
+    public void toggleGearShift() {
+    	shifted = !shifted;
+    	manualGearShift(shifted);
     }
 
 }

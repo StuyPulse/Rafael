@@ -48,6 +48,7 @@ public interface RobotMap {
 	int GEAR_TRAP_LEFT_SOLENOID_PORT = -1;
 	int GEAR_PUSHER_SOLENOID_PORT = -1;	
 	int BALL_GATE_SOLENOID_PORT = -1;
+	int GEAR_SHIFT_SOLENOID_PORT = -1;
 	
 
 	// Solenoid Channels
@@ -56,6 +57,8 @@ public interface RobotMap {
 	int PCM_2 = -1;
 	int PCM_3 = -1;
 	int PCM_4 = -1;
+	int GEAR_SHIFT = -1;
+	
 
 	// Physical Constants
 
