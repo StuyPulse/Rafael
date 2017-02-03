@@ -7,23 +7,21 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class BlenderUnjamCommand extends Command {
+public class DriveTrainGearShiftCommand extends Command {
 
-    public BlenderUnjamCommand() {
+    public DriveTrainGearShiftCommand() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.blender);
+        // eg. requires(chassis);
+    	requires(Robot.drivetrain);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    //This makes the blender unjam (see the title)
-    	Robot.blender.run(false);
-    	
+    	Robot.drivetrain.toggleGearShift();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        
     }
 
     // Make this return true when this Command no longer needs to run execute()
