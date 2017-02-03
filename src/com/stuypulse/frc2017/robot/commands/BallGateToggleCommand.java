@@ -7,18 +7,17 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class BlenderStopCommand extends Command {
+public class BallGateToggleCommand extends Command {
 
-    public BlenderStopCommand() {
+    public BallGateToggleCommand() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.blender);
+    	// Eg: requires(Robot.ballgate);
+    	requires(Robot.ballgate);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        Robot.ballgate.close();
-    	Robot.blender.stop();
-        
+    	Robot.ballgate.toggle();
     }
 
     // Called repeatedly when this Command is scheduled to run
