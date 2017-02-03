@@ -97,11 +97,13 @@ public class Drivetrain extends Subsystem {
     	return Math.abs(rightEncoder.getDistance());
     }
     
+    //Sets the solenoid to a shifted state manually
     public void manualGearShift(boolean shift) {
     	gearShift.set(shift);
     	shifted = shift;
     }
     
+    //Toggles solenoid from the prior state.
     public void toggleGearShift() {
     	shifted = !shifted;
     	manualGearShift(shifted);
