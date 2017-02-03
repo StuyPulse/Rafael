@@ -1,12 +1,15 @@
 package com.stuypulse.frc2017.robot.subsystems;
 
+import com.ctre.CANTalon;
+import com.kauailabs.navx.frc.AHRS;
 import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.DrivetrainPiotrDriveCommand;
 
-import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Solenoid;
+
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -28,6 +31,8 @@ public class Drivetrain extends Subsystem {
     private Encoder rightEncoder;
     
     private boolean shifted;
+    private AHRS gyro;
+
 
 	// Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -49,6 +54,9 @@ public class Drivetrain extends Subsystem {
 
     	leftEncoder.setDistancePerPulse(RobotMap.DRIVETRAIN_ENCODER_INCHES_PER_PULSE);
     	rightEncoder.setDistancePerPulse(RobotMap.DRIVETRAIN_ENCODER_INCHES_PER_PULSE);
+    	
+    	gyro = new AHRS(SPI.Port.kMXP);
+    	gyro.reset();
     }
 
     public void initDefaultCommand() {
@@ -64,11 +72,19 @@ public class Drivetrain extends Subsystem {
     	tankDrive(0,0);
     }
 
+    public double gyroAngle() {
+        return gyro.getAngle();
+    }
+    
+    public void resetGyro() {
+        gyro.reset();
+    }
+    
     public void resetEncoders() {
     	leftEncoder.reset();
     	rightEncoder.reset();
     }
-
+    
     public double encoderDistance() {
     	return Math.max( leftEncoderDistance() , rightEncoderDistance() );
     }
