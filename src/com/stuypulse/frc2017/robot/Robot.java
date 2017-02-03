@@ -5,6 +5,7 @@ import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
 import com.stuypulse.frc2017.robot.cv.Camera;
+import com.stuypulse.frc2017.robot.subsystems.BallGate;
 import com.stuypulse.frc2017.robot.subsystems.Blender;
 import com.stuypulse.frc2017.robot.subsystems.Drivetrain;
 import com.stuypulse.frc2017.robot.subsystems.GearPusher;
@@ -34,6 +35,7 @@ public class Robot extends IterativeRobot {
     public static GearTrap geartrap;
     public static Shooter shooter;
     public static Blender blender;
+    public static BallGate ballgate;
 
     public static OI oi;
 
