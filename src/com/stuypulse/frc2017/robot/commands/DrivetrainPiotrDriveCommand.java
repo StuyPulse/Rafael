@@ -27,7 +27,7 @@ public class DrivetrainPiotrDriveCommand extends Command {
     	double rightJoystick = Robot.oi.driverPad.getRightY();
     	
 	//if robot is moving forward
-	if (leftJoyStick + rightJoyStick >= RobotMap.PIOTR_DRIVE_MARGIN_OF_ERROR){
+	if (leftJoystick + rightJoystick >= RobotMap.PIOTR_DRIVE_MARGIN_OF_ERROR){
 	    if (Robot.oi.driverPad.getRawLeftBumper()) {
 		rightJoystick += RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT; 
 		leftJoystick -= RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
