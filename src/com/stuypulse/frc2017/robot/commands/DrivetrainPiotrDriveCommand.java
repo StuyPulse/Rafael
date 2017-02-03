@@ -7,14 +7,14 @@ import edu.wpi.first.wpilibj.command.Command;
 import com.stuypulse.frc2017.robot.RobotMap;
 
 /**
- *
+ what if i told you that there's more to the internet than memes and youtube
  */
 
 public class DrivetrainPiotrDriveCommand extends Command {
     public DrivetrainPiotrDriveCommand() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.drivetrain);
-        
+
     }
 
     // Called just before this Command runs the first time
@@ -23,43 +23,43 @@ public class DrivetrainPiotrDriveCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double leftJoystick = Robot.oi.driverPad.getLeftY();
-    	double rightJoystick = Robot.oi.driverPad.getRightY();
-    	
-	//if robot is moving forward
-	if (leftJoyStick + rightJoyStick >= RobotMap.PIOTR_DRIVE_MARGIN_OF_ERROR){
-	    if (Robot.oi.driverPad.getRawLeftBumper()) {
-		rightJoystick += RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT; 
-		leftJoystick -= RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
-	    }
-    	
-	    if (Robot.oi.driverPad.getRawRightBumper()) {
-		rightJoystick -= RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT; 
-		leftJoystick += RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
-	    }
-	} else{
-	    //if robot is moving backwards
-	    if (Robot.oi.driverPad.getRawLeftBumper()) {
-		rightJoystick -= RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT; 
-		leftJoystick += RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
-	    }
-    	
-	    if (Robot.oi.driverPad.getRawRightBumper()) {
-		rightJoystick += RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT; 
-		leftJoystick -= RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
-	    }
-	}
-    	
-    	//Caps the values of left and right joystick values; between -1 and 1.
-    	rightJoystick = Math.min(rightJoystick, 1);
-    	rightJoystick = Math.max(rightJoystick, -1);
-    	leftJoystick = Math.min(leftJoystick, 1);
-    	leftJoystick = Math.max(leftJoystick, -1);
-    	
-    	Robot.drivetrain.tankDrive(leftJoystick, rightJoystick);
-    	
+        double leftJoystick = Robot.oi.driverPad.getLeftY();
+        double rightJoystick = Robot.oi.driverPad.getRightY();
+
+        //if robot is moving forward
+        if (leftJoystick + rightJoystick >= RobotMap.PIOTR_DRIVE_MARGIN_OF_ERROR) {
+            if (Robot.oi.driverPad.getRawLeftBumper()) {
+                rightJoystick += RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
+                leftJoystick -= RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
+            }
+
+            if (Robot.oi.driverPad.getRawRightBumper()) {
+                rightJoystick -= RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
+                leftJoystick += RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
+            }
+        } else {
+            //if robot is moving backwards
+            if (Robot.oi.driverPad.getRawLeftBumper()) {
+                rightJoystick -= RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
+                leftJoystick += RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
+            }
+
+            if (Robot.oi.driverPad.getRawRightBumper()) {
+                rightJoystick += RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
+                leftJoystick -= RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
+            }
+        }
+
+        //Caps the values of left and right joystick values; between -1 and 1.
+        rightJoystick = Math.min(rightJoystick, 1);
+        rightJoystick = Math.max(rightJoystick, -1);
+        leftJoystick = Math.min(leftJoystick, 1);
+        leftJoystick = Math.max(leftJoystick, -1);
+
+        Robot.drivetrain.tankDrive(leftJoystick, rightJoystick);
+
     }
-    
+
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;
