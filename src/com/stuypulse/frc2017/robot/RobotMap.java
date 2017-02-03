@@ -36,7 +36,7 @@ public interface RobotMap {
 	int BLENDER_MOTOR_PORT = -1;
 
 	int SHOOTER_MOTOR_PORT = -1;
-  
+
 	int WINCH_MOTOR_PORT = 4;
 
 	int DRIVETRAIN_ENCODER_LEFT_CHANNEL_A = -1;

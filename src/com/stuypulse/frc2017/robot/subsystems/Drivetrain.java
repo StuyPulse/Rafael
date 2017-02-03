@@ -1,7 +1,7 @@
 package com.stuypulse.frc2017.robot.subsystems;
 
 import com.stuypulse.frc2017.robot.RobotMap;
-import com.stuypulse.frc2017.robot.commands.DrivetrainTankDriveCommand;
+import com.stuypulse.frc2017.robot.commands.DrivetrainPiotrDriveCommand;
 
 import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
@@ -44,7 +44,7 @@ public class Drivetrain extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand( new DrivetrainTankDriveCommand() );
+        setDefaultCommand( new DrivetrainPiotrDriveCommand() );
     }
 
     public void tankDrive(double left, double right) {
