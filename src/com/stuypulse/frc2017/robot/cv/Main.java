@@ -14,6 +14,7 @@ public class Main {
 
     final static String BOILER_IMAGE_PATH = "/images/LED Boiler/";
     final static String LIFT_IMAGE_PATH = "/images/LED Peg/";
+    final static String LIFT_TEST_IMAGES_PATH = "/images/LiftTestImages/";
 
     final static int MAX_IMAGES = 32;
 
@@ -21,7 +22,8 @@ public class Main {
         ModuleRunner runner = new ModuleRunner(5);
         // processBoilerSamples(runner);
         // processLiftSamples(runner);
-        DeviceCaptureSource cam = Camera.initializeCamera(0);
+        // processLiftTestImages(runner);
+        DeviceCaptureSource cam = Camera.initializeCamera(1);
         runner.addMapping(cam, new LiftVision());
         VisionGui.begin(args, runner);
     }
@@ -52,6 +54,14 @@ public class Main {
         File[] samples = getFiles(LIFT_IMAGE_PATH);
         for (int i = 0; i < samples.length && i < MAX_IMAGES; i++) {
             String path = System.getProperty("user.dir") + LIFT_IMAGE_PATH + samples[i].getName();
+            runner.addMapping(new ImageCaptureSource(path), new LiftVision());
+        }
+    }
+
+    public static void processLiftTestImages(ModuleRunner runner) {
+        File[] imgs = getFiles(LIFT_TEST_IMAGES_PATH);
+        for(int i = 0; i < imgs.length && i < MAX_IMAGES; i++) {
+            String path = System.getProperty("user.dir") + LIFT_TEST_IMAGES_PATH + imgs[i].getName();
             runner.addMapping(new ImageCaptureSource(path), new LiftVision());
         }
     }
