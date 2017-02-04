@@ -1,24 +1,25 @@
 package com.stuypulse.frc2017.robot.commands;
 
 import com.stuypulse.frc2017.robot.Robot;
+import com.stuypulse.frc2017.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class ShooterAccelerateToMaxSpeedCommand extends Command {
-
-    public ShooterAccelerateToMaxSpeedCommand() {
+public class ShooterAccelerateSmartDashboardSpeedCommand extends Command {
+	
+    public ShooterAccelerateSmartDashboardSpeedCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	
-    	requires (Robot.shooter);
+    	requires(Robot.shooter);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.shooter.setSpeed(1);
+    	Robot.shooter.setSpeed(SmartDashboard.getNumber("Shooter speed", 0.0));
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -28,7 +29,7 @@ public class ShooterAccelerateToMaxSpeedCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

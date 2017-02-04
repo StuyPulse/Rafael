@@ -1,23 +1,24 @@
 package com.stuypulse.frc2017.robot.commands;
 
 import com.stuypulse.frc2017.robot.Robot;
+import com.stuypulse.frc2017.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ShooterCutPowerCommand extends Command {
+public class ShooterAccelerateIdealSpeed extends Command {
 
-    public ShooterCutPowerCommand() {
+    public ShooterAccelerateIdealSpeed() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires (Robot.shooter);
+    	requires(Robot.shooter);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.shooter.cutMotorPower();
+    	Robot.shooter.setSpeed(RobotMap.SHOOTER_IDEAL_SPEED);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -38,4 +39,3 @@ public class ShooterCutPowerCommand extends Command {
     protected void interrupted() {
     }
 }
-

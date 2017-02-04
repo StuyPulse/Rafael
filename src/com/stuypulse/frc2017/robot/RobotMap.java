@@ -1,5 +1,8 @@
 package com.stuypulse.frc2017.robot;
 
+import edu.wpi.first.wpilibj.Sendable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -36,7 +39,7 @@ public interface RobotMap {
     int BLENDER_MOTOR_PORT = -1;
 
     int SHOOTER_MOTOR_PORT = -1;
-
+    
     int WINCH_MOTOR_PORT = 4;
 
     int DRIVETRAIN_ENCODER_LEFT_CHANNEL_A = -1;
@@ -70,4 +73,7 @@ public interface RobotMap {
     double PIOTR_DRIVE_MARGIN_OF_ERROR = -0.001;
 
     double PIOTR_DRIVE_TURN_ADJUSTMENT = 0.1;
+    
+    //TODO: Find Ideal Shooter Speed
+    double SHOOTER_IDEAL_SPEED = -1;
 }

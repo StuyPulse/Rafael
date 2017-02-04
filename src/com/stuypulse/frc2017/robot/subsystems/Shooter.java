@@ -23,7 +23,7 @@ public class Shooter extends Subsystem {
 	}
 
 	// cut current to motor so it stops eventually, but doesn't apply brakes
-	public void cutMotorPower() {
+	public void stop() {
 		shooterMotor.set(0);
 	}
 

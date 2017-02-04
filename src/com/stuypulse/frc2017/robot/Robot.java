@@ -103,6 +103,9 @@ public class Robot extends IterativeRobot {
         // schedule the autonomous command (example)
         if (autonomousCommand != null)
             autonomousCommand.start();
+        
+        //TODO: Set the speed to the ideal speed when it is known
+        Robot.shooter.setSpeed(SmartDashboard.getNumber("Shooter speed", 0.0));
     }
 
     /**
@@ -146,6 +149,8 @@ public class Robot extends IterativeRobot {
         Imgcodecs.imwrite("/tmp/boiler.png", boilerFrame);
         Imgcodecs.imwrite("/tmp/lift.png", liftFrame);
         System.out.println("Wrote images");
+        
+        
     }
 
     /**
