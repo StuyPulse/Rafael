@@ -45,8 +45,8 @@ public class OI {
 		operatorPad = new Gamepad(RobotMap.OPERATOR_PAD_PORT);
 		
 		//DriverPad Bindings
-		driverPad.getRightTrigger().whenPressed(new DriveTrainLowGearCommand());
-		driverPad.getRightTrigger().whenReleased(new DriveTrainHighGearCommand());
+		driverPad.getLeftTrigger().whenPressed(new DriveTrainLowGearCommand());
+		driverPad.getLeftTrigger().whenReleased(new DriveTrainHighGearCommand());
 		
 	}
 }
