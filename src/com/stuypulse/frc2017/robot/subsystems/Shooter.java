@@ -19,9 +19,8 @@ public class Shooter extends Subsystem {
 		currentSpeed = 0.0;
 	}
 
-	public double setSpeed(double speed) {
+	public void setSpeed(double speed) {
 		shooterMotor.set(speed);
-
 	}
 	
 	public double getCurrentMotorSpeedInRPM() {
