@@ -1,20 +1,23 @@
 package com.stuypulse.frc2017.robot.commands;
 
+import com.stuypulse.frc2017.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class StopWinchMotorCommand extends Command {
+public class WinchStartMotorCommand extends Command {
 
-    public StopWinchMotorCommand() {
+    public WinchStartMotorCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        
+    	requires(Robot.winch);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.winch.startWinch();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -23,7 +26,7 @@ public class StopWinchMotorCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
