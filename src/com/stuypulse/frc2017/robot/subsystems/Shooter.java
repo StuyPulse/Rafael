@@ -1,7 +1,5 @@
 package com.stuypulse.frc2017.robot.subsystems;
 
-import static edu.stuy.robot.RobotMap;
-
 import com.ctre.CANTalon;
 import com.stuypulse.frc2017.robot.RobotMap;
 
