@@ -52,12 +52,26 @@ public class LiftMath {
      * @return Distance from camera to the reflexite strip.
      */
     public static double stripYToDistance(double stripY) {
-    	System.out.println("Argument to stripYToDistance is " + stripY);
+        //System.out.println("Argument to stripYToDistance is " + stripY);
     	double angle = 2*Camera.frameYPxToDegrees(stripY);
-    	System.out.println("Angle to stripY is " + angle + " degrees");
+        //System.out.println("Angle to stripY is " + angle + " degrees");
         return (LIFT_TARGET_Y - CAMERA_Y) / Math.tan(Math.toRadians(angle));
         //return ((LIFT_TARGET_Y - CAMERA_Y) * CVConstants.CAMERA_FOCAL_LENGTH_X)
         //        / (stripY - (CAMERA_FRAME_PX_HEIGHT / 2) - 0.5);
+
+    }
+
+    public static double heightToDistance(double imgHeight, boolean left) {
+        double a;
+        double b;
+        if(left) {
+            a = 1.165;
+            b = 1.864;
+        } else {
+            a = 1.174;
+            b = 1.203;
+        }
+        return (CVConstants.REFLEXITE_LENGTH * CVConstants.CAMERA_FOCAL_LENGTH_Y / imgHeight - b) / a;
     }
 
     /**

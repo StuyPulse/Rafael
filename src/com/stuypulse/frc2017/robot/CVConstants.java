@@ -19,9 +19,11 @@ public interface CVConstants {
 
     double CAMERA_FRAME_PX_WIDTH = 360.0;
 
-   // double CAMERA_FOCAL_LENGTH_X = CAMERA_FRAME_PX_WIDTH / (2 * Math.tan(Math.PI / 180.0 * CAMERA_VIEWING_ANGLE_X / 2));
-    double CAMERA_FOCAL_LENGTH_X = 543.252198;
+    double REFLEXITE_LENGTH = 5.0;
+
+    double CAMERA_FOCAL_LENGTH_X = CAMERA_FRAME_PX_WIDTH / (2 * Math.tan(Math.toRadians(CAMERA_VIEWING_ANGLE_X / 2)));
+    //double CAMERA_FOCAL_LENGTH_X = 543.252198;
     
-   // double CAMERA_FOCAL_LENGTH_Y = CAMERA_FRAME_PX_HEIGHT / (2 * Math.tan(Math.PI / 180.0 * CAMERA_VIEWING_ANGLE_Y / 2));
-    double CAMERA_FOCAL_LENGTH_Y = 437.4656153;
+    double CAMERA_FOCAL_LENGTH_Y = CAMERA_FRAME_PX_HEIGHT / (2 * Math.tan(Math.toRadians(CAMERA_VIEWING_ANGLE_Y / 2)));
+    //double CAMERA_FOCAL_LENGTH_Y = 437.4656153;
 }
