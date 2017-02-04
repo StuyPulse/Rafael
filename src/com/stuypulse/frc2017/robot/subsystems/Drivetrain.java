@@ -56,7 +56,7 @@ public class Drivetrain extends Subsystem {
     	rightEncoder.setDistancePerPulse(RobotMap.DRIVETRAIN_ENCODER_INCHES_PER_PULSE);
     	
     	gyro = new AHRS(SPI.Port.kMXP);
-    	gyro.reset();
+    	resetGyro();
     }
 
     public void initDefaultCommand() {
