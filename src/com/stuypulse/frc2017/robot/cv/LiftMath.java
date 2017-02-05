@@ -4,6 +4,8 @@ import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FRAME_PX_HEIGHT;
 import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_Y;
 import static com.stuypulse.frc2017.robot.CVConstants.LIFT_TARGET_Y;
 
+import org.opencv.core.Point;
+
 import com.stuypulse.frc2017.robot.CVConstants;
 import com.stuypulse.frc2017.util.Vector;
 
@@ -61,16 +63,21 @@ public class LiftMath {
 
     }
 
+    public static double distance(Point first, Point second) {
+        return Math.sqrt(Math.pow(first.x - second.x, 2) + Math.pow(first.y - second.y, 2));
+    }
+
     public static double heightToDistance(double imgHeight, boolean left) {
-        double a;
-        double b;
+        double a = 1.0;
+        double b = 0.0;
         if(left) {
-            a = 1.165;
-            b = 1.864;
+            a = 1.122;//With Test Images: 1.165;
+            b = 1.44;//With Test Images: 5.864;
         } else {
-            a = 1.174;
-            b = 1.203;
+            a = 1.124;//With Test Images: 1.174;
+            b = 1.002;//With Test Images: 5.203;
         }
+        System.out.println(left + ": " + imgHeight);
         return (CVConstants.REFLEXITE_LENGTH * CVConstants.CAMERA_FOCAL_LENGTH_Y / imgHeight - b) / a;
     }
 

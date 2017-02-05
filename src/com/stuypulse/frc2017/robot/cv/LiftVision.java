@@ -179,6 +179,7 @@ public class LiftVision extends VisionModule {
 
         String s = "";
         if (contours.size() == 2) {
+            sortContours(contours);
 	        Vector[] vectors = getTargetVectors(contours);
 	        Point center1 = new Point(CVConstants.CAMERA_FRAME_PX_WIDTH / 2 + getCenterX(contours.get(0)), CVConstants.CAMERA_FRAME_PX_HEIGHT / 2 +  getCenterY(contours.get(0)));
 	        Point center2 = new Point(CVConstants.CAMERA_FRAME_PX_WIDTH / 2 + getCenterX(contours.get(1)), CVConstants.CAMERA_FRAME_PX_HEIGHT / 2 + getCenterY(contours.get(1)));
@@ -263,18 +264,20 @@ public class LiftVision extends VisionModule {
 
     public double getHeight(MatOfPoint points) {
         List<Point> coords = points.toList();
-        double topY = coords.get(0).y;
-        double bottomY = coords.get(0).y;
+        Point topY = coords.get(0);
+        Point bottomY = coords.get(0);
         for(int i = 0; i < coords.size(); i++) {
             if(Math.abs(getLeftMostX(points) - coords.get(i).x) <= CVConstants.LIFT_HEIGHT_X_THRESHOLD) {
-               if(coords.get(i).y > bottomY) {
-                   bottomY = coords.get(i).y;
-               } else if(coords.get(i).y < topY) {
-                   topY = coords.get(i).y;
+               if(coords.get(i).y > bottomY.y) {
+                   bottomY = coords.get(i);
+               } else if(coords.get(i).y < topY.y) {
+                   topY = coords.get(i);
                }
             }
         }
-        return bottomY - topY;
+        System.out.println(bottomY.y - topY.y);
+        //return bottomY.y - topY.y;
+        return LiftMath.distance(bottomY, topY);
     }
 
     public double getWidth(MatOfPoint points) {
@@ -314,6 +317,12 @@ public class LiftVision extends VisionModule {
         }
         return (bottomMostY + topMostY) / 2 - CVConstants.CAMERA_FRAME_PX_HEIGHT / 2;
         //return topMostY - CVConstants.CAMERA_FRAME_PX_HEIGHT / 2;
+    }
+
+    public void sortContours(ArrayList<MatOfPoint> contours) {
+        if(getLeftMostX(contours.get(0)) > getLeftMostX(contours.get(1))) {
+            contours.add(contours.remove(0));
+        }
     }
 
     public Vector[] getTargetVectors(ArrayList<MatOfPoint> contours) {

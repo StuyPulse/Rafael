@@ -13,7 +13,7 @@ public interface CVConstants {
 
     double CAMERA_VIEWING_ANGLE_Y = 34.3; // angular height of frame
 
-    double CAMERA_Y = 4.58; // TODO: SET EXACT
+    double CAMERA_Y = 7.5; // TODO: SET EXACT
 
     double CAMERA_FRAME_PX_HEIGHT = 270.0;
 
@@ -21,6 +21,7 @@ public interface CVConstants {
 
     double REFLEXITE_LENGTH = 5.0;
 
+    // TODO: HARD CODED VALUE INCORRECT
     double CAMERA_FOCAL_LENGTH_X = CAMERA_FRAME_PX_WIDTH / (2 * Math.tan(Math.toRadians(CAMERA_VIEWING_ANGLE_X / 2)));
     //double CAMERA_FOCAL_LENGTH_X = 543.252198;
     
