@@ -62,7 +62,7 @@ public interface RobotMap {
 	int PCM_4 = -1;
 	int GEAR_SHIFT = -1;
 
-    // Physical Constants
+    // Robot Physical Constants
 
     double DRIVETRAIN_ENCODER_INCHES_PER_PULSE = 23.56;
 
@@ -76,4 +76,10 @@ public interface RobotMap {
     
     //TODO: Find Ideal Shooter Speed
     double SHOOTER_IDEAL_SPEED = -1;
+    
+    // Field Physical Constants
+
+    double START_TO_MIDDLE_GEAR_DISTANCE = -1;//9.5 * 12.0;
+    double MIDDLE_REVERSE_DISTANCE = -1;
+
 }

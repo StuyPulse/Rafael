@@ -1,4 +1,4 @@
-package com.stuypulse.frc2017.robot.commands;
+package com.stuypulse.frc2017.robot.commands.auton;
 
 import com.stuypulse.frc2017.util.BoolBox;
 
