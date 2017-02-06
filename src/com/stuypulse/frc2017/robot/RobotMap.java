@@ -81,5 +81,7 @@ public interface RobotMap {
 
     double START_TO_MIDDLE_GEAR_DISTANCE = -1;//9.5 * 12.0;
     double MIDDLE_REVERSE_DISTANCE = -1;
-
+    
+    double START_TO_BASELINE_DISTANCE = -1; //114
+    double BASELINE_TO_HP_GEAR_DISTANCE = -1; //51
 }
