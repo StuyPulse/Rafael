@@ -160,6 +160,8 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        SmartDashboard.putDouble("IRDistance", irsensor.getDistance());
+        SmartDashboard.putDouble("IRVoltage", irsensor.getVoltage());
     }
 
     /**

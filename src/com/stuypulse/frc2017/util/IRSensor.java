@@ -19,14 +19,14 @@ public class IRSensor {
     }
     
     public double getDistance() {
-        return (12.23368994 * (Math.pow(getVoltage(), -.9779601588)));
+        return (0.393701 * (12.23368994 * (Math.pow(getVoltage(), -.9779601588))));
     }
     public double getVoltage() {
         return distanceSensor.getVoltage();
     }
-    
-    public boolean hasGear() {
-        return getDistance() > IR_SENSOR_THRESHOLD;
+
+    public boolean gearInMechanism() {
+        return getDistance() < IR_SENSOR_THRESHOLD;
     }
     
 }

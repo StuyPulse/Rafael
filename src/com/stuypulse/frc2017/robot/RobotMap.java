@@ -72,10 +72,15 @@ public interface RobotMap {
     double PIOTR_DRIVE_MARGIN_OF_ERROR = -0.001;
 
     double PIOTR_DRIVE_TURN_ADJUSTMENT = 0.1;
-    
-    double IR_SENSOR_THRESHOLD = 1;
-    
-    double IR_SENSOR_FACTOR = 12.23368994;
+
     
     double IR_SENSOR_EXPONENT = -.9779601588;
+    // Field Physical Constants
+
+    double START_TO_MIDDLE_GEAR_DISTANCE = -1;//9.5 * 12.0;
+    double MIDDLE_REVERSE_DISTANCE = -1;
+
+    double IR_SENSOR_THRESHOLD = 4.5;
+    
+    double IR_SENSOR_FACTOR = 12.23368994;
 }
