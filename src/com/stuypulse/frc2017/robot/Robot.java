@@ -11,6 +11,7 @@ import com.stuypulse.frc2017.robot.subsystems.Drivetrain;
 import com.stuypulse.frc2017.robot.subsystems.GearPusher;
 import com.stuypulse.frc2017.robot.subsystems.GearTrap;
 import com.stuypulse.frc2017.robot.subsystems.Shooter;
+import com.stuypulse.frc2017.util.IRSensor;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.UsbCamera;
@@ -44,7 +45,9 @@ public class Robot extends IterativeRobot {
 
     UsbCamera boilerCamera;
     UsbCamera liftCamera;
-
+    
+    IRSensor irsensor;
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -55,6 +58,7 @@ public class Robot extends IterativeRobot {
         shooter = new Shooter();
         blender = new Blender();
         oi = new OI();
+        irsensor = new IRSensor();
         // chooser.addDefault("Default Auto", new ExampleCommand());
         // chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
@@ -76,6 +80,8 @@ public class Robot extends IterativeRobot {
     @Override
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
+        SmartDashboard.putDouble("IRDistance", irsensor.getDistance());
+        SmartDashboard.putDouble("IRVoltage", irsensor.getVoltage());
     }
 
     /**

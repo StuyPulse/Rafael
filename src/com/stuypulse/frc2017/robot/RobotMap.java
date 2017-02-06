@@ -33,31 +33,33 @@ public interface RobotMap {
     int BACK_LEFT_MOTOR_PORT = 0;
     int BACK_RIGHT_MOTOR_PORT = 2;
 
-    int BLENDER_MOTOR_PORT = -1;
+    int BLENDER_MOTOR_PORT = 6;
 
-    int SHOOTER_MOTOR_PORT = -1;
+    int SHOOTER_MOTOR_PORT = 5;
 
     int WINCH_MOTOR_PORT = 4;
 
-    int DRIVETRAIN_ENCODER_LEFT_CHANNEL_A = -1;
-    int DRIVETRAIN_ENCODER_LEFT_CHANNEL_B = -1;
-    int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_A = -1;
-    int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_B = -1;
+    int IR_SENSOR_PORT = 0; 
+    
+    int DRIVETRAIN_ENCODER_LEFT_CHANNEL_A = 1;
+    int DRIVETRAIN_ENCODER_LEFT_CHANNEL_B = 2;
+    int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_A = 3;
+    int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_B = 4;
 
-	int GEAR_TRAP_RIGHT_SOLENOID_PORT = -1;
-	int GEAR_TRAP_LEFT_SOLENOID_PORT = -1;
-	int GEAR_PUSHER_SOLENOID_PORT = -1;	
-	int BALL_GATE_SOLENOID_PORT = -1;
-	int GEAR_SHIFT_SOLENOID_PORT = -1;
+	int GEAR_TRAP_RIGHT_SOLENOID_PORT = 1;
+	int GEAR_TRAP_LEFT_SOLENOID_PORT = 2;
+	int GEAR_PUSHER_SOLENOID_PORT = 3;	
+	int BALL_GATE_SOLENOID_PORT = 4;
+	int GEAR_SHIFT_SOLENOID_PORT = 5;
 
 
     // Solenoid Channels
 
-	int PCM_1 = -1;
-	int PCM_2 = -1;
-	int PCM_3 = -1;
-	int PCM_4 = -1;
-	int GEAR_SHIFT = -1;
+	int PCM_1 = 5;
+	int PCM_2 = 6;
+	int PCM_3 = 7;
+	int PCM_4 = 8;
+	int GEAR_SHIFT = 4;
 
     // Physical Constants
 
@@ -70,4 +72,10 @@ public interface RobotMap {
     double PIOTR_DRIVE_MARGIN_OF_ERROR = -0.001;
 
     double PIOTR_DRIVE_TURN_ADJUSTMENT = 0.1;
+    
+    double IR_SENSOR_THRESHOLD = 1;
+    
+    double IR_SENSOR_FACTOR = 12.23368994;
+    
+    double IR_SENSOR_EXPONENT = -.9779601588;
 }
