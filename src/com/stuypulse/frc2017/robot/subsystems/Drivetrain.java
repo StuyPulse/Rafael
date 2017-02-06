@@ -108,5 +108,14 @@ public class Drivetrain extends Subsystem {
     	shifted = !shifted;
     	manualGearShift(shifted);
     }
+    
+    //TODO: Edit the boolean with the correct value for each gear setting.
+    public void highGearShift() {
+    	gearShift.set(true); 
+    }
+    
+    public void lowGearShift() {
+    	gearShift.set(false);
+    }
 
 }

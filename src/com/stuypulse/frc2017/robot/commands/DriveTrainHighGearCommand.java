@@ -7,27 +7,26 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class BlenderUnjamCommand extends Command {
+public class DriveTrainHighGearCommand extends Command {
 
-    public BlenderUnjamCommand() {
+    public DriveTrainHighGearCommand() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.blender);
+        // eg. requires(chassis);
+    	requires(Robot.drivetrain);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
+    	Robot.drivetrain.highGearShift();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        //This makes the blender unjam (see the title)
-    	Robot.blender.run(false);	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return !Robot.blender.isJammed();
+        return true;
     }
 
     // Called once after isFinished returns true

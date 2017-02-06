@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import com.stuypulse.frc2017.robot.RobotMap;
 
 /**
- what if i told you that there's more to the internet than memes and youtube
+ *
  */
 
 public class DrivetrainPiotrDriveCommand extends Command {
@@ -57,7 +57,6 @@ public class DrivetrainPiotrDriveCommand extends Command {
         leftJoystick = Math.max(leftJoystick, -1);
 
         Robot.drivetrain.tankDrive(leftJoystick, rightJoystick);
-
     }
 
     // Make this return true when this Command no longer needs to run execute()

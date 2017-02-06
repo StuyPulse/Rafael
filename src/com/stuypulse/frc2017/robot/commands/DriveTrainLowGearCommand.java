@@ -7,17 +7,17 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ShooterCutPowerCommand extends Command {
+public class DriveTrainLowGearCommand extends Command {
 
-    public ShooterCutPowerCommand() {
+    public DriveTrainLowGearCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires (Robot.shooter);
+    	requires(Robot.drivetrain);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.shooter.cutMotorPower();
+    	Robot.drivetrain.lowGearShift();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -38,4 +38,3 @@ public class ShooterCutPowerCommand extends Command {
     protected void interrupted() {
     }
 }
-

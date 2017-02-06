@@ -11,7 +11,11 @@ import com.stuypulse.frc2017.robot.subsystems.Drivetrain;
 import com.stuypulse.frc2017.robot.subsystems.GearPusher;
 import com.stuypulse.frc2017.robot.subsystems.GearTrap;
 import com.stuypulse.frc2017.robot.subsystems.Shooter;
+<<<<<<< HEAD
 import com.stuypulse.frc2017.util.IRSensor;
+=======
+import com.stuypulse.frc2017.robot.subsystems.Winch;
+>>>>>>> 639b236244a594e0c2f28ff2506ed5a32096035d
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.UsbCamera;
@@ -37,6 +41,7 @@ public class Robot extends IterativeRobot {
     public static Shooter shooter;
     public static Blender blender;
     public static BallGate ballgate;
+    public static Winch winch;
 
     public static OI oi;
 
@@ -57,6 +62,10 @@ public class Robot extends IterativeRobot {
         drivetrain = new Drivetrain();
         shooter = new Shooter();
         blender = new Blender();
+        geartrap = new GearTrap();
+        gearpusher = new GearPusher();
+        ballgate = new BallGate();
+        winch = new Winch();
         oi = new OI();
         irsensor = new IRSensor();
         // chooser.addDefault("Default Auto", new ExampleCommand());
@@ -109,6 +118,9 @@ public class Robot extends IterativeRobot {
         // schedule the autonomous command (example)
         if (autonomousCommand != null)
             autonomousCommand.start();
+        
+        //TODO: Set the speed to the ideal speed when it is known
+        Robot.shooter.setSpeed(SmartDashboard.getNumber("Shooter speed", 0.0));
     }
 
     /**
@@ -152,6 +164,8 @@ public class Robot extends IterativeRobot {
         Imgcodecs.imwrite("/tmp/boiler.png", boilerFrame);
         Imgcodecs.imwrite("/tmp/lift.png", liftFrame);
         System.out.println("Wrote images");
+        
+        
     }
 
     /**
@@ -162,6 +176,7 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         SmartDashboard.putDouble("IRDistance", irsensor.getDistance());
         SmartDashboard.putDouble("IRVoltage", irsensor.getVoltage());
+        blender.updateCurrentValue();
     }
 
     /**

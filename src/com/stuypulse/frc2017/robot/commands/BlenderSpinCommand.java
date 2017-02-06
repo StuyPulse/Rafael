@@ -12,6 +12,7 @@ public class BlenderSpinCommand extends Command {
     public BlenderSpinCommand() {
     // Use requires() here to declare subsystem dependencies
          requires(Robot.blender);
+         requires(Robot.ballgate);
     }
 
     // Called just before this Command runs the first time

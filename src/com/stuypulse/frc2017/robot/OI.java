@@ -1,5 +1,8 @@
 package com.stuypulse.frc2017.robot;
 
+import com.stuypulse.frc2017.robot.commands.BlenderUnjamCommand;
+import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
+import com.stuypulse.frc2017.robot.commands.DriveTrainLowGearCommand;
 import com.stuypulse.frc2017.util.Gamepad;
 
 /**
@@ -35,5 +38,17 @@ public class OI {
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
 
-	public Gamepad driverPad = new Gamepad(RobotMap.DRIVER_PAD_PORT);
+	public Gamepad driverPad;
+	public Gamepad operatorPad;
+	
+	public OI() {
+		driverPad = new Gamepad(RobotMap.DRIVER_PAD_PORT);
+		operatorPad = new Gamepad(RobotMap.OPERATOR_PAD_PORT);
+		
+		//DriverPad Bindings
+		driverPad.getLeftTrigger().whenPressed(new DriveTrainLowGearCommand());
+		driverPad.getLeftTrigger().whenReleased(new DriveTrainHighGearCommand());
+		
+		
+	}
 }

@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveTrainGearShiftCommand extends Command {
+public class DriveTrainGearShiftToggleCommand extends Command {
 
-    public DriveTrainGearShiftCommand() {
+    public DriveTrainGearShiftToggleCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.drivetrain);
