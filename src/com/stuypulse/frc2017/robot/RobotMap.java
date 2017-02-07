@@ -81,5 +81,8 @@ public interface RobotMap {
 
     double START_TO_MIDDLE_GEAR_DISTANCE = -1;//9.5 * 12.0;
     double MIDDLE_REVERSE_DISTANCE = -1;
-
+    double BOILER_GEAR_TO_HP_EXIT_ANGLE = -1;
+    double BOILER_GEAR_TO_HP_EXIT_DISTANCE = -1;
+    double BOILER_GEAR_T0_HP_NEUTRAL_ZONE_ROTATE_ANGLE = -1;
+    double HP_ENTER_DISTANCE = -1;
 }
