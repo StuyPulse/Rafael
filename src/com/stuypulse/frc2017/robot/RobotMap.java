@@ -1,11 +1,5 @@
 package com.stuypulse.frc2017.robot;
 
-import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
-import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
-import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
-import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
-import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
-
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -87,12 +81,7 @@ public interface RobotMap {
 	double BOILER_GEAR_TURN_TO_BOILER_GEAR_ANGLE = -1;
 	double AFTER_TURN_TO_BOILER_GEAR_DISTANCE = -1;
 	double BOILER_GEAR_REVERSE_DISTANCE = -1;
-	
-	double START_TO_HP_GEAR_TURN_DISTANCE = -1;
-	double HP_GEAR_TURN_TO_HP_GEAR_ANGLE = -1;
-	double AFTER_TURN_TO_HP_GEAR_DISTANCE = -1;
-	double HP_GEAR_REVERSE_DISTANCE = -1;
-	
+
 	double START_TO_MIDDLE_GEAR_DISTANCE = -1;// 9.5 * 12.0;
 	double MIDDLE_GEAR_REVERSE_DISTANCE = -1;
 
@@ -101,8 +90,10 @@ public interface RobotMap {
 	double BOILER_GEAR_NEUTRAL_ZONE_TO_HP_ANGLE = -1;
 	double BOILER_GEAR_NEUTRAL_ZONE_TO_HP_DISTANCE = -1;
 
-	double HP_GEAR_TO_NEUTRAL_ZONE_ANGLE = -1;
-	double HP_GEAR_TO_NEUTRAL_ZONE_DISTANCE = -1;
+	double HP_GEAR_TO_BOILER_EXIT_ANGLE = -1;
+	double HP_GEAR_TO_BOILER_EXIT_DISTANCE = -1;
+	double HP_GEAR_TO_HP_NEUTRAL_ZONE_ROTATE_ANGLE = -1;
+	double HP_GEAR_TO_HP_ENTER_DISTANCE = -1;
 
 	double START_TO_BASELINE_DISTANCE = -1; // 114
 	double BASELINE_TO_HP_GEAR_DISTANCE = -1; // 51
@@ -113,6 +104,12 @@ public interface RobotMap {
 	double AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_ANGLE = -1;
 	double AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_DISTANCE = -1;
 	
+	double START_TO_MOBILITY_TURN_DISTANCE = -1;
+	double START_TO_MOBILITY_TURN_ANGLE = -1;
+	double MOBILITY_TURN_DISTANCE = -1;
+	double MOBILITY_TURN_ANGLE = -1;
+	double END_MOBILITY_TURN_DISTANCE = -1; 
+	double MOBILITY_DISTANCE = -1; 
 	// Delete the following, if they are not used (which they probably aren't)
 	//double NEUTRAL_ZONE_BOILER_SIDE_TO_HP_ANGLE = -1;
 	//double NEUTRAL_ZONE_BOILER_SIDE_TO_HP_DISTANCE = -1;
