@@ -16,10 +16,7 @@ public class ApproachHPFromHPGearCommand extends CommandGroup {
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
         // these will run in order.
-        addSequential(new RotateDegreesGyroCommand(RobotMap.HP_GEAR_TO_NEUTRAL_ZONE_ANGLE));
-		addSequential(new DriveForwardEncodersCommand(RobotMap.HP_GEAR_TO_NEUTRAL_ZONE_DISTANCE));
-    	// TODO: YELL AT THE PERSON WHO MADE THIS.
-    	
+         	
         // To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());
@@ -30,6 +27,8 @@ public class ApproachHPFromHPGearCommand extends CommandGroup {
         // would require.
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
-        // arm.
+        // arm. 
+    	addSequential(new RotateDegreesGyroCommand(RobotMap.HP_GEAR_TO_NEUTRAL_ZONE_ANGLE));
+		addSequential(new DriveForwardEncodersCommand(RobotMap.HP_GEAR_TO_NEUTRAL_ZONE_DISTANCE));  
     }
 }
