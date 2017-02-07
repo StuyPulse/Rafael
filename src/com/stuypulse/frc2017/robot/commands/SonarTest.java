@@ -21,8 +21,8 @@ public class SonarTest extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        System.out.println("One: " +  Robot.sonar.getRangeInchesOne());
-        System.out.println("Two: " + Robot.sonar.getRangeInchesTwo());
+        System.out.println("One: " +  Robot.sonar.getRangeInchesOne()); // Print value of sonar one
+        System.out.println("Two: " + Robot.sonar.getRangeInchesTwo()); // Print value of sonar two
         System.out.println("================================");
     }
 
