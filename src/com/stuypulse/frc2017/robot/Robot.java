@@ -12,6 +12,7 @@ import com.stuypulse.frc2017.robot.subsystems.GearPusher;
 import com.stuypulse.frc2017.robot.subsystems.GearTrap;
 import com.stuypulse.frc2017.robot.subsystems.Shooter;
 import com.stuypulse.frc2017.robot.subsystems.Winch;
+import com.stuypulse.frc2017.util.IRSensor;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.UsbCamera;
@@ -166,6 +167,9 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         blender.updateCurrentValue();
+        if (IRSensor.gearCheckTime()){
+            Robot.gearpusher.extend();
+        }
     }
 
     /**
