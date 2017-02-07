@@ -16,7 +16,7 @@ public class ApproachHPFromHPGearCommand extends CommandGroup {
         //      addSequential(new Command2());
         // these will run in order.
     	addSequential(new RotateDegreesGyroCommand(-60));
-    	addSequential(new DriveForwardEncodersCommand(VARIABLE));
+    	// TODO: complete
     	
         // To run multiple commands at the same time,
         // use addParallel()
