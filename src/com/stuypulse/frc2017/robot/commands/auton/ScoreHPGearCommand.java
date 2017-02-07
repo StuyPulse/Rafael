@@ -1,6 +1,5 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
-import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
@@ -12,14 +11,21 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class ScoreBoilerGearCommand extends CommandGroup {
+public class ScoreHPGearCommand extends CommandGroup {
     
-    public  ScoreBoilerGearCommand() {
+    public  ScoreHPGearCommand() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
         // these will run in order.
-
+    	
+    	addSequential(new DriveForwardEncodersCommand(114));
+    	addSequential(new RotateDegreesGyroCommand(60));
+    	addSequential(new DriveForwardEncodersCommand(51));
+    	addSequential(new GearTrapReleaseGearCommand());
+    	addSequential(new GearPusherRetractGearCommand());
+    	addSequential(new DriveForwardEncodersCommand(-51));
+    	addSequential(new GearTrapTrapGearCommand());
         // To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());
@@ -28,15 +34,8 @@ public class ScoreBoilerGearCommand extends CommandGroup {
 
         // A command group will require all of the subsystems that each member
         // would require.
-        // e.g. if Command1 requires 	chassis, and Command2 requires arm,
+        // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new DriveForwardEncodersCommand(RobotMap.START_TO_BOILER_GEAR_DISTANCE));
-    	addSequential(new RotateDegreesGyroCommand(RobotMap.START_TO_BOILER_GEAR_ANGLE));
-    	addSequential(new DriveForwardEncodersCommand(RobotMap.AFTER_TURN_TO_BOILER_GEAR_DISTANCE));
-    	addSequential(new GearTrapReleaseGearCommand());
-    	addSequential(new GearPusherRetractGearCommand());
-    	addSequential(new GearTrapTrapGearCommand());
-    	addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_TO_TURN_DISTANCE));
     }
 }

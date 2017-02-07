@@ -77,9 +77,15 @@ public interface RobotMap {
     //TODO: Find Ideal Shooter Speed
     double SHOOTER_IDEAL_SPEED = -1;
     
-    //Field Constants?
+    // Field Physical Constants
     double START_TO_BOILER_GEAR_DISTANCE = -1;
     double START_TO_BOILER_GEAR_ANGLE = -1;
     double AFTER_TURN_TO_BOILER_GEAR_DISTANCE = -1;
     double BOILER_GEAR_TO_TURN_DISTANCE = -1;
+    
+    double START_TO_MIDDLE_GEAR_DISTANCE = -1;//9.5 * 12.0;
+    double MIDDLE_REVERSE_DISTANCE = -1;
+    double START_TO_BASELINE_DISTANCE = -1; //114
+    double BASELINE_TO_HP_GEAR_DISTANCE = -1; //51
+
 }
