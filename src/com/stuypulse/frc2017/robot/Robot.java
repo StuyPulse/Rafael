@@ -5,7 +5,13 @@ import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
 import com.stuypulse.frc2017.robot.cv.Camera;
+import com.stuypulse.frc2017.robot.subsystems.BallGate;
+import com.stuypulse.frc2017.robot.subsystems.Blender;
 import com.stuypulse.frc2017.robot.subsystems.Drivetrain;
+import com.stuypulse.frc2017.robot.subsystems.GearPusher;
+import com.stuypulse.frc2017.robot.subsystems.GearTrap;
+import com.stuypulse.frc2017.robot.subsystems.Shooter;
+import com.stuypulse.frc2017.robot.subsystems.Winch;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.UsbCamera;
@@ -26,6 +32,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
     public static Drivetrain drivetrain;
+    public static GearPusher gearpusher;
+    public static GearTrap geartrap;
+    public static Shooter shooter;
+    public static Blender blender;
+    public static BallGate ballgate;
+    public static Winch winch;
 
     public static OI oi;
 
@@ -42,6 +54,12 @@ public class Robot extends IterativeRobot {
     @Override
     public void robotInit() {
         drivetrain = new Drivetrain();
+        shooter = new Shooter();
+        blender = new Blender();
+        geartrap = new GearTrap();
+        gearpusher = new GearPusher();
+        ballgate = new BallGate();
+        winch = new Winch();
         oi = new OI();
         // chooser.addDefault("Default Auto", new ExampleCommand());
         // chooser.addObject("My Auto", new MyAutoCommand());
@@ -91,6 +109,9 @@ public class Robot extends IterativeRobot {
         // schedule the autonomous command (example)
         if (autonomousCommand != null)
             autonomousCommand.start();
+        
+        //TODO: Set the speed to the ideal speed when it is known
+        Robot.shooter.setSpeed(SmartDashboard.getNumber("Shooter speed", 0.0));
     }
 
     /**
@@ -134,6 +155,8 @@ public class Robot extends IterativeRobot {
         Imgcodecs.imwrite("/tmp/boiler.png", boilerFrame);
         Imgcodecs.imwrite("/tmp/lift.png", liftFrame);
         System.out.println("Wrote images");
+        
+        
     }
 
     /**
@@ -142,6 +165,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        blender.updateCurrentValue();
     }
 
     /**

@@ -2,6 +2,8 @@ package com.stuypulse.frc2017.robot.cv;
 
 import java.io.File;
 
+import org.opencv.core.Core;
+
 import stuyvision.VisionModule;
 import stuyvision.ModuleRunner;
 import stuyvision.capture.CaptureSource.ResizeDimension;
