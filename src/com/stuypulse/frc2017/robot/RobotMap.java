@@ -62,7 +62,7 @@ public interface RobotMap {
 	int PCM_4 = -1;
 	int GEAR_SHIFT = -1;
 
-    // Robot Physical Constants
+    // Physical Constants
 
     double DRIVETRAIN_ENCODER_INCHES_PER_PULSE = 23.56;
 
@@ -78,11 +78,19 @@ public interface RobotMap {
     double SHOOTER_IDEAL_SPEED = -1;
     
     // Field Physical Constants
-
+    double START_TO_BOILER_GEAR_DISTANCE = -1;
+    double START_TO_BOILER_GEAR_ANGLE = -1;
+    double AFTER_TURN_TO_BOILER_GEAR_DISTANCE = -1;
+    double BOILER_GEAR_TO_TURN_DISTANCE = -1;
+    
     double START_TO_MIDDLE_GEAR_DISTANCE = -1;//9.5 * 12.0;
     double MIDDLE_REVERSE_DISTANCE = -1;
+
     double BOILER_GEAR_TO_HP_EXIT_ANGLE = -1;
     double BOILER_GEAR_TO_HP_EXIT_DISTANCE = -1;
     double BOILER_GEAR_T0_HP_NEUTRAL_ZONE_ROTATE_ANGLE = -1;
     double HP_ENTER_DISTANCE = -1;
+
+    double START_TO_BASELINE_DISTANCE = -1; //114
+    double BASELINE_TO_HP_GEAR_DISTANCE = -1; //51
 }

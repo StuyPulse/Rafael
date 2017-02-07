@@ -10,24 +10,24 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveForwardCommand extends Command {
 
-	private double distance;
-	private double time;
-	private double speed;
+	private double distanceInInches;
+	private double timeInSeconds;
+	private double motorSpeed;
 	
 	private double startTime;
 
     public DriveForwardCommand(double distance, double time, double speed) {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.drivetrain);
-        this.distance = distance;
-        this.time = time;
-        this.speed = speed;
+        this.distanceInInches = distance;
+        this.timeInSeconds = time;
+        this.motorSpeed = speed;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	startTime = Timer.getFPGATimestamp();
-    	Robot.drivetrain.tankDrive(speed, speed);
+    	Robot.drivetrain.tankDrive(motorSpeed, motorSpeed);
     	Robot.drivetrain.resetEncoders();
     }
 
@@ -37,8 +37,8 @@ public class DriveForwardCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (Robot.drivetrain.encoderDistance() >= distance
-        		|| Timer.getFPGATimestamp() - startTime >= time);
+        return (Robot.drivetrain.encoderDistance() >= distanceInInches
+        		|| Timer.getFPGATimestamp() - startTime >= timeInSeconds);
     }
 
     // Called once after isFinished returns true
