@@ -11,11 +11,9 @@ import com.stuypulse.frc2017.robot.subsystems.Drivetrain;
 import com.stuypulse.frc2017.robot.subsystems.GearPusher;
 import com.stuypulse.frc2017.robot.subsystems.GearTrap;
 import com.stuypulse.frc2017.robot.subsystems.Shooter;
-<<<<<<< HEAD
 import com.stuypulse.frc2017.util.IRSensor;
-=======
+
 import com.stuypulse.frc2017.robot.subsystems.Winch;
->>>>>>> 639b236244a594e0c2f28ff2506ed5a32096035d
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.UsbCamera;

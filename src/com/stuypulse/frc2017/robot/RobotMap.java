@@ -38,13 +38,8 @@ public interface RobotMap {
 
     int BLENDER_MOTOR_PORT = 6;
 
-<<<<<<< HEAD
     int SHOOTER_MOTOR_PORT = 5;
-
-=======
-    int SHOOTER_MOTOR_PORT = -1;
     
->>>>>>> 639b236244a594e0c2f28ff2506ed5a32096035d
     int WINCH_MOTOR_PORT = 4;
 
     int IR_SENSOR_PORT = 0; 
