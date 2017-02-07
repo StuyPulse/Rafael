@@ -28,12 +28,9 @@ public class ApproachHPFromMiddleGearCommand extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-        addSequential(new RotateDegreesGyroCommand(RobotMap.MIDDLE_GEAR_TO_AIRSHIP_BOILER_SIDE_ANGLE));
-        addSequential(new DriveForwardEncodersCommand(RobotMap.MIDDLE_GEAR_TO_AIRSHIP_BOILER_SIDE_DISTANCE));
-        addSequential(new RotateDegreesGyroCommand(RobotMap.AIRSHIP_BOILER_SIDE_TO_NEUTRAL_ZONE_ANGLE));
-        addSequential(new DriveForwardEncodersCommand(RobotMap.AIRSHIP_BOILER_SIDE_TO_NEUTRAL_ZONE_DISTANCE));
-        addSequential(new RotateDegreesGyroCommand(RobotMap.NEUTRAL_ZONE_BOILER_SIDE_TO_HP_ANGLE));
-        addSequential(new DriveForwardEncodersCommand(RobotMap.NEUTRAL_ZONE_BOILER_SIDE_TO_HP_DISTANCE));
-        
+        addSequential(new RotateDegreesGyroCommand(RobotMap.MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_ANGLE));
+        addSequential(new DriveForwardEncodersCommand(RobotMap.MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_DISTANCE));
+        addSequential(new RotateDegreesGyroCommand(RobotMap.AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_ANGLE));
+        addSequential(new DriveForwardEncodersCommand(RobotMap.AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_DISTANCE));
     }
 }

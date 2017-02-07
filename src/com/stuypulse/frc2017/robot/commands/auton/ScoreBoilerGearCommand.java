@@ -36,7 +36,7 @@ public class ScoreBoilerGearCommand extends CommandGroup {
     	addSequential(new DriveForwardEncodersCommand(RobotMap.AFTER_TURN_TO_BOILER_GEAR_DISTANCE));
     	addSequential(new GearTrapReleaseGearCommand());
     	addSequential(new GearPusherRetractGearCommand());
-    	addSequential(new GearTrapTrapGearCommand());
     	addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_REVERSE_DISTANCE));
+    	addSequential(new GearTrapTrapGearCommand());
     }
 }
