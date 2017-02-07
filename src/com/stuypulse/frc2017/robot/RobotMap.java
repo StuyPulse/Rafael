@@ -17,26 +17,23 @@ public class RobotMap {
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
-	
-    /// Distance between the sonars on the robot
-    public static double SONAR_GAP_DISTANCE = 12.75;
-    
-    /// Camera Ports
+
+        /// Camera Ports
 	public static int BOILER_CAMERA_PORT = 0;
 	public static int LIFT_CAMERA_PORT = 1;
-	
+
 	///Gamepad Ports
-	
+
 	public static final int DRIVER_PAD_PORT = 0;
 	public static final int OPERATOR_PAD_PORT = 1;
-	
+
 	/// Ports
 
 	public static final int FRONT_LEFT_MOTOR_PORT = 1;
 	public static final int FRONT_RIGHT_MOTOR_PORT = 3;
 	public static final int BACK_LEFT_MOTOR_PORT = 0;
 	public static final int BACK_RIGHT_MOTOR_PORT = 2;
-	
+
 	public static final int BLENDER_MOTOR_PORT = -1;
 
 	public static final int DRIVETRAIN_ENCODER_LEFT_CHANNEL_A = -1;
@@ -45,14 +42,13 @@ public class RobotMap {
 	public static final int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_B = -1;
 
 	public static final double DRIVETRAIN_ENCODER_INCHES_PER_PULSE = 23.56;
-	
+
 	// Sonar Ports
 	public static final int SONAR_ONE_TRIGGER_PIN = 0;
-    public static final int SONAR_ONE_ECHO_PIN = 1;
-    public static final int SONAR_TWO_TRIGGER_PIN = 2;
-    public static final int SONAR_TWO_ECHO_PIN = 3;
-    public static final int SONAR_THREE_TRIGGER_PIN = 4;
-    public static final int SONAR_THREE_ECHO_PIN = 5;
-    public static final int SONAR_FOUR_TRIGGER_PIN = 13;
-    public static final int SONAR_FOUR_ECHO_PIN = 12;
+        public static final int SONAR_ONE_ECHO_PIN = 1;
+        public static final int SONAR_TWO_TRIGGER_PIN = 2;
+        public static final int SONAR_TWO_ECHO_PIN = 3;
+
+        /// Distance between the sonars on the robot
+        public static double SONAR_GAP_DISTANCE = 12.75;
 }

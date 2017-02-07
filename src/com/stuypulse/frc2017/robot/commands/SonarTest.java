@@ -23,11 +23,6 @@ public class SonarTest extends Command {
     protected void execute() {
         System.out.println("One: " +  Robot.sonar.getRangeInchesOne());
         System.out.println("Two: " + Robot.sonar.getRangeInchesTwo());
-/*        System.out.println("Three: " +  Robot.sonar.getRangeInchesThree());
-        System.out.println("Four: " + Robot.sonar.getRangeInchesFour());*/
-//        System.out.println(Robot.sonar.activatedRight());
-//        System.out.println(Robot.sonar.activatedLeft());
-//        System.out.println("Angle: " + Robot.sonar.getAngle());
         System.out.println("================================");
     }
 
