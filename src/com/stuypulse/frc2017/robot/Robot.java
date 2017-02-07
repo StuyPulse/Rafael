@@ -7,6 +7,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 import com.stuypulse.frc2017.robot.cv.Camera;
 import com.stuypulse.frc2017.robot.subsystems.BallGate;
 import com.stuypulse.frc2017.robot.subsystems.Blender;
+import com.stuypulse.frc2017.robot.cv.LiftVision;
 import com.stuypulse.frc2017.robot.subsystems.Drivetrain;
 import com.stuypulse.frc2017.robot.subsystems.GearPusher;
 import com.stuypulse.frc2017.robot.subsystems.GearTrap;
@@ -46,6 +47,8 @@ public class Robot extends IterativeRobot {
 
     UsbCamera boilerCamera;
     UsbCamera liftCamera;
+
+    public static LiftVision liftVision;
 
     /**
      * This function is run when the robot is first started up and should be

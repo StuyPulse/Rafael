@@ -41,7 +41,8 @@ public class Camera {
      * Uses pinhole camera method.
      */
     public static double frameXPxToDegrees(double xCoor) {
-        return xCoor * CVConstants.CAMERA_VIEWING_ANGLE_X / CAMERA_FRAME_PX_WIDTH;
+        //return xCoor * CVConstants.CAMERA_VIEWING_ANGLE_X / CAMERA_FRAME_PX_WIDTH;
+        return Math.toDegrees(Math.atan(xCoor / CVConstants.CAMERA_FOCAL_LENGTH_X));
     	//return (xCoor - CAMERA_FRAME_PX_WIDTH / 2) * (CAMERA_VIEWING_ANGLE_X / CAMERA_FRAME_PX_WIDTH);
         //return (180 * Math.atan(xCoor - (CAMERA_FRAME_PX_WIDTH / 2 - 0.5)) / Math.PI)
         //        / CAMERA_FOCAL_LENGTH_X;

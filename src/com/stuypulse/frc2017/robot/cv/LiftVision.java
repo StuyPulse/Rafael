@@ -45,14 +45,22 @@ public class LiftVision extends VisionModule {
         liftCamera = Camera.initializeCamera(RobotMap.LIFT_CAMERA_PORT);
     }
 
-    public void processImage() {
+    public Vector[] processImage() {
         if (liftCamera == null) {
             initializeCamera();
         }
-        // TODO: Create non-GUI processing method and invoke here
+        Mat raw = new Mat();
+        Mat frame = new Mat();
+        liftCamera.readSized(raw, frame);
+        Vector[] targets = hsvThresholding(frame);
+        return targets;
     }
 
     public void run(Mat frame) {
+        hsvThresholding(frame);
+    }
+
+    public Vector[] hsvThresholding(Mat frame) {
         if (hasGuiApp()) {
             postImage(frame, "Original");
         }
@@ -93,7 +101,7 @@ public class LiftVision extends VisionModule {
             postImage(filtered, "Final HSV filtering");
         }
 
-        filterLift(frame, filtered);
+        Vector[] targets = filterLift(frame, filtered);
 
         // Free all mats
         for (int i = 0; i < channels.size(); i++) {
@@ -103,9 +111,13 @@ public class LiftVision extends VisionModule {
         dilateKernel.release();
         erodeKernel.release();
         filtered.release();
+
+        return targets;
     }
 
-    public void filterLift(Mat original, Mat filtered) {
+    public Vector[] filterLift(Mat original, Mat filtered) {
+
+        Vector[] targets = null;
 
         Mat drawn = original.clone();
 
@@ -180,11 +192,12 @@ public class LiftVision extends VisionModule {
         String s = "";
         if (contours.size() == 2) {
             sortContours(contours);
-	        Vector[] vectors = getTargetVectors(contours);
+	        targets = getTargetVectors(contours);
 	        Point center1 = new Point(CVConstants.CAMERA_FRAME_PX_WIDTH / 2 + getCenterX(contours.get(0)), CVConstants.CAMERA_FRAME_PX_HEIGHT / 2 +  getCenterY(contours.get(0)));
 	        Point center2 = new Point(CVConstants.CAMERA_FRAME_PX_WIDTH / 2 + getCenterX(contours.get(1)), CVConstants.CAMERA_FRAME_PX_HEIGHT / 2 + getCenterY(contours.get(1)));
 	        double height1 = getHeight(contours.get(0));
 	        double height2 = getHeight(contours.get(1));
+	        System.out.println(LiftMath.stripXToAngle(getCenterX(contours.get(0))) + "\n" + LiftMath.stripXToAngle(getCenterX(contours.get(1))));
 	        //System.out.println("center1: " + center1);
 	        //System.out.println("center2: " + center2);
 	        Imgproc.circle(drawn, center1, 1, new Scalar(0,0,255), 2);
@@ -223,6 +236,8 @@ public class LiftVision extends VisionModule {
         hierarchy.release();
         approxCurve.release();
         drawn.release();
+
+        return targets;
     }
 
     public boolean aspectRatioThreshold(double width, double height) {
@@ -275,7 +290,6 @@ public class LiftVision extends VisionModule {
                }
             }
         }
-        System.out.println(bottomY.y - topY.y);
         //return bottomY.y - topY.y;
         return LiftMath.distance(bottomY, topY);
     }
@@ -328,13 +342,8 @@ public class LiftVision extends VisionModule {
     public Vector[] getTargetVectors(ArrayList<MatOfPoint> contours) {
         Vector leftTarget;
         Vector rightTarget;
-    	if(getLeftMostX(contours.get(0)) < getLeftMostX(contours.get(1))) {
-    		rightTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(1)), getCenterY(contours.get(1)));
-    		leftTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(0)), getCenterY(contours.get(0)));
-    	} else {
-    		leftTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(1)), getCenterY(contours.get(1)));
-    		rightTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(0)), getCenterY(contours.get(0)));
-    	}
+        rightTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(1)), getHeight(contours.get(0)), false);
+        leftTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(0)), getHeight(contours.get(0)), true);
         return new Vector[] {leftTarget, rightTarget};
     }
     

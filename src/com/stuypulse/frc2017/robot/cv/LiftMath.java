@@ -89,10 +89,11 @@ public class LiftMath {
         return Camera.frameXPxToDegrees(stripX);
     }
 
-    public static Vector stripFramePosToPhysicalPos(double stripX, double stripY) {
+    public static Vector stripFramePosToPhysicalPos(double stripX, double imgHeight, boolean left) {
     	//System.out.println("Angle: " + stripXToAngle(stripX));
     	//System.out.println("Z: " + stripYToDistance(stripY));
         //System.out.println("Magnitude: " + stripYToDistance(stripY) / Math.cos(stripXToAngle(stripX)));
-        return Vector.fromPolar(stripXToAngle(stripX), stripYToDistance(stripY));
+        //return Vector.fromPolar(stripXToAngle(stripX), stripYToDistance(stripY));
+        return Vector.fromPolar(stripXToAngle(stripX), heightToDistance(imgHeight, left));
     }
 }
