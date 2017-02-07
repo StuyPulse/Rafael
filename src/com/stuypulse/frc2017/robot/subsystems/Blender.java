@@ -12,20 +12,16 @@ public class Blender extends Subsystem {
 
 	public static CANTalon blenderMotor;
 	public static double[] current;
-	public static boolean isJammed; 
-	public static int arraySum;
-	public static double currentArithmeticMean;
-	public static int threshold;
+	public static boolean isJammed;
+	public final int CURRENT_THRESHOLD_FOR_JAM;
 
 	public Blender() {
 		blenderMotor = new CANTalon(RobotMap.BLENDER_MOTOR_PORT);
-		
 		current = new double[15];
-		
 		isJammed = false; //Set true when blender is jammed
 		
 		//TODO: Add a threshold that when passed, will cause the UnJam command to run.
-		threshold = -1;
+		CURRENT_THRESHOLD_FOR_JAM = -1;
 	}
 	public void updateCurrentValue() {
 		for(int i = 0; i < current.length - 1; i++){
@@ -36,13 +32,13 @@ public class Blender extends Subsystem {
 	}
 	public boolean isJammed() {
 		//Finds array sum for the Average.
-		arraySum = 0;
+		int arraySum = 0;
 		for(int arrayCounter = 1; arrayCounter < 16; arrayCounter++) {
 			arraySum += current[arrayCounter];
 		} 
-		currentArithmeticMean = arraySum/current.length;
+		double currentArithmeticMean = arraySum/current.length;
 		//Checks whether the average is over the threshold for not jammed.
-		if(currentArithmeticMean > threshold) {
+		if(currentArithmeticMean > CURRENT_THRESHOLD_FOR_JAM) {
 			isJammed = true; 
 		} else {
 			isJammed = false;
