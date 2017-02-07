@@ -1,6 +1,8 @@
-package com.stuypulse.frc2017.robot.commands;
+package com.stuypulse.frc2017.robot.commands.auton;
 
 import com.stuypulse.frc2017.robot.RobotMap;
+import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
+import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
