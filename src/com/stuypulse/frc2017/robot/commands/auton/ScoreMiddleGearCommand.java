@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class ScoreMiddleGearCommand extends CommandGroup {
 
-    public ScoreMiddleGearCommand(boolean isRedAlliance) {
+    public ScoreMiddleGearCommand() {
         // To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());
