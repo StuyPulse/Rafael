@@ -31,12 +31,12 @@ public class ScoreBoilerGearCommand extends CommandGroup {
         // e.g. if Command1 requires 	chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new DriveForwardEncodersCommand(RobotMap.START_TO_BOILER_GEAR_DISTANCE));
-    	addSequential(new RotateDegreesGyroCommand(RobotMap.START_TO_BOILER_GEAR_ANGLE));
+    	addSequential(new DriveForwardEncodersCommand(RobotMap.START_TO_BOILER_GEAR_TURN_DISTANCE));
+    	addSequential(new RotateDegreesGyroCommand(RobotMap.BOILER_GEAR_TURN_TO_BOILER_GEAR_ANGLE));
     	addSequential(new DriveForwardEncodersCommand(RobotMap.AFTER_TURN_TO_BOILER_GEAR_DISTANCE));
     	addSequential(new GearTrapReleaseGearCommand());
     	addSequential(new GearPusherRetractGearCommand());
     	addSequential(new GearTrapTrapGearCommand());
-    	addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_TO_TURN_DISTANCE));
+    	addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_REVERSE_DISTANCE));
     }
 }

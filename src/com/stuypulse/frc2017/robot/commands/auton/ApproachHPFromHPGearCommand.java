@@ -1,5 +1,6 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
+import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 
@@ -15,7 +16,10 @@ public class ApproachHPFromHPGearCommand extends CommandGroup {
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
         // these will run in order.
-    	addSequential(new RotateDegreesGyroCommand(-60));
+        addSequential(new RotateDegreesGyroCommand(RobotMap.HP_GEAR_TO_BOILER_EXIT_ANGLE));//Rotates after TH
+		addSequential(new DriveForwardEncodersCommand(RobotMap.HP_GEAR_TO_BOILER_EXIT_DISTANCE));
+		addSequential(new RotateDegreesGyroCommand(RobotMap.HP_GEAR_TO_HP_NEUTRAL_ZONE_ROTATE_ANGLE));
+		addSequential(new DriveForwardEncodersCommand(RobotMap.HP_GEAR_TO_HP_ENTER_DISTANCE));
     	// TODO: complete
     	
         // To run multiple commands at the same time,

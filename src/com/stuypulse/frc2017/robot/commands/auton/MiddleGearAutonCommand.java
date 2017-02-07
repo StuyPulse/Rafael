@@ -30,7 +30,7 @@ public class MiddleGearAutonCommand extends CommandGroup {
 
     	addSequential(new DriveForwardEncodersCommand(RobotMap.START_TO_MIDDLE_GEAR_DISTANCE));
     	addSequential(new GearTrapReleaseGearCommand());
-    	addSequential(new DriveForwardEncodersCommand(RobotMap.MIDDLE_REVERSE_DISTANCE));
+    	addSequential(new DriveForwardEncodersCommand(RobotMap.MIDDLE_GEAR_REVERSE_DISTANCE));
     	addSequential(new GearPusherRetractGearCommand());
     	addSequential(new GearTrapTrapGearCommand());
     	

@@ -11,50 +11,49 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 
 public interface RobotMap {
-    // For example to map the left and right motors, you could define the
-    // following variables to use with your drivetrain subsystem.
-    // public static int leftMotor = 1;
-    // public static int rightMotor = 2;
+	// For example to map the left and right motors, you could define the
+	// following variables to use with your drivetrain subsystem.
+	// public static int leftMotor = 1;
+	// public static int rightMotor = 2;
 
-    // If you are using multiple modules, make sure to define both the port
-    // number and the module. For example you with a rangefinder:
-    // public static int rangefinderPort = 1;
-    // public static int rangefinderModule = 1;
+	// If you are using multiple modules, make sure to define both the port
+	// number and the module. For example you with a rangefinder:
+	// public static int rangefinderPort = 1;
+	// public static int rangefinderModule = 1;
 
-    int BOILER_CAMERA_PORT = 0;
-    int LIFT_CAMERA_PORT = 1;
+	int BOILER_CAMERA_PORT = 0;
+	int LIFT_CAMERA_PORT = 1;
 
-    /// Gamepad Ports
+	/// Gamepad Ports
 
-    int DRIVER_PAD_PORT = 0;
-    int OPERATOR_PAD_PORT = 1;
+	int DRIVER_PAD_PORT = 0;
+	int OPERATOR_PAD_PORT = 1;
 
-    /// Ports
+	/// Ports
 
-    int FRONT_LEFT_MOTOR_PORT = 1;
-    int FRONT_RIGHT_MOTOR_PORT = 3;
-    int BACK_LEFT_MOTOR_PORT = 0;
-    int BACK_RIGHT_MOTOR_PORT = 2;
+	int FRONT_LEFT_MOTOR_PORT = 1;
+	int FRONT_RIGHT_MOTOR_PORT = 3;
+	int BACK_LEFT_MOTOR_PORT = 0;
+	int BACK_RIGHT_MOTOR_PORT = 2;
 
-    int BLENDER_MOTOR_PORT = -1;
+	int BLENDER_MOTOR_PORT = -1;
 
-    int SHOOTER_MOTOR_PORT = -1;
-    
-    int WINCH_MOTOR_PORT = 4;
+	int SHOOTER_MOTOR_PORT = -1;
 
-    int DRIVETRAIN_ENCODER_LEFT_CHANNEL_A = -1;
-    int DRIVETRAIN_ENCODER_LEFT_CHANNEL_B = -1;
-    int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_A = -1;
-    int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_B = -1;
+	int WINCH_MOTOR_PORT = 4;
+
+	int DRIVETRAIN_ENCODER_LEFT_CHANNEL_A = -1;
+	int DRIVETRAIN_ENCODER_LEFT_CHANNEL_B = -1;
+	int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_A = -1;
+	int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_B = -1;
 
 	int GEAR_TRAP_RIGHT_SOLENOID_PORT = -1;
 	int GEAR_TRAP_LEFT_SOLENOID_PORT = -1;
-	int GEAR_PUSHER_SOLENOID_PORT = -1;	
+	int GEAR_PUSHER_SOLENOID_PORT = -1;
 	int BALL_GATE_SOLENOID_PORT = -1;
 	int GEAR_SHIFT_SOLENOID_PORT = -1;
 
-
-    // Solenoid Channels
+	// Solenoid Channels
 
 	int PCM_1 = -1;
 	int PCM_2 = -1;
@@ -62,42 +61,47 @@ public interface RobotMap {
 	int PCM_4 = -1;
 	int GEAR_SHIFT = -1;
 
-    // Physical Constants
+	// Physical Constants
 
-    double DRIVETRAIN_ENCODER_INCHES_PER_PULSE = 23.56;
+	double DRIVETRAIN_ENCODER_INCHES_PER_PULSE = 23.56;
 
-    double SHOOTER_ENCODER_MAXSPEED = -1;
+	double SHOOTER_ENCODER_MAXSPEED = -1;
 
-    double BLENDER_MOTOR_SPEED = 0.2;
-    
-    double PIOTR_DRIVE_MARGIN_OF_ERROR = -0.001;
+	double BLENDER_MOTOR_SPEED = 0.2;
 
-    double PIOTR_DRIVE_TURN_ADJUSTMENT = 0.1;
-    
-    //TODO: Find Ideal Shooter Speed
-    double SHOOTER_IDEAL_SPEED = -1;
-    
-    // Field Physical Constants
-    double START_TO_BOILER_GEAR_DISTANCE = -1;
-    double START_TO_BOILER_GEAR_ANGLE = -1;
-    double AFTER_TURN_TO_BOILER_GEAR_DISTANCE = -1;
-    double BOILER_GEAR_TO_TURN_DISTANCE = -1;
-    
-    double START_TO_MIDDLE_GEAR_DISTANCE = -1;//9.5 * 12.0;
-    double MIDDLE_REVERSE_DISTANCE = -1;
+	double PIOTR_DRIVE_MARGIN_OF_ERROR = -0.001;
 
-    double BOILER_GEAR_TO_HP_EXIT_ANGLE = -1;
-    double BOILER_GEAR_TO_HP_EXIT_DISTANCE = -1;
-    double BOILER_GEAR_T0_HP_NEUTRAL_ZONE_ROTATE_ANGLE = -1;
-    double HP_ENTER_DISTANCE = -1;
+	double PIOTR_DRIVE_TURN_ADJUSTMENT = 0.1;
 
-    double START_TO_BASELINE_DISTANCE = -1; //114
-    double BASELINE_TO_HP_GEAR_DISTANCE = -1; //51
- 
-    double MIDDLE_GEAR_TO_AIRSHIP_BOILER_SIDE_ANGLE = -1;
-    double MIDDLE_GEAR_TO_AIRSHIP_BOILER_SIDE_DISTANCE = -1;
-    double AIRSHIP_BOILER_SIDE_TO_NEUTRAL_ZONE_ANGLE =-1;
-    double AIRSHIP_BOILER_SIDE_TO_NEUTRAL_ZONE_DISTANCE = -1;
-    double NEUTRAL_ZONE_BOILER_SIDE_TO_HP_ANGLE = -1;
-    double NEUTRAL_ZONE_BOILER_SIDE_TO_HP_DISTANCE = -1;
+	// TODO: Find Ideal Shooter Speed
+	double SHOOTER_IDEAL_SPEED = -1;
+
+	// Field Physical Constants
+	double START_TO_BOILER_GEAR_TURN_DISTANCE = -1;
+	double BOILER_GEAR_TURN_TO_BOILER_GEAR_ANGLE = -1;
+	double AFTER_TURN_TO_BOILER_GEAR_DISTANCE = -1;
+	double BOILER_GEAR_REVERSE_DISTANCE = -1;
+
+	double START_TO_MIDDLE_GEAR_DISTANCE = -1;// 9.5 * 12.0;
+	double MIDDLE_GEAR_REVERSE_DISTANCE = -1;
+
+	double BOILER_GEAR_TO_HP_EXIT_ANGLE = -1;
+	double BOILER_GEAR_TO_HP_EXIT_DISTANCE = -1;
+	double BOILER_GEAR_T0_HP_NEUTRAL_ZONE_ROTATE_ANGLE = -1;
+	double BOILER_GEAR_TO_HP_ENTER_DISTANCE = -1;
+
+	double HP_GEAR_TO_BOILER_EXIT_ANGLE = -1;
+	double HP_GEAR_TO_BOILER_EXIT_DISTANCE = -1;
+	double HP_GEAR_TO_HP_NEUTRAL_ZONE_ROTATE_ANGLE = -1;
+	double HP_GEAR_TO_HP_ENTER_DISTANCE = -1;
+
+	double START_TO_BASELINE_DISTANCE = -1; // 114
+	double BASELINE_TO_HP_GEAR_DISTANCE = -1; // 51
+
+	double MIDDLE_GEAR_TO_AIRSHIP_BOILER_SIDE_ANGLE = -1;
+	double MIDDLE_GEAR_TO_AIRSHIP_BOILER_SIDE_DISTANCE = -1;
+	double AIRSHIP_BOILER_SIDE_TO_NEUTRAL_ZONE_ANGLE = -1;
+	double AIRSHIP_BOILER_SIDE_TO_NEUTRAL_ZONE_DISTANCE = -1;
+	double NEUTRAL_ZONE_BOILER_SIDE_TO_HP_ANGLE = -1;
+	double NEUTRAL_ZONE_BOILER_SIDE_TO_HP_DISTANCE = -1;
 }

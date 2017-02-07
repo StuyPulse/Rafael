@@ -17,6 +17,6 @@ public class ApproachHPFromBoilerGearCommand extends CommandGroup {
         addSequential(new RotateDegreesGyroCommand(RobotMap.BOILER_GEAR_TO_HP_EXIT_ANGLE));//Rotates after TH
 		addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_TO_HP_EXIT_DISTANCE));
 		addSequential(new RotateDegreesGyroCommand(RobotMap.BOILER_GEAR_T0_HP_NEUTRAL_ZONE_ROTATE_ANGLE));
-		addSequential(new DriveForwardEncodersCommand(RobotMap.HP_ENTER_DISTANCE));
+		addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_TO_HP_ENTER_DISTANCE));
     }
 }
