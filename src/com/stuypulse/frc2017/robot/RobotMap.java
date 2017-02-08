@@ -110,4 +110,5 @@ public interface RobotMap {
 	double MOBILITY_TURN_ANGLE = -1;
 	double END_MOBILITY_TURN_DISTANCE = -1; 
 	double MOBILITY_DISTANCE = -1;
+	double MOBILITY_TO_NEUTRAL_ZONE_DISTANCE = -1;
 }

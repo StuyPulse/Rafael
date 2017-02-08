@@ -28,7 +28,7 @@ public class MobilityMinimalCommand extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	
+
     	if (middleGear && isRedAlliance){
     		addSequential(new DriveForwardEncodersCommand(RobotMap.START_TO_MOBILITY_TURN_DISTANCE));
     		addSequential(new RotateDegreesGyroCommand(RobotMap.START_TO_MOBILITY_TURN_ANGLE));
