@@ -11,23 +11,18 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class ApproachHPFromBoilerGearCommand extends CommandGroup {
 
-
-
 	public ApproachHPFromBoilerGearCommand(boolean isRedAlliance) {
-        if(isRedAlliance){
-        	
-        	// Add Commands here:
-        	//addSequential(new ScoreBoilerGearCommand(Robotmap.));
-        	addSequential(new RotateDegreesGyroCommand((RobotMap.BOILER_GEAR_TO_NEUTRAL_ZONE_ANGLE)));//Rotates after TH
-			addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_TO_NEUTRAL_ZONE_DISTANCE));
-			addSequential(new RotateDegreesGyroCommand(RobotMap.BOILER_GEAR_NEUTRAL_ZONE_TO_HP_ANGLE));
-			addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_NEUTRAL_ZONE_TO_HP_DISTANCE));
-    
-        }else{
-        	addSequential(new RotateDegreesGyroCommand((RobotMap.BOILER_GEAR_TO_NEUTRAL_ZONE_ANGLE*-1)));//Rotates after TH
-    		addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_TO_NEUTRAL_ZONE_DISTANCE));
-    		addSequential(new RotateDegreesGyroCommand(RobotMap.BOILER_GEAR_NEUTRAL_ZONE_TO_HP_ANGLE*-1));
-    		addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_NEUTRAL_ZONE_TO_HP_DISTANCE));
+		double direction;
+		if (isRedAlliance) {
+			direction = 1.0;
+		} else {
+			direction = -1.0;
 		}
-    }
+		addSequential(new RotateDegreesGyroCommand(direction * RobotMap.BOILER_GEAR_TO_NEUTRAL_ZONE_ANGLE));
+		addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_TO_NEUTRAL_ZONE_DISTANCE));
+		addSequential(new RotateDegreesGyroCommand(direction *  RobotMap.BOILER_GEAR_NEUTRAL_ZONE_TO_HP_ANGLE));
+		addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_NEUTRAL_ZONE_TO_HP_DISTANCE));
+		addSequential(new RotateDegreesGyroCommand(-1.0* direction *  RobotMap.BOILER_GEAR_NEUTRAL_ZONE_TO_HP_ANGLE));
+	//we are negating the previous degree angle so that the robot is in a direction facing the HP, opposite of its previous, better for the driver during telly-op
+	}
 }
