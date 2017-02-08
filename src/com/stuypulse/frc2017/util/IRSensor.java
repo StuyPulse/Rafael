@@ -40,6 +40,8 @@ public class IRSensor {
     public static boolean gearInMechanism() {
     	return getDistance() < RobotMap.IR_SENSOR_THRESHOLD;       
     }
+    
+    // TODO: Look over logic
     public static void gearCheckTime() {
        if (gearInMechanism()){
     	   if (gearWasDetected) {

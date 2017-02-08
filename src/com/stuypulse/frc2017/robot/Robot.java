@@ -167,7 +167,6 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         blender.updateCurrentValue();
-        //TODO: Verify the IRSensor code is valid
         IRSensor.gearCheckTime();
     }
 
