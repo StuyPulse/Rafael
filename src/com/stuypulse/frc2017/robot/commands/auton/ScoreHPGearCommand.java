@@ -22,12 +22,12 @@ public class ScoreHPGearCommand extends CommandGroup {
 		} else {
 			direction = -1;
 		}
-		addSequential(new DriveForwardEncodersCommand(RobotMap.START_TO_HP_GEAR_TURN_DISTANCE));//114
-		addSequential(new RotateDegreesGyroCommand(RobotMap.HP_GEAR_TURN_TO_HP_GEAR_ANGLE * direction));//60
-		addSequential(new DriveForwardEncodersCommand(RobotMap.AFTER_TURN_TO_HP_GEAR_DISTANCE));//51
+		addSequential(new DriveForwardEncodersCommand(RobotMap.START_TO_HP_GEAR_TURN_DISTANCE));
+		addSequential(new RotateDegreesGyroCommand(RobotMap.HP_GEAR_TURN_TO_HP_GEAR_ANGLE * direction));
+		addSequential(new DriveForwardEncodersCommand(RobotMap.AFTER_TURN_TO_HP_GEAR_DISTANCE));
 		addSequential(new GearTrapReleaseGearCommand());
 		addSequential(new GearPusherRetractGearCommand());
-		addSequential(new DriveForwardEncodersCommand(RobotMap.HP_GEAR_REVERSE_DISTANCE));//-51
+		addSequential(new DriveForwardEncodersCommand(RobotMap.HP_GEAR_REVERSE_DISTANCE));
 		addSequential(new GearTrapTrapGearCommand());
     }
 }
