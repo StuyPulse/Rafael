@@ -23,11 +23,11 @@ public class ApproachHPFromHPGearCommand extends CommandGroup {
 		} else {
 			direction = -1;
 		}
-
+		
 		addSequential(new RotateDegreesGyroCommand(direction * RobotMap.HP_GEAR_TO_NEUTRAL_ZONE_ANGLE));
 		addSequential(new DriveForwardEncodersCommand(RobotMap.HP_GEAR_TO_NEUTRAL_ZONE_DISTANCE));
-		// TODO: YELL AT THE PERSON WHO MADE THIS. <- no
-
+		
+		
 		// To run multiple commands at the same time,
 		// use addParallel()
 		// e.g. addParallel(new Command1());
