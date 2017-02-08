@@ -64,11 +64,17 @@ public interface RobotMap {
 
 	double SHOOTER_ENCODER_MAXSPEED = -1;
 
-	double BLENDER_MOTOR_SPEED = 0.2;
+	double BLENDER_MOTOR_SPEED = 0.2; //TODO: Set ideal speed.
+	
+	double BLENDER_MOTOR_UNJAM_SPEED = -1.0;
+	
+	double BLENDER_MOTOR_UNJAM_TIME = 0.5;
 
 	double PIOTR_DRIVE_MARGIN_OF_ERROR = -0.001;
 
 	double PIOTR_DRIVE_TURN_ADJUSTMENT = 0.1;
+	
+	double CURRENT_THRESHOLD_FOR_JAM = 25; //Amperes
 
 	// TODO: Find Ideal Shooter Speed
 	double SHOOTER_IDEAL_SPEED = -1;

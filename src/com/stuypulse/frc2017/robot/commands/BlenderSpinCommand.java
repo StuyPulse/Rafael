@@ -18,7 +18,7 @@ public class BlenderSpinCommand extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.ballgate.open();
-    	Robot.blender.run(true);
+    	Robot.blender.run();
     }
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {

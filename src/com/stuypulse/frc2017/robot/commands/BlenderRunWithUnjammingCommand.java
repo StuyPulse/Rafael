@@ -1,6 +1,7 @@
 package com.stuypulse.frc2017.robot.commands;
 
 import com.stuypulse.frc2017.robot.Robot;
+import com.stuypulse.frc2017.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -10,41 +11,40 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class BlenderAutoCommand extends Command {
+public class BlenderRunWithUnjammingCommand extends Command {
 
-    private double motorStartTime;
-    private boolean motorStarting;
+    private double motorUnjamTime;
+    private boolean motorIsUnjamming;
     
-	public BlenderAutoCommand() {
+	public BlenderRunWithUnjammingCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.blender);
     	requires(Robot.ballgate);
-    	motorStartTime = Timer.getFPGATimestamp();
+    	motorUnjamTime = Timer.getFPGATimestamp();
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.blender.run(true);
+    	Robot.blender.run();
     	Robot.ballgate.open();
-    	motorStarting = true;
+    	motorIsUnjamming = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(Timer.getFPGATimestamp() - motorStartTime >= 2.0 ) { //TODO: Find proper wait delay (seconds).
-    		motorStarting = false;
+    	if(Timer.getFPGATimestamp() - motorUnjamTime >= RobotMap.BLENDER_MOTOR_UNJAM_TIME) {
+    		motorIsUnjamming = false;
     	}
-    	if(!motorStarting) {
-    		if(Robot.blender.isJammed) { //TODO: Decide whether to use the function isJammed(), or the variable isJammed.
-    			Robot.blender.run(false);
-    			motorStarting = true;
+    	if(!motorIsUnjamming) {
+    		if(Robot.blender.isJammed) { //isJammed is set repeatedly in TeleOP and Autonomous periodic.
+    			Robot.blender.run();
+    			motorIsUnjamming = false;
     		} else {
-    			Robot.blender.run(true);
-    			motorStarting = true;
+    			Robot.blender.setUnjamSpeed();
+    			motorIsUnjamming = true;
     		}
-    	}
-    	
+    	}	
     }
 
     // Make this return true when this Command no longer needs to run execute()
