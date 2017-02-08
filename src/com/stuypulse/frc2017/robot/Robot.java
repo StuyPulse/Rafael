@@ -1,4 +1,3 @@
-
 package com.stuypulse.frc2017.robot;
 
 import org.opencv.core.Mat;
@@ -11,9 +10,9 @@ import com.stuypulse.frc2017.robot.subsystems.Drivetrain;
 import com.stuypulse.frc2017.robot.subsystems.GearPusher;
 import com.stuypulse.frc2017.robot.subsystems.GearTrap;
 import com.stuypulse.frc2017.robot.subsystems.Shooter;
-import com.stuypulse.frc2017.util.IRSensor;
-
 import com.stuypulse.frc2017.robot.subsystems.Winch;
+import com.stuypulse.frc2017.util.IRSensor;
+import com.stuypulse.frc2017.util.Vector;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.UsbCamera;
@@ -48,9 +47,11 @@ public class Robot extends IterativeRobot {
 
     UsbCamera boilerCamera;
     UsbCamera liftCamera;
-    
+
     IRSensor irsensor;
-    
+
+    public static Vector[] cvVector;
+
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -116,7 +117,7 @@ public class Robot extends IterativeRobot {
         // schedule the autonomous command (example)
         if (autonomousCommand != null)
             autonomousCommand.start();
-        
+
         //TODO: Set the speed to the ideal speed when it is known
         Robot.shooter.setSpeed(SmartDashboard.getNumber("Shooter speed", 0.0));
     }
@@ -162,8 +163,8 @@ public class Robot extends IterativeRobot {
         Imgcodecs.imwrite("/tmp/boiler.png", boilerFrame);
         Imgcodecs.imwrite("/tmp/lift.png", liftFrame);
         System.out.println("Wrote images");
-        
-        
+
+
     }
 
     /**

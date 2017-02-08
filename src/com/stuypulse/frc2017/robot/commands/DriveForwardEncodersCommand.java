@@ -28,6 +28,6 @@ public class DriveForwardEncodersCommand extends EncoderDrivingCommand {
 
     @Override
     protected void setInchesToMove() {
-        initialInchesToMove = set ? inches : SmartDashboard.getNumber("encoder-drive-inches");
+        initialInchesToMove = set ? inches : SmartDashboard.getNumber("encoder-drive-inches", 0);
     }
 }
