@@ -112,4 +112,6 @@ public interface RobotMap {
 
 	double MOBILITY_TO_NEUTRAL_ZONE_DISTANCE = -1;
 	double MOBILITY_TO_BASELINE_DISTANCE = -1;
+	
+	double BACK_UP_TO_SHOOT_FROM_ALLIANCE_WALL_DISTANCE = -1;
 }
