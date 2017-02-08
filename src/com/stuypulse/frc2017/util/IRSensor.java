@@ -1,10 +1,11 @@
 package com.stuypulse.frc2017.util;
 
+import java.util.Timer;
+
 import com.stuypulse.frc2017.robot.Robot;
 import com.stuypulse.frc2017.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.Timer;
 
 
 /**
@@ -12,7 +13,13 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class IRSensor {
     
-    // Put methods for controlling this subsystem
+    private static final double TRIAL_AND_ERROR_NUMBER = 12.23368994;	
+
+	private static final double EQUATION_EXPONENT = -.9779601588;
+
+	private static final double CONVERSION_FACTOR_CM_TO_INCHES = 0.393701;
+
+	// Put methods for controlling this subsystem
     // here. Call these from Commands.
     private static AnalogInput distanceSensor;
     
@@ -31,7 +38,9 @@ public class IRSensor {
     }
     
     public static double getDistance() {
-        return (0.393701 * (12.23368994 * (Math.pow(getVoltage(), -.9779601588))));
+        return (CONVERSION_FACTOR_CM_TO_INCHES * (TRIAL_AND_ERROR_NUMBER * (Math.pow(getVoltage(), EQUATION_EXPONENT))));
+        // Link to Graph of Equation 
+        // http://image.dfrobot.com/image/data/SEN0143/GP2Y0A41SK%20datasheet.pdf (pg. 4)
     }
     public static double getVoltage() {
         return distanceSensor.getVoltage();
