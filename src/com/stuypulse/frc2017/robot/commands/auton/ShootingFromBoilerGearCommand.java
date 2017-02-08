@@ -14,7 +14,7 @@ public class ShootingFromBoilerGearCommand extends CommandGroup {
 
     public ShootingFromBoilerGearCommand(boolean isRedAlliance) {
         
-        addSequential (new ScoreBoilerGearCommand(isRedAlliance));
+        
         
         int direction;
         if (isRedAlliance) {
