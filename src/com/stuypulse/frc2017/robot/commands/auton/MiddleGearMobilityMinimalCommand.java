@@ -45,6 +45,6 @@ public class MiddleGearMobilityMinimalCommand extends CommandGroup {
 		addSequential(new DriveForwardEncodersCommand(SECOND_MOBILITY_TURN_DISTANCE));
 		addSequential(new RotateDegreesGyroCommand(direction * SECOND_MOBILITY_TURN_ANGLE));
 		addSequential(new DriveForwardEncodersCommand(FINAL_MOBILITY_TURN_DISTANCE));
-    	}
     }
-}
+ }
+
