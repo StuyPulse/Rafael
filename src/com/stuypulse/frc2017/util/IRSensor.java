@@ -1,8 +1,8 @@
 package com.stuypulse.frc2017.util;
 
-import static com.stuypulse.frc2017.robot.RobotMap.IR_SENSOR_THRESHOLD;
-import static com.stuypulse.frc2017.robot.RobotMap.IR_SENSOR_PORT;   
+import com.stuypulse.frc2017.robot.RobotMap;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Timer;
 
 
 /**
@@ -14,8 +14,17 @@ public class IRSensor {
     // here. Call these from Commands.
     private static AnalogInput distanceSensor;
     
+    // Keeps track of whether the gear was previosuly detecected
+    private static boolean gearWasDetected;
+
+    // TODO: comment
+    private static Timer timeSinceEntry;
+
     public IRSensor() {
-        distanceSensor = new AnalogInput(IR_SENSOR_PORT);
+        distanceSensor = new AnalogInput(RobotMap.IR_SENSOR_PORT);
+        gearWasDetected = false;
+        timeSinceEntry = new Timer();
+        
     }
     
     public static double getDistance() {
@@ -26,20 +35,16 @@ public class IRSensor {
     }
 
     public static boolean gearInMechanism() {
-        return getDistance() < IR_SENSOR_THRESHOLD;
+        return getDistance() < RobotMap.IR_SENSOR_THRESHOLD;
     }
     public static boolean gearCheckTime() {
-        if (gearInMechanism()){
-            try {
-                Thread.sleep(501);
-                return true;
-            } catch (InterruptedException e) {
-                return false;
-            }
-            
-        }else{
-            return false;
-        }
+       if (gearInMechanism()){
+           if (gearWasDetected) {
+               if (timeSinceEntry.get() > RobotMap.IR_TIME_IN_MECHANISM_THRESHOLD) {
+                   
+               }
+           }
+       }
    }
  }
 

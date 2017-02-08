@@ -108,6 +108,6 @@ public interface RobotMap {
 	double NEUTRAL_ZONE_BOILER_SIDE_TO_HP_DISTANCE = -1;
 	
 	double IR_SENSOR_THRESHOLD = 4.5;
-	double TIME_IN_MECHANISM = 0.5;
+	double IR_TIME_IN_MECHANISM_THRESHOLD = 0.5;
 	
 }
