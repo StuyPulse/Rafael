@@ -12,22 +12,17 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class ApproachHPFromBoilerGearCommand extends CommandGroup {
 
 
-
 	public ApproachHPFromBoilerGearCommand(boolean isRedAlliance) {
-        if(isRedAlliance){
-        	
-        	// Add Commands here:
-        	//addSequential(new ScoreBoilerGearCommand(Robotmap.));
-        	addSequential(new RotateDegreesGyroCommand((RobotMap.BOILER_GEAR_TO_NEUTRAL_ZONE_ANGLE)));//Rotates after TH
-			addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_TO_NEUTRAL_ZONE_DISTANCE));
-			addSequential(new RotateDegreesGyroCommand(RobotMap.BOILER_GEAR_NEUTRAL_ZONE_TO_HP_ANGLE));
-			addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_NEUTRAL_ZONE_TO_HP_DISTANCE));
-    
-        }else{
-        	addSequential(new RotateDegreesGyroCommand((RobotMap.BOILER_GEAR_TO_NEUTRAL_ZONE_ANGLE*-1)));//Rotates after TH
-    		addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_TO_NEUTRAL_ZONE_DISTANCE));
-    		addSequential(new RotateDegreesGyroCommand(RobotMap.BOILER_GEAR_NEUTRAL_ZONE_TO_HP_ANGLE*-1));
-    		addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_NEUTRAL_ZONE_TO_HP_DISTANCE));
+		int direction;
+		if (isRedAlliance) {
+			direction = 1;
+		} else {
+			direction = -1;
 		}
-    }
+        addSequential(new RotateDegreesGyroCommand((RobotMap.BOILER_GEAR_TO_NEUTRAL_ZONE_ANGLE * direction)));
+    	addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_TO_NEUTRAL_ZONE_DISTANCE));
+    	addSequential(new RotateDegreesGyroCommand(RobotMap.BOILER_GEAR_NEUTRAL_ZONE_TO_HP_ANGLE * direction));
+    	addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_NEUTRAL_ZONE_TO_HP_DISTANCE));
+	}
 }
+
