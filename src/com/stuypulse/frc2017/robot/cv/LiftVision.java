@@ -40,6 +40,8 @@ public class LiftVision extends VisionModule {
     public DoubleSliderVariable maxGoalArea = new DoubleSliderVariable("Max Area", 10000.0, 0.0, 10000);
 
     private DeviceCaptureSource liftCamera;
+    
+    private static double cevian = 0.0;
 
     public void initializeCamera() {
         liftCamera = Camera.initializeCamera(RobotMap.LIFT_CAMERA_PORT);
@@ -200,11 +202,14 @@ public class LiftVision extends VisionModule {
 	        Point center2 = new Point(CVConstants.CAMERA_FRAME_PX_WIDTH / 2 + getCenterX(contours.get(1)), CVConstants.CAMERA_FRAME_PX_HEIGHT / 2 + getCenterY(contours.get(1)));
 	        double height1 = getHeight(contours.get(0));
 	        double height2 = getHeight(contours.get(1));
-	        System.out.println(LiftMath.stripXToAngle(getCenterX(contours.get(0))) + "\n" + LiftMath.stripXToAngle(getCenterX(contours.get(1))));
-	        //System.out.println("center1: " + center1);
-	        //System.out.println("center2: " + center2);
+	        //System.out.println(LiftMath.stripXToAngle(getCenterX(contours.get(0))) + "\n" + LiftMath.stripXToAngle(getCenterX(contours.get(1))));
+	        System.out.println("center1: " + center1);
+	        System.out.println("center2: " + center2);
+	        System.out.println("----------------------------------");
 	        Imgproc.circle(drawn, center1, 1, new Scalar(0,0,255), 2);
 	        Imgproc.circle(drawn, center2, 1, new Scalar(0,0,255), 2);
+	        Imgproc.line(drawn, new Point(0, 134.5), new Point(360, 134.5), new Scalar(0,0,255), 1);
+	        Imgproc.line(drawn, new Point(179.5, 0), new Point(179.5, 270), new Scalar(0,0,255), 1);
 	        //for(Vector v: vectors) {
 	        //    s += v + "\n";
 	        //}
@@ -352,5 +357,65 @@ public class LiftVision extends VisionModule {
     
     public DeviceCaptureSource getLiftCamera(){
         return liftCamera;
+    }
+    
+    public static void findCevian(double a, double b){
+    	cevian = Math.sqrt((4.125 * (a * a + b * b) - 68.0625) / 8.25);
+    }
+    
+    /**
+     * 
+     * @param length_1
+     * @param length_2
+     * @param angle: angle opposite of the side you trying to find (in degrees)
+     * @return The length of the side you trying to find
+     */
+    public static double lawOfCosine(double length_1, double length_2, double angle){
+    	angle = Math.toRadians(angle);
+    	return Math.sqrt(length_1 * length_1 + length_2 * length_2 - 2 * length_1 * length_2 * Math.cos(angle));
+    }
+    
+    /**
+     * 
+     * @param angle: angle between the reflexites (in degrees)
+     * @param a: Length between the reflexites (in inches)
+     * @param b: Length to the closest reflexite (in inches)
+     * @return The angle between the wall and the farthest reflexite (in degrees)
+     */
+    public static double findAngle(double angle, double a, double b){
+    	double r_angle = Math.toRadians(angle);
+    	return Math.toDegrees(Math.asin(Math.sin(r_angle) * b / a));
+    }
+    
+    public static double findAngleToBaseOfPeg(double lAngle, double rAngle){
+    	return (lAngle + rAngle) /2;
+    }
+    
+    /**
+     * 
+     * @param a: Angle between the viewing head of the camera to the farthest reflexite
+     * @param b: Angle between the wall and the farthest reflexite
+     * @param c: Angle between the viewing head of the camera to the base of the peg
+     * @param length
+     * @return The distance towards the tip of the peg
+     */
+    public static double findDistanceToLift(double a, double b, double c){
+    	double angle = 90 - (a + b - c);
+    	return lawOfCosine(CVConstants.PEG_LENGTH, cevian, angle);
+    }
+    
+    /**
+     * 
+     * @param a: Distance to the tip of the peg (in inches)
+     * @param angle: Angle between the viewing head of the camera to the base of the peg
+     * @return
+     */
+    public static double findAngleToLift(double a, double angle){
+    	return angle + Math.toDegrees(Math.acos((a * a + cevian * cevian - CVConstants.PEG_LENGTH * CVConstants.PEG_LENGTH) / (2 * a * cevian)));
+    }
+
+    public static void main(String[] args){
+    	System.out.println(findAngle(45, 1, 1));
+    	System.out.println(findAngle(30, 1, Math.sqrt(3)));
     }
 }

@@ -77,7 +77,7 @@ public class LiftMath {
             a = 1.124;//With Test Images: 1.174;
             b = 1.002;//With Test Images: 5.203;
         }
-        System.out.println(left + ": " + imgHeight);
+        //System.out.println(left + ": " + imgHeight);
         return (CVConstants.REFLEXITE_LENGTH * CVConstants.CAMERA_FOCAL_LENGTH_Y / imgHeight - b) / a;
     }
 
@@ -90,9 +90,10 @@ public class LiftMath {
     }
 
     public static Vector stripFramePosToPhysicalPos(double stripX, double imgHeight, boolean left) {
-    	//System.out.println("Angle: " + stripXToAngle(stripX));
+    	System.out.println("Angle: " + stripXToAngle(stripX));
     	//System.out.println("Z: " + stripYToDistance(stripY));
         //System.out.println("Magnitude: " + stripYToDistance(stripY) / Math.cos(stripXToAngle(stripX)));
+    	System.out.println("------------------------------------");
         //return Vector.fromPolar(stripXToAngle(stripX), stripYToDistance(stripY));
         return Vector.fromPolar(stripXToAngle(stripX), heightToDistance(imgHeight, left));
     }
