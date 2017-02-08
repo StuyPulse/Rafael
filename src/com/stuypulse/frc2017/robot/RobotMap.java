@@ -43,6 +43,9 @@ public interface RobotMap {
 	int DRIVETRAIN_ENCODER_LEFT_CHANNEL_B = -1;
 	int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_A = -1;
 	int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_B = -1;
+	
+	int BLENDER_ENCODER_CHANNEL_A = -1;
+	int BLENDER_ENCODER_CHANNEL_B = -1;
 
 	int GEAR_TRAP_RIGHT_SOLENOID_PORT = -1;
 	int GEAR_TRAP_LEFT_SOLENOID_PORT = -1;
@@ -61,6 +64,11 @@ public interface RobotMap {
 	// Physical Constants
 
 	double DRIVETRAIN_ENCODER_INCHES_PER_PULSE = 23.56;
+	
+	int BLENDER_ENCODER_PULSES_PER_REVOLUTION = 1024;
+	
+	// We use BLENDER_ENCODER_DEGREES_PER_PULSE as the encoder's distance-per-pulse.
+	double BLENDER_ENCODER_DEGREES_PER_PULSE = 360.0 / (double) BLENDER_ENCODER_PULSES_PER_REVOLUTION;
 
 	double SHOOTER_ENCODER_MAXSPEED = -1;
 
@@ -74,7 +82,9 @@ public interface RobotMap {
 
 	double PIOTR_DRIVE_TURN_ADJUSTMENT = 0.1;
 	
-	double CURRENT_THRESHOLD_FOR_JAM = 25; //Amperes
+	double BLENDER_CURRENT_THRESHOLD_FOR_JAM = 23; //Amperes
+	
+	double BLENDER_DEGREES_PER_PULSE_THRESHOLD_FOR_JAM = -1.0; //TODO: Find a suitable value for this.
 
 	// TODO: Find Ideal Shooter Speed
 	double SHOOTER_IDEAL_SPEED = -1;
