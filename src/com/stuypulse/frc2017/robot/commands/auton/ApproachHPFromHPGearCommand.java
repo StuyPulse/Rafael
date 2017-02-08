@@ -16,14 +16,17 @@ public class ApproachHPFromHPGearCommand extends CommandGroup {
 		// e.g. addSequential(new Command1());
 		// addSequential(new Command2());
 		// these will run in order.
+
+		int direction;
 		if (isRedAlliance) {
-			addSequential(new RotateDegreesGyroCommand(RobotMap.HP_GEAR_TO_NEUTRAL_ZONE_ANGLE));
-			addSequential(new DriveForwardEncodersCommand(RobotMap.HP_GEAR_TO_NEUTRAL_ZONE_DISTANCE));
+			direction = 1;
 		} else {
-			addSequential(new RotateDegreesGyroCommand(-1 * RobotMap.HP_GEAR_TO_NEUTRAL_ZONE_ANGLE));
-			addSequential(new DriveForwardEncodersCommand(RobotMap.HP_GEAR_TO_NEUTRAL_ZONE_DISTANCE));
+			direction = -1;
 		}
-		// TODO: YELL AT THE PERSON WHO MADE THIS.
+
+		addSequential(new RotateDegreesGyroCommand(direction * RobotMap.HP_GEAR_TO_NEUTRAL_ZONE_ANGLE));
+		addSequential(new DriveForwardEncodersCommand(RobotMap.HP_GEAR_TO_NEUTRAL_ZONE_DISTANCE));
+		// TODO: YELL AT THE PERSON WHO MADE THIS. <- no
 
 		// To run multiple commands at the same time,
 		// use addParallel()
