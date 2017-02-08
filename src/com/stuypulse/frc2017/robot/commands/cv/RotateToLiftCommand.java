@@ -14,12 +14,13 @@ public class RotateToLiftCommand extends GyroRotationalCommand {
         // eg. requires(chassis);
     }
 
-    private Vector[] cvReading;
+    private double[] cvReading;
 
     protected void setDesiredAngle() {
         cvReading = Robot.liftVision.processImage();
         if (cvReading != null) {
-            desiredAngle = (cvReading[0].getDegrees() + cvReading[1].getDegrees()) / 2;
+            // TODO: FIX MATH
+            desiredAngle = cvReading[0];
         } else {
             desiredAngle = 0.0;
         }

@@ -45,7 +45,7 @@ public class LiftVision extends VisionModule {
         liftCamera = Camera.initializeCamera(RobotMap.LIFT_CAMERA_PORT);
     }
 
-    public Vector[] processImage() {
+    public double[] processImage() {
         if (liftCamera == null) {
             initializeCamera();
         }
@@ -53,7 +53,10 @@ public class LiftVision extends VisionModule {
         Mat frame = new Mat();
         liftCamera.readSized(raw, frame);
         Vector[] targets = hsvThresholding(frame);
-        return targets;
+        double[] reading = null;
+        // TODO: implement finding angle and distance
+        //double[] reading = {findAngleToLift(), findDistanceToLift()};
+        return reading;
     }
 
     public void run(Mat frame) {
