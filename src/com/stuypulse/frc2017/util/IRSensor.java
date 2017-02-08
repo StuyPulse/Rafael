@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class IRSensor {
 
+	//Equation numbers 
+	//Resulted from forming an equation with graph using many coordinates and calculator
+	//Power Regression used
 	private static final double EQUATION_FACTOR = 12.23368994;
 
 	private static final double EQUATION_EXPONENT = -0.9779601588;
