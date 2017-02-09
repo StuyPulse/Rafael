@@ -1,4 +1,3 @@
-
 package com.stuypulse.frc2017.robot;
 
 import org.opencv.core.Mat;
@@ -12,6 +11,8 @@ import com.stuypulse.frc2017.robot.subsystems.GearPusher;
 import com.stuypulse.frc2017.robot.subsystems.GearTrap;
 import com.stuypulse.frc2017.robot.subsystems.Shooter;
 import com.stuypulse.frc2017.robot.subsystems.Winch;
+import com.stuypulse.frc2017.util.IRSensor;
+import com.stuypulse.frc2017.util.Vector;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.UsbCamera;
@@ -47,6 +48,10 @@ public class Robot extends IterativeRobot {
     UsbCamera boilerCamera;
     UsbCamera liftCamera;
 
+    IRSensor irsensor;
+
+    public static Vector[] cvVector;
+
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -61,6 +66,7 @@ public class Robot extends IterativeRobot {
         ballgate = new BallGate();
         winch = new Winch();
         oi = new OI();
+        irsensor = new IRSensor();
         // TODO: setup auton chooser
         SmartDashboard.putData("Auto mode", chooser);
 
@@ -81,6 +87,8 @@ public class Robot extends IterativeRobot {
     @Override
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
+        SmartDashboard.putDouble("IRDistance", irsensor.getDistance());
+        SmartDashboard.putDouble("IRVoltage", irsensor.getVoltage());
     }
 
     /**
@@ -153,7 +161,6 @@ public class Robot extends IterativeRobot {
         Imgcodecs.imwrite("/tmp/boiler.png", boilerFrame);
         Imgcodecs.imwrite("/tmp/lift.png", liftFrame);
         System.out.println("Wrote images");
-
     }
 
     /**
@@ -162,6 +169,8 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        SmartDashboard.putDouble("IRDistance", irsensor.getDistance());
+        SmartDashboard.putDouble("IRVoltage", irsensor.getVoltage());
         blender.updateCurrentValue();
     }
 
