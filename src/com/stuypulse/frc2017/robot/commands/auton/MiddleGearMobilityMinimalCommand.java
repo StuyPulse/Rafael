@@ -11,11 +11,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class MiddleGearMobilityMinimalCommand extends CommandGroup {
     
-	private double FIRST_MOBILITY_TURN_DISTANCE = -1;
-	private double FIRST_MOBILITY_TURN_ANGLE = -1;
-	private double SECOND_MOBILITY_TURN_DISTANCE = -1;
-	private double SECOND_MOBILITY_TURN_ANGLE = -1;
-	private double FINAL_MOBILITY_TURN_DISTANCE = -1;
+    private double FIRST_MOBILITY_TURN_DISTANCE = -1;
+    private double FIRST_MOBILITY_TURN_ANGLE = -1;
+    private double SECOND_MOBILITY_TURN_DISTANCE = -1;
+    private double SECOND_MOBILITY_TURN_ANGLE = -1;
+    private double FINAL_MOBILITY_TURN_DISTANCE = -1;
 	
     public  MiddleGearMobilityMinimalCommand(boolean isRedAlliance) {
         // Add Commands here:
@@ -45,6 +45,6 @@ public class MiddleGearMobilityMinimalCommand extends CommandGroup {
 		addSequential(new DriveForwardEncodersCommand(SECOND_MOBILITY_TURN_DISTANCE));
 		addSequential(new RotateDegreesGyroCommand(direction * SECOND_MOBILITY_TURN_ANGLE));
 		addSequential(new DriveForwardEncodersCommand(FINAL_MOBILITY_TURN_DISTANCE));
-    	}
     }
-}
+ }
+
