@@ -10,8 +10,7 @@ import edu.wpi.first.wpilibj.Timer;
  *
  */
 public class IRSensor {
-
-	//Equation numbers 
+	//Equation numbers
 	//Resulted from forming an equation with graph using many coordinates and calculator
 	//Power Regression used
 	private static final double EQUATION_FACTOR = 12.23368994;
@@ -20,8 +19,6 @@ public class IRSensor {
 
 	private static final double CONVERSION_FACTOR_CM_TO_INCHES = 0.393701;
 
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
 	private static AnalogInput distanceSensor;
 
 	// Create instance of a timer that we can use to keep track of how long the
@@ -31,7 +28,6 @@ public class IRSensor {
 	public IRSensor() {
 		distanceSensor = new AnalogInput(RobotMap.IR_SENSOR_PORT);
 		timeSinceEntry = new Timer();
-
 	}
 
 	public static double getDistance() {
@@ -58,7 +54,6 @@ public class IRSensor {
 				Robot.gearpusher.extend();
 				timeSinceEntry.stop();
 				timeSinceEntry.reset();
-				Robot.gearpusher.retract();
 			}
 		}
 	}
