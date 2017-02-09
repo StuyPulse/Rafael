@@ -112,4 +112,7 @@ public interface RobotMap {
 
 	double MOBILITY_TO_NEUTRAL_ZONE_DISTANCE = -1;
 	double MOBILITY_TO_BASELINE_DISTANCE = -1;
+	
+	double MIDDLE_GEAR_TO_BOILER_ANGLE = -1;
+	double MIDDLE_GEAR_TO_BOILER_DISTANCE = -1;
 }
