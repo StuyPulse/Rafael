@@ -61,8 +61,7 @@ public class Robot extends IterativeRobot {
         ballgate = new BallGate();
         winch = new Winch();
         oi = new OI();
-        // chooser.addDefault("Default Auto", new ExampleCommand());
-        // chooser.addObject("My Auto", new MyAutoCommand());
+        // TODO: setup auton chooser
         SmartDashboard.putData("Auto mode", chooser);
 
         boilerCamera = new UsbCamera("Boiler Camera", 0);
@@ -99,18 +98,13 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         autonomousCommand = chooser.getSelected();
 
-        /*
-         * String autoSelected = SmartDashboard.getString("Auto Selector",
-         * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-         * = new MyAutoCommand(); break; case "Default Auto": default:
-         * autonomousCommand = new ExampleCommand(); break; }
-         */
-
         // schedule the autonomous command (example)
-        if (autonomousCommand != null)
+        if (autonomousCommand != null) {
             autonomousCommand.start();
-        
-        //TODO: Set the speed to the ideal speed when it is known
+        }
+
+        // TODO: Set SHOOTER_IDEAL_SPEED to the ideal speed when it is known,
+        // then set shooter speed to SHOOTER_IDEAL_SPEED here.
         Robot.shooter.setSpeed(SmartDashboard.getNumber("Shooter speed", 0.0));
     }
 
@@ -129,8 +123,11 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autonomousCommand != null)
+        if (autonomousCommand != null) {
             autonomousCommand.cancel();
+        }
+
+        // TODO: Remove old camera operations used for testing
 
         boilerCamera.setResolution(160, 120);
         liftCamera.setResolution(160, 120);
@@ -156,8 +153,7 @@ public class Robot extends IterativeRobot {
         Imgcodecs.imwrite("/tmp/boiler.png", boilerFrame);
         Imgcodecs.imwrite("/tmp/lift.png", liftFrame);
         System.out.println("Wrote images");
-        
-        
+
     }
 
     /**
