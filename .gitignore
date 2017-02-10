@@ -17,3 +17,5 @@ bin/
 # Editor files
 *~
 *.sw[a-z]
+
+.DS_Store

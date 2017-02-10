@@ -8,16 +8,16 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class TurnCommand extends Command {
-    private double time;
     private double angle;
     private double speed;
+    private double time;
 
     public TurnCommand(double angle, double time, double speed) {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.drivetrain);
         this.angle = angle;
-        this.time = time;
         this.speed = speed;
+        this.time = time;
     }
 
     // Called just before this Command runs the first time

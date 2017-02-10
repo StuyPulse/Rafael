@@ -1,8 +1,5 @@
 package com.stuypulse.frc2017.robot;
 
-import edu.wpi.first.wpilibj.Sendable;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -39,41 +36,108 @@ public interface RobotMap {
     int BLENDER_MOTOR_PORT = -1;
 
     int SHOOTER_MOTOR_PORT = -1;
-    
+
     int WINCH_MOTOR_PORT = 4;
 
     int DRIVETRAIN_ENCODER_LEFT_CHANNEL_A = -1;
     int DRIVETRAIN_ENCODER_LEFT_CHANNEL_B = -1;
     int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_A = -1;
     int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_B = -1;
+    
+    int BLENDER_ENCODER_CHANNEL_A = -1;
+    int BLENDER_ENCODER_CHANNEL_B = -1;
 
-	int GEAR_TRAP_RIGHT_SOLENOID_PORT = -1;
-	int GEAR_TRAP_LEFT_SOLENOID_PORT = -1;
-	int GEAR_PUSHER_SOLENOID_PORT = -1;	
-	int BALL_GATE_SOLENOID_PORT = -1;
-	int GEAR_SHIFT_SOLENOID_PORT = -1;
+    int GEAR_TRAP_RIGHT_SOLENOID_PORT = -1;
+    int GEAR_TRAP_LEFT_SOLENOID_PORT = -1;
+    int GEAR_PUSHER_SOLENOID_PORT = -1;
+    int BALL_GATE_SOLENOID_PORT = -1;
+    int GEAR_SHIFT_SOLENOID_PORT = -1;
 
+    int IR_SENSOR_PORT = 0;
 
     // Solenoid Channels
 
-	int PCM_1 = -1;
-	int PCM_2 = -1;
-	int PCM_3 = -1;
-	int PCM_4 = -1;
-	int GEAR_SHIFT = -1;
+    int PCM_1 = 5;
+    int PCM_2 = 6;
+    int PCM_3 = 7;
+    int PCM_4 = 8;
+    int GEAR_SHIFT = 4;
 
     // Physical Constants
 
     double DRIVETRAIN_ENCODER_INCHES_PER_PULSE = 23.56;
+    
+    int BLENDER_ENCODER_PULSES_PER_REVOLUTION = 1024;
+    
+    // We use BLENDER_ENCODER_DEGREES_PER_PULSE as the encoder's distance-per-pulse.
+    double BLENDER_ENCODER_DEGREES_PER_PULSE = 360.0 / (double) BLENDER_ENCODER_PULSES_PER_REVOLUTION;
 
     double SHOOTER_ENCODER_MAXSPEED = -1;
 
-    double BLENDER_MOTOR_SPEED = 0.2;
+    double BLENDER_MOTOR_SPEED = 0.2; //TODO: Set ideal speed.
     
+    double BLENDER_MOTOR_UNJAM_SPEED = -1.0;
+    
+    double BLENDER_MOTOR_UNJAM_TIME = 0.5;
+
     double PIOTR_DRIVE_MARGIN_OF_ERROR = -0.001;
 
     double PIOTR_DRIVE_TURN_ADJUSTMENT = 0.1;
     
-    //TODO: Find Ideal Shooter Speed
+    double BLENDER_CURRENT_THRESHOLD_FOR_JAM = 23; //Amperes
+    
+    double BLENDER_DEGREES_PER_PULSE_THRESHOLD_FOR_JAM = -1.0; //TODO: Find a suitable value for this.
+
+    // TODO: Find Ideal Shooter Speed
     double SHOOTER_IDEAL_SPEED = -1;
+
+    // Field Physical Constants
+    double START_TO_BOILER_GEAR_TURN_DISTANCE = 114.3;
+    double BOILER_GEAR_TURN_TO_BOILER_GEAR_ANGLE = -60;
+    double AFTER_TURN_TO_BOILER_GEAR_DISTANCE = 51;
+    double BOILER_GEAR_REVERSE_DISTANCE = -51;
+
+    double START_TO_MIDDLE_GEAR_DISTANCE = 114.3;
+    double MIDDLE_GEAR_REVERSE_DISTANCE = -36;
+
+    double BOILER_GEAR_TO_NEUTRAL_ZONE_ANGLE = -1;
+    double BOILER_GEAR_TO_NEUTRAL_ZONE_DISTANCE = -1;
+    double BOILER_GEAR_NEUTRAL_ZONE_TO_HP_ANGLE = -1;
+    double BOILER_GEAR_NEUTRAL_ZONE_TO_HP_DISTANCE = -1;
+    
+    double HP_GEAR_TO_NEUTRAL_ZONE_ANGLE = -1;
+    double HP_GEAR_TO_NEUTRAL_ZONE_DISTANCE = -1;
+    
+    double START_TO_HP_GEAR_TURN_DISTANCE = 114.3;
+    double HP_GEAR_TURN_TO_HP_GEAR_ANGLE = 60;
+    double AFTER_TURN_TO_HP_GEAR_DISTANCE = 51;
+    double HP_GEAR_REVERSE_DISTANCE = -51;
+
+    double START_TO_BASELINE_DISTANCE = -1; // 114.3
+    double BASELINE_TO_HP_GEAR_DISTANCE = -1; // 51
+
+    double MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_ANGLE = -1;
+    double MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_DISTANCE = -1;
+
+    double AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_ANGLE = -1;
+    double AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_DISTANCE = -1;
+
+    double MOBILITY_TO_NEUTRAL_ZONE_DISTANCE = -1;
+
+    double MOBILITY_TO_BASELINE_DISTANCE = -1;
+    
+    double MIDDLE_GEAR_TO_BOILER_ANGLE = 90;
+    double MIDDLE_GEAR_TO_BOILER_DISTANCE = 109.7;
+    double BACK_UP_TO_SHOOT_FROM_ALLIANCE_WALL_DISTANCE = -1;
+
+    double BOILER_GEAR_REVERSE_SHOOTING_DISTANCE = -1;
+    double BOILER_GEAR_TURN_TO_BOILER_ANGLE = -1;
+    double BOILER_GEAR_TO_BOILER_DISTANCE =-1;
+    
+    double BOILER_BACK_UP_DISTANCE = -1;
+    double BOILER_TURN_AROUND_ANGLE = -1;
+    double BOILER_TO_BOILER_GEAR_DISTANCE = -1;
+
+    double IR_SENSOR_THRESHOLD = 4.5;
+    double IR_TIME_IN_MECHANISM_THRESHOLD = 0.5;
 }
