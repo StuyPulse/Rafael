@@ -134,6 +134,9 @@ public interface RobotMap {
     double BOILER_BACK_UP_DISTANCE = -1;
     double BOILER_TURN_AROUND_ANGLE = -1;
     double BOILER_TO_BOILER_GEAR_DISTANCE = -1;
+    
+    double BOILER_TO_HOPPER_BACKUP_DISTANCE = -1;
+
 
     double IR_SENSOR_THRESHOLD = 4.5;
     double IR_TIME_IN_MECHANISM_THRESHOLD = 0.5;
