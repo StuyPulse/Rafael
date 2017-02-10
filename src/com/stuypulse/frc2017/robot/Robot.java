@@ -3,7 +3,6 @@ package com.stuypulse.frc2017.robot;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
-import com.stuypulse.frc2017.robot.commands.auton.ScoreHPGearCommand;
 import com.stuypulse.frc2017.robot.cv.BoilerVision;
 import com.stuypulse.frc2017.robot.cv.Camera;
 import com.stuypulse.frc2017.robot.cv.LiftVision;
@@ -27,6 +26,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.stuypulse.frc2017.robot.commands.auton.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -92,7 +92,18 @@ public class Robot extends IterativeRobot {
     private void setupAutonChooser(){
     	autonChooser = new SendableChooser();
     	autonChooser.addDefault("Do Nothing", new CommandGroup());
-    	autonChooser.addObject("HP Gear", new ScoreHPGearCommand());
+    	autonChooser.addObject("Minimal Mobility", new MobilityMinimalCommand());
+    	autonChooser.addObject("Minimal Mobility From Middle Gear Start", new MiddleGearMobilityMinimalCommand());
+    	autonChooser.addObject("Only Mobility To HP Station", new MobilityToHPCommand());
+    	autonChooser.addObject("Only Score HP Gear", new ScoreHPGearCommand());
+    	autonChooser.addObject("Score HP Gear THEN Approach HP Station", new DoubleSequentialCommand(new ScoreHPGearCommand(), new ApproachHPFromHPGearCommand()));
+    	autonChooser.addObject("Only Score Middle Gear", new ScoreMiddleGearCommand());
+    	autonChooser.addObject("Score Middle Gear THEN Approach HP Station", new DoubleSequentialCommand(new ScoreMiddleGearCommand(), new ApproachHPFromMiddleGearCommand()));
+    	autonChooser.addObject("Score Middle Gear THEN Shoot", new DoubleSequentialCommand(new ScoreMiddleGearCommand(), new ShootFromMiddleGearCommand()));
+    	autonChooser.addObject("Only Score Boiler Gear", new ScoreBoilerGearCommand());
+    	autonChooser.addObject("Score Boiler Gear THEN Approach HP Station", new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ApproachHPFromBoilerGearCommand()));
+    	autonChooser.addObject("Score Boiler Gear THEN Shoot", new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ShootingFromBoilerGearCommand()));
+    	autonChooser.addObject("Only Shoot", new ShootingFromAllianceWallCommand());
     }
     
     /**
