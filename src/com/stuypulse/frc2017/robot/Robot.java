@@ -77,7 +77,6 @@ public class Robot extends IterativeRobot {
         winch = new Winch();
         oi = new OI();
         irsensor = new IRSensor();
-        // TODO: setup auton chooser
 
         boilerVision = new BoilerVision();
         // chooser.addDefault("Default Auto", new ExampleCommand());
