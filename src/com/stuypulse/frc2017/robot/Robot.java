@@ -46,6 +46,7 @@ public class Robot extends IterativeRobot {
     public static BallGate ballgate;
     public static Winch winch;
     public static LEDSignal ledBlenderSignal;
+    public static LEDSignal ledGearSensingSignal;
 
     public static OI oi;	
     
@@ -80,6 +81,7 @@ public class Robot extends IterativeRobot {
         oi = new OI();
         irsensor = new IRSensor();
         ledBlenderSignal = new LEDSignal(RobotMap.BLENDER_LED_PORT, RobotMap.BLENDER_LED_ON_VALUE);
+        ledGearSensingSignal = new LEDSignal (RobotMap.GEAR_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);
         
         // TODO: setup auton chooser
 
@@ -130,7 +132,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousInit() {
         DriverStation.getInstance().getAlliance();
-
+        
         // schedule the autonomous command (example)
         if (autonomousCommand != null) {
             autonomousCommand.start();
@@ -148,6 +150,7 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
         blender.checkForJam();
+        irsensor.gearLEDSignalControl();
     }
 
     @Override
@@ -198,6 +201,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("IRVoltage", irsensor.getVoltage());
         blender.checkForJam();
         irsensor.handleAutoGearPush();
+        irsensor.gearLEDSignalControl();
     }
 
     /**
