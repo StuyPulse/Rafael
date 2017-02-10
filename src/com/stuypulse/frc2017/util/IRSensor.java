@@ -33,22 +33,22 @@ public class IRSensor {
 	public static double getDistance() {
 		return CONVERSION_FACTOR_CM_TO_INCHES
 				* (EQUATION_FACTOR * Math.pow(getVoltage(), EQUATION_EXPONENT));
-		// Link to Graph of Equation
-		// http://image.dfrobot.com/image/data/SEN0143/GP2Y0A41SK%20datasheet.pdf
-		// (pg. 4)
+		// Link to Graph of Equation:
+		// http://image.dfrobot.com/image/data/SEN0143/GP2Y0A41SK%20datasheet.pdf (pg. 4)
+		// This method is an approximation of that graph.
 	}
 
 	public static double getVoltage() {
 		return distanceSensor.getVoltage();
 	}
 
-	public static boolean gearInMechanism() {
+	public static boolean isGearDetected() {
 		return getDistance() < RobotMap.IR_SENSOR_THRESHOLD;
 	}
 
 	// TODO: Look over logic
-	public static void gearCheckTime() {
-		if (gearInMechanism()) {
+	public static void handleAutoGearPush() {
+		if (isGearDetected()) {
 			timeSinceEntry.start();
 			if (timeSinceEntry.get() > RobotMap.IR_TIME_IN_MECHANISM_THRESHOLD) {
 				Robot.gearpusher.extend();
