@@ -3,11 +3,12 @@ package com.stuypulse.frc2017.robot;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
+import com.stuypulse.frc2017.robot.commands.auton.ScoreHPGearCommand;
 import com.stuypulse.frc2017.robot.cv.BoilerVision;
 import com.stuypulse.frc2017.robot.cv.Camera;
+import com.stuypulse.frc2017.robot.cv.LiftVision;
 import com.stuypulse.frc2017.robot.subsystems.BallGate;
 import com.stuypulse.frc2017.robot.subsystems.Blender;
-import com.stuypulse.frc2017.robot.cv.LiftVision;
 import com.stuypulse.frc2017.robot.subsystems.Drivetrain;
 import com.stuypulse.frc2017.robot.subsystems.GearPusher;
 import com.stuypulse.frc2017.robot.subsystems.GearTrap;
@@ -18,8 +19,10 @@ import com.stuypulse.frc2017.util.Vector;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -42,10 +45,12 @@ public class Robot extends IterativeRobot {
     public static BallGate ballgate;
     public static Winch winch;
 
-    public static OI oi;
+    public static OI oi;	
+    
+    public static SendableChooser autonChooser;
 
     Command autonomousCommand;
-    SendableChooser<Command> chooser = new SendableChooser<>();
+    SendableChooser chooser = new SendableChooser();
 
     UsbCamera boilerCamera;
     UsbCamera liftCamera;
@@ -81,8 +86,17 @@ public class Robot extends IterativeRobot {
 
         boilerCamera = new UsbCamera("Boiler Camera", 0);
         liftCamera = new UsbCamera("Lift Camera", 1);
+        
     }
 
+    private void setupAutonChooser(){
+    	autonChooser = new SendableChooser();
+    	autonChooser.addDefault("Do Nothing", new CommandGroup());
+    	autonChooser.addObject("HP Gear", new ScoreHPGearCommand());
+    	autonChooser.addObject(, object);
+    	s
+    }
+    
     /**
      * This function is called once each time the robot enters Disabled mode.
      * You can use it to reset any subsystem information you want to clear when
@@ -113,7 +127,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
-        autonomousCommand = chooser.getSelected();
+        DriverStation.getInstance().getAlliance();
 
         // schedule the autonomous command (example)
         if (autonomousCommand != null) {

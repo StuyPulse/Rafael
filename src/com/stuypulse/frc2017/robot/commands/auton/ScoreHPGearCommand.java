@@ -7,6 +7,7 @@ import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -14,10 +15,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class ScoreHPGearCommand extends CommandGroup {
     
-    public  ScoreHPGearCommand(boolean isRedAlliance) {
-
+    public  ScoreHPGearCommand() {
+    	
     	int direction;
-		if (isRedAlliance) {
+		if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
 			direction = 1;
 		} else {
 			direction = -1;
