@@ -55,11 +55,14 @@ public interface RobotMap {
 
     int IR_SENSOR_PORT = 0;
     
-    //LED Ports
+    //LED Ports (8, 9, 0)
     
-    int BLENDER_LED_PORT = -1;
-    
+    int BLENDER_LED_PORT = 0;
+    int GEAR_LED_PORT = 8;
+    //Port 9 is the remaining port left for LEDs
+   
     boolean BLENDER_LED_ON_VALUE = false;
+    boolean GEAR_LED_ON_VALUE = false;
 
     // Solenoid Channels
 
