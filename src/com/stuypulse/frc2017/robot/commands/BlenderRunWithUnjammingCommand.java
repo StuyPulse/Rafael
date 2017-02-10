@@ -26,6 +26,7 @@ public class BlenderRunWithUnjammingCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.ledBlenderSignal.stayOff();
     	Robot.blender.run();
     	Robot.ballgate.open();
     	motorIsUnjamming = false;
@@ -38,9 +39,11 @@ public class BlenderRunWithUnjammingCommand extends Command {
     	}
         if (!motorIsUnjamming) {
             if (Robot.blender.isMotorJammed()) {
+    			Robot.ledBlenderSignal.stayOff();
     			Robot.blender.run();
     			motorIsUnjamming = false;
     		} else {
+    			Robot.ledBlenderSignal.stayOn();
     			Robot.blender.setUnjamSpeed();
     			motorIsUnjamming = true;
     		}

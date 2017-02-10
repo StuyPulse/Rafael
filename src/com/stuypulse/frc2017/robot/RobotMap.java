@@ -54,6 +54,12 @@ public interface RobotMap {
     int GEAR_SHIFT_SOLENOID_PORT = -1;
 
     int IR_SENSOR_PORT = 0;
+    
+    //LED Ports
+    
+    int BLENDER_LED_PORT = -1;
+    
+    boolean BLENDER_LED_ON_VALUE = false;
 
     // Solenoid Channels
 

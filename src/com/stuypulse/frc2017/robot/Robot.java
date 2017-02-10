@@ -15,6 +15,7 @@ import com.stuypulse.frc2017.robot.subsystems.GearTrap;
 import com.stuypulse.frc2017.robot.subsystems.Shooter;
 import com.stuypulse.frc2017.robot.subsystems.Winch;
 import com.stuypulse.frc2017.util.IRSensor;
+import com.stuypulse.frc2017.util.LEDSignal;
 import com.stuypulse.frc2017.util.Vector;
 
 import edu.wpi.cscore.CvSink;
@@ -44,6 +45,7 @@ public class Robot extends IterativeRobot {
     public static Blender blender;
     public static BallGate ballgate;
     public static Winch winch;
+    public static LEDSignal ledBlenderSignal;
 
     public static OI oi;	
     
@@ -77,6 +79,8 @@ public class Robot extends IterativeRobot {
         winch = new Winch();
         oi = new OI();
         irsensor = new IRSensor();
+        ledBlenderSignal = new LEDSignal(RobotMap.BLENDER_LED_PORT, RobotMap.BLENDER_LED_ON_VALUE);
+        
         // TODO: setup auton chooser
 
         boilerVision = new BoilerVision();
