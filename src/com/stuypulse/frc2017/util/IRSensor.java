@@ -24,10 +24,13 @@ public class IRSensor {
 	// Create instance of a timer that we can use to keep track of how long the
 	// gear is kept in the position for.
 	private static Timer timeSinceEntry;
+	// We manually record whether the timer is running (Timer keeps that information private...)
+	private static boolean isTimerRunning;
 
 	public IRSensor() {
 		distanceSensor = new AnalogInput(RobotMap.IR_SENSOR_PORT);
 		timeSinceEntry = new Timer();
+		isTimerRunning = false;
 	}
 
 	public static double getDistance() {
@@ -46,13 +49,21 @@ public class IRSensor {
 		return getDistance() < RobotMap.IR_SENSOR_THRESHOLD;
 	}
 
-	// TODO: Look over logic
 	public static void handleAutoGearPush() {
 		if (isGearDetected()) {
-			timeSinceEntry.start();
+		    // If the timer is stopped, start it
+		    if (!isTimerRunning) {
+		        // Based on a mirror of old source code, the start() method resets the
+		        // timer as well (current source code, and docs, don't help; if someone can
+		        // test it, do so and replace this comment).
+		        timeSinceEntry.start();
+		        isTimerRunning = true;
+		    }
+		    // If the "time is up", push the gear and reset the timer
 			if (timeSinceEntry.get() > RobotMap.IR_TIME_IN_MECHANISM_THRESHOLD) {
 				Robot.gearpusher.extend();
 				timeSinceEntry.stop();
+				isTimerRunning = false;
 				timeSinceEntry.reset();
 			}
 		}
