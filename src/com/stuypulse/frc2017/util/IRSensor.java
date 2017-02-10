@@ -19,13 +19,13 @@ public class IRSensor {
 
 	private static final double CONVERSION_FACTOR_CM_TO_INCHES = 0.393701;
 
-	private static AnalogInput distanceSensor;
+	private AnalogInput distanceSensor;
 
 	// Create instance of a timer that we can use to keep track of how long the
 	// gear is kept in the position for.
-	private static Timer timeSinceEntry;
+	private Timer timeSinceEntry;
 	// We manually record whether the timer is running (Timer keeps that information private...)
-	private static boolean isTimerRunning;
+	private boolean isTimerRunning;
 
 	public IRSensor() {
 		distanceSensor = new AnalogInput(RobotMap.IR_SENSOR_PORT);
@@ -33,7 +33,7 @@ public class IRSensor {
 		isTimerRunning = false;
 	}
 
-	public static double getDistance() {
+	public double getDistance() {
 		return CONVERSION_FACTOR_CM_TO_INCHES
 				* (EQUATION_FACTOR * Math.pow(getVoltage(), EQUATION_EXPONENT));
 		// Link to Graph of Equation:
@@ -41,15 +41,15 @@ public class IRSensor {
 		// This method is an approximation of that graph.
 	}
 
-	public static double getVoltage() {
+	public double getVoltage() {
 		return distanceSensor.getVoltage();
 	}
 
-	public static boolean isGearDetected() {
+	public boolean isGearDetected() {
 		return getDistance() < RobotMap.IR_SENSOR_THRESHOLD;
 	}
 
-	public static void handleAutoGearPush() {
+	public void handleAutoGearPush() {
 		if (isGearDetected()) {
 		    // If the timer is stopped, start it
 		    if (!isTimerRunning) {

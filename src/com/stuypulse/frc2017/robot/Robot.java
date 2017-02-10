@@ -172,7 +172,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("IRDistance", irsensor.getDistance());
         SmartDashboard.putNumber("IRVoltage", irsensor.getVoltage());
         blender.updateCurrentValue();
-        IRSensor.handleAutoGearPush();
+        irsensor.handleAutoGearPush();
     }
 
     /**
