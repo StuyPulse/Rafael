@@ -2,6 +2,7 @@ package com.stuypulse.frc2017.robot.commands.auton;
 
 import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
+import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -25,6 +26,7 @@ public class ApproachHPFromHPGearCommand extends CommandGroup {
 			direction = -1;
 		}
 		
+		addSequential(new DriveTrainHighGearCommand());
 		addSequential(new RotateDegreesGyroCommand(direction * RobotMap.HP_GEAR_TO_NEUTRAL_ZONE_ANGLE));
 		addSequential(new DriveForwardEncodersCommand(RobotMap.HP_GEAR_TO_NEUTRAL_ZONE_DISTANCE));
 		
