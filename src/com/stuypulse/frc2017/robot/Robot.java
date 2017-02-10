@@ -87,8 +87,8 @@ public class Robot extends IterativeRobot {
     @Override
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
-        SmartDashboard.putDouble("IRDistance", irsensor.getDistance());
-        SmartDashboard.putDouble("IRVoltage", irsensor.getVoltage());
+        SmartDashboard.putNumber("IRDistance", irsensor.getDistance());
+        SmartDashboard.putNumber("IRVoltage", irsensor.getVoltage());
     }
 
     /**
@@ -169,8 +169,8 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        SmartDashboard.putDouble("IRDistance", irsensor.getDistance());
-        SmartDashboard.putDouble("IRVoltage", irsensor.getVoltage());
+        SmartDashboard.putNumber("IRDistance", irsensor.getDistance());
+        SmartDashboard.putNumber("IRVoltage", irsensor.getVoltage());
         blender.updateCurrentValue();
         IRSensor.handleAutoGearPush();
     }
