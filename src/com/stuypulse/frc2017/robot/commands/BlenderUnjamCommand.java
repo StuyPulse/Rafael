@@ -22,12 +22,12 @@ public class BlenderUnjamCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         //This makes the blender unjam (see the title)
-    	Robot.blender.run(false);	
+    	Robot.blender.setUnjamSpeed();	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return !Robot.blender.isJammed();
+        return !Robot.blender.isJammed;
     }
 
     // Called once after isFinished returns true

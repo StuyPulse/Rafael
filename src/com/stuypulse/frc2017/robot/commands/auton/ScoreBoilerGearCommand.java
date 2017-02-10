@@ -14,29 +14,19 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class ScoreBoilerGearCommand extends CommandGroup {
     
-    public  ScoreBoilerGearCommand() {
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
-
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires 	chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
-    	addSequential(new DriveForwardEncodersCommand(RobotMap.START_TO_BOILER_GEAR_TURN_DISTANCE));
-    	addSequential(new RotateDegreesGyroCommand(RobotMap.BOILER_GEAR_TURN_TO_BOILER_GEAR_ANGLE));
-    	addSequential(new DriveForwardEncodersCommand(RobotMap.AFTER_TURN_TO_BOILER_GEAR_DISTANCE));
-    	addSequential(new GearTrapReleaseGearCommand());
-    	addSequential(new GearPusherRetractGearCommand());
-    	addSequential(new GearTrapTrapGearCommand());
-    	addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_REVERSE_DISTANCE));
+    public  ScoreBoilerGearCommand(boolean isRedAlliance) {
+    	int direction;
+		if (isRedAlliance) {
+			direction = 1;
+		} else {
+			direction = -1;
+		} 
+		addSequential(new DriveForwardEncodersCommand(RobotMap.START_TO_BOILER_GEAR_TURN_DISTANCE));
+		addSequential(new RotateDegreesGyroCommand(RobotMap.BOILER_GEAR_TURN_TO_BOILER_GEAR_ANGLE * direction));
+		addSequential(new DriveForwardEncodersCommand(RobotMap.AFTER_TURN_TO_BOILER_GEAR_DISTANCE));
+		addSequential(new GearTrapReleaseGearCommand());
+		addSequential(new GearPusherRetractGearCommand());
+		addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_REVERSE_DISTANCE));
+		addSequential(new GearTrapTrapGearCommand());
     }
 }

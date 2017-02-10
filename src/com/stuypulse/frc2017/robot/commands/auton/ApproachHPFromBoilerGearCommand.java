@@ -11,12 +11,17 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class ApproachHPFromBoilerGearCommand extends CommandGroup {
 
-    public ApproachHPFromBoilerGearCommand() {
-        // Add Commands here:
-        //addSequential(new ScoreBoilerGearCommand(Robotmap.));
-        addSequential(new RotateDegreesGyroCommand(RobotMap.BOILER_GEAR_TO_HP_EXIT_ANGLE));//Rotates after TH
-		addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_TO_HP_EXIT_DISTANCE));
-		addSequential(new RotateDegreesGyroCommand(RobotMap.BOILER_GEAR_T0_HP_NEUTRAL_ZONE_ROTATE_ANGLE));
-		addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_TO_HP_ENTER_DISTANCE));
-    }
+	public ApproachHPFromBoilerGearCommand(boolean isRedAlliance) {
+		int direction;
+		if (isRedAlliance) {
+			direction = 1;
+		} else {
+			direction = -1;
+		}
+        addSequential(new RotateDegreesGyroCommand((RobotMap.BOILER_GEAR_TO_NEUTRAL_ZONE_ANGLE * direction)));
+    	addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_TO_NEUTRAL_ZONE_DISTANCE));
+    	addSequential(new RotateDegreesGyroCommand(RobotMap.BOILER_GEAR_NEUTRAL_ZONE_TO_HP_ANGLE * direction));
+    	addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_NEUTRAL_ZONE_TO_HP_DISTANCE));
+	}
 }
+
