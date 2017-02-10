@@ -24,7 +24,7 @@ public class ScoreHPGearCommand extends CommandGroup {
 			direction = -1;
 		}
 		addSequential(new DriveForwardEncodersCommand(RobotMap.START_TO_HP_GEAR_TURN_DISTANCE));
-		addSequential(new RotateDegreesGyroCommand(RobotMap.HP_GEAR_TURN_TO_HP_GEAR_ANGLE * direction));
+		addSequential(new RotateDegreesGyroCommand(direction * RobotMap.HP_GEAR_TURN_TO_HP_GEAR_ANGLE));
 		addSequential(new DriveForwardEncodersCommand(RobotMap.AFTER_TURN_TO_HP_GEAR_DISTANCE));
 		addSequential(new GearTrapReleaseGearCommand());
 		addSequential(new GearPusherRetractGearCommand());

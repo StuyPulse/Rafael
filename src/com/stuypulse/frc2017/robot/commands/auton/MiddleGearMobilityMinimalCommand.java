@@ -4,6 +4,7 @@ import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -17,7 +18,7 @@ public class MiddleGearMobilityMinimalCommand extends CommandGroup {
     private double SECOND_MOBILITY_TURN_ANGLE = -1;
     private double FINAL_MOBILITY_TURN_DISTANCE = -1;
 	
-    public  MiddleGearMobilityMinimalCommand(boolean isRedAlliance) {
+    public  MiddleGearMobilityMinimalCommand() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -35,7 +36,7 @@ public class MiddleGearMobilityMinimalCommand extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	int direction = 1;
-		if (isRedAlliance) {
+		if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
 			direction = 1;
 		} else {
 			direction = -1;
