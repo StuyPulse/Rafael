@@ -93,8 +93,6 @@ public class Robot extends IterativeRobot {
     	autonChooser = new SendableChooser();
     	autonChooser.addDefault("Do Nothing", new CommandGroup());
     	autonChooser.addObject("HP Gear", new ScoreHPGearCommand());
-    	autonChooser.addObject(, object);
-    	s
     }
     
     /**
