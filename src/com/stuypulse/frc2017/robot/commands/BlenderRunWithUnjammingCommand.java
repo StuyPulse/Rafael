@@ -36,8 +36,8 @@ public class BlenderRunWithUnjammingCommand extends Command {
     	if(Timer.getFPGATimestamp() - motorUnjamTime >= RobotMap.BLENDER_MOTOR_UNJAM_TIME) {
     		motorIsUnjamming = false;
     	}
-    	if(!motorIsUnjamming) {
-    		if(Robot.blender.isJammed) { //isJammed is set repeatedly in TeleOP and Autonomous periodic.
+        if (!motorIsUnjamming) {
+            if (Robot.blender.isMotorJammed()) {
     			Robot.blender.run();
     			motorIsUnjamming = false;
     		} else {

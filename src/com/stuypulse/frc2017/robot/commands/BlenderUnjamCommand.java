@@ -27,7 +27,7 @@ public class BlenderUnjamCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return !Robot.blender.isJammed;
+        return !Robot.blender.isMotorJammed();
     }
 
     // Called once after isFinished returns true

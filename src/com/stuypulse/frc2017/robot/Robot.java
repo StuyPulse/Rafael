@@ -122,7 +122,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-        blender.updateCurrentValue();
+        blender.checkForJam();
     }
 
     @Override
@@ -171,7 +171,7 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         SmartDashboard.putNumber("IRDistance", irsensor.getDistance());
         SmartDashboard.putNumber("IRVoltage", irsensor.getVoltage());
-        blender.updateCurrentValue();
+        blender.checkForJam();
         irsensor.handleAutoGearPush();
     }
 
