@@ -1,6 +1,7 @@
 package com.stuypulse.frc2017.robot.subsystems;
 
 import com.stuypulse.frc2017.robot.RobotMap;
+import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -25,6 +26,7 @@ public class GearTrap extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    	setDefaultCommand(new GearPusherRetractGearCommand());
     }
 
     public void toggle() {
