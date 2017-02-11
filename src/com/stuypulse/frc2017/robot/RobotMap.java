@@ -49,8 +49,8 @@ public interface RobotMap {
     int BLENDER_ENCODER_PULSES_PER_REVOLUTION = 1024;
 
     // Shooter
-    int SHOOTER_MOTOR_PORT = 7;
-    int SHOOTER_MOTOR_PORT_TWO = 8;
+    int SHOOTER_MOTOR_A_PORT = 7;
+    int SHOOTER_MOTOR_B_PORT = 8;
 
     // Winch
     int WINCH_MOTOR_PORT = 5;

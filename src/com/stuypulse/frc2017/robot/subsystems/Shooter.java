@@ -2,7 +2,6 @@ package com.stuypulse.frc2017.robot.subsystems;
 
 import com.ctre.CANTalon;
 import com.stuypulse.frc2017.robot.RobotMap;
-import com.stuypulse.frc2017.robot.commands.ShooterStopCommand;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -12,36 +11,38 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Shooter extends Subsystem {
 
-	private CANTalon shooterMotor;
-	private CANTalon shooterMotorTwo;
+    // Put methods for controlling this subsystem
+    // here. Call these from Commands.
+
+    // There are two motors on the shooter, hooked up to one gearbox, with the
+    // sole purpose of doubling torque.
+	private CANTalon shooterMotorA;
+	private CANTalon shooterMotorB;
 
 	public Shooter() {
-		shooterMotor = new CANTalon(RobotMap.SHOOTER_MOTOR_PORT);
-		shooterMotorTwo = new CANTalon(RobotMap.SHOOTER_MOTOR_PORT_TWO);
-		shooterMotor.enableBrakeMode(false);
-		shooterMotorTwo.enableBrakeMode(false);
+		shooterMotorA = new CANTalon(RobotMap.SHOOTER_MOTOR_A_PORT);
+		shooterMotorB = new CANTalon(RobotMap.SHOOTER_MOTOR_B_PORT);
+		shooterMotorA.enableBrakeMode(false);
+		shooterMotorB.enableBrakeMode(false);
 	}
 
+    public void initDefaultCommand() {
+        // Set the default command for a subsystem here.
+        // setDefaultCommand(new MySpecialCommand());
+    }
+
 	public void setSpeed(double speed) {
-		shooterMotor.set(speed);
-		shooterMotorTwo.set(speed);
+		shooterMotorA.set(speed);
+		shooterMotorB.set(speed);
 	}
 
 	// cut current to motor so it stops eventually, but doesn't apply brakes
 	public void stop() {
-		shooterMotor.set(0);
-		shooterMotorTwo.set(0);
+		shooterMotorA.set(0);
+		shooterMotorB.set(0);
 	}
 
 	public double getCurrentMotorSpeedInRPM() {
-        return shooterMotor.getSpeed();
-    }	
-
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
-
-	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
-	}
+        return shooterMotorA.getSpeed();
+    }
 }
