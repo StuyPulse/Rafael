@@ -17,7 +17,6 @@ public class Winch extends Subsystem {
 
     public Winch() {
         winchMotor = new CANTalon(RobotMap.WINCH_MOTOR_PORT);
-        // TODO: ask if this should be on brake mode
         winchMotor.enableBrakeMode(true);
     }
 
