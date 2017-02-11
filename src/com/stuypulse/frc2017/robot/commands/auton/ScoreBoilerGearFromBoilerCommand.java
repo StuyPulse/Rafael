@@ -14,11 +14,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class ScoreBoilerGearFromBoilerCommand extends CommandGroup {
-	private static final double BACK_UP_FROM_BOILER_DISTANCE = -1;
-	private static final double TURN_FROM_BOILER_BACK_UP = -1;
-	private static final double FOWARD_FROM_BOILER_TURN = -1;
-	private static final double TURN_TO_BOILER_GEAR = -1;
-	private static final double FOWARD_TO_BOILER_GEAR = -1;
+	private static final double BACK_UP_FROM_BOILER_DISTANCE = -127.3;
+	private static final double TURN_FROM_BOILER_BACK_UP = -135;
+	private static final double FOWARD_FROM_BOILER_TURN = 12; //approximation
+	private static final double TURN_TO_BOILER_GEAR = -45;
+	private static final double FOWARD_TO_BOILER_GEAR = 12; //approximation
 	
     public ScoreBoilerGearFromBoilerCommand() {
     	int direction; 
