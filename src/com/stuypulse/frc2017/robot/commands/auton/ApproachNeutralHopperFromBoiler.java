@@ -24,9 +24,9 @@ public class ApproachNeutralHopperFromBoiler extends CommandGroup {
             direction = -1;
         }
         addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_TO_HOPPER_BACKUP_DISTANCE));
-        addSequential(new RotateDegreesGyroCommand(TURN_AWAY_FROM_BOILER*direction));
+        addSequential(new RotateDegreesGyroCommand(TURN_AWAY_FROM_BOILER * direction));
         addSequential(new DriveForwardEncodersCommand(MOVE_TOWARD_HOPPER));
-        addSequential(new RotateDegreesGyroCommand(TURN_TO_HOPPER*direction));
+        addSequential(new RotateDegreesGyroCommand(TURN_TO_HOPPER * direction));
         addSequential(new DriveForwardEncodersCommand(MOVE_TO_HOPPER));
         // Add Commands here:
         // e.g. addSequential(new Command1());
