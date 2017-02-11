@@ -45,10 +45,10 @@ public class Drivetrain extends Subsystem {
     	leftBottomMotor = new CANTalon(RobotMap.LEFT_BOTTOM_MOTOR_PORT);
     	rightBottomMotor = new CANTalon(RobotMap.RIGHT_BOTTOM_MOTOR_PORT);
 
-        leftTopMotor.enableBrakeMode(true);
-        rightTopMotor.enableBrakeMode(true);
-        leftBottomMotor.enableBrakeMode(true);
-        rightBottomMotor.enableBrakeMode(true);
+        leftTopMotor.enableBrakeMode(false);
+        rightTopMotor.enableBrakeMode(false);
+        leftBottomMotor.enableBrakeMode(false);
+        rightBottomMotor.enableBrakeMode(false);
 
     	gearShift = new Solenoid(RobotMap.GEAR_SHIFT_SOLENOID_PORT);
 
