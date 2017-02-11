@@ -12,7 +12,7 @@ public class DriveToPegCommand extends EncoderDrivingCommand {
     public DriveToPegCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(Robot.drivetrain);
+        super();
     }
 
     private double[] cvReading;

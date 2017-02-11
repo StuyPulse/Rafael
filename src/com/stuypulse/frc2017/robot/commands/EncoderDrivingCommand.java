@@ -17,6 +17,8 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
     abstract protected void setInchesToMove();
 
     public EncoderDrivingCommand() {
+        super();
+        requires(Robot.drivetrain);
     }
 
     public EncoderDrivingCommand(BoolBox forceStopController) {
