@@ -12,6 +12,8 @@ public class RotateToLiftCommand extends GyroRotationalCommand {
     public RotateToLiftCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        super();
+        // TODO: force-stopping (can be handled simply through AutoMovementCommand)
     }
 
     private double[] cvReading;
@@ -28,7 +30,6 @@ public class RotateToLiftCommand extends GyroRotationalCommand {
 
     @Override
     protected void onEnd() {
-        // TODO Auto-generated method stub
     }
 
 }
