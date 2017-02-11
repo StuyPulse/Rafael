@@ -1,5 +1,7 @@
 package com.stuypulse.frc2017.robot;
 
+import com.stuypulse.frc2017.robot.commands.BallGateCloseCommand;
+import com.stuypulse.frc2017.robot.commands.BallGateOpenCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderRunWithUnjammingCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderStopCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
@@ -7,7 +9,12 @@ import com.stuypulse.frc2017.robot.commands.DriveTrainLowGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherPushGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
+import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
+import com.stuypulse.frc2017.robot.commands.ShooterAccelerateSmartDashboardSpeedCommand;
+import com.stuypulse.frc2017.robot.commands.ShooterStopCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStartMotorCommand;
+import com.stuypulse.frc2017.robot.commands.WinchStopMotorCommand;
+import com.stuypulse.frc2017.robot.commands.auton.DoubleSequentialCommand;
 import com.stuypulse.frc2017.util.Gamepad;
 
 /**
@@ -56,11 +63,22 @@ public class OI {
 		driverPad.getRightBumper().whenReleased(new DriveTrainHighGearCommand());
 		
 		//OperatorPad Bindings
-		operatorPad.getBottomButton().whileHeld(new GearTrapReleaseGearCommand());
-		operatorPad.getLeftButton().whenPressed(new BlenderRunWithUnjammingCommand());
-		operatorPad.getTopButton().whileHeld(new WinchStartMotorCommand());
+		operatorPad.getBottomButton().whenPressed(new GearTrapReleaseGearCommand());
+		operatorPad.getBottomButton().whenReleased(new DoubleSequentialCommand(new GearPusherRetractGearCommand(), new GearTrapTrapGearCommand()));
+		operatorPad.getLeftButton().whileHeld(new BlenderRunWithUnjammingCommand());
+		operatorPad.getTopButton().whenPressed(new WinchStartMotorCommand());
 		operatorPad.getRightButton().whenPressed(new BlenderStopCommand());
+		
 		operatorPad.getDPadUp().whenPressed(new GearPusherPushGearCommand());
 		operatorPad.getDPadDown().whenPressed(new GearPusherRetractGearCommand());
+		operatorPad.getDPadLeft().whenPressed(new GearTrapReleaseGearCommand());
+		operatorPad.getDPadRight().whenPressed(new GearTrapTrapGearCommand());
+		
+		operatorPad.getRightBumper().whileHeld(new BallGateOpenCommand());
+		operatorPad.getRightBumper().whenReleased(new BallGateCloseCommand());
+
+		operatorPad.getRightTrigger().whileHeld(new ShooterStopCommand());
+		operatorPad.getLeftBumper().whenPressed(new ShooterAccelerateSmartDashboardSpeedCommand());
+		operatorPad.getLeftTrigger().whenPressed(new WinchStopMotorCommand());
 	}
 }
