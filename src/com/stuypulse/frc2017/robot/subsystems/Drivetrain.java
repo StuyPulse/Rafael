@@ -43,7 +43,7 @@ public class Drivetrain extends Subsystem {
     	backLeftWheel = new CANTalon(RobotMap.BACK_LEFT_MOTOR_PORT);
     	backRightWheel = new CANTalon(RobotMap.BACK_RIGHT_MOTOR_PORT);
 
-    	gearShift = new Solenoid(RobotMap.GEAR_SHIFT_SOLENOID_PORT, RobotMap.GEAR_SHIFT);
+    	gearShift = new Solenoid(RobotMap.GEAR_SHIFT_SOLENOID_PORT);
     	
     	shifted = false;
     	

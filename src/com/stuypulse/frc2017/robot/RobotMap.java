@@ -47,9 +47,9 @@ public interface RobotMap {
     int BLENDER_ENCODER_CHANNEL_A = -1;
     int BLENDER_ENCODER_CHANNEL_B = -1;
 
-    int GEAR_TRAP_RIGHT_SOLENOID_PORT = -1;
-    int GEAR_TRAP_LEFT_SOLENOID_PORT = -1;
-    int GEAR_PUSHER_SOLENOID_PORT = -1;
+    int GEAR_TRAP_SOLENOID_PORT = 2;
+    int GEAR_PUSHER_SOLENOID_PORT = 4;
+    int GEAR_SWITCH_SOLENOID_PORT = 3;
     int BALL_GATE_SOLENOID_PORT = -1;
     int GEAR_SHIFT_SOLENOID_PORT = -1;
 
@@ -57,10 +57,6 @@ public interface RobotMap {
 
     // Solenoid Channels
 
-    int PCM_1 = 5;
-    int PCM_2 = 6;
-    int PCM_3 = 7;
-    int PCM_4 = 8;
     int GEAR_SHIFT = 4;
 
     // Physical Constants
@@ -113,13 +109,13 @@ public interface RobotMap {
     double AFTER_TURN_TO_HP_GEAR_DISTANCE = 51;
     double HP_GEAR_REVERSE_DISTANCE = -51;
 
-    double START_TO_BASELINE_DISTANCE = -1; // 114.3
-    double BASELINE_TO_HP_GEAR_DISTANCE = -1; // 51
+    double START_TO_BASELINE_DISTANCE = 93.3;
+    double BASELINE_TO_HP_GEAR_DISTANCE = 27.968; 
 
-    double MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_ANGLE = -1;
+    double MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_ANGLE = -90;
     double MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_DISTANCE = -1;
 
-    double AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_ANGLE = -1;
+    double AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_ANGLE = 90;
     double AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_DISTANCE = -1;
 
     double MOBILITY_TO_NEUTRAL_ZONE_DISTANCE = -1;
@@ -128,7 +124,7 @@ public interface RobotMap {
     
     double MIDDLE_GEAR_TO_BOILER_ANGLE = 90;
     double MIDDLE_GEAR_TO_BOILER_DISTANCE = 109.7;
-    double BACK_UP_TO_SHOOT_FROM_ALLIANCE_WALL_DISTANCE = -1;
+    double BACK_UP_TO_SHOOT_FROM_ALLIANCE_WALL_DISTANCE = 36;
 
     double BOILER_GEAR_REVERSE_SHOOTING_DISTANCE = -1;
     double BOILER_GEAR_TURN_TO_BOILER_ANGLE = -1;
