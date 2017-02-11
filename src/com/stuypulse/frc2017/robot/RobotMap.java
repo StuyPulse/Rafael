@@ -112,12 +112,12 @@ public interface RobotMap {
     double MIDDLE_GEAR_REVERSE_DISTANCE = -36;
 
     double BOILER_GEAR_TO_NEUTRAL_ZONE_ANGLE = 60;
-    double BOILER_GEAR_TO_NEUTRAL_ZONE_DISTANCE = 374; //maybe subtract 12 inches nyeh heh heh
+    double BOILER_GEAR_TO_NEUTRAL_ZONE_DISTANCE = 374; //maybe subtract 12 inches
     double BOILER_GEAR_NEUTRAL_ZONE_TO_HP_ANGLE = -45;
     double BOILER_GEAR_NEUTRAL_ZONE_TO_HP_DISTANCE = -1;
     
     double HP_GEAR_TO_NEUTRAL_ZONE_ANGLE = -60;
-    double HP_GEAR_TO_NEUTRAL_ZONE_DISTANCE = 374; //maybe subtract 12 inches here too nyeh heh heh
+    double HP_GEAR_TO_NEUTRAL_ZONE_DISTANCE = 374; //maybe subtract 12 inches here
     
     double START_TO_HP_GEAR_TURN_DISTANCE = 114.3;
     double HP_GEAR_TURN_TO_HP_GEAR_ANGLE = 60;
@@ -152,4 +152,3 @@ public interface RobotMap {
     double IR_TIME_IN_MECHANISM_THRESHOLD = 0.5;
 }
 
-// NYEH HEH HEH HEH HEH HEH HEH HEH HEH HEH HEH HEH HEH HEH HEH HEH HEH HEH HEH
