@@ -2,21 +2,25 @@ package com.stuypulse.frc2017.robot.commands.cv;
 
 import com.stuypulse.frc2017.robot.Robot;
 import com.stuypulse.frc2017.robot.commands.GyroRotationalCommand;
-import com.stuypulse.frc2017.util.Vector;
 
 /**
  *
  */
 public class RotateToLiftCommand extends GyroRotationalCommand {
 
+    private double[] cvReading;
+
     public RotateToLiftCommand() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-        super();
-        // TODO: force-stopping (can be handled simply through AutoMovementCommand)
+        super(Robot.stopAutoMovement, false);
     }
 
-    private double[] cvReading;
+    public RotateToLiftCommand(boolean gentle) {
+        super(Robot.stopAutoMovement, gentle);
+    }
+
+    public RotateToLiftCommand(boolean gentle, double tolerance) {
+        super(Robot.stopAutoMovement, gentle, tolerance);
+    }
 
     protected void setDesiredAngle() {
         cvReading = Robot.liftVision.processImage();
@@ -25,11 +29,11 @@ public class RotateToLiftCommand extends GyroRotationalCommand {
             desiredAngle = cvReading[0];
         } else {
             desiredAngle = 0.0;
+            cancelCommand = true;
         }
     }
 
     @Override
     protected void onEnd() {
     }
-
 }

@@ -9,11 +9,12 @@ import com.stuypulse.frc2017.robot.cv.BoilerVision;
  */
 public class DriveToBoilerRangeCommand extends EncoderDrivingCommand {
 
+    private double cvReading[];
+
     public DriveToBoilerRangeCommand() {
         super(Robot.stopAutoMovement);
     }
 
-    private double cvReading[];
     @Override
     protected void setInchesToMove() {
         cvReading = Robot.boilerVision.processImage();
