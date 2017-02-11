@@ -17,7 +17,7 @@ public interface CVConstants {
 
     double CAMERA_Y = 7.25; // TODO: SET EXACT
 
-    double CAMERA_TILT_ANGLE = 0.0; // TODO: SET EXACT
+    double BOILER_CAMERA_TILT_ANGLE = 50.0;
 
     double CAMERA_FRAME_PX_HEIGHT = 270.0;
 

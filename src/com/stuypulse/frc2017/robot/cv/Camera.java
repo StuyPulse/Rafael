@@ -1,6 +1,6 @@
 package com.stuypulse.frc2017.robot.cv;
 
-import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_TILT_ANGLE;
+import static com.stuypulse.frc2017.robot.CVConstants.BOILER_CAMERA_TILT_ANGLE;
 
 import com.stuypulse.frc2017.robot.CVConstants;
 
@@ -57,7 +57,7 @@ public class Camera {
     }
 
     public static double yInFrameToDegreesFromHorizon(double height) {
-        return CAMERA_TILT_ANGLE - frameYPxToDegrees(height);
+        return BOILER_CAMERA_TILT_ANGLE - frameYPxToDegrees(height);
     }
 
     public static void main(String[] args) {
