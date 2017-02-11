@@ -1,8 +1,13 @@
 package com.stuypulse.frc2017.robot;
 
-import com.stuypulse.frc2017.robot.commands.BlenderUnjamCommand;
+import com.stuypulse.frc2017.robot.commands.BlenderRunWithUnjammingCommand;
+import com.stuypulse.frc2017.robot.commands.BlenderStopCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainLowGearCommand;
+import com.stuypulse.frc2017.robot.commands.GearPusherPushGearCommand;
+import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
+import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
+import com.stuypulse.frc2017.robot.commands.WinchStartMotorCommand;
 import com.stuypulse.frc2017.util.Gamepad;
 
 /**
@@ -46,9 +51,16 @@ public class OI {
 		operatorPad = new Gamepad(RobotMap.OPERATOR_PAD_PORT);
 		
 		//DriverPad Bindings
-		driverPad.getLeftTrigger().whenPressed(new DriveTrainLowGearCommand());
-		driverPad.getLeftTrigger().whenReleased(new DriveTrainHighGearCommand());
+		//The right bumper is being used to gearshift
+		driverPad.getRightBumper().whenPressed(new DriveTrainLowGearCommand());
+		driverPad.getRightBumper().whenReleased(new DriveTrainHighGearCommand());
 		
-		
+		//OperatorPad Bindings
+		operatorPad.getBottomButton().whileHeld(new GearTrapReleaseGearCommand());
+		operatorPad.getLeftButton().whenPressed(new BlenderRunWithUnjammingCommand());
+		operatorPad.getTopButton().whileHeld(new WinchStartMotorCommand());
+		operatorPad.getRightButton().whenPressed(new BlenderStopCommand());
+		operatorPad.getDPadUp().whenPressed(new GearPusherPushGearCommand());
+		operatorPad.getDPadDown().whenPressed(new GearPusherRetractGearCommand());
 	}
 }
