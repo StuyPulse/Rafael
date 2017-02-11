@@ -33,8 +33,9 @@ abstract public class AutoMovementCommand extends Command {
     private void setForceStopped(boolean newVal) {
         if (forceStoppedController == null) {
             forceStoppedLocal = newVal;
+        } else {
+            forceStoppedController.set(newVal);
         }
-        forceStoppedController.set(newVal);
     }
 
 
