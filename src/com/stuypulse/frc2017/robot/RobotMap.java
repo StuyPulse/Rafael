@@ -137,7 +137,6 @@ public interface RobotMap {
     
     double BOILER_TO_HOPPER_BACKUP_DISTANCE = -158.4;
 
-
     double IR_SENSOR_THRESHOLD = 4.5;
     double IR_TIME_IN_MECHANISM_THRESHOLD = 0.5;
 }

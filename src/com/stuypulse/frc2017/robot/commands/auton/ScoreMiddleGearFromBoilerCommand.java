@@ -27,9 +27,9 @@ public class ScoreMiddleGearFromBoilerCommand extends CommandGroup {
             direction = -1;
         }
         addSequential(new DriveForwardEncodersCommand(BACK_UP_FROM_BOILER_DISTANCE));
-        addSequential(new RotateDegreesGyroCommand(TURN_AWAY_FROM_BOILER*direction));
+        addSequential(new RotateDegreesGyroCommand(TURN_AWAY_FROM_BOILER * direction));
         addSequential(new DriveForwardEncodersCommand(MOVE_TOWARDS_LIFT));
-        addSequential(new RotateDegreesGyroCommand(TURN_TOWARDS_LIFT*direction));
+        addSequential(new RotateDegreesGyroCommand(TURN_TOWARDS_LIFT * direction));
         addSequential(new DriveForwardEncodersCommand(MOVE_TO_LIFT));
         addSequential(new GearTrapReleaseGearCommand());
         addSequential(new DriveForwardEncodersCommand(RobotMap.MIDDLE_GEAR_REVERSE_DISTANCE));
