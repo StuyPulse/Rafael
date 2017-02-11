@@ -27,7 +27,7 @@ public class ScoreBoilerGearFromBoilerCommand extends CommandGroup {
 		} else {
 			direction = -1;
 		}
-    	
+
     	addSequential (new DriveForwardEncodersCommand(BACK_UP_FROM_BOILER_DISTANCE));
     	addSequential (new RotateDegreesGyroCommand(TURN_FROM_BOILER_BACK_UP * direction));
     	addSequential (new DriveForwardEncodersCommand(FOWARD_FROM_BOILER_TURN));

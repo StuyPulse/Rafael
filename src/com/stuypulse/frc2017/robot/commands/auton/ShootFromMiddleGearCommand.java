@@ -1,7 +1,6 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
 import com.stuypulse.frc2017.robot.RobotMap;
-import com.stuypulse.frc2017.robot.commands.BlenderSpinCommand;
 import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 
