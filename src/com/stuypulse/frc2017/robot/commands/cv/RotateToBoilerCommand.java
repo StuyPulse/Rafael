@@ -1,6 +1,7 @@
-package com.stuypulse.frc2017.robot.commands;
+package com.stuypulse.frc2017.robot.commands.cv;
 
 import com.stuypulse.frc2017.robot.Robot;
+import com.stuypulse.frc2017.robot.commands.GyroRotationalCommand;
 
 /**
  *

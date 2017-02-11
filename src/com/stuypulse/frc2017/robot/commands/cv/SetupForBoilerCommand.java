@@ -1,4 +1,4 @@
-package com.stuypulse.frc2017.robot.commands;
+package com.stuypulse.frc2017.robot.commands.cv;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
