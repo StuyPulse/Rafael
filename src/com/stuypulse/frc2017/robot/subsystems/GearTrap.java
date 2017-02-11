@@ -26,7 +26,6 @@ public class GearTrap extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new GearPusherRetractGearCommand());
     }
 
     public void toggle() {
