@@ -68,4 +68,11 @@ public class IRSensor {
 			}
 		}
 	}
+	public void gearLEDSignalControl() {
+		if(isGearDetected()) {
+			Robot.ledGearSensingSignal.stayOn();
+		} else {
+			Robot.ledGearSensingSignal.stayOff();
+		}
+	}
 }
