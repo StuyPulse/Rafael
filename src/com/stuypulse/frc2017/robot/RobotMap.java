@@ -30,14 +30,14 @@ public interface RobotMap {
 
     int FRONT_LEFT_MOTOR_PORT = 1;
     int FRONT_RIGHT_MOTOR_PORT = 3;
-    int BACK_LEFT_MOTOR_PORT = 0;
-    int BACK_RIGHT_MOTOR_PORT = 2;
+    int BACK_LEFT_MOTOR_PORT = 2;
+    int BACK_RIGHT_MOTOR_PORT = 4;
 
-    int BLENDER_MOTOR_PORT = -1;
+    int BLENDER_MOTOR_PORT = 6;
 
-    int SHOOTER_MOTOR_PORT = -1;
+    int SHOOTER_MOTOR_PORT = 7;
 
-    int WINCH_MOTOR_PORT = 4;
+    int WINCH_MOTOR_PORT = 5;
 
     int DRIVETRAIN_ENCODER_LEFT_CHANNEL_A = -1;
     int DRIVETRAIN_ENCODER_LEFT_CHANNEL_B = -1;
@@ -47,21 +47,30 @@ public interface RobotMap {
     int BLENDER_ENCODER_CHANNEL_A = -1;
     int BLENDER_ENCODER_CHANNEL_B = -1;
 
-    int GEAR_TRAP_RIGHT_SOLENOID_PORT = -1;
-    int GEAR_TRAP_LEFT_SOLENOID_PORT = -1;
-    int GEAR_PUSHER_SOLENOID_PORT = -1;
-    int BALL_GATE_SOLENOID_PORT = -1;
-    int GEAR_SHIFT_SOLENOID_PORT = -1;
+    int GEAR_TRAP_RIGHT_SOLENOID_PORT = 4;
+    int GEAR_TRAP_LEFT_SOLENOID_PORT = 3;
+    int GEAR_PUSHER_SOLENOID_PORT = 2;
+    int BALL_GATE_SOLENOID_PORT = 1;
+    int GEAR_SHIFT_SOLENOID_PORT = 0;
 
     int IR_SENSOR_PORT = 0;
+    
+    //LED Ports (8, 9, 0)
+    
+    int BLENDER_LED_PORT = 0;
+    int GEAR_LED_PORT = 8;
+    //Port 9 is the remaining port left for LEDs
+   
+    boolean BLENDER_LED_ON_VALUE = false;
+    boolean GEAR_LED_ON_VALUE = false;
 
     // Solenoid Channels
 
-    int PCM_1 = 5;
-    int PCM_2 = 6;
-    int PCM_3 = 7;
-    int PCM_4 = 8;
-    int GEAR_SHIFT = 4;
+    int PCM_1 = 0;
+    int PCM_2 = 0;
+    int PCM_3 = 0;
+    int PCM_4 = 0;
+    int GEAR_SHIFT = 0;
 
     // Physical Constants
 
