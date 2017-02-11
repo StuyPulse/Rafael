@@ -28,10 +28,10 @@ public interface RobotMap {
 
     /// Ports
 
-    int FRONT_LEFT_MOTOR_PORT = 1;
-    int FRONT_RIGHT_MOTOR_PORT = 3;
-    int BACK_LEFT_MOTOR_PORT = 2;
-    int BACK_RIGHT_MOTOR_PORT = 4;
+    int LEFT_TOP_MOTOR_PORT = 1;
+    int RIGHT_TOP_MOTOR_PORT = 3;
+    int LEFT_BOTTOM_MOTOR_PORT = 2;
+    int RIGHT_BOTTOM_MOTOR_PORT = 4;
 
     int BLENDER_MOTOR_PORT = 6;
 
@@ -74,6 +74,8 @@ public interface RobotMap {
 
     // Physical Constants
 
+    int ENCODER_PULSES_PER_REVOLUTION = 1024;
+    
     double DRIVETRAIN_ENCODER_INCHES_PER_PULSE = 23.56;
     
     int BLENDER_ENCODER_PULSES_PER_REVOLUTION = 1024;

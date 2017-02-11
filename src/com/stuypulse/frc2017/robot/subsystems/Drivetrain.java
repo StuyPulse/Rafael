@@ -5,7 +5,6 @@ import com.kauailabs.navx.frc.AHRS;
 import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.DrivetrainPiotrDriveCommand;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Solenoid;
 
@@ -18,17 +17,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Drivetrain extends Subsystem {
 
-	private CANTalon frontLeftWheel;
-	private CANTalon frontRightWheel;
-	private CANTalon backLeftWheel;
-    private CANTalon backRightWheel;
+	private CANTalon leftTopMotor;
+	private CANTalon rightTopMotor;
+	private CANTalon leftBottomMotor;
+    private CANTalon rightBottomMotor;
     
     private Solenoid gearShift;
     
     private RobotDrive robotDrive;
-    
-    private Encoder leftEncoder;
-    private Encoder rightEncoder;
     
     private boolean shifted;
     private AHRS gyro;
@@ -38,22 +34,20 @@ public class Drivetrain extends Subsystem {
     // here. Call these from Commands.
 
     public Drivetrain() {
-    	frontLeftWheel = new CANTalon(RobotMap.FRONT_LEFT_MOTOR_PORT);
-    	frontRightWheel = new CANTalon(RobotMap.FRONT_RIGHT_MOTOR_PORT);
-    	backLeftWheel = new CANTalon(RobotMap.BACK_LEFT_MOTOR_PORT);
-    	backRightWheel = new CANTalon(RobotMap.BACK_RIGHT_MOTOR_PORT);
+    	leftTopMotor = new CANTalon(RobotMap.LEFT_TOP_MOTOR_PORT);
+    	rightTopMotor = new CANTalon(RobotMap.RIGHT_TOP_MOTOR_PORT);
+    	leftBottomMotor = new CANTalon(RobotMap.LEFT_BOTTOM_MOTOR_PORT);
+    	rightBottomMotor = new CANTalon(RobotMap.RIGHT_BOTTOM_MOTOR_PORT);
 
     	gearShift = new Solenoid(RobotMap.GEAR_SHIFT, RobotMap.GEAR_SHIFT_SOLENOID_PORT);
     	
     	shifted = false;
     	
-    	robotDrive = new RobotDrive(backLeftWheel, frontLeftWheel, backRightWheel, frontRightWheel);
+    	robotDrive = new RobotDrive(leftBottomMotor, leftTopMotor, rightBottomMotor, rightTopMotor);
 
-    	leftEncoder = new Encoder(RobotMap.DRIVETRAIN_ENCODER_LEFT_CHANNEL_A, RobotMap.DRIVETRAIN_ENCODER_LEFT_CHANNEL_B);
-    	rightEncoder = new Encoder(RobotMap.DRIVETRAIN_ENCODER_RIGHT_CHANNEL_A, RobotMap.DRIVETRAIN_ENCODER_RIGHT_CHANNEL_B);
-
-    	leftEncoder.setDistancePerPulse(RobotMap.DRIVETRAIN_ENCODER_INCHES_PER_PULSE);
-    	rightEncoder.setDistancePerPulse(RobotMap.DRIVETRAIN_ENCODER_INCHES_PER_PULSE);
+    	//Encoders are located on the top motors on either of the motor complexes located on the left/right hemispheres.
+    	leftTopMotor.configEncoderCodesPerRev(RobotMap.ENCODER_PULSES_PER_REVOLUTION);
+    	rightTopMotor.configEncoderCodesPerRev(RobotMap.ENCODER_PULSES_PER_REVOLUTION);
     	
     	gyro = new AHRS(SPI.Port.kMXP);
     	resetGyro();
@@ -81,8 +75,8 @@ public class Drivetrain extends Subsystem {
     }
     
     public void resetEncoders() {
-    	leftEncoder.reset();
-    	rightEncoder.reset();
+    	leftTopMotor.setEncPosition(0);
+    	rightTopMotor.setEncPosition(0);
     }
     
     public double encoderDistance() {
@@ -90,11 +84,11 @@ public class Drivetrain extends Subsystem {
     }
 
     public double leftEncoderDistance() {
-    	return Math.abs(leftEncoder.getDistance());
+    	return Math.abs(leftTopMotor.getEncPosition() * RobotMap.DRIVETRAIN_ENCODER_INCHES_PER_PULSE);
     }
 
     public double rightEncoderDistance() {
-    	return Math.abs(rightEncoder.getDistance());
+    	return Math.abs(rightTopMotor.getEncPosition() * RobotMap.DRIVETRAIN_ENCODER_INCHES_PER_PULSE);
     }
     
     //Sets the solenoid to a shifted state manually
