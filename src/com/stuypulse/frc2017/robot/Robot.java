@@ -72,8 +72,6 @@ public class Robot extends IterativeRobot {
 
     public static BoolBox stopAutoMovement = new BoolBox(false);
 
-    IRSensor irsensor;
-
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -88,7 +86,6 @@ public class Robot extends IterativeRobot {
         ballgate = new BallGate();
         winch = new Winch();
         oi = new OI();
-        irsensor = new IRSensor();
         ledBlenderSignal = new LEDSignal(RobotMap.BLENDER_LED_PORT, RobotMap.BLENDER_LED_ON_VALUE);
         ledGearSensingSignal = new LEDSignal(RobotMap.GEAR_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);
 
