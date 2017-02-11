@@ -38,8 +38,8 @@ public class Drivetrain extends Subsystem {
     	leftBottomMotor = new CANTalon(RobotMap.LEFT_BOTTOM_MOTOR_PORT);
     	rightBottomMotor = new CANTalon(RobotMap.RIGHT_BOTTOM_MOTOR_PORT);
 
-    	gearShift = new Solenoid(RobotMap.GEAR_SHIFT_SOLENOID_PORT, RobotMap.GEAR_SHIFT_SOLENOID_PORT);
-    	
+    	gearShift = new Solenoid(RobotMap.GEAR_SHIFT_SOLENOID_PORT);
+
     	shifted = false;
     	
     	robotDrive = new RobotDrive(leftBottomMotor, leftTopMotor, rightBottomMotor, rightTopMotor);
