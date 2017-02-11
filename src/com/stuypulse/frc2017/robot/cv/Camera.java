@@ -1,6 +1,7 @@
 package com.stuypulse.frc2017.robot.cv;
 
-import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FRAME_PX_WIDTH;
+import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FRAME_PX_HEIGHT;
+import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_VIEWING_ANGLE_Y;
 
 import com.stuypulse.frc2017.robot.CVConstants;
 
@@ -41,7 +42,7 @@ public class Camera {
     public static double frameXPxToDegrees(double xCoor) {
         //return xCoor * CVConstants.CAMERA_VIEWING_ANGLE_X / CAMERA_FRAME_PX_WIDTH;
     	//return (xCoor - CAMERA_FRAME_PX_WIDTH / 2) * (CAMERA_VIEWING_ANGLE_X / CAMERA_FRAME_PX_WIDTH);
-    	return Math.toDegrees(Math.atan(xCoor / CVConstants.CAMERA_FOCAL_LENGTH_X));
+        return Math.toDegrees(Math.atan(xCoor / CVConstants.CAMERA_FOCAL_LENGTH_X));
     }
 
     /**
@@ -53,7 +54,8 @@ public class Camera {
     public static double frameYPxToDegrees(double yCoor) {
     	//return yCoor * CVConstants.CAMERA_VIEWING_ANGLE_Y / CVConstants.CAMERA_FRAME_PX_HEIGHT;
         // return yPx * CAMERA_VIEWING_ANGLE_Y / CAMERA_FRAME_PX_HEIGHT;
-    	return Math.toDegrees(Math.atan(yCoor / CVConstants.CAMERA_FOCAL_LENGTH_X));
+        //return Math.toDegrees(Math.atan(yCoor / CVConstants.CAMERA_FOCAL_LENGTH_Y));
+        return yCoor / CAMERA_FRAME_PX_HEIGHT * CAMERA_VIEWING_ANGLE_Y;
     }
     
     public static void main(String[] args) {

@@ -12,7 +12,7 @@ public interface CVConstants {
 
     double CAMERA_VIEWING_ANGLE_Y = 34.3; // angular height of frame
 
-    double CAMERA_Y = 7.25; // TODO: SET EXACT
+    double CAMERA_Y = 6; // TODO: SET EXACT
 
     double CAMERA_FRAME_PX_HEIGHT = 270.0;
 
@@ -20,10 +20,14 @@ public interface CVConstants {
 
     double REFLEXITE_LENGTH = 5.0;
 
-    double CAMERA_FOCAL_LENGTH_X = CAMERA_FRAME_PX_WIDTH / (2 * Math.tan(Math.toRadians(CAMERA_VIEWING_ANGLE_X / 2)));
-    
-    double CAMERA_FOCAL_LENGTH_Y = CAMERA_FRAME_PX_HEIGHT / (2 * Math.tan(Math.toRadians(CAMERA_VIEWING_ANGLE_Y / 2)));
-    
+    //double CAMERA_FOCAL_LENGTH_X = CAMERA_FRAME_PX_WIDTH / (2 * Math.tan(Math.toRadians(CAMERA_VIEWING_ANGLE_X / 2)));
+    //double CAMERA_FOCAL_LENGTH_Y = CAMERA_FRAME_PX_HEIGHT / (2 * Math.tan(Math.toRadians(CAMERA_VIEWING_ANGLE_Y / 2)));
+
+    // Taken from measurements
+    // F = (P * D) / W
+    double CAMERA_FOCAL_LENGTH_X = (26.5 * 29) / 2;
+    double CAMERA_FOCAL_LENGTH_Y = (26.5 * 69) / 5;
+
     double PEG_LENGTH = 10.5;
     
     public static void main(String[] args){

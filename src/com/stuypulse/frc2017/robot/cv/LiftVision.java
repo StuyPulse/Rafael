@@ -1,7 +1,7 @@
 package com.stuypulse.frc2017.robot.cv;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Comparator;
 import java.util.List;
 
 import org.opencv.core.Core;
@@ -132,10 +132,24 @@ public class LiftVision extends VisionModule {
 
         MatOfPoint2f approxCurve = new MatOfPoint2f();
         ArrayList<Rect> rects = new ArrayList<Rect>();
+        contours.sort(new Comparator<MatOfPoint>() {
+            public int compare(MatOfPoint m1, MatOfPoint m2) {
+                Rect rect1 = Imgproc.boundingRect(m1);
+                Rect rect2 = Imgproc.boundingRect(m2);
 
-        for (Iterator<MatOfPoint> it = contours.iterator(); it.hasNext();) {
+                if (rect1.area() < rect2.area()) {
+                    return -1;
+                } else if (rect2.area() > rect1.area()) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+
+        for (int i = 0; i < contours.size(); i++) {
             // boundingRect strategy
-            MatOfPoint2f contour2f = new MatOfPoint2f(it.next().toArray());
+            MatOfPoint2f contour2f = new MatOfPoint2f(contours.get(i).toArray());
             double approxDistance = Imgproc.arcLength(contour2f, true)*0.02;
             Imgproc.approxPolyDP(contour2f, approxCurve, approxDistance, true);
             MatOfPoint points = new MatOfPoint(approxCurve.toArray());
@@ -147,14 +161,14 @@ public class LiftVision extends VisionModule {
 
             double area = rect.area();
             if ((area < minGoalArea.value() || area > maxGoalArea.value()) || !aspectRatioThreshold(rect.width, rect.height)) {
-                it.remove();
+                contours.remove(i);
                 continue;
             }
-            int i = 0;
-            while (i < rects.size() && rects.get(i).area() < area) {
-                i++;
+            int j = 0;
+            while (j < rects.size() && rects.get(j).area() < area) {
+                j++;
             }
-            rects.add(i, rect);
+            rects.add(j, rect);
         }
 
         // One vision target was broken up by the peg
@@ -163,9 +177,18 @@ public class LiftVision extends VisionModule {
             Rect r2 = rects.get(1);
             MatOfPoint p = new MatOfPoint(
                     new Point(r1.x, r1.y),
+                    new Point(r1.x, r1.y+r1.height),
+                    new Point(r1.x+r1.width, r1.y),
                     new Point(r1.x+r1.width, r1.y+r1.height),
+
                     new Point(r2.x, r2.y),
+                    new Point(r2.x, r2.y + r2.height),
+                    new Point(r2.x+r2.width, r2.y),
                     new Point(r2.x+r2.width, r2.y+r2.height));
+            contours.remove(0);
+            contours.remove(0);
+            contours.add(p);
+
             Rect combined = Imgproc.boundingRect(p);
             rects.remove(0);
             rects.remove(0);
@@ -175,23 +198,6 @@ public class LiftVision extends VisionModule {
         for (int i = 0; i < rects.size(); i++) {
             Rect rect = rects.get(i);
             Imgproc.rectangle(drawn, new Point(rect.x,rect.y), new Point(rect.x+rect.width,rect.y+rect.height), new Scalar(0, 255, 0), 1);
-
-            // RotatedRect strategy
-            // MatOfPoint2f tmp = new MatOfPoint2f();
-            // contours.get(i).convertTo(tmp, CvType.CV_32FC1);
-            // RotatedRect r = Imgproc.minAreaRect(tmp);
-            // double area = r.size.area();
-            // if (area < minGoalArea.value() || area > maxGoalArea.value()) {
-            //     continue;
-            // }
-            // if (!aspectRatioThreshold(r.size.width, r.size.height)) {
-            //     continue;
-            // }
-            // Point[] points = new Point[4];
-            // r.points(points);
-            // for (int j = 0; j < points.length; j++) {
-            //     Imgproc.line(drawn, points[j], points[(j + 1) % 4], new Scalar(0, 255, 0));
-            // }
         }
 
         String s = "";
@@ -203,9 +209,9 @@ public class LiftVision extends VisionModule {
 	        double height1 = getHeight(contours.get(0));
 	        double height2 = getHeight(contours.get(1));
 	        //System.out.println(LiftMath.stripXToAngle(getCenterX(contours.get(0))) + "\n" + LiftMath.stripXToAngle(getCenterX(contours.get(1))));
-	        System.out.println("center1: " + center1);
-	        System.out.println("center2: " + center2);
-	        System.out.println("----------------------------------");
+	        //System.out.println("center1: " + center1);
+	        //System.out.println("center2: " + center2);
+	        //System.out.println("----------------------------------");
 	        Imgproc.circle(drawn, center1, 1, new Scalar(0,0,255), 2);
 	        Imgproc.circle(drawn, center2, 1, new Scalar(0,0,255), 2);
 	        Imgproc.line(drawn, new Point(0, 134.5), new Point(360, 134.5), new Scalar(0,0,255), 1);
@@ -216,7 +222,7 @@ public class LiftVision extends VisionModule {
 	        s += LiftMath.heightToDistance(height1, true) + "\n";
 	        s += LiftMath.heightToDistance(height2, false);
 	        if (hasGuiApp()) {
-	            postImage(drawn, s);
+	            postImage(drawn, "Detected");
 	        }
         }
 
@@ -342,7 +348,7 @@ public class LiftVision extends VisionModule {
     }
 
     public void sortContours(ArrayList<MatOfPoint> contours) {
-        if(getLeftMostX(contours.get(0)) > getLeftMostX(contours.get(1))) {
+        if (getLeftMostX(contours.get(0)) > getLeftMostX(contours.get(1))) {
             contours.add(contours.remove(0));
         }
     }
@@ -350,8 +356,11 @@ public class LiftVision extends VisionModule {
     public Vector[] getTargetVectors(ArrayList<MatOfPoint> contours) {
         Vector leftTarget;
         Vector rightTarget;
-        rightTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(1)), getHeight(contours.get(0)), false);
-        leftTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(0)), getHeight(contours.get(0)), true);
+        rightTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(1)), getCenterY(contours.get(1)), getHeight(contours.get(1)));
+        leftTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(0)), getCenterY(contours.get(0)), getHeight(contours.get(0)));
+
+        //rightTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(1)), getHeight(contours.get(0)), false);
+        //leftTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(0)), getHeight(contours.get(0)), true);
         return new Vector[] {leftTarget, rightTarget};
     }
     
