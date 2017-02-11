@@ -80,7 +80,7 @@ public interface RobotMap {
     ////////////////////////////////////////////////////////////////////////////
 
     // TODO: this is used from two commands; confirm it works for both
-    double BOILER_TO_HOPPER_BACKUP_DISTANCE = -158.4;
+    double BOILER_TO_HOPPER_BACKUP_DISTANCE = -108.9;
 
     // Blender
     double BLENDER_MOTOR_SPEED = 0.2; // TODO: Set ideal speed.

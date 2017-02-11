@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class MobilityMinimalCommand extends CommandGroup {
-	//TODO: Math (priority)
-    public static final double MOBILITY_TO_BASELINE_DISTANCE = -1;
+	
+    public static final double MOBILITY_TO_BASELINE_DISTANCE = 93.3;
     
     public  MobilityMinimalCommand() {
         // Add Commands here:
