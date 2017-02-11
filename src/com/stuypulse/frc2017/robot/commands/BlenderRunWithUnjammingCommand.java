@@ -9,7 +9,11 @@ import edu.wpi.first.wpilibj.command.Command;
 
 
 /**
+ * Runs the blender, and tries to detect jams. If this command finds a jam,
+ * it runs the blender backwards momentarily (constants in RobotMap) before
+ * resuming at typical speed.
  *
+ * Should be bound with whileHeld, as isFinished just returns false.
  */
 public class BlenderRunWithUnjammingCommand extends Command {
 
@@ -52,7 +56,7 @@ public class BlenderRunWithUnjammingCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true
