@@ -64,8 +64,9 @@ public interface RobotMap {
     // The third LED is (supposed to be) on port 9, for future use.
 
     // On-values (i.e. which bit to send to indicate to turn the LED on)
-    boolean BLENDER_LED_ON_VALUE = false;
-    boolean GEAR_LED_ON_VALUE = false;
+    // TODO: test these values
+    boolean BLENDER_LED_ON_VALUE = true;
+    boolean GEAR_LED_ON_VALUE = true;
 
     ////////////////////////////////////////////////////////////////////////////
     // SOLENOIDS: //////////////////////////////////////////////////////////////
