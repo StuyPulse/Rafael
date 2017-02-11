@@ -82,7 +82,9 @@ public class Robot extends IterativeRobot {
         irsensor = new IRSensor();
         ledBlenderSignal = new LEDSignal(RobotMap.BLENDER_LED_PORT, RobotMap.BLENDER_LED_ON_VALUE);
         ledGearSensingSignal = new LEDSignal (RobotMap.GEAR_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);
-        
+
+        setupSmartDashboardFields();
+
         // TODO: setup auton chooser
 
         boilerVision = new BoilerVision();
@@ -90,6 +92,10 @@ public class Robot extends IterativeRobot {
         boilerCamera = new UsbCamera("Boiler Camera", 0);
         liftCamera = new UsbCamera("Lift Camera", 1);
         
+    }
+
+    private void setupSmartDashboardFields() {
+        SmartDashboard.putNumber("Shooter speed", RobotMap.SHOOTER_IDEAL_SPEED);
     }
 
     private void setupAutonChooser(){
