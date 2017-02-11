@@ -205,11 +205,14 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        SmartDashboard.putNumber("IRDistance", irsensor.getDistance());
-        SmartDashboard.putNumber("IRVoltage", irsensor.getVoltage());
         blender.checkForJam();
         irsensor.handleAutoGearPush();
         irsensor.gearLEDSignalControl();
+        SmartDashboard.putNumber("IRDistance", irsensor.getDistance());
+        SmartDashboard.putNumber("IRVoltage", irsensor.getVoltage());
+        SmartDashboard.putNumber("Encoder drivetrain left", Robot.drivetrain.leftEncoderDistance());
+        SmartDashboard.putNumber("Encoder drivetrain right", Robot.drivetrain.rightEncoderDistance());
+        SmartDashboard.putNumber("Gyro angle", Robot.drivetrain.gyroAngle());
     }
 
     /**
