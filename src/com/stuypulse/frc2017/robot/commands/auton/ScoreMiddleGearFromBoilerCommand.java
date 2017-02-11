@@ -13,46 +13,46 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class ScoreMiddleGearFromBoilerCommand extends CommandGroup {
-    private static final double BACK_UP_FROM_BOILER_DISTANCE = -127.3;
-    private static final double TURN_AWAY_FROM_BOILER = -45;
-    //TODO: Set numbers from testing
-    private static final double MOVE_TOWARDS_LIFT = -1; // :(
-    private static final double TURN_TOWARDS_LIFT = 90;
-    private static final double MOVE_TO_LIFT = -1; // :(
+	private static final double BACK_UP_FROM_BOILER_DISTANCE = -131.9;
+	private static final double TURN_AWAY_FROM_BOILER = 135;
+	// TODO: Set numbers from testing
+	private static final double MOVE_TOWARDS_LIFT = 80.7;
+	private static final double TURN_TOWARDS_LIFT = 90;
+	private static final double MOVE_TO_LIFT = 21;
 
-    public ScoreMiddleGearFromBoilerCommand() {
-        int direction;
-        if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
-            direction = 1;
-        } else {
-            direction = -1;
-        }
+	public ScoreMiddleGearFromBoilerCommand() {
+		int direction;
+		if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
+			direction = 1;
+		} else {
+			direction = -1;
+		}
 
-        addSequential(new DriveForwardEncodersCommand(BACK_UP_FROM_BOILER_DISTANCE));
-        addSequential(new RotateDegreesGyroCommand(TURN_AWAY_FROM_BOILER * direction));
-        addSequential(new DriveForwardEncodersCommand(MOVE_TOWARDS_LIFT));
-        addSequential(new RotateDegreesGyroCommand(TURN_TOWARDS_LIFT * direction));
-        addSequential(new DriveForwardEncodersCommand(MOVE_TO_LIFT));
-        addSequential(new GearTrapReleaseGearCommand());
-        addSequential(new DriveForwardEncodersCommand(ScoreMiddleGearCommand.MIDDLE_GEAR_REVERSE_DISTANCE));
-        addSequential(new GearPusherRetractGearCommand());
-        addSequential(new GearTrapTrapGearCommand());
-        
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
+		addSequential(new DriveForwardEncodersCommand(BACK_UP_FROM_BOILER_DISTANCE));
+		addSequential(new RotateDegreesGyroCommand(TURN_AWAY_FROM_BOILER * direction));
+		addSequential(new DriveForwardEncodersCommand(MOVE_TOWARDS_LIFT));
+		addSequential(new RotateDegreesGyroCommand(TURN_TOWARDS_LIFT * direction));
+		addSequential(new DriveForwardEncodersCommand(MOVE_TO_LIFT));
+		addSequential(new GearTrapReleaseGearCommand());
+		addSequential(new DriveForwardEncodersCommand(ScoreMiddleGearCommand.MIDDLE_GEAR_REVERSE_DISTANCE));
+		addSequential(new GearPusherRetractGearCommand());
+		addSequential(new GearTrapTrapGearCommand());
 
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
+		// Add Commands here:
+		// e.g. addSequential(new Command1());
+		// addSequential(new Command2());
+		// these will run in order.
 
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
-    }
+		// To run multiple commands at the same time,
+		// use addParallel()
+		// e.g. addParallel(new Command1());
+		// addSequential(new Command2());
+		// Command1 and Command2 will run in parallel.
+
+		// A command group will require all of the subsystems that each member
+		// would require.
+		// e.g. if Command1 requires chassis, and Command2 requires arm,
+		// a CommandGroup containing them would require both the chassis and the
+		// arm.
+	}
 }

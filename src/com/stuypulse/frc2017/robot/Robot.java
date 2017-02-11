@@ -3,19 +3,7 @@ package com.stuypulse.frc2017.robot;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
-import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromBoilerGearCommand;
-import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromHPGearCommand;
-import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromMiddleGearCommand;
-import com.stuypulse.frc2017.robot.commands.auton.DoubleSequentialCommand;
-import com.stuypulse.frc2017.robot.commands.auton.MiddleGearMobilityMinimalCommand;
-import com.stuypulse.frc2017.robot.commands.auton.MobilityMinimalCommand;
-import com.stuypulse.frc2017.robot.commands.auton.MobilityToHPCommand;
-import com.stuypulse.frc2017.robot.commands.auton.ScoreBoilerGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreHPGearCommand;
-import com.stuypulse.frc2017.robot.commands.auton.ScoreMiddleGearCommand;
-import com.stuypulse.frc2017.robot.commands.auton.ShootFromMiddleGearCommand;
-import com.stuypulse.frc2017.robot.commands.auton.ShootingFromAllianceWallCommand;
-import com.stuypulse.frc2017.robot.commands.auton.ShootingFromBoilerGearCommand;
 import com.stuypulse.frc2017.robot.cv.BoilerVision;
 import com.stuypulse.frc2017.robot.cv.Camera;
 import com.stuypulse.frc2017.robot.cv.LiftVision;
@@ -32,6 +20,7 @@ import com.stuypulse.frc2017.util.Vector;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -57,14 +46,13 @@ public class Robot extends IterativeRobot {
     public static BallGate ballgate;
     public static Winch winch;
     public static LEDSignal ledBlenderSignal;
-    public static LEDSignal ledGearSensingSignal;
 
-    public static OI oi;
+    public static OI oi;	
     
-    public static SendableChooser<Command> autonChooser;
+    public static SendableChooser autonChooser;
 
     Command autonomousCommand;
-    SendableChooser<Command> chooser = new SendableChooser<Command>();
+    SendableChooser chooser = new SendableChooser();
 
     UsbCamera boilerCamera;
     UsbCamera liftCamera;
@@ -92,36 +80,23 @@ public class Robot extends IterativeRobot {
         oi = new OI();
         irsensor = new IRSensor();
         ledBlenderSignal = new LEDSignal(RobotMap.BLENDER_LED_PORT, RobotMap.BLENDER_LED_ON_VALUE);
-        ledGearSensingSignal = new LEDSignal(RobotMap.GEAR_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);
-
-        setupSmartDashboardFields();
-        setupAutonChooser();
+        
+        // TODO: setup auton chooser
 
         boilerVision = new BoilerVision();
+        // chooser.addDefault("Default Auto", new ExampleCommand());
+        // chooser.addObject("My Auto", new MyAutoCommand());
+        SmartDashboard.putData("Auto mode", chooser);
 
         boilerCamera = new UsbCamera("Boiler Camera", 0);
         liftCamera = new UsbCamera("Lift Camera", 1);
-    }
-
-    private void setupSmartDashboardFields() {
-        SmartDashboard.putNumber("Shooter speed", RobotMap.SHOOTER_IDEAL_SPEED);
+        
     }
 
     private void setupAutonChooser(){
-    	autonChooser = new SendableChooser<Command>();
+    	autonChooser = new SendableChooser();
     	autonChooser.addDefault("Do Nothing", new CommandGroup());
-    	autonChooser.addObject("Minimal Mobility", new MobilityMinimalCommand());
-    	autonChooser.addObject("Minimal Mobility From Middle Gear Start", new MiddleGearMobilityMinimalCommand());
-    	autonChooser.addObject("Only Mobility To HP Station", new MobilityToHPCommand());
-    	autonChooser.addObject("Only Score HP Gear", new ScoreHPGearCommand());
-    	autonChooser.addObject("Score HP Gear THEN Approach HP Station", new DoubleSequentialCommand(new ScoreHPGearCommand(), new ApproachHPFromHPGearCommand()));
-    	autonChooser.addObject("Only Score Middle Gear", new ScoreMiddleGearCommand());
-    	autonChooser.addObject("Score Middle Gear THEN Approach HP Station", new DoubleSequentialCommand(new ScoreMiddleGearCommand(), new ApproachHPFromMiddleGearCommand()));
-    	autonChooser.addObject("Score Middle Gear THEN Shoot", new DoubleSequentialCommand(new ScoreMiddleGearCommand(), new ShootFromMiddleGearCommand()));
-    	autonChooser.addObject("Only Score Boiler Gear", new ScoreBoilerGearCommand());
-    	autonChooser.addObject("Score Boiler Gear THEN Approach HP Station", new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ApproachHPFromBoilerGearCommand()));
-    	autonChooser.addObject("Score Boiler Gear THEN Shoot", new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ShootingFromBoilerGearCommand()));
-    	autonChooser.addObject("Only Shoot", new ShootingFromAllianceWallCommand());
+    	autonChooser.addObject("HP Gear", new ScoreHPGearCommand());
     }
     
     /**
@@ -131,12 +106,14 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void disabledInit() {
+
     }
 
     @Override
     public void disabledPeriodic() {
-        // TODO: why the scheduler called here (in the default code)?
         Scheduler.getInstance().run();
+        SmartDashboard.putNumber("IRDistance", irsensor.getDistance());
+        SmartDashboard.putNumber("IRVoltage", irsensor.getVoltage());
     }
 
     /**
@@ -152,8 +129,9 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
-        // schedule the autonomous command
-        autonomousCommand = autonChooser.getSelected();
+        DriverStation.getInstance().getAlliance();
+
+        // schedule the autonomous command (example)
         if (autonomousCommand != null) {
             autonomousCommand.start();
         }
@@ -161,9 +139,6 @@ public class Robot extends IterativeRobot {
         // TODO: Set SHOOTER_IDEAL_SPEED to the ideal speed when it is known,
         // then set shooter speed to SHOOTER_IDEAL_SPEED here.
         Robot.shooter.setSpeed(SmartDashboard.getNumber("Shooter speed", 0.0));
-
-        // The gear-pusher piston starts in the extended position. This is
-        // done physically, on the solenoid, not in code.
     }
 
     /**
@@ -173,7 +148,6 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
         blender.checkForJam();
-        irsensor.gearLEDSignalControl();
     }
 
     @Override
@@ -220,14 +194,10 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        blender.checkForJam();
-        irsensor.handleAutoGearPush();
-        irsensor.gearLEDSignalControl();
         SmartDashboard.putNumber("IRDistance", irsensor.getDistance());
         SmartDashboard.putNumber("IRVoltage", irsensor.getVoltage());
-        SmartDashboard.putNumber("Encoder drivetrain left", Robot.drivetrain.leftEncoderDistance());
-        SmartDashboard.putNumber("Encoder drivetrain right", Robot.drivetrain.rightEncoderDistance());
-        SmartDashboard.putNumber("Gyro angle", Robot.drivetrain.gyroAngle());
+        blender.checkForJam();
+        irsensor.handleAutoGearPush();
     }
 
     /**
