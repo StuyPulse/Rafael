@@ -19,6 +19,7 @@ public class ScoreMiddleGearFromBoilerCommand extends CommandGroup {
     private static final double MOVE_TOWARDS_LIFT = -1; // :(
     private static final double TURN_TOWARDS_LIFT = 90;
     private static final double MOVE_TO_LIFT = -1; // :(
+
     public ScoreMiddleGearFromBoilerCommand() {
         int direction;
         if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
@@ -26,6 +27,7 @@ public class ScoreMiddleGearFromBoilerCommand extends CommandGroup {
         } else {
             direction = -1;
         }
+
         addSequential(new DriveForwardEncodersCommand(BACK_UP_FROM_BOILER_DISTANCE));
         addSequential(new RotateDegreesGyroCommand(TURN_AWAY_FROM_BOILER * direction));
         addSequential(new DriveForwardEncodersCommand(MOVE_TOWARDS_LIFT));
