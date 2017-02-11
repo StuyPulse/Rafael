@@ -7,6 +7,10 @@ import com.stuypulse.frc2017.robot.Robot;
  */
 public class DriveToBoilerRangeCommand extends EncoderDrivingCommand {
 
+    public DriveToBoilerRangeCommand() {
+        super(Robot.stopAutoMovement);
+    }
+
     private double cvReading[];
     @Override
     protected void setInchesToMove() {
@@ -14,7 +18,8 @@ public class DriveToBoilerRangeCommand extends EncoderDrivingCommand {
         if (cvReading != null) {
             initialInchesToMove = cvReading[1];
         } else {
-            initialInchesToMove = 0; // TODO: abort
+            initialInchesToMove = 0;
+            cancelCommand = true;
         }
     }
 }

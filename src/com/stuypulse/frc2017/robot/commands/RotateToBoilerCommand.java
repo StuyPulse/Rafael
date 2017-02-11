@@ -9,13 +9,26 @@ public class RotateToBoilerCommand extends GyroRotationalCommand {
 
     private double[] cvReading;
 
+    public RotateToBoilerCommand() {
+        super(Robot.stopAutoMovement, false);
+    }
+
+    public RotateToBoilerCommand(boolean gentle) {
+        super(Robot.stopAutoMovement, gentle);
+    }
+
+    public RotateToBoilerCommand(boolean gentle, double tolerance) {
+        super(Robot.stopAutoMovement, gentle, tolerance);
+    }
+
     @Override
     protected void setDesiredAngle() {
         cvReading = Robot.boilerVision.processImage();
         if (cvReading != null) {
             desiredAngle = cvReading[2];
         } else {
-            desiredAngle = 0; // TODO: abort
+            desiredAngle = 0;
+            cancelCommand = true;
         }
     }
 

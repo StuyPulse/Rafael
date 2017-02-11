@@ -23,6 +23,7 @@ import com.stuypulse.frc2017.robot.subsystems.GearPusher;
 import com.stuypulse.frc2017.robot.subsystems.GearTrap;
 import com.stuypulse.frc2017.robot.subsystems.Shooter;
 import com.stuypulse.frc2017.robot.subsystems.Winch;
+import com.stuypulse.frc2017.util.BoolBox;
 import com.stuypulse.frc2017.util.IRSensor;
 import com.stuypulse.frc2017.util.LEDSignal;
 import com.stuypulse.frc2017.util.Vector;
@@ -56,7 +57,7 @@ public class Robot extends IterativeRobot {
     public static LEDSignal ledGearSensingSignal;
 
     public static OI oi;
-    
+
     public static SendableChooser<Command> autonChooser;
 
     Command autonomousCommand;
@@ -68,6 +69,8 @@ public class Robot extends IterativeRobot {
     public static LiftVision liftVision;
     public static BoilerVision boilerVision;
     public static Vector[] cvVector;
+
+    public static BoolBox stopAutoMovement = new BoolBox(false);
 
     IRSensor irsensor;
 
