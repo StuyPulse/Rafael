@@ -4,6 +4,7 @@ import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
 import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.DrivetrainPiotrDriveCommand;
+import com.stuypulse.frc2017.robot.commands.DrivetrainTankDriveCommand;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SPI;
@@ -16,7 +17,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Drivetrain extends Subsystem {
 
+    /**
+     * Talon for left top motor. Has encoder on it.
+     */
 	private CANTalon leftTopMotor;
+    /**
+     * Talon for right top motor. Has encoder on it.
+     */
 	private CANTalon rightTopMotor;
 	private CANTalon leftBottomMotor;
     private CANTalon rightBottomMotor;
@@ -38,6 +45,11 @@ public class Drivetrain extends Subsystem {
     	leftBottomMotor = new CANTalon(RobotMap.LEFT_BOTTOM_MOTOR_PORT);
     	rightBottomMotor = new CANTalon(RobotMap.RIGHT_BOTTOM_MOTOR_PORT);
 
+        leftTopMotor.enableBrakeMode(true);
+        rightTopMotor.enableBrakeMode(true);
+        leftBottomMotor.enableBrakeMode(true);
+        rightBottomMotor.enableBrakeMode(true);
+
     	gearShift = new Solenoid(RobotMap.GEAR_SHIFT_SOLENOID_PORT);
 
     	shifted = false;
@@ -54,11 +66,11 @@ public class Drivetrain extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand( new DrivetrainPiotrDriveCommand() );
+        setDefaultCommand(new DrivetrainTankDriveCommand());
     }
 
     public void tankDrive(double left, double right) {
-    	robotDrive.tankDrive(left,right);
+    	robotDrive.tankDrive(left, right);
     }
 
     public void stop() {
@@ -89,19 +101,13 @@ public class Drivetrain extends Subsystem {
     public double rightEncoderDistance() {
     	return Math.abs(rightTopMotor.getEncPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_PULSE);
     }
-    
+
     //Sets the solenoid to a shifted state manually
     public void manualGearShift(boolean shift) {
     	gearShift.set(shift);
     	shifted = shift;
     }
-    
-    //Toggles solenoid from the prior state.
-    public void toggleGearShift() {
-    	shifted = !shifted;
-    	manualGearShift(shifted);
-    }
-    
+
     //TODO: Edit the boolean with the correct value for each gear setting.
     public void highGearShift() {
     	gearShift.set(true); 

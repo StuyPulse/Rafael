@@ -38,11 +38,11 @@ public class Shooter extends Subsystem {
 
 	// cut current to motor so it stops eventually, but doesn't apply brakes
 	public void stop() {
-		shooterMotorA.set(0);
-		shooterMotorB.set(0);
+		shooterMotorA.set(0.0);
+		shooterMotorB.set(0.0);
 	}
 
 	public double getCurrentMotorSpeedInRPM() {
-        return shooterMotorA.getSpeed();
+        return (shooterMotorA.getSpeed() + shooterMotorB.getSpeed()) / 2.0;
     }
 }

@@ -34,9 +34,9 @@ public interface RobotMap {
     /// CANTALON PORTS and ENCODER CONVERSIONS: ////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     // Drivetrain
-    int LEFT_TOP_MOTOR_PORT = 1; // has encoder attached
+    int LEFT_TOP_MOTOR_PORT = 1;
     int LEFT_BOTTOM_MOTOR_PORT = 2;
-    int RIGHT_TOP_MOTOR_PORT = 3; // has encoder attached
+    int RIGHT_TOP_MOTOR_PORT = 3;
     int RIGHT_BOTTOM_MOTOR_PORT = 4;
 
     int ENCODER_PULSES_PER_REVOLUTION = 1024; // TODO: verify value and specify which encoder in name
@@ -91,7 +91,10 @@ public interface RobotMap {
     double BLENDER_DEGREES_PER_PULSE_THRESHOLD_FOR_JAM = -1.0; //TODO: Find a suitable value for this.
 
     // Shooter
-    double SHOOTER_IDEAL_SPEED = -1; // TODO
+    double SHOOTER_IDEAL_SPEED = -1.0; // TODO: set shooter speed
+
+    // Winch
+    double WINCH_MOTOR_SPEED = 1.0;
 
     ////////////////////////////////////////////////////////////////////////////
     // LEDS: ///////////////////////////////////////////////////////////////////

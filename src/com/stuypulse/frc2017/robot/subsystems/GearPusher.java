@@ -1,7 +1,6 @@
 package com.stuypulse.frc2017.robot.subsystems;
 
 import com.stuypulse.frc2017.robot.RobotMap;
-import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -19,11 +18,11 @@ public class GearPusher extends Subsystem {
 	// We are assuming there are only two states to this Solenoid.
 	// The speed of the piston might play a role.
 
-	private Value pushed;
+	private Value position;
 
 	public GearPusher() {
 		gearPusherPiston = new DoubleSolenoid(RobotMap.GEAR_COVERER_SOLENOID_PORT, RobotMap.GEAR_PUSHER_SOLENOID_PORT);
-		pushed = Value.kOff;
+		position = Value.kOff;
 	}
 
 	public void initDefaultCommand() {
@@ -32,7 +31,7 @@ public class GearPusher extends Subsystem {
 	}
 
 	public void toggle() {
-		if(pushed == Value.kForward) {
+		if(position == Value.kForward) {
 			push(Value.kReverse);
 		}
 		else {
@@ -42,7 +41,7 @@ public class GearPusher extends Subsystem {
 
 	public void push(Value push) {
 		gearPusherPiston.set(push);
-		pushed = push;
+		position = push;
 	}
 	
 	public void extend() {

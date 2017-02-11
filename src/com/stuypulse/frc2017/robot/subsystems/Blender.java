@@ -1,11 +1,9 @@
 package com.stuypulse.frc2017.robot.subsystems;
 
 import com.ctre.CANTalon;
-
 import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.BlenderStopCommand;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -29,10 +27,10 @@ public class Blender extends Subsystem {
 		blenderMotor = new CANTalon(RobotMap.BLENDER_MOTOR_PORT);
 		blenderMotor.configEncoderCodesPerRev(RobotMap.BLENDER_ENCODER_PULSES_PER_REVOLUTION);
 		currentValues = new double[CURRENTS_TO_RECORD];
+		blenderMotor.enableBrakeMode(true);
 		isJammed = false;
 	}
 
-    
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());

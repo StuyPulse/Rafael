@@ -3,6 +3,19 @@ package com.stuypulse.frc2017.robot;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
+import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromBoilerGearCommand;
+import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromHPGearCommand;
+import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromMiddleGearCommand;
+import com.stuypulse.frc2017.robot.commands.auton.DoubleSequentialCommand;
+import com.stuypulse.frc2017.robot.commands.auton.MiddleGearMobilityMinimalCommand;
+import com.stuypulse.frc2017.robot.commands.auton.MobilityMinimalCommand;
+import com.stuypulse.frc2017.robot.commands.auton.MobilityToHPCommand;
+import com.stuypulse.frc2017.robot.commands.auton.ScoreBoilerGearCommand;
+import com.stuypulse.frc2017.robot.commands.auton.ScoreHPGearCommand;
+import com.stuypulse.frc2017.robot.commands.auton.ScoreMiddleGearCommand;
+import com.stuypulse.frc2017.robot.commands.auton.ShootFromMiddleGearCommand;
+import com.stuypulse.frc2017.robot.commands.auton.ShootingFromAllianceWallCommand;
+import com.stuypulse.frc2017.robot.commands.auton.ShootingFromBoilerGearCommand;
 import com.stuypulse.frc2017.robot.cv.BoilerVision;
 import com.stuypulse.frc2017.robot.cv.Camera;
 import com.stuypulse.frc2017.robot.cv.LiftVision;
@@ -19,7 +32,6 @@ import com.stuypulse.frc2017.util.Vector;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -27,7 +39,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import com.stuypulse.frc2017.robot.commands.auton.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -48,7 +59,7 @@ public class Robot extends IterativeRobot {
     public static LEDSignal ledBlenderSignal;
     public static LEDSignal ledGearSensingSignal;
 
-    public static OI oi;	
+    public static OI oi;
     
     public static SendableChooser<Command> autonChooser;
 
@@ -120,11 +131,11 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void disabledInit() {
-
     }
 
     @Override
     public void disabledPeriodic() {
+        // TODO: why the scheduler called here (in the default code)?
         Scheduler.getInstance().run();
     }
 
@@ -142,6 +153,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousInit() {
         // schedule the autonomous command
+        autonomousCommand = autonChooser.getSelected();
         if (autonomousCommand != null) {
             autonomousCommand.start();
         }
@@ -149,6 +161,9 @@ public class Robot extends IterativeRobot {
         // TODO: Set SHOOTER_IDEAL_SPEED to the ideal speed when it is known,
         // then set shooter speed to SHOOTER_IDEAL_SPEED here.
         Robot.shooter.setSpeed(SmartDashboard.getNumber("Shooter speed", 0.0));
+
+        // The gear-pusher piston starts in the extended position. This is
+        // done physically, on the solenoid, not in code.
     }
 
     /**
