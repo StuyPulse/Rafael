@@ -50,10 +50,10 @@ public class Robot extends IterativeRobot {
 
     public static OI oi;	
     
-    public static SendableChooser autonChooser;
+    public static SendableChooser<Command> autonChooser;
 
     Command autonomousCommand;
-    SendableChooser chooser = new SendableChooser();
+    SendableChooser<Command> chooser = new SendableChooser<Command>();
 
     UsbCamera boilerCamera;
     UsbCamera liftCamera;
@@ -96,7 +96,7 @@ public class Robot extends IterativeRobot {
     }
 
     private void setupAutonChooser(){
-    	autonChooser = new SendableChooser();
+    	autonChooser = new SendableChooser<Command>();
     	autonChooser.addDefault("Do Nothing", new CommandGroup());
     	autonChooser.addObject("Minimal Mobility", new MobilityMinimalCommand());
     	autonChooser.addObject("Minimal Mobility From Middle Gear Start", new MiddleGearMobilityMinimalCommand());
