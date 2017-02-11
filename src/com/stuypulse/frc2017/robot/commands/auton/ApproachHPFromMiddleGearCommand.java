@@ -12,6 +12,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class ApproachHPFromMiddleGearCommand extends CommandGroup {
+    public static final double MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_ANGLE = -90;
+    public static final double MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_DISTANCE = -1;
+    public static final double AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_ANGLE = 90;
+    public static final double AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_DISTANCE = -1;
 
 	public ApproachHPFromMiddleGearCommand() {
 		int direction;
@@ -22,9 +26,9 @@ public class ApproachHPFromMiddleGearCommand extends CommandGroup {
 		}
 		
 		addSequential(new DriveTrainHighGearCommand());
-		addSequential(new RotateDegreesGyroCommand(direction * RobotMap.MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_ANGLE));
-		addSequential(new DriveForwardEncodersCommand(RobotMap.MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_DISTANCE));
-		addSequential(new RotateDegreesGyroCommand(direction * RobotMap.AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_ANGLE));
-		addSequential(new DriveForwardEncodersCommand(RobotMap.AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_DISTANCE));
+		addSequential(new RotateDegreesGyroCommand(direction * MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_ANGLE));
+		addSequential(new DriveForwardEncodersCommand(MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_DISTANCE));
+		addSequential(new RotateDegreesGyroCommand(direction * AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_ANGLE));
+		addSequential(new DriveForwardEncodersCommand(AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_DISTANCE));
 	}
 }

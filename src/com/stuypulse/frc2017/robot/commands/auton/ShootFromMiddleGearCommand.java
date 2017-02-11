@@ -11,14 +11,16 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class ShootFromMiddleGearCommand extends CommandGroup {
+    public static final double MIDDLE_GEAR_TO_BOILER_ANGLE = 90;
+    public static final double MIDDLE_GEAR_TO_BOILER_DISTANCE = 109.7;
 
     public ShootFromMiddleGearCommand() {
     	if(DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red){
-    		addSequential(new RotateDegreesGyroCommand(RobotMap.MIDDLE_GEAR_TO_BOILER_ANGLE));
+    		addSequential(new RotateDegreesGyroCommand(MIDDLE_GEAR_TO_BOILER_ANGLE));
     	}else{
-    		addSequential(new RotateDegreesGyroCommand(-1 * RobotMap.MIDDLE_GEAR_TO_BOILER_ANGLE));
+    		addSequential(new RotateDegreesGyroCommand(-1.0 * MIDDLE_GEAR_TO_BOILER_ANGLE));
     	}
-    	addSequential(new DriveForwardEncodersCommand(RobotMap.MIDDLE_GEAR_TO_BOILER_DISTANCE));
+    	addSequential(new DriveForwardEncodersCommand(MIDDLE_GEAR_TO_BOILER_DISTANCE));
     	// To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());

@@ -10,10 +10,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class ShootingFromAllianceWallCommand extends CommandGroup {
+    public static final double BACK_UP_TO_SHOOT_FROM_ALLIANCE_WALL_DISTANCE = -36.0;
 
 	public ShootingFromAllianceWallCommand() {
 		
-		addSequential(new DriveForwardEncodersCommand(RobotMap.BACK_UP_TO_SHOOT_FROM_ALLIANCE_WALL_DISTANCE));
+		addSequential(new DriveForwardEncodersCommand(BACK_UP_TO_SHOOT_FROM_ALLIANCE_WALL_DISTANCE));
 		//add CV
 		addSequential(new BlenderRunWithUnjammingCommand());
 	}

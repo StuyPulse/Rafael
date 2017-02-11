@@ -38,7 +38,7 @@ public class Drivetrain extends Subsystem {
     	leftBottomMotor = new CANTalon(RobotMap.LEFT_BOTTOM_MOTOR_PORT);
     	rightBottomMotor = new CANTalon(RobotMap.RIGHT_BOTTOM_MOTOR_PORT);
 
-    	gearShift = new Solenoid(RobotMap.GEAR_SHIFT, RobotMap.GEAR_SHIFT_SOLENOID_PORT);
+    	gearShift = new Solenoid(RobotMap.GEAR_SHIFT_SOLENOID_PORT, RobotMap.GEAR_SHIFT_SOLENOID_PORT);
     	
     	shifted = false;
     	
@@ -83,11 +83,11 @@ public class Drivetrain extends Subsystem {
     }
 
     public double leftEncoderDistance() {
-    	return Math.abs(leftTopMotor.getEncPosition() * RobotMap.DRIVETRAIN_ENCODER_INCHES_PER_PULSE);
+    	return Math.abs(leftTopMotor.getEncPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_PULSE);
     }
 
     public double rightEncoderDistance() {
-    	return Math.abs(rightTopMotor.getEncPosition() * RobotMap.DRIVETRAIN_ENCODER_INCHES_PER_PULSE);
+    	return Math.abs(rightTopMotor.getEncPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_PULSE);
     }
     
     //Sets the solenoid to a shifted state manually

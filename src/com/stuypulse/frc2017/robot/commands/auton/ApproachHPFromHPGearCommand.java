@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class ApproachHPFromHPGearCommand extends CommandGroup {
+    public static final double HP_GEAR_TO_NEUTRAL_ZONE_ANGLE = -60;
+    public static final double HP_GEAR_TO_NEUTRAL_ZONE_DISTANCE = 374; // TODO: maybe subtract 12 inches here
 
 	public ApproachHPFromHPGearCommand() {
 		// Add Commands here:
@@ -27,8 +29,8 @@ public class ApproachHPFromHPGearCommand extends CommandGroup {
 		}
 		
 		addSequential(new DriveTrainHighGearCommand());
-		addSequential(new RotateDegreesGyroCommand(direction * RobotMap.HP_GEAR_TO_NEUTRAL_ZONE_ANGLE));
-		addSequential(new DriveForwardEncodersCommand(RobotMap.HP_GEAR_TO_NEUTRAL_ZONE_DISTANCE));
+		addSequential(new RotateDegreesGyroCommand(direction * HP_GEAR_TO_NEUTRAL_ZONE_ANGLE));
+		addSequential(new DriveForwardEncodersCommand(HP_GEAR_TO_NEUTRAL_ZONE_DISTANCE));
 		
 		
 		// To run multiple commands at the same time,

@@ -14,6 +14,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class ScoreBoilerGearCommand extends CommandGroup {
+    public static final double START_TO_BOILER_GEAR_TURN_DISTANCE = 114.3;
+    public static final double BOILER_GEAR_TURN_TO_BOILER_GEAR_ANGLE = -60;
+    public static final double AFTER_TURN_TO_BOILER_GEAR_DISTANCE = 51;
+    public static final double BOILER_GEAR_REVERSE_DISTANCE = -51;
     
     public  ScoreBoilerGearCommand() {
     	int direction;
@@ -22,12 +26,12 @@ public class ScoreBoilerGearCommand extends CommandGroup {
 		} else {
 			direction = -1;
 		} 
-		addSequential(new DriveForwardEncodersCommand(RobotMap.START_TO_BOILER_GEAR_TURN_DISTANCE));
-		addSequential(new RotateDegreesGyroCommand(direction * RobotMap.BOILER_GEAR_TURN_TO_BOILER_GEAR_ANGLE));
-		addSequential(new DriveForwardEncodersCommand(RobotMap.AFTER_TURN_TO_BOILER_GEAR_DISTANCE));
+		addSequential(new DriveForwardEncodersCommand(START_TO_BOILER_GEAR_TURN_DISTANCE));
+		addSequential(new RotateDegreesGyroCommand(direction * BOILER_GEAR_TURN_TO_BOILER_GEAR_ANGLE));
+		addSequential(new DriveForwardEncodersCommand(AFTER_TURN_TO_BOILER_GEAR_DISTANCE));
 		addSequential(new GearTrapReleaseGearCommand());
 		addSequential(new GearPusherRetractGearCommand());
-		addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_REVERSE_DISTANCE));
+		addSequential(new DriveForwardEncodersCommand(BOILER_GEAR_REVERSE_DISTANCE));
 		addSequential(new GearTrapTrapGearCommand());
     }
 }

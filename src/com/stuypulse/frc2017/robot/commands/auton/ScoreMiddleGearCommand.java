@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class ScoreMiddleGearCommand extends CommandGroup {
+    public static final double START_TO_MIDDLE_GEAR_DISTANCE = 114.3;
+    public static final double MIDDLE_GEAR_REVERSE_DISTANCE = -36;
 
     public ScoreMiddleGearCommand() {
         // To run multiple commands at the same time,
@@ -28,9 +30,9 @@ public class ScoreMiddleGearCommand extends CommandGroup {
 
     	// Drive to gear, release trap, drive back, retract gear pusher, close trap.
 
-    	addSequential(new DriveForwardEncodersCommand(RobotMap.START_TO_MIDDLE_GEAR_DISTANCE));
+    	addSequential(new DriveForwardEncodersCommand(START_TO_MIDDLE_GEAR_DISTANCE));
     	addSequential(new GearTrapReleaseGearCommand());
-    	addSequential(new DriveForwardEncodersCommand(RobotMap.MIDDLE_GEAR_REVERSE_DISTANCE));
+    	addSequential(new DriveForwardEncodersCommand(MIDDLE_GEAR_REVERSE_DISTANCE));
     	addSequential(new GearPusherRetractGearCommand());
     	addSequential(new GearTrapTrapGearCommand());
     	

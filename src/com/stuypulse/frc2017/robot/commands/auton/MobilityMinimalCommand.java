@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class MobilityMinimalCommand extends CommandGroup {
+    public static final double MOBILITY_TO_BASELINE_DISTANCE = -1; // TODO
     
     public  MobilityMinimalCommand() {
         // Add Commands here:
@@ -41,7 +42,7 @@ public class MobilityMinimalCommand extends CommandGroup {
     		addSequential(new RotateDegreesGyroCommand(-1 * RobotMap.MOBILITY_TURN_ANGLE));
     		addSequential(new DriveForwardEncodersCommand(RobotMap.END_MOBILITY_TURN_DISTANCE));
     	*/
-    	addSequential(new DriveForwardEncodersCommand(RobotMap.MOBILITY_TO_BASELINE_DISTANCE));
+    	addSequential(new DriveForwardEncodersCommand(MOBILITY_TO_BASELINE_DISTANCE));
     	
     }
     	

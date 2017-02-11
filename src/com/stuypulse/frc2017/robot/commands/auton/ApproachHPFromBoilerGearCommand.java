@@ -12,6 +12,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class ApproachHPFromBoilerGearCommand extends CommandGroup {
+    public static final double BOILER_GEAR_TO_NEUTRAL_ZONE_ANGLE = 60;
+    public static final double BOILER_GEAR_TO_NEUTRAL_ZONE_DISTANCE = 374; // TODO: maybe subtract 12 inches
+    public static final double BOILER_GEAR_NEUTRAL_ZONE_TO_HP_ANGLE = -45;
+    public static final double BOILER_GEAR_NEUTRAL_ZONE_TO_HP_DISTANCE = -1;
 
 	public ApproachHPFromBoilerGearCommand() {
 		int direction;
@@ -21,9 +25,9 @@ public class ApproachHPFromBoilerGearCommand extends CommandGroup {
 			direction = -1;
 		}
 		addSequential(new DriveTrainHighGearCommand());
-        addSequential(new RotateDegreesGyroCommand((direction * RobotMap.BOILER_GEAR_TO_NEUTRAL_ZONE_ANGLE)));
-    	addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_TO_NEUTRAL_ZONE_DISTANCE));
-    	addSequential(new RotateDegreesGyroCommand(direction * RobotMap.BOILER_GEAR_NEUTRAL_ZONE_TO_HP_ANGLE));
-    	addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_NEUTRAL_ZONE_TO_HP_DISTANCE));
+        addSequential(new RotateDegreesGyroCommand((direction * BOILER_GEAR_TO_NEUTRAL_ZONE_ANGLE)));
+    	addSequential(new DriveForwardEncodersCommand(BOILER_GEAR_TO_NEUTRAL_ZONE_DISTANCE));
+    	addSequential(new RotateDegreesGyroCommand(direction * BOILER_GEAR_NEUTRAL_ZONE_TO_HP_ANGLE));
+    	addSequential(new DriveForwardEncodersCommand(BOILER_GEAR_NEUTRAL_ZONE_TO_HP_DISTANCE));
 	}
 }

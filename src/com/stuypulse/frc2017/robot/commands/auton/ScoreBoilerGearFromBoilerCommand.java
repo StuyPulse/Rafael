@@ -1,6 +1,5 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
-import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
@@ -35,7 +34,7 @@ public class ScoreBoilerGearFromBoilerCommand extends CommandGroup {
     	addSequential (new DriveForwardEncodersCommand(FOWARD_TO_BOILER_GEAR));
 		addSequential(new GearTrapReleaseGearCommand());
 		addSequential(new GearPusherRetractGearCommand());
-		addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_GEAR_REVERSE_DISTANCE));
+		addSequential(new DriveForwardEncodersCommand(ScoreBoilerGearCommand.BOILER_GEAR_REVERSE_DISTANCE));
 		addSequential(new GearTrapTrapGearCommand());
     }
 }

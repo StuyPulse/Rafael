@@ -9,10 +9,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class MobilityToHPCommand extends CommandGroup {
+    public static final double MOBILITY_TO_NEUTRAL_ZONE_DISTANCE = -1; // TODO
 
     public MobilityToHPCommand() {
     	
-    	addSequential(new DriveForwardEncodersCommand(RobotMap.MOBILITY_TO_NEUTRAL_ZONE_DISTANCE));
+    	addSequential(new DriveForwardEncodersCommand(MOBILITY_TO_NEUTRAL_ZONE_DISTANCE));
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
