@@ -11,13 +11,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class ApproachAllianceHopperFromBoiler extends CommandGroup {
-<<<<<<< Updated upstream
     private static final double TURN_TO_HOPPER = -1;
     private static final double DRIVE_TO_HOPPER = -1;
-=======
-    double TURN_TO_HOPPER = 135;
-    double DRIVE_TO_HOPPER = 112;
->>>>>>> Stashed changes
     
     public ApproachAllianceHopperFromBoiler() {
         int direction;
