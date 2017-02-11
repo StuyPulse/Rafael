@@ -1,6 +1,5 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
-import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -9,7 +8,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class MobilityMinimalCommand extends CommandGroup {
-    public static final double MOBILITY_TO_BASELINE_DISTANCE = -1; // TODO
+	//TODO: Math (priority)
+    public static final double MOBILITY_TO_BASELINE_DISTANCE = -1;
     
     public  MobilityMinimalCommand() {
         // Add Commands here:

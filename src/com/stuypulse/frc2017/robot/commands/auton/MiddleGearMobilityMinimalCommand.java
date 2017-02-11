@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class MiddleGearMobilityMinimalCommand extends CommandGroup {
-    
+    //TODO: Math (priority)
     private double FIRST_MOBILITY_TURN_DISTANCE = -1;
     private double FIRST_MOBILITY_TURN_ANGLE = -1;
     private double SECOND_MOBILITY_TURN_DISTANCE = -1;
