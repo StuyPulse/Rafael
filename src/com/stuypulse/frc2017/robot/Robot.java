@@ -123,8 +123,6 @@ public class Robot extends IterativeRobot {
     @Override
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
-        SmartDashboard.putNumber("IRDistance", irsensor.getDistance());
-        SmartDashboard.putNumber("IRVoltage", irsensor.getVoltage());
     }
 
     /**
