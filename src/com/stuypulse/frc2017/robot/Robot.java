@@ -1,8 +1,5 @@
 package com.stuypulse.frc2017.robot;
 
-import org.opencv.core.Mat;
-import org.opencv.imgcodecs.Imgcodecs;
-
 import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromBoilerGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromHPGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromMiddleGearCommand;
@@ -30,7 +27,6 @@ import com.stuypulse.frc2017.util.IRSensor;
 import com.stuypulse.frc2017.util.LEDSignal;
 import com.stuypulse.frc2017.util.Vector;
 
-import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -66,15 +62,14 @@ public class Robot extends IterativeRobot {
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<Command>();
 
-    UsbCamera boilerCamera;
-    UsbCamera liftCamera;
+    private static UsbCamera boilerCamera;
+    private static UsbCamera liftCamera;
 
     public static LiftVision liftVision;
+    public static BoilerVision boilerVision;
+    public static Vector[] cvVector;
 
     IRSensor irsensor;
-
-    public static Vector[] cvVector;
-    public static BoilerVision boilerVision;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -98,6 +93,7 @@ public class Robot extends IterativeRobot {
         setupAutonChooser();
 
         boilerVision = new BoilerVision();
+        liftVision = new LiftVision();
 
         boilerCamera = new UsbCamera("Boiler Camera", 0);
         liftCamera = new UsbCamera("Lift Camera", 1);
@@ -123,7 +119,6 @@ public class Robot extends IterativeRobot {
     	autonChooser.addObject("Score Boiler Gear THEN Shoot", new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ShootingFromBoilerGearCommand()));
     	autonChooser.addObject("Only Shoot", new ShootingFromAllianceWallCommand());
     }
-    
     /**
      * This function is called once each time the robot enters Disabled mode.
      * You can use it to reset any subsystem information you want to clear when
@@ -186,32 +181,8 @@ public class Robot extends IterativeRobot {
             autonomousCommand.cancel();
         }
 
-        // TODO: Remove old camera operations used for testing
-
-        boilerCamera.setResolution(160, 120);
-        liftCamera.setResolution(160, 120);
-        System.out.println("Set resolutions");
-
-        CvSink boilerSink = new CvSink("Boiler Camera Sink");
-        boilerSink.setSource(boilerCamera);
-        System.out.println("Set boiler source");
-        CvSink liftSink = new CvSink("Lift Camera Sink");
-        liftSink.setSource(liftCamera);
-        System.out.println("Set lift source");
-
-        Mat boilerFrame = new Mat();
-        Mat liftFrame = new Mat();
-
         Camera.configureCamera(0);
         Camera.configureCamera(1);
-
-        boilerSink.grabFrame(boilerFrame);
-        liftSink.grabFrame(liftFrame);
-        System.out.println("Read frames");
-
-        Imgcodecs.imwrite("/tmp/boiler.png", boilerFrame);
-        Imgcodecs.imwrite("/tmp/lift.png", liftFrame);
-        System.out.println("Wrote images");
     }
 
     /**
