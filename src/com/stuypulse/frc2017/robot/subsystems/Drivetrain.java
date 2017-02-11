@@ -60,8 +60,8 @@ public class Drivetrain extends Subsystem {
     	robotDrive = new RobotDrive(leftBottomMotor, leftTopMotor, rightBottomMotor, rightTopMotor);
 
     	//Encoders are located on the top motors on either of the motor complexes located on the left/right hemispheres.
-    	leftTopMotor.configEncoderCodesPerRev(RobotMap.ENCODER_PULSES_PER_REVOLUTION);
-    	rightTopMotor.configEncoderCodesPerRev(RobotMap.ENCODER_PULSES_PER_REVOLUTION);
+    	leftTopMotor.configEncoderCodesPerRev(RobotMap.DRIVETRAIN_ENCODERS_PULSES_PER_REVOLUTION);
+    	rightTopMotor.configEncoderCodesPerRev(RobotMap.DRIVETRAIN_ENCODERS_PULSES_PER_REVOLUTION);
     	
     	gyro = new AHRS(SPI.Port.kMXP);
     	resetGyro();
@@ -102,11 +102,11 @@ public class Drivetrain extends Subsystem {
     }
 
     public double leftEncoderDistance() {
-    	return Math.abs(leftTopMotor.getPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_PULSE);
+    	return Math.abs(leftTopMotor.getPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION);
     }
 
     public double rightEncoderDistance() {
-    	return Math.abs(rightTopMotor.getPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_PULSE);
+    	return Math.abs(rightTopMotor.getPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION);
     }
 
     //Sets the solenoid to a shifted state manually
