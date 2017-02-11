@@ -12,19 +12,24 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Shooter extends Subsystem {
 
 	private CANTalon shooterMotor;
+	private CANTalon shooterMotorTwo;
 
 	public Shooter() {
 		shooterMotor = new CANTalon(RobotMap.SHOOTER_MOTOR_PORT);
+		shooterMotorTwo = new CANTalon(RobotMap.SHOOTER_MOTOR_PORT_TWO);
 		shooterMotor.enableBrakeMode(false);
+		shooterMotorTwo.enableBrakeMode(false);
 	}
 
 	public void setSpeed(double speed) {
 		shooterMotor.set(speed);
+		shooterMotorTwo.set(speed);
 	}
 
 	// cut current to motor so it stops eventually, but doesn't apply brakes
 	public void stop() {
 		shooterMotor.set(0);
+		shooterMotorTwo.set(0);
 	}
 
 	public double getCurrentMotorSpeedInRPM() {

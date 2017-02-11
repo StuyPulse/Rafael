@@ -36,7 +36,8 @@ public interface RobotMap {
     int BLENDER_MOTOR_PORT = 6;
 
     int SHOOTER_MOTOR_PORT = 7;
-
+    int SHOOTER_MOTOR_PORT_TWO = 8;
+    
     int WINCH_MOTOR_PORT = 5;
 
     int DRIVETRAIN_ENCODER_LEFT_CHANNEL_A = -1;
@@ -52,7 +53,7 @@ public interface RobotMap {
     int GEAR_PUSHER_SOLENOID_PORT = 2;
     int BALL_GATE_SOLENOID_PORT = 1;
     int GEAR_SHIFT_SOLENOID_PORT = 0;
-
+    
     int IR_SENSOR_PORT = 0;
     
     //LED Ports (8, 9, 0)
@@ -70,6 +71,7 @@ public interface RobotMap {
     int PCM_2 = 0;
     int PCM_3 = 0;
     int PCM_4 = 0;
+    int PCM_5 = 0;
     int GEAR_SHIFT = 0;
 
     // Physical Constants
