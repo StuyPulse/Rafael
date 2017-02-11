@@ -39,14 +39,15 @@ public interface RobotMap {
     int RIGHT_TOP_MOTOR_PORT = 3;
     int RIGHT_BOTTOM_MOTOR_PORT = 4;
 
-    int ENCODER_PULSES_PER_REVOLUTION = 1024; // TODO: verify value and specify which encoder in name
-    double DRIVETRAIN_ENCODERS_INCHES_PER_PULSE = 23.56;
+    int DRIVETRAIN_ENCODERS_PULSES_PER_REVOLUTION = 256; // TODO: Test value
+    double DRIVETRAIN_WHEEL_DIAMETER = 4.0;
+    double DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION = Math.PI * DRIVETRAIN_WHEEL_DIAMETER;
     // We use BLENDER_ENCODER_DEGREES_PER_PULSE as the encoder's distance-per-pulse.
     double BLENDER_ENCODER_DEGREES_PER_PULSE = 360.0 / (double) RobotMap.BLENDER_ENCODER_PULSES_PER_REVOLUTION;
 
     // Blender
     int BLENDER_MOTOR_PORT = 6;
-    int BLENDER_ENCODER_PULSES_PER_REVOLUTION = 1024;
+    int BLENDER_ENCODER_PULSES_PER_REVOLUTION = 1024; // TODO: Test value
 
     // Shooter
     int SHOOTER_MOTOR_A_PORT = 7;
