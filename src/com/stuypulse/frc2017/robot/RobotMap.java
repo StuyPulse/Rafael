@@ -30,14 +30,15 @@ public interface RobotMap {
 
     int FRONT_LEFT_MOTOR_PORT = 1;
     int FRONT_RIGHT_MOTOR_PORT = 3;
-    int BACK_LEFT_MOTOR_PORT = 0;
-    int BACK_RIGHT_MOTOR_PORT = 2;
+    int BACK_LEFT_MOTOR_PORT = 2;
+    int BACK_RIGHT_MOTOR_PORT = 4;
 
-    int BLENDER_MOTOR_PORT = -1;
+    int BLENDER_MOTOR_PORT = 6;
 
-    int SHOOTER_MOTOR_PORT = -1;
-
-    int WINCH_MOTOR_PORT = 4;
+    int SHOOTER_MOTOR_PORT = 7;
+    int SHOOTER_MOTOR_PORT_TWO = 8;
+    
+    int WINCH_MOTOR_PORT = 5;
 
     int DRIVETRAIN_ENCODER_LEFT_CHANNEL_A = -1;
     int DRIVETRAIN_ENCODER_LEFT_CHANNEL_B = -1;
@@ -47,21 +48,31 @@ public interface RobotMap {
     int BLENDER_ENCODER_CHANNEL_A = -1;
     int BLENDER_ENCODER_CHANNEL_B = -1;
 
-    int GEAR_TRAP_RIGHT_SOLENOID_PORT = -1;
-    int GEAR_TRAP_LEFT_SOLENOID_PORT = -1;
-    int GEAR_PUSHER_SOLENOID_PORT = -1;
-    int BALL_GATE_SOLENOID_PORT = -1;
-    int GEAR_SHIFT_SOLENOID_PORT = -1;
-
+    int GEAR_TRAP_RIGHT_SOLENOID_PORT = 4;
+    int GEAR_TRAP_LEFT_SOLENOID_PORT = 3;
+    int GEAR_PUSHER_SOLENOID_PORT = 2;
+    int BALL_GATE_SOLENOID_PORT = 1;
+    int GEAR_SHIFT_SOLENOID_PORT = 0;
+    
     int IR_SENSOR_PORT = 0;
+    
+    //LED Ports (8, 9, 0)
+    
+    int BLENDER_LED_PORT = 0;
+    int GEAR_LED_PORT = 8;
+    //Port 9 is the remaining port left for LEDs
+   
+    boolean BLENDER_LED_ON_VALUE = false;
+    boolean GEAR_LED_ON_VALUE = false;
 
     // Solenoid Channels
 
-    int PCM_1 = 5;
-    int PCM_2 = 6;
-    int PCM_3 = 7;
-    int PCM_4 = 8;
-    int GEAR_SHIFT = 4;
+    int PCM_1 = 0;
+    int PCM_2 = 0;
+    int PCM_3 = 0;
+    int PCM_4 = 0;
+    int PCM_5 = 0;
+    int GEAR_SHIFT = 0;
 
     // Physical Constants
 
@@ -101,12 +112,12 @@ public interface RobotMap {
     double MIDDLE_GEAR_REVERSE_DISTANCE = -36;
 
     double BOILER_GEAR_TO_NEUTRAL_ZONE_ANGLE = 60;
-    double BOILER_GEAR_TO_NEUTRAL_ZONE_DISTANCE = -1;
+    double BOILER_GEAR_TO_NEUTRAL_ZONE_DISTANCE = 374; //maybe subtract 12 inches nyeh heh heh
     double BOILER_GEAR_NEUTRAL_ZONE_TO_HP_ANGLE = -45;
     double BOILER_GEAR_NEUTRAL_ZONE_TO_HP_DISTANCE = -1;
     
     double HP_GEAR_TO_NEUTRAL_ZONE_ANGLE = -60;
-    double HP_GEAR_TO_NEUTRAL_ZONE_DISTANCE = -1;
+    double HP_GEAR_TO_NEUTRAL_ZONE_DISTANCE = 374; //maybe subtract 12 inches here too nyeh heh heh
     
     double START_TO_HP_GEAR_TURN_DISTANCE = 114.3;
     double HP_GEAR_TURN_TO_HP_GEAR_ANGLE = 60;
@@ -127,17 +138,18 @@ public interface RobotMap {
     double MIDDLE_GEAR_TO_BOILER_DISTANCE = 109.7;
     double BACK_UP_TO_SHOOT_FROM_ALLIANCE_WALL_DISTANCE = -36;
 
-    double BOILER_GEAR_REVERSE_SHOOTING_DISTANCE = -1;
-    double BOILER_GEAR_TURN_TO_BOILER_ANGLE = 180; //actually it's a little bit more but nyeh heh heh
-    double BOILER_GEAR_TO_BOILER_DISTANCE = -1;
+    double BOILER_GEAR_REVERSE_SHOOTING_DISTANCE = 80.8;
+    double BOILER_GEAR_TURN_TO_BOILER_ANGLE = 180;
+    double BOILER_GEAR_TO_BOILER_DISTANCE = -80.8;
     
-    double BOILER_BACK_UP_DISTANCE = -1;
-    double BOILER_TURN_AROUND_ANGLE = -1;
-    double BOILER_TO_BOILER_GEAR_DISTANCE = -1;
+    double BOILER_BACK_UP_DISTANCE = -80.8;
+    double BOILER_TURN_AROUND_ANGLE = 180;
+    double BOILER_TO_BOILER_GEAR_DISTANCE = 80.8;
     
-    double BOILER_TO_HOPPER_BACKUP_DISTANCE = -1;
-
+    double BOILER_TO_HOPPER_BACKUP_DISTANCE = -158.4;
 
     double IR_SENSOR_THRESHOLD = 4.5;
     double IR_TIME_IN_MECHANISM_THRESHOLD = 0.5;
 }
+
+// NYEH HEH HEH HEH HEH HEH HEH HEH HEH HEH HEH HEH HEH HEH HEH HEH HEH HEH HEH

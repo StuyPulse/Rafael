@@ -2,8 +2,10 @@ package com.stuypulse.frc2017.robot.commands.auton;
 
 import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
+import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -11,19 +13,20 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class ApproachHPFromHPGearCommand extends CommandGroup {
 
-	public ApproachHPFromHPGearCommand(boolean isRedAlliance) {
+	public ApproachHPFromHPGearCommand() {
 		// Add Commands here:
 		// e.g. addSequential(new Command1());
 		// addSequential(new Command2());
 		// these will run in order.
 
 		int direction;
-		if (isRedAlliance) {
+		if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
 			direction = 1;
 		} else {
 			direction = -1;
 		}
 		
+		addSequential(new DriveTrainHighGearCommand());
 		addSequential(new RotateDegreesGyroCommand(direction * RobotMap.HP_GEAR_TO_NEUTRAL_ZONE_ANGLE));
 		addSequential(new DriveForwardEncodersCommand(RobotMap.HP_GEAR_TO_NEUTRAL_ZONE_DISTANCE));
 		

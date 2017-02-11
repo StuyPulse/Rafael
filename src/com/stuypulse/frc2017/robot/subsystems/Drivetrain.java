@@ -7,9 +7,8 @@ import com.stuypulse.frc2017.robot.commands.DrivetrainPiotrDriveCommand;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Solenoid;
-
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -43,7 +42,7 @@ public class Drivetrain extends Subsystem {
     	backLeftWheel = new CANTalon(RobotMap.BACK_LEFT_MOTOR_PORT);
     	backRightWheel = new CANTalon(RobotMap.BACK_RIGHT_MOTOR_PORT);
 
-    	gearShift = new Solenoid(RobotMap.GEAR_SHIFT_SOLENOID_PORT, RobotMap.GEAR_SHIFT);
+    	gearShift = new Solenoid(RobotMap.GEAR_SHIFT, RobotMap.GEAR_SHIFT_SOLENOID_PORT);
     	
     	shifted = false;
     	
