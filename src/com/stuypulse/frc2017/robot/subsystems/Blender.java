@@ -1,6 +1,7 @@
 package com.stuypulse.frc2017.robot.subsystems;
 
 import com.ctre.CANTalon;
+
 import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.BlenderStopCommand;
 
@@ -18,8 +19,6 @@ public class Blender extends Subsystem {
 
 	private static CANTalon blenderMotor;
 
-    private Encoder blenderEncoder;
-
 	// Values of current going to blenderMotor for past CURRENTS_TO_RECORD ticks
 	private static double[] currentValues;
 
@@ -28,8 +27,7 @@ public class Blender extends Subsystem {
 
 	public Blender() {
 		blenderMotor = new CANTalon(RobotMap.BLENDER_MOTOR_PORT);
-		blenderEncoder = new Encoder(RobotMap.BLENDER_ENCODER_CHANNEL_A, RobotMap.BLENDER_ENCODER_CHANNEL_B);
-		blenderEncoder.setDistancePerPulse(RobotMap.BLENDER_ENCODER_DEGREES_PER_PULSE);
+		blenderMotor.configEncoderCodesPerRev(RobotMap.BLENDER_ENCODER_PULSES_PER_REVOLUTION);
 		currentValues = new double[CURRENTS_TO_RECORD];
 		isJammed = false;
 	}
@@ -72,7 +70,7 @@ public class Blender extends Subsystem {
             arraySum += currentValues[arrayCounter];
         }
         double currentArithmeticMean = arraySum/currentValues.length;
-        double blenderDegreesPerPulse = blenderEncoder.getRate();
+        double blenderDegreesPerPulse = blenderMotor.getEncVelocity();
         //Checks whether the average is over the threshold for not jammed.
         boolean isCurrentHigh = currentArithmeticMean > RobotMap.BLENDER_CURRENT_THRESHOLD_FOR_JAM;
         boolean isSpeedHigh = blenderDegreesPerPulse > RobotMap.BLENDER_DEGREES_PER_PULSE_THRESHOLD_FOR_JAM;
