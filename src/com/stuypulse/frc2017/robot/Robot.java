@@ -55,6 +55,7 @@ public class Robot extends IterativeRobot {
     public static Winch winch;
     public static LEDSignal ledBlenderSignal;
     public static LEDSignal ledGearSensingSignal;
+    public static SendableChooser<Boolean> cvChooser;
 
     public static OI oi;
 
@@ -121,6 +122,12 @@ public class Robot extends IterativeRobot {
     	autonChooser.addObject("Score Boiler Gear THEN Approach HP Station", new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ApproachHPFromBoilerGearCommand()));
     	autonChooser.addObject("Score Boiler Gear THEN Shoot", new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ShootingFromBoilerGearCommand()));
     	autonChooser.addObject("Only Shoot", new ShootingFromAllianceWallCommand());
+    }
+
+    private void setupCVChooser(){
+        cvChooser = new SendableChooser<Boolean>();
+        cvChooser.addDefault("Do Not Use CV", false);
+        cvChooser.addObject("Use CV", true);
     }
     /**
      * This function is called once each time the robot enters Disabled mode.
