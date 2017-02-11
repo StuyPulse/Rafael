@@ -13,13 +13,11 @@ public class GearTrap extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	private Solenoid leftPiston;
-	private Solenoid rightPiston;
+	private Solenoid gearTrap;
 	private boolean trapped;
 	
 	public GearTrap() {
-		leftPiston = new Solenoid(RobotMap.PCM_1,RobotMap.GEAR_TRAP_LEFT_SOLENOID_PORT);
-		rightPiston = new Solenoid(RobotMap.PCM_2,RobotMap.GEAR_TRAP_RIGHT_SOLENOID_PORT);
+		gearTrap = new Solenoid(RobotMap.PCM_1,RobotMap.GEAR_TRAP_SOLENOID_PORT);
 		trapped = true;
 	}
 
@@ -29,20 +27,17 @@ public class GearTrap extends Subsystem {
     }
 
     public void toggle() {
-    	open(!trapped);
+    	set(!trapped);
     }
 
-    public void open(boolean trap) {
-    	leftPiston.set(trap);
-    	rightPiston.set(trap);
+    public void set(boolean trap) {
+    	gearTrap.set(trap);
     	trapped = trap;
     }
-    public void trapped() {
-    	leftPiston.set(true);
-    	rightPiston.set(true);
+    public void trap() {
+    	gearTrap.set(true);
     }
-    public void released() {
-    	leftPiston.set(false);
-    	rightPiston.set(false);
+    public void release() {
+    	gearTrap.set(false);
     }
 }
