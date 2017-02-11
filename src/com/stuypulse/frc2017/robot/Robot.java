@@ -81,17 +81,15 @@ public class Robot extends IterativeRobot {
         oi = new OI();
         irsensor = new IRSensor();
         ledBlenderSignal = new LEDSignal(RobotMap.BLENDER_LED_PORT, RobotMap.BLENDER_LED_ON_VALUE);
-        ledGearSensingSignal = new LEDSignal (RobotMap.GEAR_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);
+        ledGearSensingSignal = new LEDSignal(RobotMap.GEAR_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);
 
         setupSmartDashboardFields();
-
-        // TODO: setup auton chooser
+        setupAutonChooser();
 
         boilerVision = new BoilerVision();
 
         boilerCamera = new UsbCamera("Boiler Camera", 0);
         liftCamera = new UsbCamera("Lift Camera", 1);
-        
     }
 
     private void setupSmartDashboardFields() {
