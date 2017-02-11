@@ -13,6 +13,7 @@ public class GearTrap extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
+
 	private Solenoid gearTrap;
 	private boolean trapped;
 	
