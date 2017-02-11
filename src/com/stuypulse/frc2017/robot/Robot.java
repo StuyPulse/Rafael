@@ -86,9 +86,6 @@ public class Robot extends IterativeRobot {
         // TODO: setup auton chooser
 
         boilerVision = new BoilerVision();
-        // chooser.addDefault("Default Auto", new ExampleCommand());
-        // chooser.addObject("My Auto", new MyAutoCommand());
-        SmartDashboard.putData("Auto mode", chooser);
 
         boilerCamera = new UsbCamera("Boiler Camera", 0);
         liftCamera = new UsbCamera("Lift Camera", 1);
@@ -140,9 +137,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
-        DriverStation.getInstance().getAlliance();
-        
-        // schedule the autonomous command (example)
+        // schedule the autonomous command
         if (autonomousCommand != null) {
             autonomousCommand.start();
         }
