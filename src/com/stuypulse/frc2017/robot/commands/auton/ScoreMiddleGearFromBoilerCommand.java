@@ -14,11 +14,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class ScoreMiddleGearFromBoilerCommand extends CommandGroup {
-    private static final double BACK_UP_FROM_BOILER_DISTANCE =-1;
-    private static final double TURN_AWAY_FROM_BOILER = -1;
-    private static final double MOVE_TOWARDS_LIFT = -1;
-    private static final double TURN_TOWARDS_LIFT = -1;
-    private static final double MOVE_TO_LIFT = -1;
+    private static final double BACK_UP_FROM_BOILER_DISTANCE = -127.3;
+    private static final double TURN_AWAY_FROM_BOILER = -45;
+    private static final double MOVE_TOWARDS_LIFT = -1; // :(
+    private static final double TURN_TOWARDS_LIFT = 90;
+    private static final double MOVE_TO_LIFT = -1; // :(
     public ScoreMiddleGearFromBoilerCommand() {
         int direction;
         if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {

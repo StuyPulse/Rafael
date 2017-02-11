@@ -11,8 +11,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class ApproachAllianceHopperFromBoiler extends CommandGroup {
+<<<<<<< Updated upstream
     private static final double TURN_TO_HOPPER = -1;
     private static final double DRIVE_TO_HOPPER = -1;
+=======
+    double TURN_TO_HOPPER = 135;
+    double DRIVE_TO_HOPPER = 112;
+>>>>>>> Stashed changes
     
     public ApproachAllianceHopperFromBoiler() {
         int direction;
@@ -22,7 +27,7 @@ public class ApproachAllianceHopperFromBoiler extends CommandGroup {
             direction = -1;
         }
         addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_TO_HOPPER_BACKUP_DISTANCE));
-        addSequential(new RotateDegreesGyroCommand(TURN_TO_HOPPER*direction));
+        addSequential(new RotateDegreesGyroCommand(TURN_TO_HOPPER * direction));
         addSequential(new DriveForwardEncodersCommand(DRIVE_TO_HOPPER));
         // Add Commands here:
         // e.g. addSequential(new Command1());

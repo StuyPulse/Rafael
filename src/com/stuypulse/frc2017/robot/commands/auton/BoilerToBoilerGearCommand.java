@@ -22,7 +22,7 @@ public class BoilerToBoilerGearCommand extends CommandGroup {
             direction = -1;
         }
         addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_BACK_UP_DISTANCE));
-        addSequential(new RotateDegreesGyroCommand(direction * RobotMap.BOILER_TURN_AROUND_ANGLE)); //180 degrees
+        addSequential(new RotateDegreesGyroCommand(direction * RobotMap.BOILER_TURN_AROUND_ANGLE));
         addSequential(new DriveForwardEncodersCommand(RobotMap.BOILER_TO_BOILER_GEAR_DISTANCE));
     }
 }
