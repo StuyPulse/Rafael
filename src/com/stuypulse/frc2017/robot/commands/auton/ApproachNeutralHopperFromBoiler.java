@@ -12,10 +12,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class ApproachNeutralHopperFromBoiler extends CommandGroup {
 
-    double TURN_AWAY_FROM_BOILER = 45;
-    double MOVE_TOWARD_HOPPER = 206.3;
+    double TURN_AWAY_FROM_BOILER = -45;
+    double MOVE_TOWARD_HOPPER = 249.3;
     double TURN_TO_HOPPER = 90;
-    double MOVE_TO_HOPPER = 112;
+    double MOVE_TO_HOPPER = 77;
    
     public ApproachNeutralHopperFromBoiler() {
         int direction;

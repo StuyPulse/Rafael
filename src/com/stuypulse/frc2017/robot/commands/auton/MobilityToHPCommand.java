@@ -8,8 +8,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class MobilityToHPCommand extends CommandGroup {
-	//TODO: Math (priority)
-    public static final double MOBILITY_TO_NEUTRAL_ZONE_DISTANCE = -1;
+    public static final double MOBILITY_TO_NEUTRAL_ZONE_DISTANCE = 415.3;//427.3 - 12 inches deviation
 
     public MobilityToHPCommand() {
     	
