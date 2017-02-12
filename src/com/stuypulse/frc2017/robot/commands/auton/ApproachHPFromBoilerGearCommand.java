@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class ApproachHPFromBoilerGearCommand extends CommandGroup {
     public static final double BOILER_GEAR_TO_NEUTRAL_ZONE_ANGLE = 60;
-    public static final double BOILER_GEAR_TO_NEUTRAL_ZONE_DISTANCE = 71; 
+    public static final double BOILER_GEAR_TO_NEUTRAL_ZONE_DISTANCE = 71;
     public static final double BOILER_GEAR_NEUTRAL_ZONE_TO_HP_ANGLE = -43;
     public static final double BOILER_GEAR_NEUTRAL_ZONE_TO_HP_DISTANCE = 361;
 

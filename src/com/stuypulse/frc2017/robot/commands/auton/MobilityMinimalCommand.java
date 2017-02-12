@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class MobilityMinimalCommand extends CommandGroup {
-	
+
     public static final double MOBILITY_TO_BASELINE_DISTANCE = 93.3;
     
     public  MobilityMinimalCommand() {
