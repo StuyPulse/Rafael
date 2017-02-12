@@ -1,9 +1,10 @@
 package com.stuypulse.frc2017.robot.subsystems;
 
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.FeedbackDevice;
 import com.kauailabs.navx.frc.AHRS;
 import com.stuypulse.frc2017.robot.RobotMap;
-import com.stuypulse.frc2017.robot.commands.DrivetrainPiotrDriveCommand;
+import com.stuypulse.frc2017.robot.commands.DrivetrainTankDriveCommand;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SPI;
@@ -16,7 +17,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Drivetrain extends Subsystem {
 
+    /**
+     * Talon for left top motor. Has encoder on it.
+     */
 	private CANTalon leftTopMotor;
+    /**
+     * Talon for right top motor. Has encoder on it.
+     */
 	private CANTalon rightTopMotor;
 	private CANTalon leftBottomMotor;
     private CANTalon rightBottomMotor;
@@ -38,15 +45,23 @@ public class Drivetrain extends Subsystem {
     	leftBottomMotor = new CANTalon(RobotMap.LEFT_BOTTOM_MOTOR_PORT);
     	rightBottomMotor = new CANTalon(RobotMap.RIGHT_BOTTOM_MOTOR_PORT);
 
-    	gearShift = new Solenoid(RobotMap.GEAR_SHIFT_SOLENOID_PORT, RobotMap.GEAR_SHIFT_SOLENOID_PORT);
+        leftTopMotor.enableBrakeMode(false);
+        rightTopMotor.enableBrakeMode(false);
+        leftBottomMotor.enableBrakeMode(false);
+        rightBottomMotor.enableBrakeMode(false);
+
+    	gearShift = new Solenoid(RobotMap.GEAR_SHIFT_SOLENOID_PORT);
+
+    	leftTopMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+    	rightTopMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	
     	shifted = false;
     	
     	robotDrive = new RobotDrive(leftBottomMotor, leftTopMotor, rightBottomMotor, rightTopMotor);
 
     	//Encoders are located on the top motors on either of the motor complexes located on the left/right hemispheres.
-    	leftTopMotor.configEncoderCodesPerRev(RobotMap.ENCODER_PULSES_PER_REVOLUTION);
-    	rightTopMotor.configEncoderCodesPerRev(RobotMap.ENCODER_PULSES_PER_REVOLUTION);
+    	leftTopMotor.configEncoderCodesPerRev(RobotMap.DRIVETRAIN_ENCODERS_PULSES_PER_REVOLUTION);
+    	rightTopMotor.configEncoderCodesPerRev(RobotMap.DRIVETRAIN_ENCODERS_PULSES_PER_REVOLUTION);
     	
     	gyro = new AHRS(SPI.Port.kMXP);
     	resetGyro();
@@ -54,11 +69,11 @@ public class Drivetrain extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand( new DrivetrainPiotrDriveCommand() );
+        setDefaultCommand(new DrivetrainTankDriveCommand());
     }
 
     public void tankDrive(double left, double right) {
-    	robotDrive.tankDrive(left,right);
+    	robotDrive.tankDrive(left, right);
     }
 
     public void stop() {
@@ -74,8 +89,12 @@ public class Drivetrain extends Subsystem {
     }
     
     public void resetEncoders() {
-    	leftTopMotor.setEncPosition(0);
-    	rightTopMotor.setEncPosition(0);
+    	leftTopMotor.reset();
+    	rightTopMotor.reset();
+    	leftTopMotor.enable();
+    	rightTopMotor.enable();
+    	leftTopMotor.setPosition(0);
+    	rightTopMotor.setPosition(0);
     }
     
     public double encoderDistance() {
@@ -83,25 +102,19 @@ public class Drivetrain extends Subsystem {
     }
 
     public double leftEncoderDistance() {
-    	return Math.abs(leftTopMotor.getEncPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_PULSE);
+    	return Math.abs(leftTopMotor.getPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION);
     }
 
     public double rightEncoderDistance() {
-    	return Math.abs(rightTopMotor.getEncPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_PULSE);
+    	return Math.abs(rightTopMotor.getPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION);
     }
-    
+
     //Sets the solenoid to a shifted state manually
     public void manualGearShift(boolean shift) {
     	gearShift.set(shift);
     	shifted = shift;
     }
-    
-    //Toggles solenoid from the prior state.
-    public void toggleGearShift() {
-    	shifted = !shifted;
-    	manualGearShift(shifted);
-    }
-    
+
     //TODO: Edit the boolean with the correct value for each gear setting.
     public void highGearShift() {
     	gearShift.set(true); 

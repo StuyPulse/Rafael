@@ -6,29 +6,29 @@ import com.stuypulse.frc2017.robot.commands.GyroRotationalCommand;
 /**
  *
  */
-public class RotateToLiftCommand extends GyroRotationalCommand {
+public class RotateToBoilerCommand extends GyroRotationalCommand {
 
     private double[] cvReading;
 
-    public RotateToLiftCommand() {
+    public RotateToBoilerCommand() {
         super(Robot.stopAutoMovement, false);
     }
 
-    public RotateToLiftCommand(boolean gentle) {
+    public RotateToBoilerCommand(boolean gentle) {
         super(Robot.stopAutoMovement, gentle);
     }
 
-    public RotateToLiftCommand(boolean gentle, double tolerance) {
+    public RotateToBoilerCommand(boolean gentle, double tolerance) {
         super(Robot.stopAutoMovement, gentle, tolerance);
     }
 
+    @Override
     protected void setDesiredAngle() {
-        cvReading = Robot.liftVision.processImage();
+        cvReading = Robot.boilerVision.processImage();
         if (cvReading != null) {
-            // TODO: FIX MATH
-            desiredAngle = cvReading[0];
+            desiredAngle = cvReading[2];
         } else {
-            desiredAngle = 0.0;
+            desiredAngle = 0;
             cancelCommand = true;
         }
     }

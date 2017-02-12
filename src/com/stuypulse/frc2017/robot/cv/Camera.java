@@ -2,6 +2,7 @@ package com.stuypulse.frc2017.robot.cv;
 
 import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FRAME_PX_HEIGHT;
 import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_VIEWING_ANGLE_Y;
+import static com.stuypulse.frc2017.robot.CVConstants.BOILER_CAMERA_TILT_ANGLE;
 
 import com.stuypulse.frc2017.robot.CVConstants;
 
@@ -36,7 +37,7 @@ public class Camera {
     /**
      * @param xCoor Center x-coordinate of the reflexite strip.
      * @return Corresponding angle difference along that height (in degrees)
-     * 
+     *
      * Uses pinhole camera method.
      */
     public static double frameXPxToDegrees(double xCoor) {
@@ -48,7 +49,7 @@ public class Camera {
     /**
      * @param yCoor Center y-coordinate of the reflexite strip.
      * @return Corresponding angle difference along that height (in degrees)
-     * 
+     *
      * Uses pinhole method.
      */
     public static double frameYPxToDegrees(double yCoor) {
@@ -57,7 +58,11 @@ public class Camera {
         //return Math.toDegrees(Math.atan(yCoor / CVConstants.CAMERA_FOCAL_LENGTH_Y));
         return yCoor / CAMERA_FRAME_PX_HEIGHT * CAMERA_VIEWING_ANGLE_Y;
     }
-    
+
+    public static double yInFrameToDegreesFromHorizon(double height) {
+        return BOILER_CAMERA_TILT_ANGLE - frameYPxToDegrees(height);
+    }
+
     public static void main(String[] args) {
     	System.out.println("360px in X: " + frameXPxToDegrees(180));
     	System.out.println("270px in Y: " + frameYPxToDegrees(135));

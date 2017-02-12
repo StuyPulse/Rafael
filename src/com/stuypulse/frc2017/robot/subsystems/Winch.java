@@ -1,7 +1,9 @@
 package com.stuypulse.frc2017.robot.subsystems;
 
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.FeedbackDevice;
 import com.stuypulse.frc2017.robot.RobotMap;
+import com.stuypulse.frc2017.robot.commands.WinchStopMotorCommand;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -16,10 +18,11 @@ public class Winch extends Subsystem {
 
     public Winch() {
         winchMotor = new CANTalon(RobotMap.WINCH_MOTOR_PORT);
+        winchMotor.enableBrakeMode(true);
     }
-
+     
     public void startWinch() {
-        winchMotor.set(1.0);
+        winchMotor.set(RobotMap.WINCH_MOTOR_SPEED);
     }
 
     public void stopWinch() {
@@ -29,5 +32,6 @@ public class Winch extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new WinchStopMotorCommand());
     }
 }

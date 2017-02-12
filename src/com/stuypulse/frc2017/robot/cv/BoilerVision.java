@@ -1,5 +1,8 @@
 package com.stuypulse.frc2017.robot.cv;
 
+import static com.stuypulse.frc2017.robot.CVConstants.BOILER_TARGET_HEIGHT;
+import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_Y;
+
 import java.util.ArrayList;
 
 import org.opencv.core.Core;
@@ -180,6 +183,11 @@ public class BoilerVision extends VisionModule {
         }
         double ratio = width / height;
         return minGoalRatio.value() < ratio && ratio < maxGoalRatio.value();
+    }
+
+    public static double getDistanceToBoiler(double y) {
+        double angle = Camera.yInFrameToDegreesFromHorizon(y);
+        return (BOILER_TARGET_HEIGHT - CAMERA_Y) / Math.tan(Math.toRadians(angle));
     }
 
     public DeviceCaptureSource getBoilerCamera(){

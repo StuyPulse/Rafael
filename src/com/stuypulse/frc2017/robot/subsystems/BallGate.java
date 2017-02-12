@@ -17,7 +17,7 @@ public class BallGate extends Subsystem {
 	
 	public BallGate() {
 		gatePiston = new Solenoid(RobotMap.PCM_4,RobotMap.BALL_GATE_SOLENOID_PORT);
-		// Find out what would be true and what would be false for this gate piston
+		// TODO Find out what would be true and what would be false for this gate piston
 		closed = true;
 	}
 

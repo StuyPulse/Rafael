@@ -1,6 +1,5 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
-import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
@@ -12,6 +11,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class ApproachHPFromMiddleGearCommand extends CommandGroup {
+	//TODO: Math (priority)
     public static final double MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_ANGLE = -90;
     public static final double MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_DISTANCE = -1;
     public static final double AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_ANGLE = 90;

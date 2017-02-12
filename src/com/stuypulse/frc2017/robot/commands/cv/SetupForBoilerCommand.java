@@ -1,19 +1,13 @@
-package com.stuypulse.frc2017.robot.commands.auton;
-
-import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
+package com.stuypulse.frc2017.robot.commands.cv;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class MobilityToHPCommand extends CommandGroup {
-	//TODO: Math (priority)
-    public static final double MOBILITY_TO_NEUTRAL_ZONE_DISTANCE = -1;
+public class SetupForBoilerCommand extends CommandGroup {
 
-    public MobilityToHPCommand() {
-    	
-    	addSequential(new DriveForwardEncodersCommand(MOBILITY_TO_NEUTRAL_ZONE_DISTANCE));
+    public SetupForBoilerCommand() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -30,5 +24,10 @@ public class MobilityToHPCommand extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+        addSequential(new RotateToBoilerCommand());
+        addSequential(new RotateToBoilerCommand(true));
+
+        addSequential(new DriveToBoilerRangeCommand());
+        addSequential(new DriveToBoilerRangeCommand());
     }
 }

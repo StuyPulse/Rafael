@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;;
 public abstract class GyroRotationalCommand extends AutoMovementCommand {
 
     protected double desiredAngle;
+    protected boolean cancelCommand;
 
     private boolean abort; // When there is an error in a method
 
@@ -77,6 +78,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
             }
             super.initialize();
             abort = false;
+            cancelCommand = false;
             Robot.drivetrain.resetGyro();
 
             // Set defaults for values accessible by setDesiredAngle
@@ -145,9 +147,10 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         try {
-            if (getForceStopped()) {
+            if (cancelCommand || getForceStopped()) {
                 return true;
             }
+
             // When no more can or should be done:
             if (abort || Math.abs(desiredAngle) < 0.001) {
                 // The last condition above is *not* the judgment of whether aiming has

@@ -8,11 +8,16 @@ public interface CVConstants {
     // Position of top of a reflexite strip relative to the ground
     double LIFT_TARGET_Y = 13.0;
 
+    // Distance from the center of the two reflexite targets to the floor
+    double BOILER_TARGET_HEIGHT = 83.0;
+
     double CAMERA_VIEWING_ANGLE_X = 61.0; // angular width of frame
 
     double CAMERA_VIEWING_ANGLE_Y = 34.3; // angular height of frame
 
     double CAMERA_Y = 6; // TODO: SET EXACT
+
+    double BOILER_CAMERA_TILT_ANGLE = 50.0;
 
     double CAMERA_FRAME_PX_HEIGHT = 270.0;
 
@@ -29,9 +34,9 @@ public interface CVConstants {
     double CAMERA_FOCAL_LENGTH_Y = (26.5 * 69) / 5;
 
     double PEG_LENGTH = 10.5;
-    
+
     public static void main(String[] args){
-    	System.out.println(CAMERA_FOCAL_LENGTH_X + " pixel");
-    	System.out.println(CAMERA_FOCAL_LENGTH_Y + " pixel");
+        System.out.println(CAMERA_FOCAL_LENGTH_X + " pixel");
+        System.out.println(CAMERA_FOCAL_LENGTH_Y + " pixel");
     }
 }
