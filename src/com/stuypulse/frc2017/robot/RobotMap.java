@@ -34,12 +34,12 @@ public interface RobotMap {
     /// CANTALON PORTS and ENCODER CONVERSIONS: ////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     // Drivetrain
-    int LEFT_TOP_MOTOR_PORT = 1; // has encoder attached
+    int LEFT_TOP_MOTOR_PORT = 1;
     int LEFT_BOTTOM_MOTOR_PORT = 2;
-    int RIGHT_TOP_MOTOR_PORT = 3; // has encoder attached
+    int RIGHT_TOP_MOTOR_PORT = 3;
     int RIGHT_BOTTOM_MOTOR_PORT = 4;
 
-    int DRIVETRAIN_ENCODER_PULSES_PER_REVOLUTION = 1024; // TODO: verify value
+    int ENCODER_PULSES_PER_REVOLUTION = 1024; // TODO: verify value and specify which encoder in name
     double DRIVETRAIN_ENCODERS_INCHES_PER_PULSE = 23.56;
     // We use BLENDER_ENCODER_DEGREES_PER_PULSE as the encoder's distance-per-pulse.
     double BLENDER_ENCODER_DEGREES_PER_PULSE = 360.0 / (double) RobotMap.BLENDER_ENCODER_PULSES_PER_REVOLUTION;
@@ -80,7 +80,7 @@ public interface RobotMap {
     ////////////////////////////////////////////////////////////////////////////
 
     // TODO: this is used from two commands; confirm it works for both
-    double BOILER_TO_HOPPER_BACKUP_DISTANCE = -108.9;
+    double BOILER_TO_HOPPER_BACKUP_DISTANCE = -158.4;
 
     // Blender
     double BLENDER_MOTOR_SPEED = 0.2; // TODO: Set ideal speed.
@@ -91,7 +91,10 @@ public interface RobotMap {
     double BLENDER_DEGREES_PER_PULSE_THRESHOLD_FOR_JAM = -1.0; //TODO: Find a suitable value for this.
 
     // Shooter
-    double SHOOTER_IDEAL_SPEED = -1; // TODO
+    double SHOOTER_IDEAL_SPEED = -1.0; // TODO: set shooter speed
+
+    // Winch
+    double WINCH_MOTOR_SPEED = 1.0;
 
     ////////////////////////////////////////////////////////////////////////////
     // LEDS: ///////////////////////////////////////////////////////////////////
