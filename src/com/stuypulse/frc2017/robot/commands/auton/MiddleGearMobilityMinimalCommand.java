@@ -10,12 +10,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class MiddleGearMobilityMinimalCommand extends CommandGroup {
-    //TODO: Math (priority)
-    private double FIRST_MOBILITY_TURN_DISTANCE = -1;
-    private double FIRST_MOBILITY_TURN_ANGLE = -1;
-    private double SECOND_MOBILITY_TURN_DISTANCE = -1;
-    private double SECOND_MOBILITY_TURN_ANGLE = -1;
-    private double FINAL_MOBILITY_TURN_DISTANCE = -1;
+    private double FIRST_MOBILITY_TURN_DISTANCE = 53.3; //baseline-robot length
+    private double FIRST_MOBILITY_TURN_ANGLE = -90;
+    private double SECOND_MOBILITY_TURN_DISTANCE = 61.1;
+    private double SECOND_MOBILITY_TURN_ANGLE = 90;
+    private double FINAL_MOBILITY_TURN_DISTANCE = 52; //robot length + 12 inches deviation
 	
     public  MiddleGearMobilityMinimalCommand() {
         // Add Commands here:

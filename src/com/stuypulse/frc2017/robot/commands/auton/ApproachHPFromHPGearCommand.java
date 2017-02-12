@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class ApproachHPFromHPGearCommand extends CommandGroup {
     public static final double HP_GEAR_TO_NEUTRAL_ZONE_ANGLE = -60;
-    public static final double HP_GEAR_TO_NEUTRAL_ZONE_DISTANCE = 374; // TODO: maybe subtract 12 inches here
+    public static final double HP_GEAR_TO_NEUTRAL_ZONE_DISTANCE = 362; //374- 12 inches deviation
 
 	public ApproachHPFromHPGearCommand() {
 		// Add Commands here:

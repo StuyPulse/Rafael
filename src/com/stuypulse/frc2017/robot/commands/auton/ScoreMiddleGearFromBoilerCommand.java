@@ -13,12 +13,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class ScoreMiddleGearFromBoilerCommand extends CommandGroup {
-    private static final double BACK_UP_FROM_BOILER_DISTANCE = -127.3;
-    private static final double TURN_AWAY_FROM_BOILER = -45;
-    //TODO: Set numbers from testing
-    private static final double MOVE_TOWARDS_LIFT = -1; // :(
+    private static final double BACK_UP_FROM_BOILER_DISTANCE = -131.9;
+    private static final double TURN_AWAY_FROM_BOILER = 135;
+    private static final double MOVE_TOWARDS_LIFT = 80.7;
     private static final double TURN_TOWARDS_LIFT = 90;
-    private static final double MOVE_TO_LIFT = -1; // :(
+    private static final double MOVE_TO_LIFT = 21;
 
     public ScoreMiddleGearFromBoilerCommand() {
         int direction;
@@ -37,7 +36,7 @@ public class ScoreMiddleGearFromBoilerCommand extends CommandGroup {
         addSequential(new DriveForwardEncodersCommand(ScoreMiddleGearCommand.MIDDLE_GEAR_REVERSE_DISTANCE));
         addSequential(new GearPusherRetractGearCommand());
         addSequential(new GearTrapTrapGearCommand());
-        
+
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
