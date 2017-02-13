@@ -63,8 +63,6 @@ public class Gamepad extends Joystick {
 	public boolean getRawDPadUp() {
 		return getPOV() == 0;
 	}
-	
-	//TODO: nyeh heh heh
 
 	public DPadButton getDPadUp() {
 		return new DPadButton(this, DPadButton.Direction.UP);

@@ -26,10 +26,6 @@ public class BoilerToBoilerGearCommand extends CommandGroup {
         }
         addSequential(new DriveForwardEncodersCommand(BOILER_BACK_UP_DISTANCE));
         addSequential(new RotateDegreesGyroCommand(direction * BOILER_TURN_AROUND_ANGLE));
-		if (Robot.cvChooser.getSelected()) {
-			addSequential(new SetupForGearCommand());
-		} else {
-			addSequential(new DriveForwardEncodersCommand(BOILER_TO_BOILER_GEAR_DISTANCE));
-		}
+		addSequential(new DriveForwardEncodersCommand(BOILER_TO_BOILER_GEAR_DISTANCE));
     }
 }
