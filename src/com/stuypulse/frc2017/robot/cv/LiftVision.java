@@ -55,9 +55,8 @@ public class LiftVision extends VisionModule {
         Mat frame = new Mat();
         liftCamera.readSized(raw, frame);
         Vector[] targets = hsvThresholding(frame);
-        double[] reading = null;
-        // TODO: implement finding angle and distance
-        //double[] reading = {findAngleToLift(), findDistanceToLift()};
+        //double[] reading = null;
+        double[] reading = findDistanceAndAngle(targets[0].getMagnitude(), targets[1].getMagnitude(), targets[0].getDegrees(), targets[1].getDegrees());
         return reading;
     }
 
@@ -226,6 +225,10 @@ public class LiftVision extends VisionModule {
 	        }
         }
 
+        double[] reading = findDistanceAndAngle(targets[0].getMagnitude(), targets[1].getMagnitude(), targets[0].getDegrees(), targets[1].getDegrees());
+
+        System.out.println("Dist to peg tip: " + reading[0] + "\nAngle: " + reading[1] + "\n------------------------------------");
+
         // Post vector diagram of calculated path
         /*
         if (hasGuiApp()) {
@@ -371,24 +374,35 @@ public class LiftVision extends VisionModule {
     public static void findCevian(double a, double b){
     	cevian = Math.sqrt((4.125 * (a * a + b * b) - 68.0625) / 8.25);
     }
-    
+
     /**
      * 
      * @param length_1
      * @param length_2
-     * @param angle: angle opposite of the side you trying to find (in degrees)
+     * @param angle angle opposite of the side you trying to find (in degrees)
      * @return The length of the side you trying to find
      */
     public static double lawOfCosine(double length_1, double length_2, double angle){
     	angle = Math.toRadians(angle);
     	return Math.sqrt(length_1 * length_1 + length_2 * length_2 - 2 * length_1 * length_2 * Math.cos(angle));
     }
-    
+
     /**
      * 
-     * @param angle: angle between the reflexites (in degrees)
-     * @param a: Length between the reflexites (in inches)
-     * @param b: Length to the closest reflexite (in inches)
+     * @param a Side of triangle with the desired angle adjacent
+     * @param b Side of triangle with the desired angle adjacent
+     * @param c Side of triangle opposite of the desired angle
+     * @return The included angle between sides a and b and opposite side c (in degrees)
+     */
+    public double lawOfCosAngle(double a, double b, double c) {
+        return Math.toDegrees(Math.acos((a * a + b * b - c * c) / (2 * a * b)));
+    }
+
+    /**
+     *
+     * @param angle angle between the reflexites (in degrees)
+     * @param a Length between the reflexites (in inches)
+     * @param b Length to the closest reflexite (in inches)
      * @return The angle between the wall and the farthest reflexite (in degrees)
      */
     public static double findAngle(double angle, double a, double b){
@@ -415,16 +429,50 @@ public class LiftVision extends VisionModule {
     
     /**
      * 
-     * @param a: Distance to the tip of the peg (in inches)
-     * @param angle: Angle between the viewing head of the camera to the base of the peg
+     * @param a Distance to the tip of the peg (in inches)
+     * @param angle Angle between the viewing head of the camera to the base of the peg
      * @return
      */
     public static double findAngleToLift(double a, double angle){
     	return angle + Math.toDegrees(Math.acos((a * a + cevian * cevian - CVConstants.PEG_LENGTH * CVConstants.PEG_LENGTH) / (2 * a * cevian)));
     }
 
+    public double[] findDistanceAndAngle(double lDistance, double rDistance, double lAngle, double rAngle) {
+        double lAngleRad = Math.toRadians(Math.abs(180 - lAngle));
+        double rAngleRad = Math.toRadians(Math.abs(180 - rAngle));
+        double angleBtw = Math.toRadians(lawOfCosAngle(lDistance, rDistance, CVConstants.DISTANCE_BETWEEN_REFLEXITE));
+        //System.out.println("lDist: " + lDistance + "\nrDist: " + rDistance + "\nlAng: " + (180 - lAngle) + "\nrAng: " + (180 - rAngle));
+        //System.out.println("*****");
+        // theta
+        double a = Math.asin((lAngleRad > rAngleRad? rDistance : lDistance) * Math.sin(angleBtw) / CVConstants.DISTANCE_BETWEEN_REFLEXITE);
+        // r
+        double distToPegBase = Math.sqrt((Math.pow(lDistance, 2) + Math.pow(rDistance, 2)) / 2 +
+                Math.pow(CVConstants.DISTANCE_BETWEEN_REFLEXITE / 2, 2));
+        // omega
+        double b = Math.asin((lAngleRad > rAngleRad? lDistance : rDistance) * Math.sin(a) / distToPegBase);
+        // D
+        double distToPegTip = lawOfCosine(CVConstants.PEG_LENGTH, distToPegBase, 90 - Math.toDegrees(b));
+        // z
+        double c = Math.asin(CVConstants.PEG_LENGTH * Math.cos(b) / distToPegTip);
+        // delta
+        double desiredAngle;
+        if((lAngleRad > rAngleRad && lDistance > rDistance) || (lAngleRad < rAngleRad && lDistance < rDistance)) {
+            desiredAngle = Math.toDegrees(Math.max(lAngleRad, rAngleRad) - a - b - Math.min(lAngleRad, rAngleRad));
+        } else {
+            desiredAngle = Math.toDegrees(Math.max(lAngleRad, rAngleRad) - Math.PI + a + b - c);
+        }
+        //System.out.println("theta: " + Math.toDegrees(a) + "\nr: " + distToPegBase + "\nomega: " + Math.toDegrees(b) +
+        //        "\nz: " + Math.toDegrees(c) + "\ndist: " + distToPegTip + "\nang: " + desiredAngle);
+        //System.out.println("==========================");
+        return new double[] {distToPegTip, desiredAngle};
+    }
+
+    public double findAngleToLift() {
+        return 0.0;
+    }
+
     public static void main(String[] args){
     	System.out.println(findAngle(45, 1, 1));
-    	System.out.println(findAngle(30, 1, Math.sqrt(3)));
+        System.out.println(findAngle(30, 1, Math.sqrt(3)));
     }
 }

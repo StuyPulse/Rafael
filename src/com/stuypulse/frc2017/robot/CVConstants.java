@@ -33,10 +33,14 @@ public interface CVConstants {
     double CAMERA_FOCAL_LENGTH_X = (26.5 * 29) / 2;
     double CAMERA_FOCAL_LENGTH_Y = (26.5 * 69) / 5;
 
-    double PEG_LENGTH = 10.5;
+    double DISTANCE_BETWEEN_REFLEXITE = 8.25;
+
+    double PEG_LENGTH = 10.5 + 3.38;
 
     public static void main(String[] args){
         System.out.println(CAMERA_FOCAL_LENGTH_X + " pixel");
         System.out.println(CAMERA_FOCAL_LENGTH_Y + " pixel");
     }
+
+
 }
