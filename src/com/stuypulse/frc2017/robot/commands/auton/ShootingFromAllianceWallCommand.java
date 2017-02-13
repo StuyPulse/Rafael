@@ -14,7 +14,7 @@ public class ShootingFromAllianceWallCommand extends CommandGroup {
 	public ShootingFromAllianceWallCommand() {
 		
 		addSequential(new DriveForwardEncodersCommand(BACK_UP_TO_SHOOT_FROM_ALLIANCE_WALL_DISTANCE));
-		//add CV
+		// TODO: add CV
 		addSequential(new BlenderRunWithUnjammingCommand());
 	}
 }

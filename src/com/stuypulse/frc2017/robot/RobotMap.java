@@ -80,6 +80,9 @@ public interface RobotMap {
     // PHYSICAL CONSTANTS: /////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
 
+    // Time between trapping gear and pushing gear, at start of auton
+    double AUTON_INIT_DELAY_BEFORE_PUSH_GEAR = 0.1; // TODO: tune value
+
     // TODO: this is used from two commands; confirm it works for both
     double BOILER_TO_HOPPER_BACKUP_DISTANCE = -158.4;
 
