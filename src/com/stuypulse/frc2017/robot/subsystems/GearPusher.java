@@ -52,4 +52,20 @@ public class GearPusher extends Subsystem {
 		push(Value.kReverse);
 	}
 
+    /**
+     * TODO: Test whether it is kReverse or kForward when pushed
+     * @return
+     */
+    public boolean isPushed() {
+        return position == Value.kForward;
+    }
+
+    /**
+     * TODO: Test whether it is kReverse or kForward when retracted
+     * @return
+     */
+    public boolean isRetracted() {
+        return position == Value.kReverse;
+    }
+
 }
