@@ -1,10 +1,12 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
+import com.stuypulse.frc2017.robot.Robot;
 import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
+import com.stuypulse.frc2017.robot.commands.cv.SetupForGearCommand;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -18,8 +20,9 @@ public class ScoreBoilerGearCommand extends CommandGroup {
     public static final double AFTER_TURN_TO_BOILER_GEAR_DISTANCE = 51;
     public static final double BOILER_GEAR_REVERSE_DISTANCE = -51;
     
-    public  ScoreBoilerGearCommand() {
-    	int direction;
+    public ScoreBoilerGearCommand() {
+        int direction;
+
 		if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
 			direction = 1;
 		} else {
@@ -27,7 +30,13 @@ public class ScoreBoilerGearCommand extends CommandGroup {
 		} 
 		addSequential(new DriveForwardEncodersCommand(START_TO_BOILER_GEAR_TURN_DISTANCE));
 		addSequential(new RotateDegreesGyroCommand(direction * BOILER_GEAR_TURN_TO_BOILER_GEAR_ANGLE));
-		addSequential(new DriveForwardEncodersCommand(AFTER_TURN_TO_BOILER_GEAR_DISTANCE));
+		// If use-CV was selected in SmartDashboard, align and drive forward
+		// with CV; otherwise, just drive forward.
+		if (Robot.cvChooser.getSelected()) {
+			addSequential(new SetupForGearCommand());
+		} else {
+			addSequential(new DriveForwardEncodersCommand(AFTER_TURN_TO_BOILER_GEAR_DISTANCE));
+		}
 		addSequential(new GearTrapReleaseGearCommand());
 		addSequential(new GearPusherRetractGearCommand());
 		addSequential(new DriveForwardEncodersCommand(BOILER_GEAR_REVERSE_DISTANCE));
