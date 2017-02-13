@@ -124,19 +124,19 @@ public class Drivetrain extends Subsystem {
     	gearShift.set(false);
     }
     
-    public double getLeftTopMotorVoltage(){
-        return leftTopMotor.getOutputVoltage();
+    public double getLeftTopMotorCurrent(){
+        return leftTopMotor.getOutputCurrent();
     }
     
-    public double getRightBottomMotorVoltage(){
-        return rightBottomMotor.getOutputVoltage();
+    public double getRightBottomMotorCurrent(){
+        return rightBottomMotor.getOutputCurrent();
     }
-    public double getLeftBottomMotorVoltage(){
-        return leftBottomMotor.getOutputVoltage();
+    public double getLeftBottomMotorCurrent(){
+        return leftBottomMotor.getOutputCurrent();
     }
     
-    public double getRightTopMotorVoltage(){
-        return rightTopMotor.getOutputVoltage();
+    public double getRightTopMotorCurrent(){
+        return rightTopMotor.getOutputCurrent();
     }
     
 }
