@@ -119,6 +119,10 @@ public interface RobotMap {
     int IR_SENSOR_PORT = 0;
     double IR_SENSOR_THRESHOLD = 4.5;
     double IR_TIME_IN_MECHANISM_THRESHOLD = 0.5;
+    
+    double EQUATION_FACTOR = 12.23368994;
+	double EQUATION_EXPONENT = -0.9779601588;
+	double CONVERSION_FACTOR_CM_TO_INCHES = 0.393701;
 
     ////////////////////////////////////////////////////////////////////////////
     // PIOTR DRIVE: //////////////////////////////////////////////////////////////
