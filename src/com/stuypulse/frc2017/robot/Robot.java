@@ -29,7 +29,9 @@ import com.stuypulse.frc2017.util.LEDSignal;
 import com.stuypulse.frc2017.util.Vector;
 
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -160,8 +162,18 @@ public class Robot extends IterativeRobot {
         // then set shooter speed to SHOOTER_IDEAL_SPEED here.
         Robot.shooter.setSpeed(SmartDashboard.getNumber("Shooter speed", 0.0));
 
-        // The gear-pusher piston starts in the extended position. This is
-        // done physically, on the solenoid, not in code.
+        // The gear-pusher piston, and the gear trap pistons, start *retracted*,
+        // because when extended they reach outside the frame perimeter.
+        // Thus we must immediately close the gear trap, then push the
+        // gear pusher.
+        // We do this in autonomousInit rather than a Command because it must
+        // always happen, regardless of what comes next, and it is quick. This
+        // is also why blocking the thread is appropriate:
+        Robot.geartrap.trap();
+        Timer.delay(RobotMap.AUTON_INIT_DELAY_BEFORE_PUSH_GEAR);
+        Robot.gearpusher.push(Value.kForward);
+
+        // Gear-shift physically starts in HIGH gear.
     }
 
     /**
