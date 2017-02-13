@@ -34,4 +34,8 @@ public class Winch extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
         setDefaultCommand(new WinchStopMotorCommand());
     }
+    
+    public double getWinchMotorVoltage(){
+        return winchMotor.getOutputVoltage();
+    }
 }
