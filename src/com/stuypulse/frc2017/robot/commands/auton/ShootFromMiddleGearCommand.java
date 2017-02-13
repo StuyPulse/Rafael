@@ -20,6 +20,7 @@ public class ShootFromMiddleGearCommand extends CommandGroup {
     		addSequential(new RotateDegreesGyroCommand(-1.0 * MIDDLE_GEAR_TO_BOILER_ANGLE));
     	}
     	addSequential(new DriveForwardEncodersCommand(MIDDLE_GEAR_TO_BOILER_DISTANCE));
+        // TODO: add cv alignment
     	// To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());
