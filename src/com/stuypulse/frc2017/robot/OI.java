@@ -54,20 +54,20 @@ public class OI {
 
 	public Gamepad driverPad;
 	public Gamepad operatorPad;
-	
+
 	public OI() {
 		driverPad = new Gamepad(RobotMap.DRIVER_PAD_PORT);
 		operatorPad = new Gamepad(RobotMap.OPERATOR_PAD_PORT);
-		
+
 		//DriverPad Bindings
 		//The right bumper is being used to gearshift
 		driverPad.getRightBumper().whenPressed(new DriveTrainLowGearCommand());
 		driverPad.getRightBumper().whenReleased(new DriveTrainHighGearCommand());
-		
+
 	     //Auton testing
-        driverPad.getLeftTrigger().whileHeld(new RotateDegreesGyroCommand());
-        driverPad.getRightTrigger().whileHeld(new DriveForwardEncodersCommand());
-		
+        driverPad.getLeftTrigger().whenPressed(new RotateDegreesGyroCommand());
+        driverPad.getRightTrigger().whenPressed(new DriveForwardEncodersCommand());
+
 		//OperatorPad Bindings
 		// Gear scoring:
 		operatorPad.getRightButton().whenPressed(new GearTrapReleaseGearCommand());
@@ -88,7 +88,5 @@ public class OI {
 		operatorPad.getDPadRight().whenPressed(new GearTrapTrapGearCommand());
 		operatorPad.getLeftBumper().whileHeld(new BallGateOpenCommand());
 		operatorPad.getLeftBumper().whenReleased(new BallGateCloseCommand());
-		
-		
 	}
 }
