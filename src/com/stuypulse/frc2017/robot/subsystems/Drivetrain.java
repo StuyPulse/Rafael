@@ -123,5 +123,20 @@ public class Drivetrain extends Subsystem {
     public void lowGearShift() {
     	gearShift.set(false);
     }
-
+    
+    public double getLeftTopMotorCurrent(){
+        return leftTopMotor.getOutputCurrent();
+    }
+    
+    public double getRightBottomMotorCurrent(){
+        return rightBottomMotor.getOutputCurrent();
+    }
+    public double getLeftBottomMotorCurrent(){
+        return leftBottomMotor.getOutputCurrent();
+    }
+    
+    public double getRightTopMotorCurrent(){
+        return rightTopMotor.getOutputCurrent();
+    }
+    
 }
