@@ -457,14 +457,17 @@ public class LiftVision extends VisionModule {
         // delta
         double desiredAngle;
         if((lAngleRad > rAngleRad && lDistance > rDistance) || (lAngleRad < rAngleRad && lDistance < rDistance)) {
-            desiredAngle = Math.toDegrees(Math.max(lAngleRad, rAngleRad) - a - b - Math.min(lAngleRad, rAngleRad));
+            // phi
+            double d = Math.asin((lAngleRad > rAngleRad? lDistance : rDistance) * Math.sin(angleBtw) / CVConstants.DISTANCE_BETWEEN_REFLEXITE);
+            desiredAngle = Math.toDegrees(c + b - d - Math.min(lAngleRad, rAngleRad));
         } else {
             desiredAngle = Math.toDegrees(Math.max(lAngleRad, rAngleRad) - Math.PI + a + b - c);
         }
-        //System.out.println("theta: " + Math.toDegrees(a) + "\nr: " + distToPegBase + "\nomega: " + Math.toDegrees(b) +
-        //        "\nz: " + Math.toDegrees(c) + "\ndist: " + distToPegTip + "\nang: " + desiredAngle);
+        double avg = (lAngleRad > rAngleRad? -1.0 : 1.0) * Math.toDegrees((lAngleRad + rAngleRad) / 2);
+        //System.out.println("angBtw: " + Math.toDegrees(angleBtw) + "\ntheta: " + Math.toDegrees(a) + "\nr: " + distToPegBase + "\nomega: " + Math.toDegrees(b) +
+        //        "\nz: " + Math.toDegrees(c) + "\ndist: " + distToPegTip + "\nang: " + avg); //desiredAngle);
         //System.out.println("==========================");
-        return new double[] {distToPegTip, desiredAngle};
+        return new double[] {distToPegTip, avg}; //desiredAngle};
     }
 
     public double findAngleToLift() {
