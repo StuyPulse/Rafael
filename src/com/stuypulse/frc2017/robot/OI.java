@@ -1,6 +1,7 @@
 package com.stuypulse.frc2017.robot;
 
 import com.stuypulse.frc2017.robot.commands.BallGateCloseCommand;
+
 import com.stuypulse.frc2017.robot.commands.BallGateOpenCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderRunWithUnjammingCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
@@ -14,6 +15,8 @@ import com.stuypulse.frc2017.robot.commands.ShooterStopCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStartMotorCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStopMotorCommand;
 import com.stuypulse.frc2017.robot.commands.auton.DoubleSequentialCommand;
+import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
+import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
 import com.stuypulse.frc2017.util.Gamepad;
 
 /**
@@ -51,21 +54,24 @@ public class OI {
 
 	public Gamepad driverPad;
 	public Gamepad operatorPad;
-	
+
 	public OI() {
 		driverPad = new Gamepad(RobotMap.DRIVER_PAD_PORT);
 		operatorPad = new Gamepad(RobotMap.OPERATOR_PAD_PORT);
-		
+
 		//DriverPad Bindings
 		//The right bumper is being used to gearshift
 		driverPad.getRightBumper().whenPressed(new DriveTrainLowGearCommand());
 		driverPad.getRightBumper().whenReleased(new DriveTrainHighGearCommand());
-		
+
+	     //Auton testing
+        driverPad.getLeftTrigger().whenPressed(new RotateDegreesGyroCommand());
+        driverPad.getRightTrigger().whenPressed(new DriveForwardEncodersCommand());
+
 		//OperatorPad Bindings
 		// Gear scoring:
 		operatorPad.getRightButton().whenPressed(new GearTrapReleaseGearCommand());
 		operatorPad.getRightButton().whenReleased(new DoubleSequentialCommand(new GearPusherRetractGearCommand(), new GearTrapTrapGearCommand()));
-
 		// Ball scoring:
 		operatorPad.getRightTrigger().whileHeld(new BlenderRunWithUnjammingCommand());
         operatorPad.getLeftButton().whenPressed(new ShooterAccelerateSmartDashboardSpeedCommand());
