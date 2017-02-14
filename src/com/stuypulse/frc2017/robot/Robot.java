@@ -97,8 +97,8 @@ public class Robot extends IterativeRobot {
         ledGearSensingSignal = new LEDSignal(RobotMap.GEAR_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);
 
         setupSmartDashboardFields();
-        setupAutonChooser();
         setupCVChooser();
+        setupAutonChooser();
 
         boilerVision = new BoilerVision();
         liftVision = new LiftVision();
