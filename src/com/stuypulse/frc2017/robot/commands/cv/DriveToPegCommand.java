@@ -20,7 +20,7 @@ public class DriveToPegCommand extends EncoderDrivingCommand {
     protected void setInchesToMove() {
         cvReading = Robot.liftVision.processImage();
         if(cvReading != null) {
-            initialInchesToMove = cvReading[1];
+            initialInchesToMove = cvReading[0];
         } else {
             initialInchesToMove = 0.0;
             cancelCommand = true;

@@ -40,14 +40,6 @@ public class LiftMath {
         return new Vector[] {m1, m2};
     }
 
-    public static double radiansToDegrees(double rads) {
-    	return rads / Math.PI * 180.0;
-    }
-
-    public static double degreesToRadians(double degs) {
-        return degs * Math.PI / 180.0;
-    }
-
     /**
      * @param stripY Center y-coordinate of reflexite strip.
      * @return Distance from camera to the reflexite strip.
@@ -55,27 +47,10 @@ public class LiftMath {
     public static double stripYToDistance(double stripY, double stripHeight) {
         return REFLEXITE_LENGTH * CAMERA_FOCAL_LENGTH_Y / stripHeight;
         // System.out.println("Argument to stripYToDistance is " + stripY);
-        //double angle = 2 * Camera.frameYPxToDegrees(stripY);
-        //System.out.println("Angle to stripY is " + angle + " degrees");
-        //return (LIFT_TARGET_Y - CAMERA_Y) / Math.tan(Math.toRadians(angle));
     }
 
     public static double distance(Point first, Point second) {
         return Math.sqrt(Math.pow(first.x - second.x, 2) + Math.pow(first.y - second.y, 2));
-    }
-
-    public static double heightToDistance(double imgHeight, boolean left) {
-        double a = 1.0;
-        double b = 0.0;
-        if(left) {
-            a = 1.122;//With Test Images: 1.165;
-            b = 1.44;//With Test Images: 5.864;
-        } else {
-            a = 1.124;//With Test Images: 1.174;
-            b = 1.002;//With Test Images: 5.203;
-        }
-        //System.out.println(left + ": " + imgHeight);
-        return (CVConstants.REFLEXITE_LENGTH * CVConstants.CAMERA_FOCAL_LENGTH_Y / imgHeight - b) / a;
     }
 
     /**
@@ -88,11 +63,8 @@ public class LiftMath {
 
     public static Vector stripFramePosToPhysicalPos(double stripX, double stripY, double stripHeight){        //double imgHeight, boolean left) {
         //System.out.println("Horizontal Angle: " + stripXToAngle(stripX));
-        System.out.println("Vertical Angle: " + Camera.frameYPxToDegrees(stripY));
-        System.out.println("Perpendicular length: " + stripYToDistance(stripY, stripHeight));
-        //System.out.println("Magnitude: " + stripYToDistance(stripY) / Math.cos(stripXToAngle(stripX)));
-    	System.out.println("------------------------------------");
+        //System.out.println("Perpendicular length: " + stripYToDistance(stripY, stripHeight));
+    	//System.out.println("------------------------------------");
         return Vector.fromPolar(stripXToAngle(stripX), stripYToDistance(stripY, stripHeight));
-        //return Vector.fromPolar(stripXToAngle(stripX), heightToDistance(imgHeight, left));
     }
 }

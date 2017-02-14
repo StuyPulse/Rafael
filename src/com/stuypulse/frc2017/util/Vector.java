@@ -2,8 +2,6 @@ package com.stuypulse.frc2017.util;
 
 import org.opencv.core.Point;
 
-import com.stuypulse.frc2017.robot.cv.LiftMath;
-
 public class Vector {
     private final double dx;
     private final double dy;
@@ -20,7 +18,7 @@ public class Vector {
      * Create a Vector from polar coordinates.
      */
     public static Vector fromPolar(double degs, double radius) {
-        double rads = LiftMath.degreesToRadians(degs);
+        double rads = Math.toRadians(degs);
         return new Vector(
                 Math.sin(rads) * radius,
                 Math.cos(rads) * radius
@@ -31,7 +29,7 @@ public class Vector {
      * @return the angle of {@code this} vector
      */
     public double getDegrees() {
-        return 180.0 - LiftMath.radiansToDegrees(Math.atan2(this.dx, this.dy));
+        return 180.0 - Math.toDegrees(Math.atan2(this.dx, this.dy));
     }
 
     /**

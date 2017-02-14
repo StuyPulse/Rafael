@@ -1,8 +1,7 @@
 package com.stuypulse.frc2017.robot;
 
 public interface CVConstants {
-    // TODO
-    // Tune threshold for the possible offset of the y coordinate of the target
+
     double LIFT_HEIGHT_X_THRESHOLD = 5;
 
     // Position of top of a reflexite strip relative to the ground
@@ -25,9 +24,6 @@ public interface CVConstants {
 
     double REFLEXITE_LENGTH = 5.0;
 
-    //double CAMERA_FOCAL_LENGTH_X = CAMERA_FRAME_PX_WIDTH / (2 * Math.tan(Math.toRadians(CAMERA_VIEWING_ANGLE_X / 2)));
-    //double CAMERA_FOCAL_LENGTH_Y = CAMERA_FRAME_PX_HEIGHT / (2 * Math.tan(Math.toRadians(CAMERA_VIEWING_ANGLE_Y / 2)));
-
     // Taken from measurements
     // F = (P * D) / W
     double CAMERA_FOCAL_LENGTH_X = (26.5 * 29) / 2;
@@ -36,11 +32,5 @@ public interface CVConstants {
     double DISTANCE_BETWEEN_REFLEXITE = 8.25;
 
     double PEG_LENGTH = 10.5 + 3.38;
-
-    public static void main(String[] args){
-        System.out.println(CAMERA_FOCAL_LENGTH_X + " pixel");
-        System.out.println(CAMERA_FOCAL_LENGTH_Y + " pixel");
-    }
-
 
 }
