@@ -68,7 +68,7 @@ public class OI {
         driverPad.getLeftTrigger().whenPressed(new RotateDegreesGyroCommand());
         driverPad.getRightTrigger().whenPressed(new DriveForwardEncodersCommand());
 
-		//OperatorPad Bindings
+        //OperatorPad Bindings
 		// Gear scoring:
 		operatorPad.getRightButton().whenPressed(new GearTrapReleaseGearCommand());
 		operatorPad.getRightButton().whenReleased(new DoubleSequentialCommand(new GearPusherRetractGearCommand(), new GearTrapTrapGearCommand()));
@@ -89,4 +89,17 @@ public class OI {
 		operatorPad.getLeftBumper().whileHeld(new BallGateOpenCommand());
 		operatorPad.getLeftBumper().whenReleased(new BallGateCloseCommand());
 	}
+
+    public boolean driverIsOverriding() {
+        double joysticksMax = Math.max(Math.abs(driverPad.getLeftY()),
+                Math.max(Math.abs(driverPad.getLeftX()),
+                         Math.max(Math.abs(driverPad.getRightY()),
+                                 Math.abs(driverPad.getRightX()))));
+        //return joysticksMax > 0.2;
+        return driverPad.getDPadLeft().get()
+                || driverPad.getDPadRight().get()
+                || driverPad.getDPadUp().get()
+                || driverPad.getDPadDown().get()
+                || joysticksMax > 0.2;
+    }
 }
