@@ -1,6 +1,7 @@
 package com.stuypulse.frc2017.robot.subsystems;
 
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.FeedbackDevice;
 import com.stuypulse.frc2017.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -24,6 +25,8 @@ public class Shooter extends Subsystem {
 		shooterMotorB = new CANTalon(RobotMap.SHOOTER_MOTOR_B_PORT);
 		shooterMotorA.enableBrakeMode(false);
 		shooterMotorB.enableBrakeMode(false);
+		shooterMotorA.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
+	    shooterMotorA.configEncoderCodesPerRev(RobotMap.SHOOTER_ENCODER_PULSES_PER_REVOLUTION);
 	}
 
     public void initDefaultCommand() {
@@ -44,5 +47,18 @@ public class Shooter extends Subsystem {
 
 	public double getCurrentMotorSpeedInRPM() {
         return (shooterMotorA.getSpeed() + shooterMotorB.getSpeed()) / 2.0;
+	}  
+    public void resetEncoder() {
+        shooterMotorA.reset();
+        shooterMotorA.enable();
+        shooterMotorA.set(0.0);
+    }
+   public double getDistance(){
+        return shooterMotorA.getPosition();
+    
+    }
+    public double getSpeed(){
+        return shooterMotorA.getSpeed();
+    
     }
 }
