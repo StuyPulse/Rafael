@@ -220,8 +220,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Right top drivetrain motor current", Robot.drivetrain.getRightTopMotorCurrent());
         SmartDashboard.putNumber("Left bottom drivetrain motor current", Robot.drivetrain.getLeftBottomMotorCurrent());
         SmartDashboard.putNumber("Right bottom drivetrain motor current", Robot.drivetrain.getRightBottomMotorCurrent());
-        SmartDashboard.putNumber("Winch motor current", Robot.winch.getWinchMotorCurrent());
-        
+        SmartDashboard.putNumber("Winch motor current", Robot.winch.getMotorCurrent());
+
     }
 
     /**

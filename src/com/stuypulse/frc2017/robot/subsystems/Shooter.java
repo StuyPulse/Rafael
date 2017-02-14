@@ -45,13 +45,13 @@ public class Shooter extends Subsystem {
 	public double getCurrentMotorSpeedInRPM() {
         return (shooterMotorA.getSpeed() + shooterMotorB.getSpeed()) / 2.0;
     }
-	
+
 	public double getCurrentShooterMotorA() {
-	    return(shooterMotorA.getOutputCurrent());
+	    return shooterMotorA.getOutputCurrent();
 	}
-	
+
 	public double getCurrentShooterMotorB() {
-        return(shooterMotorB.getOutputCurrent());
+        return shooterMotorB.getOutputCurrent();
     }
-	
+
 }
