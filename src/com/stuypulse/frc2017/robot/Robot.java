@@ -128,12 +128,14 @@ public class Robot extends IterativeRobot {
     	autonChooser.addObject("Score Boiler Gear THEN Approach HP Station", new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ApproachHPFromBoilerGearCommand()));
     	autonChooser.addObject("Score Boiler Gear THEN Shoot", new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ShootingFromBoilerGearCommand()));
     	autonChooser.addObject("Only Shoot", new ShootingFromAllianceWallCommand());
+    	SmartDashboard.putData("Auton Setting", autonChooser);
     }
 
     private void setupCVChooser(){
         cvChooser = new SendableChooser<Boolean>();
         cvChooser.addDefault("Do not use CV in auton", false);
         cvChooser.addObject("Use CV in auton", true);
+        SmartDashboard.putData("Use CV in auton?", cvChooser);
     }
 
     private void updateSmartDashboardOutputs() {
