@@ -13,6 +13,7 @@ import com.stuypulse.frc2017.robot.commands.auton.ScoreMiddleGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootFromMiddleGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootingFromAllianceWallCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootingFromBoilerGearCommand;
+import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 import com.stuypulse.frc2017.robot.cv.BoilerVision;
 import com.stuypulse.frc2017.robot.cv.Camera;
 import com.stuypulse.frc2017.robot.cv.LiftVision;
@@ -107,6 +108,8 @@ public class Robot extends IterativeRobot {
 
     private void setupSmartDashboardFields() {
         SmartDashboard.putNumber("Shooter speed", RobotMap.SHOOTER_IDEAL_SPEED);
+        SmartDashboard.putNumber("gyro-rotate-degs", 0.0);
+        SmartDashboard.putNumber("encoder-drive-inches", 0.0);
     }
 
     private void setupAutonChooser(){
@@ -131,6 +134,9 @@ public class Robot extends IterativeRobot {
         cvChooser.addDefault("Do Not Use CV", false);
         cvChooser.addObject("Use CV", true);
     }
+
+
+
     /**
      * This function is called once each time the robot enters Disabled mode.
      * You can use it to reset any subsystem information you want to clear when
