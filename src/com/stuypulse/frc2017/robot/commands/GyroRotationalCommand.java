@@ -3,7 +3,6 @@ package com.stuypulse.frc2017.robot.commands;
 import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_VIEWING_ANGLE_X;
 
 import com.stuypulse.frc2017.robot.Robot;
-import com.stuypulse.frc2017.robot.commands.auton.AutoMovementCommand;
 import com.stuypulse.frc2017.util.BoolBox;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;;

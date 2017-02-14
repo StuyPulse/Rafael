@@ -1,7 +1,6 @@
 package com.stuypulse.frc2017.robot.commands;
 
 import com.stuypulse.frc2017.robot.Robot;
-import com.stuypulse.frc2017.robot.commands.auton.AutoMovementCommand;
 import com.stuypulse.frc2017.util.BoolBox;
 
 /**
