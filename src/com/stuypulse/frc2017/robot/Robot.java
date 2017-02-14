@@ -97,6 +97,7 @@ public class Robot extends IterativeRobot {
 
         setupSmartDashboardFields();
         setupAutonChooser();
+        setupCVChooser();
 
         boilerVision = new BoilerVision();
         liftVision = new LiftVision();
@@ -128,8 +129,8 @@ public class Robot extends IterativeRobot {
 
     private void setupCVChooser(){
         cvChooser = new SendableChooser<Boolean>();
-        cvChooser.addDefault("Do Not Use CV", false);
-        cvChooser.addObject("Use CV", true);
+        cvChooser.addDefault("Do not use CV in auton", false);
+        cvChooser.addObject("Use CV in auton", true);
     }
     /**
      * This function is called once each time the robot enters Disabled mode.
