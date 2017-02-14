@@ -13,11 +13,6 @@ public class IRSensor {
 	//Equation numbers
 	//Resulted from forming an equation with graph using many coordinates and calculator
 	//Power Regression used
-	private static final double EQUATION_FACTOR = 12.23368994;
-
-	private static final double EQUATION_EXPONENT = -0.9779601588;
-
-	private static final double CONVERSION_FACTOR_CM_TO_INCHES = 0.393701;
 
 	private AnalogInput distanceSensor;
 
@@ -34,8 +29,8 @@ public class IRSensor {
 	}
 
 	public double getDistance() {
-		return CONVERSION_FACTOR_CM_TO_INCHES
-				* (EQUATION_FACTOR * Math.pow(getVoltage(), EQUATION_EXPONENT));
+		return RobotMap.CONVERSION_FACTOR_CM_TO_INCHES
+				* (RobotMap.EQUATION_FACTOR * Math.pow(getVoltage(), RobotMap.EQUATION_EXPONENT));
 		// Link to Graph of Equation:
 		// http://image.dfrobot.com/image/data/SEN0143/GP2Y0A41SK%20datasheet.pdf (pg. 4)
 		// This method is an approximation of that graph.
