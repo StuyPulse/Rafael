@@ -136,7 +136,20 @@ public class Robot extends IterativeRobot {
         cvChooser.addObject("Use CV in auton", true);
     }
 
-
+    private void updateSmartDashboardOutputs() {
+        SmartDashboard.putNumber("IRDistance", irsensor.getDistance());
+        SmartDashboard.putNumber("IRVoltage", irsensor.getVoltage());
+        SmartDashboard.putNumber("Encoder drivetrain left", Robot.drivetrain.leftEncoderDistance());
+        SmartDashboard.putNumber("Encoder drivetrain right", Robot.drivetrain.rightEncoderDistance());
+        SmartDashboard.putNumber("Gyro angle", Robot.drivetrain.gyroAngle());
+        SmartDashboard.putNumber("Shooter Motor A current", Robot.shooter.getCurrentShooterMotorA());
+        SmartDashboard.putNumber("Shooter Motor B current", Robot.shooter.getCurrentShooterMotorB());
+        SmartDashboard.putNumber("Left top drivetrain motor current", Robot.drivetrain.getLeftTopMotorCurrent());
+        SmartDashboard.putNumber("Right top drivetrain motor current", Robot.drivetrain.getRightTopMotorCurrent());
+        SmartDashboard.putNumber("Left bottom drivetrain motor current", Robot.drivetrain.getLeftBottomMotorCurrent());
+        SmartDashboard.putNumber("Right bottom drivetrain motor current", Robot.drivetrain.getRightBottomMotorCurrent());
+        SmartDashboard.putNumber("Winch motor current", Robot.winch.getMotorCurrent());
+    }
 
     /**
      * This function is called once each time the robot enters Disabled mode.
@@ -198,6 +211,7 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         blender.checkForJam();
         irsensor.gearLEDSignalControl();
+        updateSmartDashboardOutputs();
     }
 
     @Override
@@ -223,19 +237,7 @@ public class Robot extends IterativeRobot {
         blender.checkForJam();
         irsensor.handleAutoGearPush();
         irsensor.gearLEDSignalControl();
-        SmartDashboard.putNumber("IRDistance", irsensor.getDistance());
-        SmartDashboard.putNumber("IRVoltage", irsensor.getVoltage());
-        SmartDashboard.putNumber("Encoder drivetrain left", Robot.drivetrain.leftEncoderDistance());
-        SmartDashboard.putNumber("Encoder drivetrain right", Robot.drivetrain.rightEncoderDistance());
-        SmartDashboard.putNumber("Gyro angle", Robot.drivetrain.gyroAngle());
-        SmartDashboard.putNumber("Shooter Motor A current", Robot.shooter.getCurrentShooterMotorA());
-        SmartDashboard.putNumber("Shooter Motor B current", Robot.shooter.getCurrentShooterMotorB());
-        SmartDashboard.putNumber("Left top drivetrain motor current", Robot.drivetrain.getLeftTopMotorCurrent());
-        SmartDashboard.putNumber("Right top drivetrain motor current", Robot.drivetrain.getRightTopMotorCurrent());
-        SmartDashboard.putNumber("Left bottom drivetrain motor current", Robot.drivetrain.getLeftBottomMotorCurrent());
-        SmartDashboard.putNumber("Right bottom drivetrain motor current", Robot.drivetrain.getRightBottomMotorCurrent());
-        SmartDashboard.putNumber("Winch motor current", Robot.winch.getMotorCurrent());
-
+        updateSmartDashboardOutputs();
     }
 
     /**
