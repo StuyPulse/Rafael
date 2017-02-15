@@ -3,12 +3,14 @@ package com.stuypulse.frc2017.robot;
 import com.stuypulse.frc2017.robot.commands.BallGateCloseCommand;
 import com.stuypulse.frc2017.robot.commands.BallGateOpenCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderRunWithUnjammingCommand;
+import com.stuypulse.frc2017.robot.commands.BlenderSpinBackwardCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainLowGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherPushGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
+import com.stuypulse.frc2017.robot.commands.ShooterAccelerateIdealSpeed;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateSmartDashboardSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterStopCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStartMotorCommand;
@@ -63,13 +65,15 @@ public class OI {
 		
 		//OperatorPad Bindings
 		// Gear scoring:
-		operatorPad.getRightButton().whenPressed(new GearTrapReleaseGearCommand());
-		operatorPad.getRightButton().whenReleased(new DoubleSequentialCommand(new GearPusherRetractGearCommand(), new GearTrapTrapGearCommand()));
-
+		operatorPad.getLeftAnalogButton().whenReleased(new DoubleSequentialCommand(new GearPusherRetractGearCommand(), new GearTrapTrapGearCommand()));
+		
 		// Ball scoring:
-		operatorPad.getRightTrigger().whileHeld(new BlenderRunWithUnjammingCommand());
-        operatorPad.getLeftButton().whenPressed(new ShooterAccelerateSmartDashboardSpeedCommand());
-        operatorPad.getBottomButton().whenPressed(new ShooterStopCommand());
+		operatorPad.getRightTrigger().whenPressed(new BlenderRunWithUnjammingCommand());
+		operatorPad.getRightButton().whileHeld(new BlenderSpinBackwardCommand());
+        operatorPad.getLeftButton().whenPressed(new ShooterStopCommand());
+        operatorPad.getLeftTrigger().whenPressed(new ShooterAccelerateIdealSpeed());
+        
+        //operatorPad.getBottomButton().whenPressed(new ShooterStopCommand());
 
         // Climbing:
         operatorPad.getTopButton().whenPressed(new WinchStartMotorCommand());
