@@ -1,8 +1,9 @@
 package com.stuypulse.frc2017.robot.commands;
 
 import com.stuypulse.frc2017.robot.Robot;
-import com.stuypulse.frc2017.robot.commands.auton.AutoMovementCommand;
 import com.stuypulse.frc2017.util.BoolBox;
+
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  *
@@ -13,6 +14,8 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
     protected boolean cancelCommand; // set by subclass
 
     private boolean abort;
+    private boolean doneRamping;
+    private double startTime;
 
     abstract protected void setInchesToMove();
 
@@ -36,6 +39,7 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
             initialInchesToMove = 0.0;
             cancelCommand = false;
             abort = false;
+            doneRamping = false;
             setInchesToMove();
         } catch (Exception e) {
             System.out.println("Error in initialize in EncoderDrivingCommand:");
@@ -52,10 +56,23 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
         try {
             super.execute();
             if (!getForceStopped()) {
-                double inchesToGo = inchesToMove();
-                double speed = 0.7 + 0.3 * Math.min(1.0, Math.pow(inchesToGo / distForMaxSpeed, 2));
-                // The above speed calculation is based on the one that has worked for GyroRotationalCommand
-                System.out.println("Inches to go: " + inchesToGo);
+                double speed;
+                if (doneRamping) {
+                    double inchesToGo = inchesToMove();
+                    // Based on the one that has worked for GyroRotationalCommand
+                    speed = 0.7 + 0.3 * Math.min(1.0, Math.pow(inchesToGo / distForMaxSpeed, 2));
+                } else {
+                    double t = Timer.getFPGATimestamp() - startTime;
+                    if (t < 0.5) {
+                        speed = 2 * t * t;
+                    } else if (t < 1) {
+                        speed = -2 * t * t + 4 * t - 1;
+                    } else {
+                        speed = 1;
+                        doneRamping = true;
+                    }
+                    speed *= 0.7; // Max at 0.7 while ramping
+                }
                 speed *= Math.signum(initialInchesToMove);
                 Robot.drivetrain.tankDrive(speed, speed);
             }

@@ -26,6 +26,10 @@ public class SetupForGearCommand extends CommandGroup {
         // arm.
 
         addSequential(new RotateToLiftCommand());
+        addSequential(new RotateToLiftCommand(true));
+
         addSequential(new DriveToPegCommand());
+        addSequential(new DriveToPegCommand());
+
     }
 }

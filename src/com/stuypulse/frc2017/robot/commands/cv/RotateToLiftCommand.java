@@ -25,8 +25,7 @@ public class RotateToLiftCommand extends GyroRotationalCommand {
     protected void setDesiredAngle() {
         cvReading = Robot.liftVision.processImage();
         if (cvReading != null) {
-            // TODO: FIX MATH
-            desiredAngle = cvReading[0];
+            desiredAngle = cvReading[1];
         } else {
             desiredAngle = 0.0;
             cancelCommand = true;

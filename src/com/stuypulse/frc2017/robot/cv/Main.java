@@ -18,14 +18,14 @@ public class Main {
     final static String LIFT_IMAGE_PATH = "/images/LED Peg/";
     final static String LIFT_TEST_IMAGES_PATH = "/images/LiftTestImages/";
 
-    final static int MAX_IMAGES = 3;
+    final static int MAX_IMAGES = 1;
 
     public static void main(String[] args) {
         ModuleRunner runner = new ModuleRunner(5);
         // processBoilerSamples(runner);
         // processLiftSamples(runner);
-        processLiftTestImages(runner);
-        //processCamera(runner);
+        //processLiftTestImages(runner);
+        processCamera(runner);
         VisionGui.begin(args, runner);
     }
 

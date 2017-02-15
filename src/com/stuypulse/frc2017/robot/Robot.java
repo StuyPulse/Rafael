@@ -13,6 +13,7 @@ import com.stuypulse.frc2017.robot.commands.auton.ScoreMiddleGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootFromMiddleGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootingFromAllianceWallCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootingFromBoilerGearCommand;
+import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 import com.stuypulse.frc2017.robot.cv.BoilerVision;
 import com.stuypulse.frc2017.robot.cv.Camera;
 import com.stuypulse.frc2017.robot.cv.LiftVision;
@@ -96,6 +97,7 @@ public class Robot extends IterativeRobot {
         ledGearSensingSignal = new LEDSignal(RobotMap.GEAR_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);
 
         setupSmartDashboardFields();
+        setupCVChooser();
         setupAutonChooser();
 
         boilerVision = new BoilerVision();
@@ -107,6 +109,8 @@ public class Robot extends IterativeRobot {
 
     private void setupSmartDashboardFields() {
         SmartDashboard.putNumber("Shooter speed", RobotMap.SHOOTER_IDEAL_SPEED);
+        SmartDashboard.putNumber("gyro-rotate-degs", 0.0);
+        SmartDashboard.putNumber("encoder-drive-inches", 0.0);
     }
 
     private void setupAutonChooser(){
@@ -124,13 +128,31 @@ public class Robot extends IterativeRobot {
     	autonChooser.addObject("Score Boiler Gear THEN Approach HP Station", new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ApproachHPFromBoilerGearCommand()));
     	autonChooser.addObject("Score Boiler Gear THEN Shoot", new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ShootingFromBoilerGearCommand()));
     	autonChooser.addObject("Only Shoot", new ShootingFromAllianceWallCommand());
+    	SmartDashboard.putData("Auton Setting", autonChooser);
     }
 
     private void setupCVChooser(){
         cvChooser = new SendableChooser<Boolean>();
-        cvChooser.addDefault("Do Not Use CV", false);
-        cvChooser.addObject("Use CV", true);
+        cvChooser.addDefault("Do not use CV in auton", false);
+        cvChooser.addObject("Use CV in auton", true);
+        SmartDashboard.putData("Use CV in auton?", cvChooser);
     }
+
+    private void updateSmartDashboardOutputs() {
+        SmartDashboard.putNumber("IRDistance", irsensor.getDistance());
+        SmartDashboard.putNumber("IRVoltage", irsensor.getVoltage());
+        SmartDashboard.putNumber("Encoder drivetrain left", Robot.drivetrain.leftEncoderDistance());
+        SmartDashboard.putNumber("Encoder drivetrain right", Robot.drivetrain.rightEncoderDistance());
+        SmartDashboard.putNumber("Gyro angle", Robot.drivetrain.gyroAngle());
+        SmartDashboard.putNumber("Shooter Motor A current", Robot.shooter.getCurrentShooterMotorA());
+        SmartDashboard.putNumber("Shooter Motor B current", Robot.shooter.getCurrentShooterMotorB());
+        SmartDashboard.putNumber("Left top drivetrain motor current", Robot.drivetrain.getLeftTopMotorCurrent());
+        SmartDashboard.putNumber("Right top drivetrain motor current", Robot.drivetrain.getRightTopMotorCurrent());
+        SmartDashboard.putNumber("Left bottom drivetrain motor current", Robot.drivetrain.getLeftBottomMotorCurrent());
+        SmartDashboard.putNumber("Right bottom drivetrain motor current", Robot.drivetrain.getRightBottomMotorCurrent());
+        SmartDashboard.putNumber("Winch motor current", Robot.winch.getMotorCurrent());
+    }
+
     /**
      * This function is called once each time the robot enters Disabled mode.
      * You can use it to reset any subsystem information you want to clear when
@@ -191,6 +213,7 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         blender.checkForJam();
         irsensor.gearLEDSignalControl();
+        updateSmartDashboardOutputs();
     }
 
     @Override
@@ -216,11 +239,7 @@ public class Robot extends IterativeRobot {
         blender.checkForJam();
         irsensor.handleAutoGearPush();
         irsensor.gearLEDSignalControl();
-        SmartDashboard.putNumber("IRDistance", irsensor.getDistance());
-        SmartDashboard.putNumber("IRVoltage", irsensor.getVoltage());
-        SmartDashboard.putNumber("Encoder drivetrain left", Robot.drivetrain.leftEncoderDistance());
-        SmartDashboard.putNumber("Encoder drivetrain right", Robot.drivetrain.rightEncoderDistance());
-        SmartDashboard.putNumber("Gyro angle", Robot.drivetrain.gyroAngle());
+        updateSmartDashboardOutputs();
     }
 
     /**

@@ -1,7 +1,7 @@
 package com.stuypulse.frc2017.robot.cv;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Comparator;
 import java.util.List;
 
 import org.opencv.core.Core;
@@ -55,9 +55,7 @@ public class LiftVision extends VisionModule {
         Mat frame = new Mat();
         liftCamera.readSized(raw, frame);
         Vector[] targets = hsvThresholding(frame);
-        double[] reading = null;
-        // TODO: implement finding angle and distance
-        //double[] reading = {findAngleToLift(), findDistanceToLift()};
+        double[] reading = findDistanceAndAngle(targets[0].getMagnitude(), targets[1].getMagnitude(), targets[0].getDegrees(), targets[1].getDegrees());
         return reading;
     }
 
@@ -132,10 +130,24 @@ public class LiftVision extends VisionModule {
 
         MatOfPoint2f approxCurve = new MatOfPoint2f();
         ArrayList<Rect> rects = new ArrayList<Rect>();
+        contours.sort(new Comparator<MatOfPoint>() {
+            public int compare(MatOfPoint m1, MatOfPoint m2) {
+                Rect rect1 = Imgproc.boundingRect(m1);
+                Rect rect2 = Imgproc.boundingRect(m2);
 
-        for (Iterator<MatOfPoint> it = contours.iterator(); it.hasNext();) {
+                if (rect1.area() < rect2.area()) {
+                    return -1;
+                } else if (rect2.area() > rect1.area()) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+
+        for (int i = 0; i < contours.size(); i++) {
             // boundingRect strategy
-            MatOfPoint2f contour2f = new MatOfPoint2f(it.next().toArray());
+            MatOfPoint2f contour2f = new MatOfPoint2f(contours.get(i).toArray());
             double approxDistance = Imgproc.arcLength(contour2f, true)*0.02;
             Imgproc.approxPolyDP(contour2f, approxCurve, approxDistance, true);
             MatOfPoint points = new MatOfPoint(approxCurve.toArray());
@@ -147,14 +159,14 @@ public class LiftVision extends VisionModule {
 
             double area = rect.area();
             if ((area < minGoalArea.value() || area > maxGoalArea.value()) || !aspectRatioThreshold(rect.width, rect.height)) {
-                it.remove();
+                contours.remove(i);
                 continue;
             }
-            int i = 0;
-            while (i < rects.size() && rects.get(i).area() < area) {
-                i++;
+            int j = 0;
+            while (j < rects.size() && rects.get(j).area() < area) {
+                j++;
             }
-            rects.add(i, rect);
+            rects.add(j, rect);
         }
 
         // One vision target was broken up by the peg
@@ -163,9 +175,18 @@ public class LiftVision extends VisionModule {
             Rect r2 = rects.get(1);
             MatOfPoint p = new MatOfPoint(
                     new Point(r1.x, r1.y),
+                    new Point(r1.x, r1.y+r1.height),
+                    new Point(r1.x+r1.width, r1.y),
                     new Point(r1.x+r1.width, r1.y+r1.height),
+
                     new Point(r2.x, r2.y),
+                    new Point(r2.x, r2.y + r2.height),
+                    new Point(r2.x+r2.width, r2.y),
                     new Point(r2.x+r2.width, r2.y+r2.height));
+            contours.remove(0);
+            contours.remove(0);
+            contours.add(p);
+
             Rect combined = Imgproc.boundingRect(p);
             rects.remove(0);
             rects.remove(0);
@@ -175,26 +196,8 @@ public class LiftVision extends VisionModule {
         for (int i = 0; i < rects.size(); i++) {
             Rect rect = rects.get(i);
             Imgproc.rectangle(drawn, new Point(rect.x,rect.y), new Point(rect.x+rect.width,rect.y+rect.height), new Scalar(0, 255, 0), 1);
-
-            // RotatedRect strategy
-            // MatOfPoint2f tmp = new MatOfPoint2f();
-            // contours.get(i).convertTo(tmp, CvType.CV_32FC1);
-            // RotatedRect r = Imgproc.minAreaRect(tmp);
-            // double area = r.size.area();
-            // if (area < minGoalArea.value() || area > maxGoalArea.value()) {
-            //     continue;
-            // }
-            // if (!aspectRatioThreshold(r.size.width, r.size.height)) {
-            //     continue;
-            // }
-            // Point[] points = new Point[4];
-            // r.points(points);
-            // for (int j = 0; j < points.length; j++) {
-            //     Imgproc.line(drawn, points[j], points[(j + 1) % 4], new Scalar(0, 255, 0));
-            // }
         }
 
-        String s = "";
         if (contours.size() == 2) {
             sortContours(contours);
 	        targets = getTargetVectors(contours);
@@ -203,39 +206,21 @@ public class LiftVision extends VisionModule {
 	        double height1 = getHeight(contours.get(0));
 	        double height2 = getHeight(contours.get(1));
 	        //System.out.println(LiftMath.stripXToAngle(getCenterX(contours.get(0))) + "\n" + LiftMath.stripXToAngle(getCenterX(contours.get(1))));
-	        System.out.println("center1: " + center1);
-	        System.out.println("center2: " + center2);
-	        System.out.println("----------------------------------");
+	        //System.out.println("center1: " + center1);
+	        //System.out.println("center2: " + center2);
+	        //System.out.println("----------------------------------");
 	        Imgproc.circle(drawn, center1, 1, new Scalar(0,0,255), 2);
 	        Imgproc.circle(drawn, center2, 1, new Scalar(0,0,255), 2);
 	        Imgproc.line(drawn, new Point(0, 134.5), new Point(360, 134.5), new Scalar(0,0,255), 1);
 	        Imgproc.line(drawn, new Point(179.5, 0), new Point(179.5, 270), new Scalar(0,0,255), 1);
-	        //for(Vector v: vectors) {
-	        //    s += v + "\n";
-	        //}
-	        s += LiftMath.heightToDistance(height1, true) + "\n";
-	        s += LiftMath.heightToDistance(height2, false);
 	        if (hasGuiApp()) {
-	            postImage(drawn, s);
+	            postImage(drawn, "Detected");
 	        }
         }
 
-        // Post vector diagram of calculated path
-        /*
-        if (hasGuiApp()) {
-            double distance_lift_left = liftMath.get
-            Vector[] vectors = LiftVectorMath.getPath(
-                    lift_left,
-                    lift_right,
-                    intermediate_dist,
-                    final_dist);
-            // Using image width and height for consistency. You can actually use any dimension.
-            VectorDrawer drawer = new VectorDrawer(drawn.width(), drawn.height());
-            drawer.addVectors(vectors);
-            Mat vectorDiagram = drawer.getImage();
-            postImage(vectorDiagram, "Vector Diagram");
-        }
-        */
+        double[] reading = findDistanceAndAngle(targets[0].getMagnitude(), targets[1].getMagnitude(), targets[0].getDegrees(), targets[1].getDegrees());
+
+        System.out.println("Dist to peg tip: " + reading[0] + "\nAngle: " + reading[1] + "\n------------------------------------");
 
         for (int i = 0; i < contours.size(); i++) {
             contours.get(i).release();
@@ -255,23 +240,6 @@ public class LiftVision extends VisionModule {
         // }
         double ratio = height / width;
         return minGoalRatio.value() < ratio && ratio < maxGoalRatio.value();
-    }
-
-    public double rectAreaRatio(ArrayList<Rect> rects) {
-        // Assumes that rects contains the two rectangles
-        // representing the two lift vision targets
-        // Returns the ratio of the areas of the two
-        // rectangles from L : R
-        Rect leftRect;
-        Rect rightRect;
-        if(rects.get(0).x < rects.get(1).x) {
-            leftRect = rects.get(0);
-            rightRect = rects.get(1);
-        } else {
-            leftRect = rects.get(1);
-            rightRect = rects.get(0);
-        }
-        return leftRect.area() / rightRect.area();
     }
 
     public double getLeftMostX(MatOfPoint points) {
@@ -298,7 +266,6 @@ public class LiftVision extends VisionModule {
                }
             }
         }
-        //return bottomY.y - topY.y;
         return LiftMath.distance(bottomY, topY);
     }
 
@@ -338,11 +305,10 @@ public class LiftVision extends VisionModule {
             }
         }
         return (bottomMostY + topMostY) / 2 - CVConstants.CAMERA_FRAME_PX_HEIGHT / 2;
-        //return topMostY - CVConstants.CAMERA_FRAME_PX_HEIGHT / 2;
     }
 
     public void sortContours(ArrayList<MatOfPoint> contours) {
-        if(getLeftMostX(contours.get(0)) > getLeftMostX(contours.get(1))) {
+        if (getLeftMostX(contours.get(0)) > getLeftMostX(contours.get(1))) {
             contours.add(contours.remove(0));
         }
     }
@@ -350,8 +316,8 @@ public class LiftVision extends VisionModule {
     public Vector[] getTargetVectors(ArrayList<MatOfPoint> contours) {
         Vector leftTarget;
         Vector rightTarget;
-        rightTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(1)), getHeight(contours.get(0)), false);
-        leftTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(0)), getHeight(contours.get(0)), true);
+        rightTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(1)), getCenterY(contours.get(1)), getHeight(contours.get(1)));
+        leftTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(0)), getCenterY(contours.get(0)), getHeight(contours.get(0)));
         return new Vector[] {leftTarget, rightTarget};
     }
     
@@ -362,24 +328,35 @@ public class LiftVision extends VisionModule {
     public static void findCevian(double a, double b){
     	cevian = Math.sqrt((4.125 * (a * a + b * b) - 68.0625) / 8.25);
     }
-    
+
     /**
      * 
      * @param length_1
      * @param length_2
-     * @param angle: angle opposite of the side you trying to find (in degrees)
+     * @param angle angle opposite of the side you trying to find (in degrees)
      * @return The length of the side you trying to find
      */
     public static double lawOfCosine(double length_1, double length_2, double angle){
     	angle = Math.toRadians(angle);
     	return Math.sqrt(length_1 * length_1 + length_2 * length_2 - 2 * length_1 * length_2 * Math.cos(angle));
     }
-    
+
     /**
      * 
-     * @param angle: angle between the reflexites (in degrees)
-     * @param a: Length between the reflexites (in inches)
-     * @param b: Length to the closest reflexite (in inches)
+     * @param a Side of triangle with the desired angle adjacent
+     * @param b Side of triangle with the desired angle adjacent
+     * @param c Side of triangle opposite of the desired angle
+     * @return The included angle between sides a and b and opposite side c (in degrees)
+     */
+    public double lawOfCosAngle(double a, double b, double c) {
+        return Math.toDegrees(Math.acos((a * a + b * b - c * c) / (2 * a * b)));
+    }
+
+    /**
+     *
+     * @param angle angle between the reflexites (in degrees)
+     * @param a Length between the reflexites (in inches)
+     * @param b Length to the closest reflexite (in inches)
      * @return The angle between the wall and the farthest reflexite (in degrees)
      */
     public static double findAngle(double angle, double a, double b){
@@ -393,9 +370,9 @@ public class LiftVision extends VisionModule {
     
     /**
      * 
-     * @param a: Angle between the viewing head of the camera to the farthest reflexite
-     * @param b: Angle between the wall and the farthest reflexite
-     * @param c: Angle between the viewing head of the camera to the base of the peg
+     * @param a Angle between the viewing head of the camera to the farthest reflexite
+     * @param b Angle between the wall and the farthest reflexite
+     * @param c Angle between the viewing head of the camera to the base of the peg
      * @param length
      * @return The distance towards the tip of the peg
      */
@@ -406,16 +383,37 @@ public class LiftVision extends VisionModule {
     
     /**
      * 
-     * @param a: Distance to the tip of the peg (in inches)
-     * @param angle: Angle between the viewing head of the camera to the base of the peg
+     * @param a Distance to the tip of the peg (in inches)
+     * @param angle Angle between the viewing head of the camera to the base of the peg
      * @return
      */
     public static double findAngleToLift(double a, double angle){
     	return angle + Math.toDegrees(Math.acos((a * a + cevian * cevian - CVConstants.PEG_LENGTH * CVConstants.PEG_LENGTH) / (2 * a * cevian)));
     }
 
-    public static void main(String[] args){
-    	System.out.println(findAngle(45, 1, 1));
-    	System.out.println(findAngle(30, 1, Math.sqrt(3)));
+    public double[] findDistanceAndAngle(double lDistance, double rDistance, double lAngle, double rAngle) {
+        double lAngleRad = Math.toRadians(Math.abs(180 - lAngle));
+        double rAngleRad = Math.toRadians(Math.abs(180 - rAngle));
+        double angleBtw = Math.toRadians(lawOfCosAngle(lDistance, rDistance, CVConstants.DISTANCE_BETWEEN_REFLEXITE));
+        // Angle between wall and the reflexite strip that the camera's heading is further away from
+        double a = Math.asin((lAngleRad > rAngleRad? rDistance : lDistance) * Math.sin(angleBtw) / CVConstants.DISTANCE_BETWEEN_REFLEXITE);
+        double distToPegBase = Math.sqrt((Math.pow(lDistance, 2) + Math.pow(rDistance, 2)) / 2 +
+                Math.pow(CVConstants.DISTANCE_BETWEEN_REFLEXITE / 2, 2));
+        // Angle between the segment to the base of the peg and the lift wall
+        double b = Math.asin((lAngleRad > rAngleRad? lDistance : rDistance) * Math.sin(a) / distToPegBase);
+        double distToPegTip = lawOfCosine(CVConstants.PEG_LENGTH, distToPegBase, 90 - Math.toDegrees(b));
+        // Angle between the segment to the base and tip of the peg
+        double c = Math.asin(CVConstants.PEG_LENGTH * Math.cos(b) / distToPegTip);
+        double desiredAngle;
+        if((lAngleRad > rAngleRad && lDistance > rDistance) || (lAngleRad < rAngleRad && lDistance < rDistance)) {
+            // Angle between wall and the reflexite strip that the camera's heading is closer to
+            double d = Math.asin((lAngleRad > rAngleRad? lDistance : rDistance) * Math.sin(angleBtw) / CVConstants.DISTANCE_BETWEEN_REFLEXITE);
+            desiredAngle = Math.toDegrees(c + b - d - Math.min(lAngleRad, rAngleRad));
+        } else {
+            desiredAngle = Math.toDegrees(Math.max(lAngleRad, rAngleRad) - Math.PI + a + b - c);
+        }
+        double avg = (lAngleRad > rAngleRad? -1.0 : 1.0) * Math.toDegrees((lAngleRad + rAngleRad) / 2);
+        return new double[] {distToPegTip, avg}; //desiredAngle};
     }
+
 }

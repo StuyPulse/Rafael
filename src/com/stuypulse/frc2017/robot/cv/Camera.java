@@ -1,5 +1,7 @@
 package com.stuypulse.frc2017.robot.cv;
 
+import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_FRAME_PX_HEIGHT;
+import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_VIEWING_ANGLE_Y;
 import static com.stuypulse.frc2017.robot.CVConstants.BOILER_CAMERA_TILT_ANGLE;
 
 import com.stuypulse.frc2017.robot.CVConstants;
@@ -39,9 +41,7 @@ public class Camera {
      * Uses pinhole camera method.
      */
     public static double frameXPxToDegrees(double xCoor) {
-        //return xCoor * CVConstants.CAMERA_VIEWING_ANGLE_X / CAMERA_FRAME_PX_WIDTH;
-    	//return (xCoor - CAMERA_FRAME_PX_WIDTH / 2) * (CAMERA_VIEWING_ANGLE_X / CAMERA_FRAME_PX_WIDTH);
-    	return Math.toDegrees(Math.atan(xCoor / CVConstants.CAMERA_FOCAL_LENGTH_X));
+        return Math.toDegrees(Math.atan(xCoor / CVConstants.CAMERA_FOCAL_LENGTH_X));
     }
 
     /**
@@ -51,20 +51,11 @@ public class Camera {
      * Uses pinhole method.
      */
     public static double frameYPxToDegrees(double yCoor) {
-    	//return yCoor * CVConstants.CAMERA_VIEWING_ANGLE_Y / CVConstants.CAMERA_FRAME_PX_HEIGHT;
-        // return yPx * CAMERA_VIEWING_ANGLE_Y / CAMERA_FRAME_PX_HEIGHT;
-    	return Math.toDegrees(Math.atan(yCoor / CVConstants.CAMERA_FOCAL_LENGTH_X));
+        return yCoor / CAMERA_FRAME_PX_HEIGHT * CAMERA_VIEWING_ANGLE_Y;
     }
 
     public static double yInFrameToDegreesFromHorizon(double height) {
         return BOILER_CAMERA_TILT_ANGLE - frameYPxToDegrees(height);
     }
 
-    public static void main(String[] args) {
-    	System.out.println("360px in X: " + frameXPxToDegrees(180));
-    	System.out.println("270px in Y: " + frameYPxToDegrees(135));
-    	//System.out.println("WITH CONV TO DEGS");
-    	//System.out.println("360px in X: " + LiftMath.radiansToDegrees(frameXPxToDegrees(180)));
-    	//System.out.println("270px in Y: " + LiftMath.radiansToDegrees(frameYPxToDegrees(135)));
-    }
 }
