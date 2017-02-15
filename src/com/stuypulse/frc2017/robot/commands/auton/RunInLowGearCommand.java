@@ -13,8 +13,8 @@ public class RunInLowGearCommand extends CommandGroup {
 
     public RunInLowGearCommand(Command command) {
 
-    	addSequential(new DriveTrainLowGearCommand());
-        command.start();
+        addSequential(new DriveTrainLowGearCommand());
+        addSequential(command);
         addSequential(new DriveTrainHighGearCommand());
 
     }
