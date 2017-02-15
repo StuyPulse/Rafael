@@ -1,4 +1,4 @@
-package com.stuypulse.frc2017.robot.commands.auton;
+package com.stuypulse.frc2017.robot.commands;
 
 import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainLowGearCommand;
