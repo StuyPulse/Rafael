@@ -95,11 +95,6 @@ public class OI {
                 Math.max(Math.abs(driverPad.getLeftX()),
                          Math.max(Math.abs(driverPad.getRightY()),
                                  Math.abs(driverPad.getRightX()))));
-        //return joysticksMax > 0.2;
-        return driverPad.getDPadLeft().get()
-                || driverPad.getDPadRight().get()
-                || driverPad.getDPadUp().get()
-                || driverPad.getDPadDown().get()
-                || joysticksMax > 0.2;
+        return joysticksMax > 0.2;
     }
 }
