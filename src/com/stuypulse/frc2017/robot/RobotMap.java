@@ -98,6 +98,8 @@ public interface RobotMap {
 
     // Shooter
     double SHOOTER_IDEAL_SPEED = -1.0; // TODO: set shooter speed
+    double SHOOTER_MAXIMUM_SPEED = -1.0; //TODO: Set Maximum Speed
+    double SHOOTER_MINIMUM_SPEED = -1.0; //TODO: Set Minimum Speed
 
     // Winch
     double WINCH_MOTOR_SPEED = 1.0;
