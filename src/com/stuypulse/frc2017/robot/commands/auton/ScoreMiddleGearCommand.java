@@ -31,12 +31,7 @@ public class ScoreMiddleGearCommand extends CommandGroup {
 
     	// Drive to gear, release trap, drive back, retract gear pusher, close trap.
     	
-		if (Robot.cvChooser.getSelected()) {
-			addSequential(new SetupForGearCommand());
-		} else {
-			addSequential(new DriveForwardEncodersCommand(START_TO_MIDDLE_GEAR_DISTANCE));
-		}
-		
+        addSequential(new OptionalCVPositionForGearCommand());
     	addSequential(new GearTrapReleaseGearCommand());
     	addSequential(new DriveForwardEncodersCommand(MIDDLE_GEAR_REVERSE_DISTANCE));
     	addSequential(new GearPusherRetractGearCommand());

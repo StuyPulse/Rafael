@@ -32,11 +32,7 @@ public class ScoreBoilerGearCommand extends CommandGroup {
 		addSequential(new RotateDegreesGyroCommand(direction * BOILER_GEAR_TURN_TO_BOILER_GEAR_ANGLE));
 		// If use-CV was selected in SmartDashboard, align and drive forward
 		// with CV; otherwise, just drive forward.
-		if (Robot.cvChooser.getSelected()) {
-			addSequential(new SetupForGearCommand());
-		} else {
-			addSequential(new DriveForwardEncodersCommand(AFTER_TURN_TO_BOILER_GEAR_DISTANCE));
-		}
+		addSequential(new OptionalCVPositionForGearCommand());
 		addSequential(new GearTrapReleaseGearCommand());
 		addSequential(new GearPusherRetractGearCommand());
 		addSequential(new DriveForwardEncodersCommand(BOILER_GEAR_REVERSE_DISTANCE));

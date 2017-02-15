@@ -34,12 +34,7 @@ public class ScoreMiddleGearFromBoilerCommand extends CommandGroup {
         addSequential(new DriveForwardEncodersCommand(MOVE_TOWARDS_LIFT));
         addSequential(new RotateDegreesGyroCommand(TURN_TOWARDS_LIFT * direction));
 		
-        if (Robot.cvChooser.getSelected()) {
-			addSequential(new SetupForGearCommand());
-		} else {
-			addSequential(new DriveForwardEncodersCommand(MOVE_TO_LIFT));
-		}
-		
+        addSequential(new OptionalCVPositionForGearCommand());
         addSequential(new GearTrapReleaseGearCommand());
         addSequential(new DriveForwardEncodersCommand(ScoreMiddleGearCommand.MIDDLE_GEAR_REVERSE_DISTANCE));
         addSequential(new GearPusherRetractGearCommand());

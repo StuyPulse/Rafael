@@ -54,4 +54,11 @@ public class SetupForGearCommand extends CommandGroup {
 		//make public instead of protected so tat OptionalCVPositionForGearCommand can call
 		super.end();
 	}
-}
+	@Override
+	public void interrupted(){
+	  //make public instead of protected so tat OptionalCVPositionForGearCommand can call
+	    super.interrupted();
+	}
+	
+	}
+

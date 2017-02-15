@@ -27,11 +27,7 @@ public class ShootingFromBoilerGearCommand extends CommandGroup {
        
         addSequential(new DriveForwardEncodersCommand(BOILER_GEAR_REVERSE_SHOOTING_DISTANCE));
         addSequential(new RotateDegreesGyroCommand(direction * BOILER_GEAR_TURN_TO_BOILER_ANGLE));
-        if (Robot.cvChooser.getSelected()) {
-			addSequential(new SetupForBoilerCommand());
-		} else {
-			addSequential(new DriveForwardEncodersCommand(BOILER_GEAR_TO_BOILER_DISTANCE));
-		}
+        addSequential(new OptionalCVPositionForBoilerCommand());
         addSequential(new BlenderRunWithUnjammingCommand());
         
     }

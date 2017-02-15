@@ -15,11 +15,7 @@ public class ShootingFromAllianceWallCommand extends CommandGroup {
 
 	public ShootingFromAllianceWallCommand() {
 		
-		if (Robot.cvChooser.getSelected()) {
-			addSequential(new SetupForBoilerCommand());
-		} else {
-			addSequential(new DriveForwardEncodersCommand(BACK_UP_TO_SHOOT_FROM_ALLIANCE_WALL_DISTANCE));
-		}
+	    addSequential(new OptionalCVPositionForBoilerCommand());
 		addSequential(new BlenderRunWithUnjammingCommand());
 	}
 }

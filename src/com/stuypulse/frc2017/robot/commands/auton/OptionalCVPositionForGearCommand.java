@@ -31,23 +31,41 @@ public class OptionalCVPositionForGearCommand extends Command {
 		}
 	}
 
-	}
 
 	// Called repeatedly when this Command is scheduled to rune
 	protected void execute() {
+	    if (Robot.cvChooser.getSelected()){
+	        cvCommand.execute();
+	    }else{
+	        driveCommand.execute();
+	    }
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		if (Robot.cvChooser.getSelected()){
+		        return cvCommand.isFinished();
+		       }else{
+		        return driveCommand.isFinished();
+		       }
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
-	}
+	    if (Robot.cvChooser.getSelected()){
+	        cvCommand.end();
+	    }else
+	        driveCommand.end();
+	    }
+	
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+	    if(Robot.cvChooser.getSelected()){
+	        cvCommand.interrupted();
+	    }else{
+	        driveCommand.interrupted();
+	    }
 	}
 }

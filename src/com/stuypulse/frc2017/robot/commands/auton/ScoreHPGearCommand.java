@@ -31,11 +31,7 @@ public class ScoreHPGearCommand extends CommandGroup {
 		addSequential(new DriveForwardEncodersCommand(START_TO_HP_GEAR_TURN_DISTANCE));
 		addSequential(new RotateDegreesGyroCommand(direction * HP_GEAR_TURN_TO_HP_GEAR_ANGLE));
 		
-		if (Robot.cvChooser.getSelected()) {
-			addSequential(new SetupForGearCommand());
-		} else {
-			addSequential(new DriveForwardEncodersCommand(AFTER_TURN_TO_HP_GEAR_DISTANCE));
-		}
+		addSequential(new OptionalCVPositionForGearCommand());
 		
 		addSequential(new GearTrapReleaseGearCommand());
 		addSequential(new GearPusherRetractGearCommand());

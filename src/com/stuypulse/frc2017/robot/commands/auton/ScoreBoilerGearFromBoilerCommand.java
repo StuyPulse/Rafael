@@ -33,11 +33,7 @@ public class ScoreBoilerGearFromBoilerCommand extends CommandGroup {
     	addSequential (new RotateDegreesGyroCommand(TURN_FROM_BOILER_BACK_UP * direction));
     	addSequential (new DriveForwardEncodersCommand(FORWARD_FROM_BOILER_TURN));
     	addSequential (new RotateDegreesGyroCommand(TURN_TO_BOILER_GEAR * direction));
-    	if (Robot.cvChooser.getSelected()) {
-			addSequential(new SetupForGearCommand());
-		} else {
-			addSequential(new DriveForwardEncodersCommand(FORWARD_TO_BOILER_GEAR));
-		}
+    	addSequential(new OptionalCVPositionForGearCommand());
 		addSequential(new GearTrapReleaseGearCommand());
 		addSequential(new GearPusherRetractGearCommand());
 		addSequential(new DriveForwardEncodersCommand(ScoreBoilerGearCommand.BOILER_GEAR_REVERSE_DISTANCE));

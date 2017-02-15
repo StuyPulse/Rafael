@@ -21,11 +21,7 @@ public class ShootFromMiddleGearCommand extends CommandGroup {
     	}else{
     		addSequential(new RotateDegreesGyroCommand(-1.0 * MIDDLE_GEAR_TO_BOILER_ANGLE));
     	}
-    	if (Robot.cvChooser.getSelected()) {
-			addSequential(new SetupForBoilerCommand());
-		} else {
-			addSequential(new DriveForwardEncodersCommand(MIDDLE_GEAR_TO_BOILER_DISTANCE));
-		}
+    	addSequential(new OptionalCVPositionForBoilerCommand());
     	// To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());

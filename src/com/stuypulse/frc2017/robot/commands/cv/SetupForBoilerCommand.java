@@ -30,4 +30,32 @@ public class SetupForBoilerCommand extends CommandGroup {
         addSequential(new DriveToBoilerRangeCommand());
         addSequential(new DriveToBoilerRangeCommand());
     }
+    @Override
+    public boolean isFinished() {
+        //make public instead of protected so tat OptionalCVPositionForGearCommand can call
+        return super.isFinished();
+    }
+
+    @Override
+    public void initialize() {
+        //make public instead of protected so tat OptionalCVPositionForGearCommand can call
+        super.initialize();
+    }
+
+    @Override
+    public void execute() {
+        //make public instead of protected so tat OptionalCVPositionForGearCommand can call
+        super.execute();
+    }
+
+    @Override
+    public void end() {
+        //make public instead of protected so tat OptionalCVPositionForGearCommand can call
+        super.end();
+    }
+    @Override
+    public void interrupted(){
+      //make public instead of protected so tat OptionalCVPositionForGearCommand can call
+        super.interrupted();
+}
 }
