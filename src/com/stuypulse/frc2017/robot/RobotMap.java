@@ -52,6 +52,8 @@ public interface RobotMap {
     // Shooter
     int SHOOTER_MOTOR_A_PORT = 7;
     int SHOOTER_MOTOR_B_PORT = 8;
+    
+    int SHOOTER_ENCODER_PULSES_PER_REVOLUTION =  1024;
 
     // Winch
     int WINCH_MOTOR_PORT = 5;
@@ -96,6 +98,8 @@ public interface RobotMap {
 
     // Shooter
     double SHOOTER_IDEAL_SPEED = -1.0; // TODO: set shooter speed
+    double SHOOTER_MAXIMUM_SPEED = -1.0; //TODO: Set Maximum Speed
+    double SHOOTER_MINIMUM_SPEED = -1.0; //TODO: Set Minimum Speed
 
     // Winch
     double WINCH_MOTOR_SPEED = 1.0;

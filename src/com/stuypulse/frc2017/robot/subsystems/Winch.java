@@ -20,7 +20,7 @@ public class Winch extends Subsystem {
         winchMotor = new CANTalon(RobotMap.WINCH_MOTOR_PORT);
         winchMotor.enableBrakeMode(true);
     }
-     
+
     public void startWinch() {
         winchMotor.set(RobotMap.WINCH_MOTOR_SPEED);
     }
@@ -33,5 +33,9 @@ public class Winch extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
         setDefaultCommand(new WinchStopMotorCommand());
+    }
+
+    public double getMotorCurrent(){
+        return winchMotor.getOutputCurrent();
     }
 }

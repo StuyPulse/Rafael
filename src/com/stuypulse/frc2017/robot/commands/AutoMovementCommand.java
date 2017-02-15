@@ -1,5 +1,6 @@
-package com.stuypulse.frc2017.robot.commands.auton;
+package com.stuypulse.frc2017.robot.commands;
 
+import com.stuypulse.frc2017.robot.Robot;
 import com.stuypulse.frc2017.util.BoolBox;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -48,6 +49,9 @@ abstract public class AutoMovementCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        if (Robot.oi.driverIsOverriding()) {
+            setForceStopped(true);
+        }
     }
 
     abstract protected boolean isFinished();
