@@ -208,7 +208,6 @@ public class Robot extends IterativeRobot {
         Camera.configureCamera(0);
         Camera.configureCamera(1);
     }
-
     /**
      * This function is called periodically during operator control
      */
@@ -232,12 +231,12 @@ public class Robot extends IterativeRobot {
     public void testPeriodic() {
         LiveWindow.run();
     }
-    
+
     public static boolean isAutoOverriden() {
         return isAutoOverriden;
     }
-    
-    public void setAutoOverriden(boolean isAutoOverriden) {
-        this.isAutoOverriden = isAutoOverriden;
+
+    public static void setAutoOverriden(boolean isAutoOverriden) {
+        Robot.isAutoOverriden = isAutoOverriden;
     }
 }

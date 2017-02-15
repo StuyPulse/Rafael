@@ -9,11 +9,10 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class AutomaticActionsOverrideCommand extends Command {
     
-    private boolean ToggleAutomaticCommands;
-
     public AutomaticActionsOverrideCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        Robot.setAutoOverriden(true);
     }
 
     // Called just before this Command runs the first time
@@ -22,11 +21,6 @@ public class AutomaticActionsOverrideCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(ToggleAutomaticCommands) {
-            ToggleAutomaticCommands = false;
-        } else {
-            ToggleAutomaticCommands = true;
-        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
