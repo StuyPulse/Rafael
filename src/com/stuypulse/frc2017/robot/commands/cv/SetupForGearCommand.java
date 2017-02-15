@@ -7,7 +7,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class SetupForGearCommand extends CommandGroup {
 
-    public SetupForGearCommand() {
+	
+
+	public SetupForGearCommand() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -27,5 +29,29 @@ public class SetupForGearCommand extends CommandGroup {
 
         addSequential(new RotateToLiftCommand());
         addSequential(new DriveToPegCommand());
+        
     }
+    @Override
+    public boolean isFinished() {
+		//make public instead of protected so tat OptionalCVPositionForGearCommand can call
+    	return super.isFinished();
+	}
+
+	@Override
+	public void initialize() {
+		//make public instead of protected so tat OptionalCVPositionForGearCommand can call
+		super.initialize();
+	}
+
+	@Override
+	public void execute() {
+		//make public instead of protected so tat OptionalCVPositionForGearCommand can call
+		super.execute();
+	}
+
+	@Override
+	public void end() {
+		//make public instead of protected so tat OptionalCVPositionForGearCommand can call
+		super.end();
+	}
 }
