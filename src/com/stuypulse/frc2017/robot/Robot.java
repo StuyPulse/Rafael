@@ -62,6 +62,8 @@ public class Robot extends IterativeRobot {
     public static OI oi;
 
     public static SendableChooser<Command> autonChooser;
+    
+    private static boolean isAutoOverriden;
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<Command>();
@@ -229,5 +231,13 @@ public class Robot extends IterativeRobot {
     @Override
     public void testPeriodic() {
         LiveWindow.run();
+    }
+    
+    public static boolean isAutoOverriden() {
+        return isAutoOverriden;
+    }
+    
+    public void setAutoOverriden(boolean isAutoOverriden) {
+        this.isAutoOverriden = isAutoOverriden;
     }
 }
