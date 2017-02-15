@@ -68,7 +68,7 @@ public class OI {
 		operatorPad.getLeftAnalogButton().whenReleased(new DoubleSequentialCommand(new GearPusherRetractGearCommand(), new GearTrapTrapGearCommand()));
 		
 		// Ball scoring:
-		operatorPad.getRightTrigger().whenPressed(new BlenderRunWithUnjammingCommand());
+		operatorPad.getRightTrigger().whileHeld(new BlenderRunWithUnjammingCommand());
 		operatorPad.getRightButton().whileHeld(new BlenderSpinBackwardCommand());
         operatorPad.getLeftButton().whenPressed(new ShooterStopCommand());
         operatorPad.getLeftTrigger().whenPressed(new ShooterAccelerateIdealSpeed());
