@@ -1,9 +1,6 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
-import com.stuypulse.frc2017.robot.Robot;
-import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
-import com.stuypulse.frc2017.robot.commands.cv.SetupForBoilerCommand;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -21,7 +18,7 @@ public class ShootFromMiddleGearCommand extends CommandGroup {
     	}else{
     		addSequential(new RotateDegreesGyroCommand(-1.0 * MIDDLE_GEAR_TO_BOILER_ANGLE));
     	}
-    	addSequential(new OptionalCVPositionForBoilerCommand());
+        addSequential(new OptionalCVPositionForBoilerCommand(MIDDLE_GEAR_TO_BOILER_DISTANCE));
     	// To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());

@@ -13,8 +13,14 @@ public class OptionalCVPositionForBoilerCommand extends Command {
     private SetupForBoilerCommand cvCommand;
     private DriveForwardEncodersCommand driveCommand;
     
-    public OptionalCVPositionForBoilerCommand() {// Use requires() here to declare subsystem dependencies
+    public OptionalCVPositionForBoilerCommand(double approxDistance) {
+        // Use requires() here to declare subsystem dependencies
         requires(Robot.drivetrain);
+        // We instantiate the commands in the constructor (instead of
+        // initialize()), in case WPILib expects commands to be instantiated
+        // early on under the hood.
+        cvCommand = new SetupForBoilerCommand();
+        driveCommand = new DriveForwardEncodersCommand(approxDistance);
     }
 
     // Called just before this Command runs the first time
