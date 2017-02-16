@@ -42,10 +42,6 @@ public class Blender extends Subsystem {
     public void run() {
         blenderMotor.set(RobotMap.BLENDER_MOTOR_SPEED);
     }
-    
-    public void runBackwards() {
-        blenderMotor.set(RobotMap.BLENDER_MOTOR_SPEED *-1);
-    }
 
     public void runBackwards() {
         blenderMotor.set(-1.0 * RobotMap.BLENDER_MOTOR_SPEED);
