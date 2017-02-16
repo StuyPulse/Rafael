@@ -110,7 +110,7 @@ public class Robot extends IterativeRobot {
     private void setupSmartDashboardFields() {
         SmartDashboard.putNumber("Shooter speed", RobotMap.SHOOTER_IDEAL_SPEED);
         SmartDashboard.putNumber("gyro-rotate-degs", 0.0);
-        SmartDashboard.putNumber("autorotate-speed", 0.2);
+        SmartDashboard.putNumber("autorotate-speed", 0.35);
         SmartDashboard.putNumber("encoder-drive-inches", 0.0);
     }
 

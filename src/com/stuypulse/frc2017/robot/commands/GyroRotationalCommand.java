@@ -117,9 +117,9 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
         try {
             super.execute();
             if (!getForceStopped()) {
-                double speed = SmartDashboard.getNumber("autorotate-speed", 0.2);//gentleRotate
-                        //? 0.30 + 0.1 * Math.pow(howMuchWeHaveToGo(), 2)
-                        //: 0.30 + 0.1 * Math.pow(howMuchWeHaveToGo(), 2);
+                double speed = gentleRotate
+                        ? SmartDashboard.getNumber("autorotate-speed", 0.35) + 0.3 * Math.pow(howMuchWeHaveToGo(), 2)
+                        : SmartDashboard.getNumber("autorotate-speed", 0.35) + 0.3 * Math.pow(howMuchWeHaveToGo(), 2);
                 System.out.println("\n\n\n\n\n\n\nSpeed to use:\t" + speed);
                 System.out.println("getGyroAngle():\t" + Robot.drivetrain.gyroAngle());
                 System.out.println("angleMoved():\t" + angleMoved());
