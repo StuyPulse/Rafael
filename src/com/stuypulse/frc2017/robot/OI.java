@@ -1,22 +1,24 @@
 package com.stuypulse.frc2017.robot;
 
 import com.stuypulse.frc2017.robot.commands.BallGateCloseCommand;
-
 import com.stuypulse.frc2017.robot.commands.BallGateOpenCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderRunWithUnjammingCommand;
+import com.stuypulse.frc2017.robot.commands.BlenderSpinBackwardCommand;
+import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainLowGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherPushGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
-import com.stuypulse.frc2017.robot.commands.ShooterAccelerateSmartDashboardSpeedCommand;
+import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
+import com.stuypulse.frc2017.robot.commands.ShooterAccelerateIdealSpeedCommand;
+import com.stuypulse.frc2017.robot.commands.ShooterAccelerateMaximumSpeedCommand;
+import com.stuypulse.frc2017.robot.commands.ShooterAccelerateMinimumSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterStopCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStartMotorCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStopMotorCommand;
 import com.stuypulse.frc2017.robot.commands.auton.DoubleSequentialCommand;
-import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
-import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
 import com.stuypulse.frc2017.util.Gamepad;
 
 /**
@@ -70,24 +72,26 @@ public class OI {
 
         //OperatorPad Bindings
 		// Gear scoring:
+        operatorPad.getBottomButton().whenPressed(new GearPusherPushGearCommand());
+        operatorPad.getLeftButton().whenPressed(new GearPusherRetractGearCommand());
+        // TODO: bind top button to automatic-actions-override
 		operatorPad.getRightButton().whenPressed(new GearTrapReleaseGearCommand());
-		operatorPad.getRightButton().whenReleased(new DoubleSequentialCommand(new GearPusherRetractGearCommand(), new GearTrapTrapGearCommand()));
-		// Ball scoring:
-		operatorPad.getRightTrigger().whileHeld(new BlenderRunWithUnjammingCommand());
-        operatorPad.getLeftButton().whenPressed(new ShooterAccelerateSmartDashboardSpeedCommand());
-        operatorPad.getBottomButton().whenPressed(new ShooterStopCommand());
+		operatorPad.getRightButton().whenReleased(new GearTrapTrapGearCommand());
+
+		// Shooter:
+        operatorPad.getDPadDown().whenPressed(new ShooterStopCommand());
+        operatorPad.getDPadRight().whenPressed(new ShooterAccelerateMinimumSpeedCommand());
+		operatorPad.getDPadUp().whenPressed(new ShooterAccelerateIdealSpeedCommand());
+        operatorPad.getDPadLeft().whenPressed(new ShooterAccelerateMaximumSpeedCommand());
+
+        // Ball scoring:
+        operatorPad.getLeftBumper().whenPressed(new BallGateOpenCommand()); // No corresponding button to close gate
+        operatorPad.getRightBumper().whileHeld(new DoubleSequentialCommand(new BallGateCloseCommand(), new BlenderSpinBackwardCommand()));
+		operatorPad.getRightTrigger().whileHeld(new DoubleSequentialCommand(new BallGateOpenCommand(), new BlenderRunWithUnjammingCommand()));
 
         // Climbing:
-        operatorPad.getTopButton().whenPressed(new WinchStartMotorCommand());
-        operatorPad.getTopButton().whenReleased(new WinchStopMotorCommand());
-
-		// Manual overrides:
-		operatorPad.getDPadUp().whenPressed(new GearPusherPushGearCommand());
-		operatorPad.getDPadDown().whenPressed(new GearPusherRetractGearCommand());
-		operatorPad.getDPadLeft().whenPressed(new GearTrapReleaseGearCommand());
-		operatorPad.getDPadRight().whenPressed(new GearTrapTrapGearCommand());
-		operatorPad.getLeftBumper().whileHeld(new BallGateOpenCommand());
-		operatorPad.getLeftBumper().whenReleased(new BallGateCloseCommand());
+        operatorPad.getLeftTrigger().whenPressed(new WinchStartMotorCommand());
+        operatorPad.getLeftTrigger().whenReleased(new WinchStopMotorCommand()); 
 	}
 
     public boolean driverIsOverriding() {
