@@ -1,5 +1,6 @@
 package com.stuypulse.frc2017.robot;
 
+import com.stuypulse.frc2017.robot.commands.AutomaticActionsToggleCommand;
 import com.stuypulse.frc2017.robot.commands.BallGateCloseCommand;
 import com.stuypulse.frc2017.robot.commands.BallGateOpenCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderRunWithUnjammingCommand;
@@ -74,8 +75,11 @@ public class OI {
 		// Gear scoring:
         operatorPad.getBottomButton().whenPressed(new GearPusherPushGearCommand());
         operatorPad.getLeftButton().whenPressed(new GearPusherRetractGearCommand());
-        // TODO: bind top button to automatic-actions-override
-		operatorPad.getRightButton().whenPressed(new GearTrapReleaseGearCommand());
+        
+        // TODO: Propose to Jonah that this should not be a toggle.
+        operatorPad.getTopButton().whenPressed(new AutomaticActionsToggleCommand());
+
+        operatorPad.getRightButton().whenPressed(new GearTrapReleaseGearCommand());
 		operatorPad.getRightButton().whenReleased(new GearTrapTrapGearCommand());
 
 		// Shooter:
