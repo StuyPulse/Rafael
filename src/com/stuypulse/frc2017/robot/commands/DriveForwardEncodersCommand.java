@@ -32,25 +32,31 @@ public class DriveForwardEncodersCommand extends EncoderDrivingCommand {
     }
     @Override
     public boolean isFinished() {
-		//make public instead of protected so tat OptionalCVPositionForGearCommand can call
+		//make public instead of protected so that OptionalCVPositionForGearCommand can call
     	return super.isFinished();
 	}
 
 	@Override
 	public void initialize() {
-		//make public instead of protected so tat OptionalCVPositionForGearCommand can call
+		//make public instead of protected so that OptionalCVPositionForGearCommand can call
 		super.initialize();
 	}
 
 	@Override
 	public void execute() {
-		//make public instead of protected so tat OptionalCVPositionForGearCommand can call
+		//make public instead of protected so that OptionalCVPositionForGearCommand can call
 		super.execute();
 	}
 
 	@Override
 	public void end() {
-		//make public instead of protected so tat OptionalCVPositionForGearCommand can call
+		//make public instead of protected so that OptionalCVPositionForGearCommand can call
 		super.end();
+	}
+
+	@Override
+	public void interrupted() {
+		//make public instead of protected so that OptionalCVPositionForGearCommand can call
+		super.interrupted();
 	}
 }
