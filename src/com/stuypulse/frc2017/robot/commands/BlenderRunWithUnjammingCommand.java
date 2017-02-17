@@ -41,7 +41,7 @@ public class BlenderRunWithUnjammingCommand extends Command {
     	if(Timer.getFPGATimestamp() - motorUnjamTime >= RobotMap.BLENDER_MOTOR_UNJAM_TIME) {
     		motorIsUnjamming = false;
     	}
-        if (!motorIsUnjamming && !Robot.isAutoOverriden()) {
+        if (!motorIsUnjamming && !Robot.isAutoOverridden()) {
             if (Robot.blender.isMotorJammed()) {
     			Robot.ledBlenderSignal.stayOff();
     			Robot.blender.run();

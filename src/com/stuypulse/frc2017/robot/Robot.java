@@ -68,7 +68,7 @@ public class Robot extends IterativeRobot {
      * pusher when the gear is detected, or auto-unjamming the blender, should
      * run. {@code isAutoOverriden} does NOT have any effect on CV alignment.
      */
-    private static boolean isAutoOverriden;
+    private static boolean isAutoOverridden;
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<Command>();
@@ -237,15 +237,15 @@ public class Robot extends IterativeRobot {
         LiveWindow.run();
     }
 
-    public static boolean isAutoOverriden() {
-        return isAutoOverriden;
+    public static boolean isAutoOverridden() {
+        return isAutoOverridden;
     }
 
-    public static void setAutoOverriden(boolean override) {
-        Robot.isAutoOverriden = override;
+    public static void setAutoOverridden(boolean override) {
+        Robot.isAutoOverridden = override;
     }
 
-    public static void toggleAutoOverriden() {
-        Robot.isAutoOverriden = !Robot.isAutoOverriden;
+    public static void toggleAutoOverridden() {
+        Robot.isAutoOverridden = !Robot.isAutoOverridden;
     }
 }

@@ -16,7 +16,7 @@ public class AutomaticActionsOverrideCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        Robot.setAutoOverriden(true);
+        Robot.setAutoOverridden(true);
     }
 
     // Called repeatedly when this Command is scheduled to run
