@@ -72,6 +72,7 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
                         doneRamping = true;
                     }
                     speed *= 0.7; // Max at 0.7 while ramping
+                    speed = Math.min(1.0, speed);
                 }
                 speed *= Math.signum(initialInchesToMove);
                 Robot.drivetrain.tankDrive(speed, speed);

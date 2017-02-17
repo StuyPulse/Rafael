@@ -50,6 +50,11 @@ public class Drivetrain extends Subsystem {
         leftBottomMotor.enableBrakeMode(true);
         rightBottomMotor.enableBrakeMode(true);
 
+        leftTopMotor.setInverted(true);
+        rightTopMotor.setInverted(true);
+        leftBottomMotor.setInverted(true);
+        rightBottomMotor.setInverted(true);
+
     	gearShift = new Solenoid(RobotMap.GEAR_SHIFT_SOLENOID_PORT);
 
     	leftTopMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
@@ -102,11 +107,13 @@ public class Drivetrain extends Subsystem {
     }
 
     public double leftEncoderDistance() {
-    	return Math.abs(leftTopMotor.getPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION);
+        return (leftTopMotor.getPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION) / RobotMap.DRIVETRAIN_ENCODERS_FACTOR;
     }
 
     public double rightEncoderDistance() {
-    	return Math.abs(rightTopMotor.getPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION);
+        // Distance is scaled by -1.0 because right encoder was reporting
+        // incorrect (negated) values
+        return -1.0 * (rightTopMotor.getPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION) / RobotMap.DRIVETRAIN_ENCODERS_FACTOR;
     }
 
     //Sets the solenoid to a shifted state manually
@@ -115,13 +122,12 @@ public class Drivetrain extends Subsystem {
     	shifted = shift;
     }
 
-    //TODO: Edit the boolean with the correct value for each gear setting.
     public void highGearShift() {
-    	gearShift.set(true); 
+        gearShift.set(false);
     }
     
     public void lowGearShift() {
-    	gearShift.set(false);
+        gearShift.set(true);
     }
     
     public double getLeftTopMotorCurrent(){

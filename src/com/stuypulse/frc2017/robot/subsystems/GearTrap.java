@@ -18,7 +18,7 @@ public class GearTrap extends Subsystem {
 	
 	public GearTrap() {
 		gearTrap = new Solenoid(RobotMap.PCM_1,RobotMap.GEAR_TRAP_SOLENOID_PORT);
-		trapped = true;
+		trapped = false; // Starts out un-trapped
 	}
 
     public void initDefaultCommand() {
@@ -41,5 +41,9 @@ public class GearTrap extends Subsystem {
 
     public void release() {
     	gearTrap.set(false);
+    }
+
+    public boolean isTrapped() {
+        return trapped;
     }
 }

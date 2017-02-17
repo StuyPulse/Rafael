@@ -117,6 +117,7 @@ public class Robot extends IterativeRobot {
     private void setupSmartDashboardFields() {
         SmartDashboard.putNumber("Shooter speed", RobotMap.SHOOTER_IDEAL_SPEED);
         SmartDashboard.putNumber("gyro-rotate-degs", 0.0);
+        SmartDashboard.putNumber("autorotate-speed", 0.35);
         SmartDashboard.putNumber("encoder-drive-inches", 0.0);
     }
 
@@ -205,6 +206,7 @@ public class Robot extends IterativeRobot {
         // We do this in autonomousInit rather than a Command because it must
         // always happen, regardless of what comes next, and it is quick. This
         // is also why blocking the thread is appropriate:
+        Robot.drivetrain.resetEncoders();
         Robot.geartrap.trap();
         Timer.delay(RobotMap.AUTON_INIT_DELAY_BEFORE_PUSH_GEAR);
         Robot.gearpusher.push(Value.kForward);
@@ -233,6 +235,7 @@ public class Robot extends IterativeRobot {
             autonomousCommand.cancel();
         }
 
+        Robot.drivetrain.resetEncoders();
         Camera.configureCamera(0);
         Camera.configureCamera(1);
     }
