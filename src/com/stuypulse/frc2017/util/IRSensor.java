@@ -64,7 +64,7 @@ public class IRSensor {
 		}
 	}
 	public void gearLEDSignalControl() {
-		if(isGearDetected() && !Robot.isAutoOverridden()) {
+		if(isGearDetected()) {
 			Robot.ledGearSensingSignal.stayOn();
 		} else {
 			Robot.ledGearSensingSignal.stayOff();
