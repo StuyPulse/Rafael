@@ -41,6 +41,7 @@ public interface RobotMap {
 
     int DRIVETRAIN_ENCODERS_PULSES_PER_REVOLUTION = 256; // TODO: Test value
     double DRIVETRAIN_WHEEL_DIAMETER = 4.0;
+    double DRIVETRAIN_ENCODERS_FACTOR = 4.0; // output must be scaled *down* by 4 due to type of encoder
     double DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION = Math.PI * DRIVETRAIN_WHEEL_DIAMETER;
     // We use BLENDER_ENCODER_DEGREES_PER_PULSE as the encoder's distance-per-pulse.
     double BLENDER_ENCODER_DEGREES_PER_PULSE = 360.0 / (double) RobotMap.BLENDER_ENCODER_PULSES_PER_REVOLUTION;
