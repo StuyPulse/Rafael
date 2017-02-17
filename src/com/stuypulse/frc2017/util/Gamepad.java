@@ -31,10 +31,10 @@ public class Gamepad extends Joystick {
 	/**
 	 * The left analog stick y-axis.
 	 * 
-	 * @return value of left analog y-axis
+	 * @return value of left analog y-axis (pushing stick up is positive)
 	 */
 	public double getLeftY() {
-		return getRawAxis(1);
+		return -getRawAxis(1);
 	}
 
 	/**
@@ -49,10 +49,10 @@ public class Gamepad extends Joystick {
 	/**
 	 * The right analog stick y-axis.
 	 * 
-	 * @return value of right analog y-axis
+	 * @return value of right analog y-axis (pushing stick up is positive)
 	 */
 	public double getRightY() {
-		return getRawAxis(3);
+		return -getRawAxis(3);
 	}
 
 	/**
