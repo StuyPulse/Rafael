@@ -12,11 +12,11 @@ public class AutomaticActionsOverrideCommand extends Command {
     public AutomaticActionsOverrideCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        Robot.setAutoOverriden(true);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        Robot.setAutoOverriden(true);
     }
 
     // Called repeatedly when this Command is scheduled to run
