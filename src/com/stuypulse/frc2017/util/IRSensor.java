@@ -46,7 +46,7 @@ public class IRSensor {
 	}
 
 	public void handleAutoGearPush() {
-		if (!Robot.isAutoOverridden() && isGearDetected() && Robot.geartrap.isTrapped()) {
+		if (!Robot.isAutoOverridden() && isGearDetected()) {// && Robot.geartrap.isTrapped()) {
 		    // If the timer is stopped, start it
 		    if (!isTimerRunning) {
 		        // Based on a mirror of old source code, the start() method resets the
