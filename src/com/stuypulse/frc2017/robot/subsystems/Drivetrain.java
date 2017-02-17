@@ -120,13 +120,12 @@ public class Drivetrain extends Subsystem {
     	shifted = shift;
     }
 
-    //TODO: Edit the boolean with the correct value for each gear setting.
     public void highGearShift() {
-    	gearShift.set(true); 
+        gearShift.set(false);
     }
     
     public void lowGearShift() {
-    	gearShift.set(false);
+        gearShift.set(true);
     }
     
     public double getLeftTopMotorCurrent(){
