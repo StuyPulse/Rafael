@@ -50,6 +50,11 @@ public class Drivetrain extends Subsystem {
         leftBottomMotor.enableBrakeMode(true);
         rightBottomMotor.enableBrakeMode(true);
 
+        leftTopMotor.setInverted(true);
+        rightTopMotor.setInverted(true);
+        leftBottomMotor.setInverted(true);
+        rightBottomMotor.setInverted(true);
+
     	gearShift = new Solenoid(RobotMap.GEAR_SHIFT_SOLENOID_PORT);
 
     	leftTopMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);

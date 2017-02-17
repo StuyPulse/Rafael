@@ -31,6 +31,7 @@ public class Blender extends Subsystem {
 		currentValues = new double[CURRENTS_TO_RECORD];
 		blenderMotor.enableBrakeMode(true);
 		isJammed = false;
+		blenderMotor.setInverted(true);
 	}
 
     public void initDefaultCommand() {
