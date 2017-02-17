@@ -3,7 +3,7 @@ package com.stuypulse.frc2017.robot;
 import com.stuypulse.frc2017.robot.commands.BallGateCloseCommand;
 import com.stuypulse.frc2017.robot.commands.BallGateOpenCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderRunWithUnjammingCommand;
-import com.stuypulse.frc2017.robot.commands.BlenderSpinsBackwardsCommand;
+import com.stuypulse.frc2017.robot.commands.BlenderSpinBackwardCommand;
 import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainLowGearCommand;
@@ -15,9 +15,9 @@ import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateIdealSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateMaximumSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateMinimumSpeedCommand;
-import com.stuypulse.frc2017.robot.commands.ShooterAccelerateSmartDashboardSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterStopCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStartMotorCommand;
+import com.stuypulse.frc2017.robot.commands.WinchStopMotorCommand;
 import com.stuypulse.frc2017.robot.commands.auton.DoubleSequentialCommand;
 import com.stuypulse.frc2017.util.Gamepad;
 
@@ -74,23 +74,24 @@ public class OI {
 		// Gear scoring:
         operatorPad.getBottomButton().whenPressed(new GearPusherPushGearCommand());
         operatorPad.getLeftButton().whenPressed(new GearPusherRetractGearCommand());
-		operatorPad.getRightButton().whileHeld(new GearTrapReleaseGearCommand());
-		operatorPad.getRightButton().whenReleased(new DoubleSequentialCommand(new GearPusherRetractGearCommand(), new GearTrapTrapGearCommand()));
-		// Ball scoring:
+        // TODO: bind top button to automatic-actions-override
+		operatorPad.getRightButton().whenPressed(new GearTrapReleaseGearCommand());
+		operatorPad.getRightButton().whenReleased(new GearTrapTrapGearCommand());
+
+		// Shooter:
+        operatorPad.getDPadDown().whenPressed(new ShooterStopCommand());
+        operatorPad.getDPadRight().whenPressed(new ShooterAccelerateMinimumSpeedCommand());
+		operatorPad.getDPadUp().whenPressed(new ShooterAccelerateIdealSpeedCommand());
+        operatorPad.getDPadLeft().whenPressed(new ShooterAccelerateMaximumSpeedCommand());
+
+        // Ball scoring:
+        operatorPad.getLeftBumper().whenPressed(new BallGateOpenCommand()); // No corresponding button to close gate
+        operatorPad.getRightBumper().whileHeld(new DoubleSequentialCommand(new BallGateCloseCommand(), new BlenderSpinBackwardCommand()));
 		operatorPad.getRightTrigger().whileHeld(new DoubleSequentialCommand(new BallGateOpenCommand(), new BlenderRunWithUnjammingCommand()));
-        operatorPad.getLeftButton().whenPressed(new ShooterAccelerateSmartDashboardSpeedCommand());
-        operatorPad.getBottomButton().whenPressed(new ShooterStopCommand());
 
         // Climbing:
-        operatorPad.getLeftTrigger().whileHeld(new WinchStartMotorCommand());
-
-		// Manual overrides:
-		operatorPad.getDPadUp().whenPressed(new ShooterAccelerateIdealSpeedCommand());
-		operatorPad.getDPadDown().whenPressed(new ShooterStopCommand());
-		operatorPad.getDPadLeft().whenPressed(new ShooterAccelerateMaximumSpeedCommand()); 
-		operatorPad.getDPadRight().whenPressed(new ShooterAccelerateMinimumSpeedCommand());
-		operatorPad.getLeftBumper().whenPressed(new BallGateOpenCommand());
-		operatorPad.getRightBumper().whileHeld(new DoubleSequentialCommand(new BlenderSpinsBackwardsCommand(), new BallGateCloseCommand())); 
+        operatorPad.getLeftTrigger().whenPressed(new WinchStartMotorCommand());
+        operatorPad.getLeftTrigger().whenReleased(new WinchStopMotorCommand()); 
 	}
 
     public boolean driverIsOverriding() {
