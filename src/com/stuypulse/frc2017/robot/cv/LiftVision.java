@@ -40,7 +40,7 @@ public class LiftVision extends VisionModule {
     public DoubleSliderVariable maxGoalArea = new DoubleSliderVariable("Max Area", 10000.0, 0.0, 10000);
 
     private DeviceCaptureSource liftCamera;
-    
+
     private static double cevian = 0.0;
 
     public void initializeCamera() {
@@ -48,6 +48,12 @@ public class LiftVision extends VisionModule {
     }
 
     public double[] processImage() {
+        Vector[] targets = processImageVectors();
+        double[] reading = findDistanceAndAngle(targets[0].getMagnitude(), targets[1].getMagnitude(), targets[0].getDegrees(), targets[1].getDegrees());
+        return reading;
+    }
+
+    public Vector[] processImageVectors() {
         if (liftCamera == null) {
             initializeCamera();
         }
@@ -55,12 +61,13 @@ public class LiftVision extends VisionModule {
         Mat frame = new Mat();
         liftCamera.readSized(raw, frame);
         Vector[] targets = hsvThresholding(frame);
-        double[] reading = findDistanceAndAngle(targets[0].getMagnitude(), targets[1].getMagnitude(), targets[0].getDegrees(), targets[1].getDegrees());
-        return reading;
+        return targets;
     }
 
     public void run(Mat frame) {
-        hsvThresholding(frame);
+        Vector[] targets = hsvThresholding(frame);
+        System.out.println(targets[0]);
+        System.out.println(targets[1]);
     }
 
     public Vector[] hsvThresholding(Mat frame) {
@@ -320,17 +327,17 @@ public class LiftVision extends VisionModule {
         leftTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(0)), getCenterY(contours.get(0)), getHeight(contours.get(0)));
         return new Vector[] {leftTarget, rightTarget};
     }
-    
+
     public DeviceCaptureSource getLiftCamera(){
         return liftCamera;
     }
-    
+
     public static void findCevian(double a, double b){
     	cevian = Math.sqrt((4.125 * (a * a + b * b) - 68.0625) / 8.25);
     }
 
     /**
-     * 
+     *
      * @param length_1
      * @param length_2
      * @param angle angle opposite of the side you trying to find (in degrees)
@@ -342,7 +349,7 @@ public class LiftVision extends VisionModule {
     }
 
     /**
-     * 
+     *
      * @param a Side of triangle with the desired angle adjacent
      * @param b Side of triangle with the desired angle adjacent
      * @param c Side of triangle opposite of the desired angle
@@ -363,13 +370,13 @@ public class LiftVision extends VisionModule {
     	double r_angle = Math.toRadians(angle);
     	return Math.toDegrees(Math.asin(Math.sin(r_angle) * b / a));
     }
-    
+
     public static double findAngleToBaseOfPeg(double lAngle, double rAngle){
     	return (lAngle + rAngle) /2;
     }
-    
+
     /**
-     * 
+     *
      * @param a Angle between the viewing head of the camera to the farthest reflexite
      * @param b Angle between the wall and the farthest reflexite
      * @param c Angle between the viewing head of the camera to the base of the peg
@@ -380,9 +387,9 @@ public class LiftVision extends VisionModule {
     	double angle = 90 - (a + b - c);
     	return lawOfCosine(CVConstants.PEG_LENGTH, cevian, angle);
     }
-    
+
     /**
-     * 
+     *
      * @param a Distance to the tip of the peg (in inches)
      * @param angle Angle between the viewing head of the camera to the base of the peg
      * @return

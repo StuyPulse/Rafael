@@ -83,6 +83,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
             // Set defaults for values accessible by setDesiredAngle
             desiredAngle = 0.0;
             setDesiredAngle();
+            System.out.println("desiredAngle: " + desiredAngle);
         } catch (Exception e) {
             System.out.println("Error in intialize in RotateToAimCommand:");
             e.printStackTrace();

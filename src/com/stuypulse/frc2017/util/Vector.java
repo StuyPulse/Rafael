@@ -29,7 +29,7 @@ public class Vector {
      * @return the angle of {@code this} vector
      */
     public double getDegrees() {
-        return 180.0 - Math.toDegrees(Math.atan2(this.dx, this.dy));
+        return Math.toDegrees(Math.atan2(this.dx, this.dy));
     }
 
     /**
@@ -99,17 +99,17 @@ public class Vector {
         }
         return false;
     }
-    
-    /** 
-     * 
+
+    /**
+     *
      * @return a point equivalent of the vector
      */
     public Point getPoint() {
     	return new Point(dx, dy);
     }
-    
+
     /////// Accessors and Modifiers /////////
-    
+
     public double getX() {
     	return dx;
     }

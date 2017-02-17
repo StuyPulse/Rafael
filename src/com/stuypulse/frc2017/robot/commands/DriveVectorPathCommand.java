@@ -39,7 +39,7 @@ public class DriveVectorPathCommand extends CommandGroup {
         addSequential(driveToFirstVector);
 
         addSequential(rotateToSecondVector);
-        addSequential(driveToSecondVector);
+        //addSequential(driveToSecondVector);
     }
 }
 
@@ -69,6 +69,7 @@ class UpdateVectorCommandsCommand extends InstantCommand {
         rotateToFirstVector.setDesiredAngle(angleToTurn);
         System.out.println("Desired angle 1: " + angleToTurn);
         driveToFirstVector.setInchesToMove(Robot.cvVector[0].getMagnitude());
+        System.out.println("Desired distance 1: " + Robot.cvVector[0].getMagnitude());
 
         boolean isNegativeOne = Robot.cvVector[0].getDegrees() < 0;
         boolean isNegativeTwo = Robot.cvVector[1].getDegrees() < 0;

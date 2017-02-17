@@ -16,10 +16,13 @@ import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateIdealSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateMaximumSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateMinimumSpeedCommand;
+import com.stuypulse.frc2017.robot.commands.ShooterAccelerateSmartDashboardSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterStopCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStartMotorCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStopMotorCommand;
 import com.stuypulse.frc2017.robot.commands.auton.DoubleSequentialCommand;
+import com.stuypulse.frc2017.robot.commands.cv.SetupForBoilerCommand;
+import com.stuypulse.frc2017.robot.commands.cv.SetupForGearCommand;
 import com.stuypulse.frc2017.util.Gamepad;
 
 /**
@@ -71,11 +74,14 @@ public class OI {
         driverPad.getLeftTrigger().whenPressed(new RotateDegreesGyroCommand());
         driverPad.getRightTrigger().whenPressed(new DriveForwardEncodersCommand());
 
+        driverPad.getLeftButton().whenPressed(new SetupForGearCommand());
+        driverPad.getRightButton().whenPressed(new SetupForBoilerCommand());
+
         //OperatorPad Bindings
 		// Gear scoring:
         operatorPad.getBottomButton().whenPressed(new GearPusherPushGearCommand());
         operatorPad.getLeftButton().whenPressed(new GearPusherRetractGearCommand());
-        
+
         // TODO: Propose to Jonah that this should not be a toggle.
         operatorPad.getTopButton().whenPressed(new AutomaticActionsToggleCommand());
 
@@ -95,7 +101,7 @@ public class OI {
 
         // Climbing:
         operatorPad.getLeftTrigger().whenPressed(new WinchStartMotorCommand());
-        operatorPad.getLeftTrigger().whenReleased(new WinchStopMotorCommand()); 
+        operatorPad.getLeftTrigger().whenReleased(new WinchStopMotorCommand());
 	}
 
     public boolean driverIsOverriding() {
