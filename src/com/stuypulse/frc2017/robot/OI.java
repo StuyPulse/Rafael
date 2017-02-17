@@ -91,7 +91,7 @@ public class OI {
         // Ball scoring:
         operatorPad.getLeftBumper().whenPressed(new BallGateOpenCommand()); // No corresponding button to close gate
         operatorPad.getRightBumper().whileHeld(new DoubleSequentialCommand(new BallGateCloseCommand(), new BlenderSpinBackwardCommand()));
-		operatorPad.getRightTrigger().whileHeld(new DoubleSequentialCommand(new BallGateOpenCommand(), new BlenderRunWithUnjammingCommand()));
+		operatorPad.getRightTrigger().whileHeld(new BlenderRunWithUnjammingCommand());
 
         // Climbing:
         operatorPad.getLeftTrigger().whenPressed(new WinchStartMotorCommand());
