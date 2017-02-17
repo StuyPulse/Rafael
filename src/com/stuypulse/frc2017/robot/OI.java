@@ -1,5 +1,6 @@
 package com.stuypulse.frc2017.robot;
 
+import com.stuypulse.frc2017.robot.commands.AutomaticActionsToggleCommand;
 import com.stuypulse.frc2017.robot.commands.BallGateCloseCommand;
 import com.stuypulse.frc2017.robot.commands.BallGateOpenCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderRunWithUnjammingCommand;
@@ -70,6 +71,9 @@ public class OI {
 		operatorPad.getRightTrigger().whileHeld(new BlenderRunWithUnjammingCommand());
         operatorPad.getLeftButton().whenPressed(new ShooterAccelerateSmartDashboardSpeedCommand());
         operatorPad.getBottomButton().whenPressed(new ShooterStopCommand());
+        
+        // TODO: Propose to Jonah that this should not be a toggle.
+        operatorPad.getTopButton().whenPressed(new AutomaticActionsToggleCommand());
 
         // Climbing:
         operatorPad.getTopButton().whenPressed(new WinchStartMotorCommand());

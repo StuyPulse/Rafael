@@ -62,7 +62,12 @@ public class Robot extends IterativeRobot {
     public static OI oi;
 
     public static SendableChooser<Command> autonChooser;
-    
+
+    /**
+     * This controls whether automatic functionality like extending the gear
+     * pusher when the gear is detected, or auto-unjamming the blender, should
+     * run. {@code isAutoOverriden} does NOT have any effect on CV alignment.
+     */
     private static boolean isAutoOverriden;
 
     Command autonomousCommand;
@@ -236,7 +241,11 @@ public class Robot extends IterativeRobot {
         return isAutoOverriden;
     }
 
-    public static void setAutoOverriden(boolean isAutoOverriden) {
-        Robot.isAutoOverriden = isAutoOverriden;
+    public static void setAutoOverriden(boolean override) {
+        Robot.isAutoOverriden = override;
+    }
+
+    public static void toggleAutoOverriden() {
+        Robot.isAutoOverriden = !Robot.isAutoOverriden;
     }
 }
