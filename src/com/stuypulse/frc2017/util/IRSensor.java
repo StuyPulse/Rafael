@@ -5,6 +5,7 @@ import com.stuypulse.frc2017.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -41,7 +42,7 @@ public class IRSensor {
 	}
 
 	public boolean isGearDetected() {
-		return getDistance() < RobotMap.IR_SENSOR_THRESHOLD;
+		return getDistance() < SmartDashboard.getNumber("IR Sensor Distance", RobotMap.IR_SENSOR_THRESHOLD);
 	}
 
 	public void handleAutoGearPush() {
@@ -55,7 +56,7 @@ public class IRSensor {
 		        isTimerRunning = true;
 		    }
 		    // If the "time is up", push the gear and reset the timer
-			if (timeSinceEntry.get() > RobotMap.IR_TIME_IN_MECHANISM_THRESHOLD) {
+			if (timeSinceEntry.get() > SmartDashboard.getNumber("IR Sensor Time", RobotMap.IR_TIME_IN_MECHANISM_THRESHOLD)) {
 				Robot.gearpusher.extend();
 				timeSinceEntry.stop();
 				isTimerRunning = false;

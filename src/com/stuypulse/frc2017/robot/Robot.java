@@ -119,6 +119,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("gyro-rotate-degs", 0.0);
         SmartDashboard.putNumber("autorotate-speed", 0.35);
         SmartDashboard.putNumber("encoder-drive-inches", 0.0);
+        SmartDashboard.putNumber("IR Sensor Distance", RobotMap.IR_SENSOR_THRESHOLD);
+        SmartDashboard.putNumber("IR Sensor Time", RobotMap.IR_TIME_IN_MECHANISM_THRESHOLD);
     }
 
     private void setupAutonChooser(){
