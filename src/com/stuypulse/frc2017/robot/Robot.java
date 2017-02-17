@@ -64,6 +64,13 @@ public class Robot extends IterativeRobot {
 
     public static SendableChooser<Command> autonChooser;
 
+    /**
+     * This controls whether automatic functionality like extending the gear
+     * pusher when the gear is detected, or auto-unjamming the blender, should
+     * run. {@code isAutoOverriden} does NOT have any effect on CV alignment.
+     */
+    private static boolean isAutoOverridden;
+
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<Command>();
 
@@ -232,7 +239,6 @@ public class Robot extends IterativeRobot {
         Camera.configureCamera(0);
         Camera.configureCamera(1);
     }
-
     /**
      * This function is called periodically during operator control
      */
@@ -251,5 +257,17 @@ public class Robot extends IterativeRobot {
     @Override
     public void testPeriodic() {
         LiveWindow.run();
+    }
+
+    public static boolean isAutoOverridden() {
+        return isAutoOverridden;
+    }
+
+    public static void setAutoOverridden(boolean override) {
+        Robot.isAutoOverridden = override;
+    }
+
+    public static void toggleAutoOverridden() {
+        Robot.isAutoOverridden = !Robot.isAutoOverridden;
     }
 }

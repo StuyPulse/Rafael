@@ -1,12 +1,10 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
-import com.stuypulse.frc2017.robot.Robot;
 import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
-import com.stuypulse.frc2017.robot.commands.cv.SetupForGearCommand;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -33,11 +31,7 @@ public class ScoreBoilerGearFromBoilerCommand extends CommandGroup {
     	addSequential (new RotateDegreesGyroCommand(TURN_FROM_BOILER_BACK_UP * direction));
     	addSequential (new DriveForwardEncodersCommand(FORWARD_FROM_BOILER_TURN));
     	addSequential (new RotateDegreesGyroCommand(TURN_TO_BOILER_GEAR * direction));
-    	if (Robot.cvChooser.getSelected()) {
-			addSequential(new SetupForGearCommand());
-		} else {
-			addSequential(new DriveForwardEncodersCommand(FORWARD_TO_BOILER_GEAR));
-		}
+    	addSequential(new OptionalCVPositionForGearCommand(FORWARD_TO_BOILER_GEAR));
 		addSequential(new GearTrapReleaseGearCommand());
 		addSequential(new GearPusherRetractGearCommand());
 		addSequential(new DriveForwardEncodersCommand(ScoreBoilerGearCommand.BOILER_GEAR_REVERSE_DISTANCE));

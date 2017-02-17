@@ -30,4 +30,33 @@ public class DriveForwardEncodersCommand extends EncoderDrivingCommand {
     protected void setInchesToMove() {
         initialInchesToMove = set ? inches : SmartDashboard.getNumber("encoder-drive-inches", 0);
     }
+    @Override
+    public boolean isFinished() {
+        //make public instead of protected so that OptionalCVPositionForGearCommand can call
+        return super.isFinished();
+    }
+
+    @Override
+    public void initialize() {
+        //make public instead of protected so that OptionalCVPositionForGearCommand can call
+        super.initialize();
+    }
+
+    @Override
+    public void execute() {
+        //make public instead of protected so that OptionalCVPositionForGearCommand can call
+        super.execute();
+    }
+
+    @Override
+    public void end() {
+        //make public instead of protected so that OptionalCVPositionForGearCommand can call
+        super.end();
+    }
+
+    @Override
+    public void interrupted() {
+        //make public instead of protected so that OptionalCVPositionForGearCommand can call
+        super.interrupted();
+    }
 }
