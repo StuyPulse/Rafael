@@ -1,11 +1,9 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
-import com.stuypulse.frc2017.robot.Robot;
 import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
-import com.stuypulse.frc2017.robot.commands.cv.SetupForGearCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -31,7 +29,7 @@ public class ScoreMiddleGearCommand extends CommandGroup {
 
     	// Drive to gear, release trap, drive back, retract gear pusher, close trap.
     	
-        addSequential(new OptionalCVPositionForGearCommand());
+        addSequential(new OptionalCVPositionForGearCommand(START_TO_MIDDLE_GEAR_DISTANCE));
     	addSequential(new GearTrapReleaseGearCommand());
     	addSequential(new DriveForwardEncodersCommand(MIDDLE_GEAR_REVERSE_DISTANCE));
     	addSequential(new GearPusherRetractGearCommand());

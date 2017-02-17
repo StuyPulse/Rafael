@@ -10,14 +10,14 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class OptionalCVPositionForGearCommand extends Command {
-	// create both commands in constructor in case command framwwork requires
+	// instantiate both commands in constructor in case command framework requires it
 	private SetupForGearCommand cvCommand;
 	private DriveForwardEncodersCommand driveCommand;
 
-	public OptionalCVPositionForGearCommand() {
+	public OptionalCVPositionForGearCommand(double approxDistance) {
 		requires(Robot.drivetrain);
 		cvCommand = new SetupForGearCommand();
-		driveCommand = new DriveForwardEncodersCommand(ScoreHPGearCommand.AFTER_TURN_TO_HP_GEAR_DISTANCE);
+		driveCommand = new DriveForwardEncodersCommand(approxDistance);
 	}
 
 	// Called just before this Command runs the first time
