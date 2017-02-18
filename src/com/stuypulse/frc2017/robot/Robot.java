@@ -74,9 +74,6 @@ public class Robot extends IterativeRobot {
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<Command>();
 
-    private static UsbCamera boilerCamera;
-    private static UsbCamera liftCamera;
-
     public static LiftVision liftVision;
     public static BoilerVision boilerVision;
     public static Vector[] cvVector;
@@ -109,9 +106,6 @@ public class Robot extends IterativeRobot {
 
         boilerVision = new BoilerVision();
         liftVision = new LiftVision();
-
-        boilerCamera = new UsbCamera("Boiler Camera", 0);
-        liftCamera = new UsbCamera("Lift Camera", 1);
     }
 
     private void setupSmartDashboardFields() {
