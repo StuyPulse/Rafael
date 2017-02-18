@@ -33,4 +33,5 @@ public interface CVConstants {
 
     double PEG_LENGTH = 10.5 + 3.38;
 
+    double PAST_PEG_DISTANCE = 3.0;
 }

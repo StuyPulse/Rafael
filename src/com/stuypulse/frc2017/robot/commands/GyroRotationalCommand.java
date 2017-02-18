@@ -73,6 +73,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
             // If we received a forceStoppedBox controller and it is already
             // true, stop immediately.
             if (externallyStopped()) {
+                System.out.println("EXTERNALLY STOPPED ============================");
                 return;
             }
             super.initialize();
@@ -119,8 +120,8 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
             super.execute();
             if (!getForceStopped()) {
                 double speed = gentleRotate
-                        ? SmartDashboard.getNumber("autorotate-speed", 0.35) + 0.3 * Math.pow(howMuchWeHaveToGo(), 2)
-                        : SmartDashboard.getNumber("autorotate-speed", 0.35) + 0.3 * Math.pow(howMuchWeHaveToGo(), 2);
+                        ? SmartDashboard.getNumber("autorotate-gentle-speed") + SmartDashboard.getNumber("autorotate-range") * Math.pow(howMuchWeHaveToGo(), 2)
+                        : SmartDashboard.getNumber("autorotate-speed") + SmartDashboard.getNumber("autorotate-gentle-range") * Math.pow(howMuchWeHaveToGo(), 2);
                 System.out.println("\n\n\n\n\n\n\nSpeed to use:\t" + speed);
                 System.out.println("getGyroAngle():\t" + Robot.drivetrain.gyroAngle());
                 System.out.println("angleMoved():\t" + angleMoved());
@@ -147,7 +148,9 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         try {
+            tolerance = SmartDashboard.getNumber("cv tolerance");
             if (cancelCommand || getForceStopped()) {
+                System.out.println("isFinished: cancel:" + cancelCommand + "\t|\tforcestopped: " + getForceStopped());
                 return true;
             }
 
@@ -181,6 +184,9 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     protected void end() {
         Robot.drivetrain.stop();
         System.out.println("ENDED");
+        System.out.println("tol: " + tolerance);
+        System.out.println("ENDED - abort: " + abort);
+        System.out.println("ENDED - cancelCommand: " + cancelCommand);
         onEnd();
     }
 

@@ -1,7 +1,6 @@
 package com.stuypulse.frc2017.robot.commands.cv;
 
 import com.stuypulse.frc2017.robot.Robot;
-import com.stuypulse.frc2017.robot.commands.DriveVectorPathCommand;
 import com.stuypulse.frc2017.robot.cv.LiftMath;
 import com.stuypulse.frc2017.util.Vector;
 
@@ -31,10 +30,12 @@ public class SetupForGearCommand extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
 
+        addSequential(new ResetForceStopCommand());
 	    addSequential(new RotateToLiftCommand());
 	    addSequential(new RotateToLiftCommand(true));
 
         addSequential(new DriveToPegCommand());
+        addSequential(new ResetForceStopCommand());
     }
 
     @Override
@@ -74,7 +75,9 @@ class SetVectors extends InstantCommand {
 
     protected void initialize() {
         Vector[] targetVectors = Robot.liftVision.processImageVectors();
-        Vector[] path = LiftMath.getPath(targetVectors[0], targetVectors[1], DISTANCE_FROM_PEG, DISTANCE_FROM_PEG - 0.1);
-        Robot.cvVector = path;
+        if (targetVectors != null) {
+            Vector[] path = LiftMath.getPath(targetVectors[0], targetVectors[1], DISTANCE_FROM_PEG, DISTANCE_FROM_PEG - 0.1);
+            Robot.cvVector = path;
+        }
     }
 }

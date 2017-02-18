@@ -15,9 +15,11 @@ import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 import com.stuypulse.frc2017.robot.CVConstants;
+import com.stuypulse.frc2017.robot.Robot;
 import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.util.Vector;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import stuyvision.VisionModule;
 import stuyvision.capture.DeviceCaptureSource;
 import stuyvision.gui.DoubleSliderVariable;
@@ -49,6 +51,9 @@ public class LiftVision extends VisionModule {
 
     public double[] processImage() {
         Vector[] targets = processImageVectors();
+        if (targets == null) {
+            return null;
+        }
         double[] reading = findDistanceAndAngle(targets[0].getMagnitude(), targets[1].getMagnitude(), targets[0].getDegrees(), targets[1].getDegrees());
         return reading;
     }
@@ -59,6 +64,9 @@ public class LiftVision extends VisionModule {
         }
         Mat raw = new Mat();
         Mat frame = new Mat();
+        for (int i = 0; i < 5; i++) {
+            liftCamera.readFrame(raw);
+        }
         liftCamera.readSized(raw, frame);
         Vector[] targets = hsvThresholding(frame);
         return targets;
@@ -66,8 +74,10 @@ public class LiftVision extends VisionModule {
 
     public void run(Mat frame) {
         Vector[] targets = hsvThresholding(frame);
-        System.out.println(targets[0]);
-        System.out.println(targets[1]);
+        if (targets != null) {
+            System.out.println(targets[0]);
+            System.out.println(targets[1]);
+        }
     }
 
     public Vector[] hsvThresholding(Mat frame) {
@@ -223,6 +233,17 @@ public class LiftVision extends VisionModule {
 	        if (hasGuiApp()) {
 	            postImage(drawn, "Detected");
 	        }
+        }
+
+        if (targets == null) {
+            for (int i = 0; i < contours.size(); i++) {
+                contours.get(i).release();
+            }
+
+            hierarchy.release();
+            approxCurve.release();
+            drawn.release();
+            return null;
         }
 
         double[] reading = findDistanceAndAngle(targets[0].getMagnitude(), targets[1].getMagnitude(), targets[0].getDegrees(), targets[1].getDegrees());
@@ -408,7 +429,7 @@ public class LiftVision extends VisionModule {
                 Math.pow(CVConstants.DISTANCE_BETWEEN_REFLEXITE / 2, 2));
         // Angle between the segment to the base of the peg and the lift wall
         double b = Math.asin((lAngleRad > rAngleRad? lDistance : rDistance) * Math.sin(a) / distToPegBase);
-        double distToPegTip = lawOfCosine(CVConstants.PEG_LENGTH, distToPegBase, 90 - Math.toDegrees(b));
+        double distToPegTip = lawOfCosine(CVConstants.PEG_LENGTH, distToPegBase, 90 - Math.toDegrees(b)) + SmartDashboard.getNumber("distance onto peg", CVConstants.PAST_PEG_DISTANCE);
         // Angle between the segment to the base and tip of the peg
         double c = Math.asin(CVConstants.PEG_LENGTH * Math.cos(b) / distToPegTip);
         double desiredAngle;
@@ -420,7 +441,7 @@ public class LiftVision extends VisionModule {
             desiredAngle = Math.toDegrees(Math.max(lAngleRad, rAngleRad) - Math.PI + a + b - c);
         }
         double avg = (lAngleRad > rAngleRad? -1.0 : 1.0) * Math.toDegrees((lAngleRad + rAngleRad) / 2);
-        return new double[] {distToPegTip, avg}; //desiredAngle};
+        return new double[] {distToPegTip, desiredAngle};
     }
 
 }

@@ -104,18 +104,26 @@ public class Robot extends IterativeRobot {
         setupCVChooser();
         setupAutonChooser();
 
-        boilerVision = new BoilerVision();
+        //boilerVision = new BoilerVision();
         liftVision = new LiftVision();
     }
 
     private void setupSmartDashboardFields() {
         SmartDashboard.putNumber("Shooter speed", RobotMap.SHOOTER_IDEAL_SPEED);
         SmartDashboard.putNumber("gyro-rotate-degs", 0.0);
-        SmartDashboard.putNumber("autorotate-speed", 0.35);
+        SmartDashboard.putNumber("cv tolerance", 1.0);
+        SmartDashboard.putNumber("autorotate-speed", 0.4);
+        SmartDashboard.putNumber("autorotate-range", 0.6);
+        SmartDashboard.putNumber("autorotate-gentle-speed", 0.4);
+        SmartDashboard.putNumber("autorotate-gentle-range", 0.4);
         SmartDashboard.putNumber("encoder-drive-inches", 0.0);
         SmartDashboard.putNumber("IR Sensor Distance", RobotMap.IR_SENSOR_THRESHOLD);
         SmartDashboard.putNumber("IR Sensor Time", RobotMap.IR_TIME_IN_MECHANISM_THRESHOLD);
         SmartDashboard.putNumber("drive fwd time", 5.0);
+        SmartDashboard.putNumber("drive fwd speed", 0.5);
+        SmartDashboard.putNumber("delay-one", 1.0);
+        SmartDashboard.putNumber("delay-two", 1.0);
+        SmartDashboard.putNumber("distance onto peg", CVConstants.PAST_PEG_DISTANCE);
     }
 
     private void setupAutonChooser(){
@@ -205,8 +213,7 @@ public class Robot extends IterativeRobot {
         // is also why blocking the thread is appropriate:
         Robot.drivetrain.resetEncoders();
         Robot.geartrap.trap();
-        Timer.delay(RobotMap.AUTON_INIT_DELAY_BEFORE_PUSH_GEAR);
-        Robot.gearpusher.push(Value.kForward);
+        Robot.gearpusher.push(Value.kReverse); // TODO: confirm this is right
 
         // Gear-shift physically starts in HIGH gear.
     }
@@ -233,6 +240,7 @@ public class Robot extends IterativeRobot {
         }
 
         Robot.drivetrain.resetEncoders();
+        Robot.geartrap.trap();
         Camera.configureCamera(0);
         Camera.configureCamera(1);
     }

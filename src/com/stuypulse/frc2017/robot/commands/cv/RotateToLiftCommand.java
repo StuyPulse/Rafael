@@ -1,5 +1,7 @@
 package com.stuypulse.frc2017.robot.commands.cv;
 
+import java.util.Arrays;
+
 import com.stuypulse.frc2017.robot.Robot;
 import com.stuypulse.frc2017.robot.commands.GyroRotationalCommand;
 
@@ -25,8 +27,10 @@ public class RotateToLiftCommand extends GyroRotationalCommand {
     protected void setDesiredAngle() {
         cvReading = Robot.liftVision.processImage();
         if (cvReading != null) {
+            System.out.println(Arrays.toString(cvReading));
             desiredAngle = cvReading[1];
         } else {
+            System.out.println("No reading");
             desiredAngle = 0.0;
             cancelCommand = true;
         }

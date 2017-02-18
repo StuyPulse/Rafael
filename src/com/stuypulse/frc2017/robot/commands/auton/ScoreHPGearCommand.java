@@ -31,7 +31,7 @@ public class ScoreHPGearCommand extends CommandGroup {
 		
 		addSequential(new OptionalCVPositionForGearCommand(AFTER_TURN_TO_HP_GEAR_DISTANCE));
 		
-		addSequential(new GearTrapReleaseGearCommand());
+		addSequential(new GearTrapReleaseGearCommand()); // TODO: use ScoreGeraCommand
 		addSequential(new GearPusherRetractGearCommand());
 		addSequential(new DriveForwardEncodersCommand(HP_GEAR_REVERSE_DISTANCE));
 		addSequential(new GearTrapTrapGearCommand());
