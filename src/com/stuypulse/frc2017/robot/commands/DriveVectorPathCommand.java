@@ -70,6 +70,12 @@ class UpdateVectorCommandsCommand extends InstantCommand {
         System.out.println("Desired distance 1: " + Robot.cvVector[0].getMagnitude());
 
         angleToTurn = Robot.cvVector[1].getDegrees() - Robot.cvVector[0].getDegrees();
+        if (Robot.cvVector[0].getDegrees() > 0 && Robot.cvVector[1].getDegrees() > 0) {
+            if (Robot.cvVector[1].getDegrees() > Robot.cvVector[0].getDegrees()) {
+                angleToTurn = -angleToTurn;
+            }
+        }
+
         rotateToSecondVector.setDesiredAngle(angleToTurn);
         System.out.println("Desired angle 2: " + angleToTurn);
         driveToSecondVector.setInchesToMove(Robot.cvVector[1].getMagnitude());

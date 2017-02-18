@@ -32,7 +32,7 @@ public class LiftMath {
         // Get distance between left and right lift strips
         Vector lift_ltr = lift_right.minus(lift_left);
         // Get vector from peg to point on our path where we stop and turn
-        Vector from_peg = lift_ltr.rotateBy(-90).withMagnitude(intermediate_dist);
+        Vector from_peg = lift_ltr.rotateBy(90).withMagnitude(intermediate_dist);
         // Get vector from current location to point on our path where we stop and turn
         Vector m1 = peg.plus(from_peg);
         // Get vector from m1 to where the bot will stop, right in front of the peg.
