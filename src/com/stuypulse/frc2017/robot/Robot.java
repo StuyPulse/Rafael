@@ -121,6 +121,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("encoder-drive-inches", 0.0);
         SmartDashboard.putNumber("IR Sensor Distance", RobotMap.IR_SENSOR_THRESHOLD);
         SmartDashboard.putNumber("IR Sensor Time", RobotMap.IR_TIME_IN_MECHANISM_THRESHOLD);
+        SmartDashboard.putNumber("drive fwd time", 5.0);
     }
 
     private void setupAutonChooser(){

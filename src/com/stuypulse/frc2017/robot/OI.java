@@ -20,7 +20,10 @@ import com.stuypulse.frc2017.robot.commands.ShooterStopCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStartMotorCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStopMotorCommand;
 import com.stuypulse.frc2017.robot.commands.auton.DoubleSequentialCommand;
+import com.stuypulse.frc2017.robot.commands.auton.DriveForwardCommand;
 import com.stuypulse.frc2017.util.Gamepad;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -70,6 +73,7 @@ public class OI {
 	     //Auton testing
         driverPad.getLeftTrigger().whenPressed(new RotateDegreesGyroCommand());
         driverPad.getRightTrigger().whenPressed(new DriveForwardEncodersCommand());
+        driverPad.getBottomButton().whenPressed(new DriveForwardCommand(1.0));
 
         //OperatorPad Bindings
 		// Gear scoring:
