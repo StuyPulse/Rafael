@@ -26,7 +26,7 @@ public class Vector {
     }
 
     /**
-     * @return the angle of {@code this} vector
+     * @return the angle of {@code this} vector relative to the Y axis
      */
     public double getDegrees() {
         return Math.toDegrees(Math.atan2(this.dx, this.dy));

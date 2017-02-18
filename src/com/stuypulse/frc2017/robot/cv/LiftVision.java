@@ -399,8 +399,8 @@ public class LiftVision extends VisionModule {
     }
 
     public double[] findDistanceAndAngle(double lDistance, double rDistance, double lAngle, double rAngle) {
-        double lAngleRad = Math.toRadians(Math.abs(180 - lAngle));
-        double rAngleRad = Math.toRadians(Math.abs(180 - rAngle));
+        double lAngleRad = Math.toRadians(Math.abs(lAngle));
+        double rAngleRad = Math.toRadians(Math.abs(rAngle));
         double angleBtw = Math.toRadians(lawOfCosAngle(lDistance, rDistance, CVConstants.DISTANCE_BETWEEN_REFLEXITE));
         // Angle between wall and the reflexite strip that the camera's heading is further away from
         double a = Math.asin((lAngleRad > rAngleRad? rDistance : lDistance) * Math.sin(angleBtw) / CVConstants.DISTANCE_BETWEEN_REFLEXITE);

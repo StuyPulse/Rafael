@@ -59,10 +59,8 @@ class UpdateVectorCommandsCommand extends InstantCommand {
     }
 
     protected void initialize() {
-        double angleToTurn = 90 - Robot.cvVector[0].getDegrees();
-        if (Robot.cvVector[0].getDegrees() < 0) {
-            angleToTurn -= 180;
-        }
+        double angleToTurn = Robot.cvVector[0].getDegrees();
+
         System.out.println("cvVector[0]: " + Robot.cvVector[0].getDegrees());
         System.out.println("cvVector[1]: " + Robot.cvVector[1].getDegrees());
 
@@ -71,25 +69,7 @@ class UpdateVectorCommandsCommand extends InstantCommand {
         driveToFirstVector.setInchesToMove(Robot.cvVector[0].getMagnitude());
         System.out.println("Desired distance 1: " + Robot.cvVector[0].getMagnitude());
 
-        boolean isNegativeOne = Robot.cvVector[0].getDegrees() < 0;
-        boolean isNegativeTwo = Robot.cvVector[1].getDegrees() < 0;
-        if (isNegativeOne && !isNegativeTwo) {
-            angleToTurn = Math.abs(angleToTurn) + (90 - Robot.cvVector[1].getDegrees());
-        } else if (!isNegativeOne && isNegativeTwo) {
-            angleToTurn = -(angleToTurn + (90 - Math.abs(Robot.cvVector[1].getDegrees())));
-        } else if (isNegativeOne == isNegativeTwo) {
-            angleToTurn = Math.abs(Robot.cvVector[0].getDegrees() - Robot.cvVector[1].getDegrees());
-            if (Math.abs(Robot.cvVector[0].getDegrees()) > Math.abs(Robot.cvVector[1].getDegrees())) {
-                if (isNegativeOne) {
-                    angleToTurn = -angleToTurn;
-                }
-            } else if (Math.abs(Robot.cvVector[0].getDegrees()) < Math.abs(Robot.cvVector[1].getDegrees())) {
-                if (!isNegativeOne) {
-                    angleToTurn = -angleToTurn;
-                }
-            }
-        }
-
+        angleToTurn = Robot.cvVector[1].getDegrees() - Robot.cvVector[0].getDegrees();
         rotateToSecondVector.setDesiredAngle(angleToTurn);
         System.out.println("Desired angle 2: " + angleToTurn);
         driveToSecondVector.setInchesToMove(Robot.cvVector[1].getMagnitude());
