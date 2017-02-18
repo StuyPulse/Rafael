@@ -41,6 +41,7 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
             abort = false;
             doneRamping = false;
             setInchesToMove();
+            System.out.println("initialInchesToMove: " + initialInchesToMove);
         } catch (Exception e) {
             System.out.println("Error in initialize in EncoderDrivingCommand:");
             e.printStackTrace();
