@@ -31,10 +31,9 @@ public class SetupForGearCommand extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
 
-        addSequential(new SetVectors());
-        addSequential(new DriveVectorPathCommand());
+	    addSequential(new RotateToLiftCommand());
+	    addSequential(new RotateToLiftCommand(true));
 
-        addSequential(new DriveToPegCommand());
         addSequential(new DriveToPegCommand());
     }
 

@@ -21,6 +21,7 @@ import com.stuypulse.frc2017.robot.commands.WinchStartMotorCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStopMotorCommand;
 import com.stuypulse.frc2017.robot.commands.auton.DoubleSequentialCommand;
 import com.stuypulse.frc2017.robot.commands.auton.DriveForwardCommand;
+import com.stuypulse.frc2017.robot.commands.cv.RotateToLiftCommand;
 import com.stuypulse.frc2017.robot.commands.cv.SetupForBoilerCommand;
 import com.stuypulse.frc2017.robot.commands.cv.SetupForGearCommand;
 import com.stuypulse.frc2017.util.Gamepad;
@@ -76,7 +77,7 @@ public class OI {
         driverPad.getBottomButton().whenPressed(new DriveForwardCommand(1.0));
 
         driverPad.getLeftButton().whenPressed(new SetupForGearCommand());
-        driverPad.getRightButton().whenPressed(new SetupForBoilerCommand());
+        driverPad.getRightButton().whenPressed(new RotateToLiftCommand());
 
         //OperatorPad Bindings
 		// Gear scoring:
