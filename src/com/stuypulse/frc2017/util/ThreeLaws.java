@@ -1,8 +1,6 @@
 package com.stuypulse.frc2017.util;
 
 public class ThreeLaws {
-
-	
 	
 	public void FirstLaw() {
 		/*
@@ -18,7 +16,6 @@ public class ThreeLaws {
 	}
 	
 	public void ThirdLaw() {
-		
 		/*
 		 * 
 		 */
