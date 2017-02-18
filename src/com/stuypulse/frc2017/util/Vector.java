@@ -15,7 +15,7 @@ public class Vector {
     }
 
     /**
-     * Create a Vector from polar coordinates.
+     * Create a Vector from polar coordinates, relative to the positive Y axis
      */
     public static Vector fromPolar(double degs, double radius) {
         double rads = Math.toRadians(degs);
@@ -26,7 +26,7 @@ public class Vector {
     }
 
     /**
-     * @return the angle of {@code this} vector relative to the Y axis
+     * @return the angle of {@code this} vector relative to the positive Y axis
      */
     public double getDegrees() {
         return Math.toDegrees(Math.atan2(this.dx, this.dy));
@@ -92,30 +92,22 @@ public class Vector {
         return new Vector(this.dx * v.dx, this.dy * v.dx + this.dx * v.dy);
     }
 
-    public boolean equals(Object o) {
-        if (o instanceof Vector) {
-            Vector v = (Vector) o;
-            return v.dx == this.dx && v.dy == this.dy;
-        }
-        return false;
-    }
-
     /**
      *
      * @return a point equivalent of the vector
      */
     public Point getPoint() {
-    	return new Point(dx, dy);
+        return new Point(dx, dy);
     }
 
     /////// Accessors and Modifiers /////////
 
     public double getX() {
-    	return dx;
+        return dx;
     }
 
     public double getY() {
-    	return dy;
+        return dy;
     }
 
     public String toString() {
