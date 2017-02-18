@@ -109,9 +109,9 @@ public interface RobotMap {
     // LEDS: ///////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     // Ports
-    int BLENDER_LED_PORT = 0;
-    int GEAR_LED_PORT = 8;
-    // The third LED is (supposed to be) on port 9, for future use.
+    int BLENDER_LED_PORT = 9;
+    int GEAR_LED_PORT = 8; // for when gear is in robot
+    // The third LED is (supposed to be) on port 10, for future use. // port 10 means port 0 on NavX (see DigitalIO docs)
 
     // On-values (i.e. which bit to send to indicate to turn the LED on)
     // TODO: test these values
