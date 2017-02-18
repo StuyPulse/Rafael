@@ -82,7 +82,7 @@ public class OI {
         //OperatorPad Bindings
 		// Gear scoring:
         operatorPad.getBottomButton().whenPressed(new GearPusherPushGearCommand());
-        operatorPad.getLeftButton().whenPressed(new GearPusherRetractGearCommand());
+        operatorPad.getLeftButton().whenPressed(new DoubleSequentialCommand(new GearPusherRetractGearCommand(), new GearTrapTrapGearCommand()));
 
         // TODO: Propose to Jonah that this should not be a toggle.
         operatorPad.getTopButton().whenPressed(new AutomaticActionsToggleCommand());
