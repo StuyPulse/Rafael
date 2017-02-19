@@ -88,8 +88,8 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        printEndInfo("isFinished");
         if (abort || cancelCommand || getForceStopped()) {
+            printEndInfo("isFinished");
             return true;
         }
         return Math.abs(inchesToMove()) <= TOLERANCE;

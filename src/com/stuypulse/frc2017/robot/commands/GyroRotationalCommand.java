@@ -142,9 +142,8 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
             // TODO: don't assign to tolerance here
             tolerance = SmartDashboard.getNumber("cv tolerance");
 
-            printEndInfo("isFinished");
-
             if (abort || cancelCommand || getForceStopped()) {
+                printEndInfo("isFinished");
                 return true;
             }
 
