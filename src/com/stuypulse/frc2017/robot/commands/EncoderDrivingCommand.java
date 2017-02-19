@@ -12,6 +12,8 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
 
     private static final double MIN_INCHES_TO_MOVE = 0.1;
 
+    private static final double TOLERANCE = 3.0;
+
     private double initialInchesToMove; // positive is forward, negative is backward
     private boolean cancelCommand; // true when initialInchesToMove is zero or too small for us to meaningfully go
 
@@ -41,7 +43,7 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
             cancelCommand = Math.abs(initialInchesToMove) < MIN_INCHES_TO_MOVE;
             abort = false;
             doneRamping = false;
-            System.out.println("initialInchesToMove: " + initialInchesToMove);
+            System.out.println("[EncoderDrivingCommand] initialInchesToMove: " + initialInchesToMove);
         } catch (Exception e) {
             System.out.println("Error in initialize in EncoderDrivingCommand:");
             e.printStackTrace();
@@ -49,7 +51,6 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
         }
     }
 
-    // max speed is 0.8 motor value
     private final static double distForMaxSpeed = 5 * 12.0;
 
     // Called repeatedly when this Command is scheduled to run
@@ -87,25 +88,38 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+        printEndInfo("isFinished");
         if (abort || cancelCommand || getForceStopped()) {
             return true;
         }
-        return Math.abs(inchesToMove()) <= 3.0;
+        return Math.abs(inchesToMove()) <= TOLERANCE;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+        printEndInfo("end");
         Robot.drivetrain.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        Robot.drivetrain.tankDrive(0.0, 0.0);
+        printEndInfo("interrupted");
+        Robot.drivetrain.stop();
     }
 
     private double inchesToMove() {
         // Encoders only return nonnegative values
         return Math.abs(initialInchesToMove) - Robot.drivetrain.encoderDistance();
+    }
+
+    // Used in isFinished, end, interrupted
+    private void printEndInfo(String where) {
+        System.out.println("[EncoderDrivingCommand#" + where + "] tolerance: " + TOLERANCE);
+        System.out.println("[EncoderDrivingCommand#" + where + "] desired inches to move: " + initialInchesToMove);
+        System.out.println("[EncoderDrivingCommand#" + where + "] doneRamping: " + doneRamping);
+        System.out.println("[EncoderDrivingCommand#" + where + "] cancelCommand: " + cancelCommand);
+        System.out.println("[EncoderDrivingCommand#" + where + "] getForceStopped(): " + getForceStopped());
+        System.out.println("[EncoderDrivingCommand#" + where + "] abort: " + abort);
     }
 }

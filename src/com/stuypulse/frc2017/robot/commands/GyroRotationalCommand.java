@@ -78,7 +78,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
 
             abort = false;
 
-            System.out.println("desiredAngle: " + desiredAngle);
+            System.out.println("[GyroRotationalCommand] desiredAngle: " + desiredAngle);
         } catch (Exception e) {
             System.out.println("Error in intialize in RotateToAimCommand:");
             e.printStackTrace();
@@ -92,6 +92,10 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     private double TUNE_OFFSET = 0.0;
     private double angleMoved() {
         double gyro = Robot.drivetrain.gyroAngle();
+        // TODO: the gyro > 180 condition accounted for
+        // an issue with the old gyro. If the navX reliably records
+        // the angle *delta*, this will only cause problems
+        // when desiredAngle > 180.
         if (gyro > 180) {
             return gyro - 360;
         }
@@ -111,22 +115,18 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     @Override
     protected void inferiorExecute() {
         try {
+            double baseSpeed = gentleRotate
+                    ? SmartDashboard.getNumber("autorotate-gentle-speed")
+                    : SmartDashboard.getNumber("autorotate-speed");
             double speed = gentleRotate
-                    ? SmartDashboard.getNumber("autorotate-gentle-speed") + SmartDashboard.getNumber("autorotate-range") * Math.pow(howMuchWeHaveToGo(), 2)
-                    : SmartDashboard.getNumber("autorotate-speed") + SmartDashboard.getNumber("autorotate-gentle-range") * Math.pow(howMuchWeHaveToGo(), 2);
-            System.out.println("\n\n\n\n\n\n\nSpeed to use:\t" + speed);
-            System.out.println("getGyroAngle():\t" + Robot.drivetrain.gyroAngle());
-            System.out.println("angleMoved():\t" + angleMoved());
-            System.out.println("desiredAngle:\t" + desiredAngle);
-            System.out.println("degreesToMove():\t" + degreesToMove());
-            // right is negative when turning right
-            if (degreesToMove() < 0) {
-                System.out.println("\nMoving left, as degreesToMove()=" + desiredAngle + " < 0");
-                System.out.println("So: tankDrive(" + -speed + ", " + speed + ")\n");
+                    ? baseSpeed + SmartDashboard.getNumber("autorotate-range") * Math.pow(howMuchWeHaveToGo(), 2)
+                    : baseSpeed + SmartDashboard.getNumber("autorotate-gentle-range") * Math.pow(howMuchWeHaveToGo(), 2);
+            // left is negative when turning left
+            boolean turnLeft = degreesToMove() < 0.0;
+            printInfo(speed, baseSpeed, turnLeft);
+            if (turnLeft) {
                 Robot.drivetrain.tankDrive(-speed, speed);
             } else {
-                System.out.println("\nMoving RIGHT, as degreesToMove()=" + desiredAngle + " > 0");
-                System.out.println("So: tankDrive(" + speed + ", " + -speed + ")\n");
                 Robot.drivetrain.tankDrive(speed, -speed);
             }
         } catch (Exception e) {
@@ -139,14 +139,12 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         try {
+            // TODO: don't assign to tolerance here
             tolerance = SmartDashboard.getNumber("cv tolerance");
-            if (cancelCommand || getForceStopped()) {
-                System.out.println("isFinished: cancel:" + cancelCommand + "\t|\tforcestopped: " + getForceStopped());
-                return true;
-            }
 
-            // When no more can or should be done:
-            if (abort) {
+            printEndInfo("isFinished");
+
+            if (abort || cancelCommand || getForceStopped()) {
                 return true;
             }
 
@@ -154,10 +152,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
             double degsOff = degreesToMove();
             SmartDashboard.putNumber("CV degrees off", degsOff);
 
-            boolean onTarget = Math.abs(degsOff) < tolerance;
-            System.out.println("degsOff: " + degsOff + "\nonTarget: " + onTarget);
-
-            return onTarget;
+            return Math.abs(degsOff) < tolerance;
         } catch (Exception e) {
             System.out.println("Error in isFinished in RotateToAimCommand:");
             e.printStackTrace();
@@ -170,17 +165,45 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
 
     // Called once after isFinished returns true
     protected void end() {
+        printEndInfo("end");
         Robot.drivetrain.stop();
-        System.out.println("ENDED");
-        System.out.println("tol: " + tolerance);
-        System.out.println("ENDED - abort: " + abort);
-        System.out.println("ENDED - cancelCommand: " + cancelCommand);
         onEnd();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        Robot.drivetrain.tankDrive(0.0, 0.0);
+        printEndInfo("interrupted");
+        Robot.drivetrain.stop();
+    }
+
+    // Used in inferiorExecute
+    private void printInfo(double speed, double baseSpeed, boolean left) {
+        String s = "";
+        s += "====== GyroRotationalCommand ======\n";
+        s += "| rotating: " + desiredAngle + "degrees\n";
+        s += "| already rotated: " + angleMoved() + "\n";
+        s += "| still need to rotate: " + degreesToMove() + "\n";
+        s += "| Turning " + (left ? "LEFT" : "RIGHT") + "\n";
+        s += "| With absolute motor value: " + speed + "\n";
+        // Potentially useful information:
+        s += "| ---------------------------------\n";
+        double h = howMuchWeHaveToGo();
+        s += "| howMuchWeHaveToGo(): " + h + "\n";
+        s += "| howMuchWeHaveToGo() squared: " + (h * h) + "\n";
+        s += "| base motor value: " + String.format("%.2f", baseSpeed) + "\n";
+        s += "| extra motor value: " + String.format("%.2f", speed - baseSpeed) + "\n";
+        s += "===================================\n";
+        System.out.print(s);
+    }
+
+    // Used in isFinished, end, interrupted
+    private void printEndInfo(String where) {
+        System.out.println("[GyroRotationalCommand#" + where + "] tolerance: " + tolerance);
+        System.out.println("[GyroRotationalCommand#" + where + "] degrees off: " + degreesToMove());
+        System.out.println("[GyroRotationalCommand#" + where + "] desired angle: " + desiredAngle);
+        System.out.println("[GyroRotationalCommand#" + where + "] cancelCommand: " + cancelCommand);
+        System.out.println("[GyroRotationalCommand#" + where + "] getForceStopped(): " + getForceStopped());
+        System.out.println("[GyroRotationalCommand#" + where + "] abort: " + abort);
     }
 }
