@@ -8,6 +8,19 @@ import org.opencv.core.Point;
 import com.stuypulse.frc2017.robot.CVConstants;
 import com.stuypulse.frc2017.util.Vector;
 
+/**
+ * We have three alignment routines, ordered by complexity:
+ * 1, "bisect": Rotate halfway between the two reflexite strips (by the angle
+ *  bisector), then drive onto the peg.
+ * 2, "tip": Rotate to the *tip of the peg*, then drive forward.
+ * 3, "twostep": Drive first to the perpendicular bisector of the lift, turn
+ *  toward the lift, then run alignment method (1).
+ *
+ * The "bisect" method code works as of 2017-02-18, but is too inaccurate.
+ * The "tip" method is our best bet (as of 2017-02-18).
+ * The "twostep" method, while fancy and hypothetically the most reliable, may
+ * be too slow anyway.
+ */
 public class LiftMath {
     /**
      * @param lift_left Position of the left edge of the lift

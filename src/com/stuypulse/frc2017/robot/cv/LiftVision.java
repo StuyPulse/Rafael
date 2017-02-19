@@ -54,6 +54,9 @@ public class LiftVision extends VisionModule {
         if (targets == null) {
             return null;
         }
+        // TODO: filterLift runs findDistanceAndAngle, prints the
+        // output, then throws it away and returns the vectors. Just
+        // print it out here to simplify filterLift.
         double[] reading = findDistanceAndAngle(targets[0].getMagnitude(), targets[1].getMagnitude(), targets[0].getDegrees(), targets[1].getDegrees());
         return reading;
     }
@@ -80,7 +83,12 @@ public class LiftVision extends VisionModule {
         }
     }
 
+    // TODO: create javadoc comments for each method
+
     public Vector[] hsvThresholding(Mat frame) {
+        // TODO: comment this. Label every step in processing.
+        // TODO: make this modular. I.e., hsvThresholding shouldn't return the
+        // output of filterLift, if possible.
         if (hasGuiApp()) {
             postImage(frame, "Original");
         }
@@ -136,6 +144,8 @@ public class LiftVision extends VisionModule {
     }
 
     public Vector[] filterLift(Mat original, Mat filtered) {
+        // TODO: either split up this function, or label its individual parts
+        // with comments
 
         Vector[] targets = null;
 
@@ -226,6 +236,7 @@ public class LiftVision extends VisionModule {
 	        //System.out.println("center1: " + center1);
 	        //System.out.println("center2: " + center2);
 	        //System.out.println("----------------------------------");
+	        // TODO: ONLY DRAW ON drawn IF hasGuiApp()
 	        Imgproc.circle(drawn, center1, 1, new Scalar(0,0,255), 2);
 	        Imgproc.circle(drawn, center2, 1, new Scalar(0,0,255), 2);
 	        Imgproc.line(drawn, new Point(0, 134.5), new Point(360, 134.5), new Scalar(0,0,255), 1);
@@ -233,7 +244,7 @@ public class LiftVision extends VisionModule {
 	        if (hasGuiApp()) {
 	            postImage(drawn, "Detected");
 	        }
-        }
+        } // TODO: else... (rather than asking if targets is null). Then move final stuff below into the `if` above
 
         if (targets == null) {
             for (int i = 0; i < contours.size(); i++) {
@@ -262,10 +273,6 @@ public class LiftVision extends VisionModule {
     }
 
     public boolean aspectRatioThreshold(double width, double height) {
-        // Lift targets are always taller than they are wide
-        // if (width > height) {
-        //     return false;
-        // }
         double ratio = height / width;
         return minGoalRatio.value() < ratio && ratio < maxGoalRatio.value();
     }
@@ -342,10 +349,8 @@ public class LiftVision extends VisionModule {
     }
 
     public Vector[] getTargetVectors(ArrayList<MatOfPoint> contours) {
-        Vector leftTarget;
-        Vector rightTarget;
-        rightTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(1)), getCenterY(contours.get(1)), getHeight(contours.get(1)));
-        leftTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(0)), getCenterY(contours.get(0)), getHeight(contours.get(0)));
+        Vector rightTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(1)), getCenterY(contours.get(1)), getHeight(contours.get(1)));
+        Vector leftTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(0)), getCenterY(contours.get(0)), getHeight(contours.get(0)));
         return new Vector[] {leftTarget, rightTarget};
     }
 
@@ -353,6 +358,7 @@ public class LiftVision extends VisionModule {
         return liftCamera;
     }
 
+    // TODO: what are these magic numbers.
     public static void findCevian(double a, double b){
     	cevian = Math.sqrt((4.125 * (a * a + b * b) - 68.0625) / 8.25);
     }
@@ -419,6 +425,20 @@ public class LiftVision extends VisionModule {
     	return angle + Math.toDegrees(Math.acos((a * a + cevian * cevian - CVConstants.PEG_LENGTH * CVConstants.PEG_LENGTH) / (2 * a * cevian)));
     }
 
+    // TODO: why not just take two Vectors?
+    // TODO: move to LiftMath
+    /**
+     * Determine the distance and angle to the peg tip, from the distances
+     * and angles to each reflexite strip.
+     *
+     * DOES NOT WORK.
+     *
+     * @param lDistance
+     * @param rDistance
+     * @param lAngle
+     * @param rAngle
+     * @return
+     */
     public double[] findDistanceAndAngle(double lDistance, double rDistance, double lAngle, double rAngle) {
         double lAngleRad = Math.toRadians(Math.abs(lAngle));
         double rAngleRad = Math.toRadians(Math.abs(rAngle));
