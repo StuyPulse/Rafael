@@ -161,13 +161,10 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
         }
     }
 
-    abstract protected void onEnd();
-
     // Called once after isFinished returns true
     protected void end() {
         printEndInfo("end");
         Robot.drivetrain.stop();
-        onEnd();
     }
 
     // Called when another command which requires one or more of the same

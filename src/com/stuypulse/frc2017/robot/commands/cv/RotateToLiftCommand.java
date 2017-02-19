@@ -32,8 +32,4 @@ public class RotateToLiftCommand extends GyroRotationalCommand {
         System.out.println("No reading");
         return 0.0;
     }
-
-    @Override
-    protected void onEnd() {
-    }
 }

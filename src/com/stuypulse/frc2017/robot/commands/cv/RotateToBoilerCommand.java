@@ -30,8 +30,4 @@ public class RotateToBoilerCommand extends GyroRotationalCommand {
         }
         return 0.0;
     }
-
-    @Override
-    protected void onEnd() {
-    }
 }

@@ -29,7 +29,4 @@ public class RotateDegreesGyroCommand extends GyroRotationalCommand {
     protected double getDesiredAngle() {
         return set ? _angle : SmartDashboard.getNumber("gyro-rotate-degs", 0);
     }
-
-    @Override
-    protected void onEnd() {}
 }
