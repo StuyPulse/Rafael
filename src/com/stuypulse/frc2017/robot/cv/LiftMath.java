@@ -8,6 +8,8 @@ import org.opencv.core.Point;
 import com.stuypulse.frc2017.robot.CVConstants;
 import com.stuypulse.frc2017.util.Vector;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * We have three alignment routines, ordered by complexity:
  * 1, "bisect": Rotate halfway between the two reflexite strips (by the angle
@@ -86,6 +88,112 @@ public class LiftMath {
 
     public static double distance(Point first, Point second) {
         return Math.sqrt(Math.pow(first.x - second.x, 2) + Math.pow(first.y - second.y, 2));
+    }
+
+    // TODO: what are these magic numbers.
+    public static double findCevian(double a, double b){
+        return Math.sqrt((4.125 * (a * a + b * b) - 68.0625) / 8.25);
+    }
+
+    /**
+     *
+     * @param length_1
+     * @param length_2
+     * @param angle angle opposite of the side you trying to find (in degrees)
+     * @return The length of the side you trying to find
+     */
+    public static double lawOfCosine(double length_1, double length_2, double angle){
+        angle = Math.toRadians(angle);
+        return Math.sqrt(length_1 * length_1 + length_2 * length_2 - 2 * length_1 * length_2 * Math.cos(angle));
+    }
+
+    /**
+     *
+     * @param a Side of triangle with the desired angle adjacent
+     * @param b Side of triangle with the desired angle adjacent
+     * @param c Side of triangle opposite of the desired angle
+     * @return The included angle between sides a and b and opposite side c (in degrees)
+     */
+    public static double lawOfCosAngle(double a, double b, double c) {
+        return Math.toDegrees(Math.acos((a * a + b * b - c * c) / (2 * a * b)));
+    }
+
+    /**
+     *
+     * @param angle angle between the reflexites (in degrees)
+     * @param a Length between the reflexites (in inches)
+     * @param b Length to the closest reflexite (in inches)
+     * @return The angle between the wall and the farthest reflexite (in degrees)
+     */
+    public static double findAngle(double angle, double a, double b){
+        double r_angle = Math.toRadians(angle);
+        return Math.toDegrees(Math.asin(Math.sin(r_angle) * b / a));
+    }
+
+    public static double findAngleToBaseOfPeg(double lAngle, double rAngle){
+        return (lAngle + rAngle) /2;
+    }
+
+    /**
+     *
+     * @param a Angle between the viewing head of the camera to the farthest reflexite
+     * @param b Angle between the wall and the farthest reflexite
+     * @param c Angle between the viewing head of the camera to the base of the peg
+     * @param cevian Segment from vertex
+     * @return The distance towards the tip of the peg
+     */
+    public static double findDistanceToLift(double a, double b, double c, double cevian){
+        double angle = 90 - (a + b - c);
+        return lawOfCosine(CVConstants.PEG_LENGTH, cevian, angle);
+    }
+
+    /**
+     *
+     * @param a Distance to the tip of the peg (in inches)
+     * @param angle Angle between the viewing head of the camera to the base of the peg
+     * @return
+     */
+    public static double findAngleToLift(double a, double angle, double cevian){
+        return angle + Math.toDegrees(Math.acos((a * a + cevian * cevian - CVConstants.PEG_LENGTH * CVConstants.PEG_LENGTH) / (2 * a * cevian)));
+    }
+
+    // TODO: why not just take two Vectors?
+    // TODO: move to LiftMath
+    /**
+     * Determine the distance and angle to the peg tip, from the distances
+     * and angles to each reflexite strip.
+     *
+     * DOES NOT WORK.
+     *
+     * @param lDistance Distance to the left reflexite strip
+     * @param rDistance Distance to the right reflexite strip
+     * @param lAngle Angle to left reflexite strip from camera heading
+     * @param rAngle Angle to right reflexite strip from camera heading
+     * @return
+     */
+    public static double[] findDistanceAndAngle(double lDistance, double rDistance, double lAngle, double rAngle) {
+        double lAngleRad = Math.toRadians(Math.abs(lAngle));
+        double rAngleRad = Math.toRadians(Math.abs(rAngle));
+        double angleBtw = Math.toRadians(lawOfCosAngle(lDistance, rDistance, CVConstants.DISTANCE_BETWEEN_REFLEXITE));
+        // Angle between wall and the reflexite strip that the camera's heading is further away from
+        double a = Math.asin((lAngleRad > rAngleRad? rDistance : lDistance) * Math.sin(angleBtw) / CVConstants.DISTANCE_BETWEEN_REFLEXITE);
+        double distToPegBase = Math.sqrt((Math.pow(lDistance, 2) + Math.pow(rDistance, 2)) / 2 +
+                Math.pow(CVConstants.DISTANCE_BETWEEN_REFLEXITE / 2, 2));
+        // Angle between the segment to the base of the peg and the lift wall
+        double b = Math.asin((lAngleRad > rAngleRad? lDistance : rDistance) * Math.sin(a) / distToPegBase);
+        double distToPegTip = lawOfCosine(CVConstants.PEG_LENGTH, distToPegBase, 90 - Math.toDegrees(b)) + SmartDashboard.getNumber("distance onto peg", CVConstants.PAST_PEG_DISTANCE);
+        // Angle between the segment to the base and tip of the peg
+        double c = Math.asin(CVConstants.PEG_LENGTH * Math.cos(b) / distToPegTip);
+        double desiredAngle;
+        if((lAngleRad > rAngleRad && lDistance > rDistance) || (lAngleRad < rAngleRad && lDistance < rDistance)) {
+            // Angle between wall and the reflexite strip that the camera's heading is closer to
+            double d = Math.asin((lAngleRad > rAngleRad? lDistance : rDistance) * Math.sin(angleBtw) / CVConstants.DISTANCE_BETWEEN_REFLEXITE);
+            desiredAngle = Math.toDegrees(c + b - d - Math.min(lAngleRad, rAngleRad));
+        } else {
+            desiredAngle = Math.toDegrees(Math.max(lAngleRad, rAngleRad) - Math.PI + a + b - c);
+        }
+        double avg = (lAngleRad > rAngleRad? -1.0 : 1.0) * Math.toDegrees((lAngleRad + rAngleRad) / 2);
+        return new double[] {distToPegTip, avg};
     }
 
     /**
