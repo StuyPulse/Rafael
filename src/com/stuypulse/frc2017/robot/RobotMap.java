@@ -39,7 +39,7 @@ public interface RobotMap {
     int RIGHT_TOP_MOTOR_PORT = 3;
     int RIGHT_BOTTOM_MOTOR_PORT = 4;
 
-    int DRIVETRAIN_ENCODERS_PULSES_PER_REVOLUTION = 256; // TODO: Test value
+    int DRIVETRAIN_ENCODERS_PULSES_PER_REVOLUTION = 256;
     double DRIVETRAIN_WHEEL_DIAMETER = 4.0;
     double DRIVETRAIN_ENCODERS_FACTOR = 4.0; // output must be scaled *down* by 4 due to type of encoder
     double DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION = Math.PI * DRIVETRAIN_WHEEL_DIAMETER;
@@ -53,7 +53,7 @@ public interface RobotMap {
     // Shooter
     int SHOOTER_MOTOR_A_PORT = 7;
     int SHOOTER_MOTOR_B_PORT = 8;
-    
+
     int SHOOTER_ENCODER_PULSES_PER_REVOLUTION =  1024;
 
     // Winch
@@ -114,8 +114,8 @@ public interface RobotMap {
     // The third LED is (supposed to be) on port 10, for future use. // port 10 means port 0 on NavX (see DigitalIO docs)
 
     // On-values (i.e. which bit to send to indicate to turn the LED on)
-    // TODO: test these values
     boolean BLENDER_LED_ON_VALUE = true;
+    // TODO: test gear led on-value
     boolean GEAR_LED_ON_VALUE = true;
 
     ////////////////////////////////////////////////////////////////////////////
