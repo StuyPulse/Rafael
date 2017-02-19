@@ -5,6 +5,7 @@ import com.stuypulse.frc2017.robot.commands.BallGateCloseCommand;
 import com.stuypulse.frc2017.robot.commands.BallGateOpenCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderRunWithUnjammingCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderSpinBackwardCommand;
+import com.stuypulse.frc2017.robot.commands.BlenderStopCommand;
 import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainLowGearCommand;
@@ -79,7 +80,7 @@ public class OI {
 
         driverPad.getLeftButton().whenPressed(new SetupForGearCommand());
         driverPad.getRightButton().whenPressed(new RunAutoCommand(new RotateToLiftCommand()));
-        driverPad.getTopButton().whenPressed(new ScoreGearCommand()); // TODO: remove
+        driverPad.getTopButton().whenPressed(new ScoreGearCommand()); // TODO: move to operator pad
 
         //OperatorPad Bindings
 		// Gear scoring:
@@ -100,8 +101,12 @@ public class OI {
 
         // Ball scoring:
         operatorPad.getLeftBumper().whenPressed(new BallGateOpenCommand()); // No corresponding button to close gate
-        operatorPad.getRightBumper().whileHeld(new DoubleSequentialCommand(new BallGateCloseCommand(), new BlenderSpinBackwardCommand()));
-		operatorPad.getRightTrigger().whenPressed(new BlenderRunWithUnjammingCommand());
+
+        operatorPad.getRightBumper().whenPressed(new DoubleSequentialCommand(new BallGateCloseCommand(), new BlenderSpinBackwardCommand()));
+        operatorPad.getRightBumper().whenReleased(new BlenderStopCommand());
+
+        operatorPad.getRightTrigger().whenPressed(new BlenderRunWithUnjammingCommand());
+		operatorPad.getRightTrigger().whenReleased(new BlenderStopCommand()); // stop blender and close ball gate
 
         // Climbing:
         operatorPad.getLeftTrigger().whenPressed(new WinchStartMotorCommand());
