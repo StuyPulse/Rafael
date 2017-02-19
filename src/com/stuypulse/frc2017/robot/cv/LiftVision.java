@@ -61,18 +61,55 @@ public class LiftVision extends VisionModule {
         return reading;
     }
 
+    /**
+     * Take a new image and determine how we should move to
+     * get to the peg, if we see it.
+     * Part of the "tip" method of approaching the peg (see LiftMath).
+     * @return The {@code Vector} describing how we should move to the peg,
+     * or {@code null} if we could failed to see the targets.
+     */
+    public Vector mTip_processImage() {
+        Vector[] targets = processImageVectors();
+        if (targets == null) {
+            return null;
+        }
+        return LiftMath.mTip_getPath(targets[0], targets[1]);
+    }
+
     public Vector[] processImageVectors() {
         if (liftCamera == null) {
             initializeCamera();
         }
+        Mat frame = getImage();
+        Vector[] targets = hsvThresholding(frame);
+        frame.release(); // TODO: get a LGTM from CV programmers (-Wilson)
+        return targets;
+    }
+
+    /**
+     * Get a fresh image from the lift camera, emptying the buffer first.
+     * 
+     * When getting images on the roboRio, images will
+     * be buffered a few at a time (so after you grab an image,
+     * the next few read calls return the same one). We get around it here
+     * by grabbing a few images and throwing them out,
+     * before finally grabbing and returning an image we know
+     * will be fresh.
+     * 
+     * Yes, OpenCV has a method for setting the buffer size
+     * of the camera. No, it does not work. The issue may be
+     * on the roboRio-side (rather than the camera).
+     * @return
+     */
+    private Mat getImage() {
         Mat raw = new Mat();
         Mat frame = new Mat();
         for (int i = 0; i < 5; i++) {
             liftCamera.readFrame(raw);
         }
         liftCamera.readSized(raw, frame);
-        Vector[] targets = hsvThresholding(frame);
-        return targets;
+        raw.release();
+        return frame;
     }
 
     public void run(Mat frame) {

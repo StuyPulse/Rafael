@@ -2,7 +2,17 @@ package com.stuypulse.frc2017.util;
 
 import org.opencv.core.Point;
 
+/**
+ * 2-dimensional vectors.
+ *
+ * Polar forms of vectors use angles relative to the positive Y axis, where
+ * clockwise is positive.
+ *
+ * TODO: cache values like magnitude and angle
+ *
+ */
 public class Vector {
+
     private final double dx;
     private final double dy;
 
@@ -15,7 +25,7 @@ public class Vector {
     }
 
     /**
-     * Create a Vector from polar coordinates, relative to the positive Y axis
+     * Create a Vector from polar coordinates, CLOCKWISE from the POSITIVE Y axis
      */
     public static Vector fromPolar(double degs, double radius) {
         double rads = Math.toRadians(degs);
@@ -26,7 +36,16 @@ public class Vector {
     }
 
     /**
-     * @return the angle of {@code this} vector relative to the positive Y axis
+     * @return the angle of {@code this} vector, CLOCKWISE from the
+     * POSITIVE Y axis, in radians.
+     */
+    public double getRadians() {
+        return Math.atan2(this.dx, this.dy);
+    }
+
+    /**
+     * @return the angle of {@code this} vector, CLOCKWISE from the
+     * POSITIVE Y axis, in degrees.
      */
     public double getDegrees() {
         return Math.toDegrees(Math.atan2(this.dx, this.dy));
@@ -55,7 +74,7 @@ public class Vector {
 
     /**
      * @param degs
-     * @return {@code this} rotated {@code degs} degrees.
+     * @return {@code this} rotated {@code degs} degrees (clockwise).
      */
     public Vector rotateBy(double degs) {
         double result_degs = this.getDegrees() + degs;
@@ -90,6 +109,20 @@ public class Vector {
      */
     public Vector times(Vector v) {
         return new Vector(this.dx * v.dx, this.dy * v.dx + this.dx * v.dy);
+    }
+
+    public static Vector sum(Vector... vectors) {
+        int dx = 0;
+        int dy = 0;
+        for (Vector v: vectors) {
+            dx += v.dx;
+            dy += v.dy;
+        }
+        return new Vector(dx, dy);
+    }
+
+    public static Vector avg(Vector... vectors) {
+        return Vector.sum(vectors).scaleBy(1 / (double) vectors.length);
     }
 
     /**

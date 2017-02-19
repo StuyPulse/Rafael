@@ -76,7 +76,7 @@ class SetVectors extends InstantCommand {
     protected void initialize() {
         Vector[] targetVectors = Robot.liftVision.processImageVectors();
         if (targetVectors != null) {
-            Vector[] path = LiftMath.getPath(targetVectors[0], targetVectors[1], DISTANCE_FROM_PEG, DISTANCE_FROM_PEG - 0.1);
+            Vector[] path = LiftMath.mTwoStep_getPath(targetVectors[0], targetVectors[1], DISTANCE_FROM_PEG, DISTANCE_FROM_PEG - 0.1);
             Robot.cvVector = path;
         }
     }

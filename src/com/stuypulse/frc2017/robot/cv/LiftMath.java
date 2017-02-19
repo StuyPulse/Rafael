@@ -34,7 +34,7 @@ public class LiftMath {
      * @return Path along which the robot should move, expressed as an
      * array of vectors describing discrete linear movements.
      */
-    public static Vector[] getPath(
+    public static Vector[] mTwoStep_getPath(
             Vector lift_left,
             Vector lift_right,
             double intermediate_dist,
@@ -51,6 +51,28 @@ public class LiftMath {
         // Get vector from m1 to where the bot will stop, right in front of the peg.
         Vector m2 = from_peg.scaleBy(-1.0).withMagnitude(intermediate_dist - final_dist);
         return new Vector[] {m1, m2};
+    }
+
+    /**
+     * For tip method (see LiftMath). Get Vector describing the movement to do
+     * to score the peg: rotate by the angle of the returned Vector, then drive
+     * forward that distance.
+     * @param lift_left Vector to left reflexite strip
+     * @param lift_right Vector to right reflexite strip
+     * @return Path to follow to score the peg
+     */
+    public static Vector mTip_getPath(
+            Vector lift_left,
+            Vector lift_right) {
+        // to_A variables are vectors from camera to A
+        // A_to_B variables are vectors from A to B
+        Vector to_peg_base = Vector.avg(lift_left, lift_right);
+        Vector lift_ltr = lift_right.minus(lift_left);
+        Vector peg_base_to_tip = lift_ltr.rotateBy(90).withMagnitude(CVConstants.PEG_LENGTH);
+        Vector to_peg_tip = to_peg_base.plus(peg_base_to_tip);
+        // We want to move past the tip of the peg, so the peg actually impales us:
+        Vector to_beyond_peg_tip = to_peg_tip.withMagnitude(to_peg_tip.getMagnitude() + CVConstants.PAST_PEG_DISTANCE);
+        return to_beyond_peg_tip;
     }
 
     /**
