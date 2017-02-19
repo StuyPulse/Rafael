@@ -50,7 +50,7 @@ public class LiftVision extends VisionModule {
         if (targets == null) {
             return null;
         }
-        double[] reading = LiftMath.findDistanceAndAngle(targets[0].getMagnitude(), targets[1].getMagnitude(), targets[0].getDegrees(), targets[1].getDegrees());
+        double[] reading = LiftMath.findDistanceAndAngle(targets[0], targets[1]);
         System.out.println("Dist to peg tip: " + reading[0] + "\nAngle: " + reading[1] + "\n------------------------------------");
         return reading;
     }

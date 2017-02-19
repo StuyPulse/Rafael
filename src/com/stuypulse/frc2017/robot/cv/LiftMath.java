@@ -157,42 +157,40 @@ public class LiftMath {
         return angle + Math.toDegrees(Math.acos((a * a + cevian * cevian - CVConstants.PEG_LENGTH * CVConstants.PEG_LENGTH) / (2 * a * cevian)));
     }
 
-    // TODO: why not just take two Vectors?
-    // TODO: move to LiftMath
     /**
-     * Determine the distance and angle to the peg tip, from the distances
-     * and angles to each reflexite strip.
+     * Determine the distance and angle to the peg tip, from the vectors
+     * to each reflexite strip.
      *
      * DOES NOT WORK.
      *
-     * @param lDistance Distance to the left reflexite strip
-     * @param rDistance Distance to the right reflexite strip
-     * @param lAngle Angle to left reflexite strip from camera heading
-     * @param rAngle Angle to right reflexite strip from camera heading
+     * @param lift_left Vector to the left reflexite strip
+     * @param lift_right Vector to the right reflexite strip
      * @return
      */
-    public static double[] findDistanceAndAngle(double lDistance, double rDistance, double lAngle, double rAngle) {
-        double lAngleRad = Math.toRadians(Math.abs(lAngle));
-        double rAngleRad = Math.toRadians(Math.abs(rAngle));
+    public static double[] findDistanceAndAngle(Vector lift_left, Vector lift_right) {
+        double lAngle = Math.toRadians(Math.abs(lift_left.getDegrees()));
+        double rAngle = Math.toRadians(Math.abs(lift_right.getDegrees()));
+        double lDistance = lift_left.getMagnitude();
+        double rDistance = lift_right.getMagnitude();
         double angleBtw = Math.toRadians(lawOfCosAngle(lDistance, rDistance, CVConstants.DISTANCE_BETWEEN_REFLEXITE));
         // Angle between wall and the reflexite strip that the camera's heading is further away from
-        double a = Math.asin((lAngleRad > rAngleRad? rDistance : lDistance) * Math.sin(angleBtw) / CVConstants.DISTANCE_BETWEEN_REFLEXITE);
+        double a = Math.asin((lAngle > rAngle? rDistance : lDistance) * Math.sin(angleBtw) / CVConstants.DISTANCE_BETWEEN_REFLEXITE);
         double distToPegBase = Math.sqrt((Math.pow(lDistance, 2) + Math.pow(rDistance, 2)) / 2 +
                 Math.pow(CVConstants.DISTANCE_BETWEEN_REFLEXITE / 2, 2));
         // Angle between the segment to the base of the peg and the lift wall
-        double b = Math.asin((lAngleRad > rAngleRad? lDistance : rDistance) * Math.sin(a) / distToPegBase);
+        double b = Math.asin((lAngle > rAngle? lDistance : rDistance) * Math.sin(a) / distToPegBase);
         double distToPegTip = lawOfCosine(CVConstants.PEG_LENGTH, distToPegBase, 90 - Math.toDegrees(b)) + SmartDashboard.getNumber("distance onto peg", CVConstants.PAST_PEG_DISTANCE);
         // Angle between the segment to the base and tip of the peg
         double c = Math.asin(CVConstants.PEG_LENGTH * Math.cos(b) / distToPegTip);
         double desiredAngle;
-        if((lAngleRad > rAngleRad && lDistance > rDistance) || (lAngleRad < rAngleRad && lDistance < rDistance)) {
+        if((lAngle > rAngle && lDistance > rDistance) || (lAngle < rAngle && lDistance < rDistance)) {
             // Angle between wall and the reflexite strip that the camera's heading is closer to
-            double d = Math.asin((lAngleRad > rAngleRad? lDistance : rDistance) * Math.sin(angleBtw) / CVConstants.DISTANCE_BETWEEN_REFLEXITE);
-            desiredAngle = Math.toDegrees(c + b - d - Math.min(lAngleRad, rAngleRad));
+            double d = Math.asin((lAngle > rAngle? lDistance : rDistance) * Math.sin(angleBtw) / CVConstants.DISTANCE_BETWEEN_REFLEXITE);
+            desiredAngle = Math.toDegrees(c + b - d - Math.min(lAngle, rAngle));
         } else {
-            desiredAngle = Math.toDegrees(Math.max(lAngleRad, rAngleRad) - Math.PI + a + b - c);
+            desiredAngle = Math.toDegrees(Math.max(lAngle, rAngle) - Math.PI + a + b - c);
         }
-        double avg = (lAngleRad > rAngleRad? -1.0 : 1.0) * Math.toDegrees((lAngleRad + rAngleRad) / 2);
+        double avg = (lAngle > rAngle? -1.0 : 1.0) * Math.toDegrees((lAngle + rAngle) / 2);
         return new double[] {distToPegTip, avg};
     }
 
