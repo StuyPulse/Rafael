@@ -29,11 +29,24 @@ abstract public class AutoMovementCommand extends Command {
     abstract protected void initialize();
 
     // Called repeatedly when this Command is scheduled to run
+    /**
+     * Updates the forceStoppedController and calls inferiorExecute
+     * if execution was not force-stopped.
+     */
+    @Override
     protected void execute() {
         if (Robot.oi.driverIsOverriding()) {
             forceStoppedController.set(true);
         }
+        if (!getForceStopped()) {
+            inferiorExecute();
+        }
     }
+
+    /**
+     * Called in execute() only if Command was not force stopped.
+     */
+    abstract protected void inferiorExecute();
 
     @Override
     abstract protected boolean isFinished();

@@ -105,28 +105,25 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
 
     // Called repeatedly when this Command is scheduled to run
     @Override
-    protected void execute() {
+    protected void inferiorExecute() {
         try {
-            super.execute();
-            if (!getForceStopped()) {
-                double speed = gentleRotate
-                        ? SmartDashboard.getNumber("autorotate-gentle-speed") + SmartDashboard.getNumber("autorotate-range") * Math.pow(howMuchWeHaveToGo(), 2)
-                        : SmartDashboard.getNumber("autorotate-speed") + SmartDashboard.getNumber("autorotate-gentle-range") * Math.pow(howMuchWeHaveToGo(), 2);
-                System.out.println("\n\n\n\n\n\n\nSpeed to use:\t" + speed);
-                System.out.println("getGyroAngle():\t" + Robot.drivetrain.gyroAngle());
-                System.out.println("angleMoved():\t" + angleMoved());
-                System.out.println("desiredAngle:\t" + desiredAngle);
-                System.out.println("degreesToMove():\t" + degreesToMove());
-                // right is negative when turning right
-                if (degreesToMove() < 0) {
-                    System.out.println("\nMoving left, as degreesToMove()=" + desiredAngle + " < 0");
-                    System.out.println("So: tankDrive(" + -speed + ", " + speed + ")\n");
-                    Robot.drivetrain.tankDrive(-speed, speed);
-                } else {
-                    System.out.println("\nMoving RIGHT, as degreesToMove()=" + desiredAngle + " > 0");
-                    System.out.println("So: tankDrive(" + speed + ", " + -speed + ")\n");
-                    Robot.drivetrain.tankDrive(speed, -speed);
-                }
+            double speed = gentleRotate
+                    ? SmartDashboard.getNumber("autorotate-gentle-speed") + SmartDashboard.getNumber("autorotate-range") * Math.pow(howMuchWeHaveToGo(), 2)
+                    : SmartDashboard.getNumber("autorotate-speed") + SmartDashboard.getNumber("autorotate-gentle-range") * Math.pow(howMuchWeHaveToGo(), 2);
+            System.out.println("\n\n\n\n\n\n\nSpeed to use:\t" + speed);
+            System.out.println("getGyroAngle():\t" + Robot.drivetrain.gyroAngle());
+            System.out.println("angleMoved():\t" + angleMoved());
+            System.out.println("desiredAngle:\t" + desiredAngle);
+            System.out.println("degreesToMove():\t" + degreesToMove());
+            // right is negative when turning right
+            if (degreesToMove() < 0) {
+                System.out.println("\nMoving left, as degreesToMove()=" + desiredAngle + " < 0");
+                System.out.println("So: tankDrive(" + -speed + ", " + speed + ")\n");
+                Robot.drivetrain.tankDrive(-speed, speed);
+            } else {
+                System.out.println("\nMoving RIGHT, as degreesToMove()=" + desiredAngle + " > 0");
+                System.out.println("So: tankDrive(" + speed + ", " + -speed + ")\n");
+                Robot.drivetrain.tankDrive(speed, -speed);
             }
         } catch (Exception e) {
             System.out.println("\n\n\n\n\nError in execute in RotateToAimCommand:");
