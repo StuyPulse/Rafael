@@ -45,21 +45,35 @@ public class BoilerVision extends VisionModule {
         boilerCamera = Camera.initializeCamera(RobotMap.BOILER_CAMERA_PORT);
     }
 
+    /**
+     * @return {@code double[]} containing the distance and angle to the boiler
+     * or {@code null} if we failed to see the targets
+     */
     public double[] processImage() {
         if (boilerCamera == null) {
             initializeCamera();
         }
 
         Mat frame = Camera.getImage(boilerCamera);
-        double[] reading = hsvThresholding(frame);
+        Mat filtered = filterBoiler(frame);
+        double reading[] = getBoilerTargets(frame, filtered);
+
+        frame.release();
+        filtered.release();
         return reading;
     }
 
     public void run(Mat frame) {
-        hsvThresholding(frame);
+        Mat filtered = filterBoiler(frame);
+        getBoilerTargets(frame, filtered);
+        filtered.release();
     }
 
-    public double[] hsvThresholding(Mat frame) {
+    /**
+     * @param frame The frame containing the unfiltered image to be processed
+     * @return {@code Mat} with everything but the boiler targets filtered out
+     */
+    public Mat filterBoiler(Mat frame) {
         if (hasGuiApp()) {
             postImage(frame, "Original");
         }
@@ -103,15 +117,22 @@ public class BoilerVision extends VisionModule {
             postImage(filtered, "Final HSV filtering");
         }
 
-        double reading[] = filterBoiler(frame, filtered);
         for (int i = 0; i < channels.size(); i++) {
             channels.get(i).release();
         }
-        filtered.release();
-        return reading;
+        dilateKernel.release();
+        erodeKernel.release();
+
+        return filtered;
     }
 
-    public double[] filterBoiler(Mat original, Mat filtered) {
+    /**
+     * @param original The original, unfiltered frame
+     * @param filtered The frame after filtering out the boiler targets
+     * @return {@code double[]} containing the x offset, y offset, and angle to targets (from the center of the image)
+     * or {@code null} if we failed to see the targets
+     */
+    public double[] getBoilerTargets(Mat original, Mat filtered) {
 
         Mat drawn = original.clone();
 
@@ -144,21 +165,23 @@ public class BoilerVision extends VisionModule {
             contour2f.release();
         }
 
-        // Draw a bounding rectangle around the two detected rectangles
+        // Create a bounding rectangle around the two detected rectangles
         MatOfPoint p = new MatOfPoint(pointsList.toArray(new Point[pointsList.size()]));
         Rect combined = Imgproc.boundingRect(p);
-        Imgproc.rectangle(drawn, new Point(combined.x, combined.y), new Point(combined.x+combined.width, combined.y+combined.height), new Scalar(0, 255, 0), 1);
-
-        double w = drawn.width();
-        double h = drawn.height();
         Point center = new Point(combined.x+combined.width/2, combined.y+combined.height/2);
-        Imgproc.circle(drawn, center, 1, new Scalar(0, 0, 255), 2);
-        Imgproc.line(drawn, new Point(w/2, h/2), center, new Scalar(0, 0, 255));
+
+        if (hasGuiApp()) {
+            double w = drawn.width();
+            double h = drawn.height();
+            Imgproc.rectangle(drawn, new Point(combined.x, combined.y), new Point(combined.x+combined.width, combined.y+combined.height), new Scalar(0, 255, 0), 1);
+            Imgproc.circle(drawn, center, 1, new Scalar(0, 0, 255), 2);
+            Imgproc.line(drawn, new Point(w/2, h/2), center, new Scalar(0, 0, 255));
+        }
 
         double[] vector = new double[3];
-        vector[0] = center.x - original.width() / 2.0;
-        vector[1] = original.height() / 2.0 - center.y;
-        vector[2] = Math.atan(vector[0] / vector[1]) * (180.0 / Math.PI);
+        vector[0] = center.x - original.width() / 2.0; // X offset
+        vector[1] = original.height() / 2.0 - center.y; // Y offset
+        vector[2] = Math.atan(vector[0] / vector[1]) * (180.0 / Math.PI); // Angle to targets
         String offsets = "x: " + vector[0] + "\ny: " + vector[1] + "\nangle: " + vector[2];
         String direction = (vector[0] > 0 ? "LEFT" : "RIGHT") + " and " + (vector[1] > 0 ? "BACKWARDS" : "FORWARDS");
 
@@ -166,6 +189,7 @@ public class BoilerVision extends VisionModule {
             postImage(drawn, "Detected");
         }
 
+        // Free all Mats created
         for (int i = 0; i < contours.size(); i++) {
             contours.get(i).release();
         }
@@ -176,6 +200,11 @@ public class BoilerVision extends VisionModule {
         return vector;
     }
 
+    /**
+     * @param width The width of the object
+     * @param height The height of the object
+     * @return {@code true} if the aspect ratio is in range, {@code false} otherwise
+     */
     public boolean aspectRatioThreshold(double width, double height) {
         // Boiler targets are always wider than they are tall
         if (height > width) {
@@ -185,11 +214,19 @@ public class BoilerVision extends VisionModule {
         return minGoalRatio.value() < ratio && ratio < maxGoalRatio.value();
     }
 
+    /**
+     * @param y The y coordinate of the center of the boiler target
+     * @return Distance from the boiler in inches
+     */
     public static double getDistanceToBoiler(double y) {
         double angle = yInFrameToDegreesFromHorizon(y);
         return (BOILER_TARGET_HEIGHT - BOILER_CAMERA_Y) / Math.tan(Math.toRadians(angle));
     }
 
+    /**
+     * @param height Height of the boiler target in the frame
+     * @return Vertical angle to the boiler
+     */
     public static double yInFrameToDegreesFromHorizon(double height) {
         return BOILER_CAMERA_TILT_ANGLE - Camera.frameYPxToDegrees(height);
     }

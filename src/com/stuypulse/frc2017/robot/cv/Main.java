@@ -60,7 +60,7 @@ public class Main {
     public static void processLiftTestImages(ModuleRunner runner) {
         File[] imgs = getFiles(LIFT_TEST_IMAGES_PATH);
         Mat frame = new Mat();
-        for(int i = 0; i < imgs.length && i < 10; i++) {
+        for(int i = 0; i < imgs.length && i < MAX_IMAGES; i++) {
             String path = System.getProperty("user.dir") + LIFT_TEST_IMAGES_PATH + imgs[i].getName();
             System.out.println(imgs[i].getName() + " - " + path);
             LiftVision v = new LiftVision();
