@@ -16,8 +16,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;;
  */
 public abstract class GyroRotationalCommand extends AutoMovementCommand {
 
-    protected double desiredAngle;
-    protected boolean cancelCommand;
+    private static final double MIN_DEGREES_TO_MOVE = 0.1;
+
+    private double desiredAngle; // positive is clockwise, negative is counterclockwise
+    private boolean cancelCommand; // true when desiredAngle is zero or too small for us to meaningfully go
 
     private boolean abort; // When there is an error in a method
 
@@ -55,7 +57,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
         useSignalLights = use;
     }
 
-    protected abstract void setDesiredAngle();
+    protected abstract double getDesiredAngle();
 
     // Called just before this Command runs the first time
     @Override
@@ -67,13 +69,15 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
                 System.out.println("[GyroRotationalCommand] Quitting in initialize(), because auto-movement is force-stopped.");
                 return;
             }
-            abort = false;
-            cancelCommand = false;
             Robot.drivetrain.resetGyro();
 
-            // Set defaults for values accessible by setDesiredAngle
-            desiredAngle = 0.0;
-            setDesiredAngle();
+            // Set angle we want to rotate
+            desiredAngle = getDesiredAngle();
+            // If it is zero (or close), cancel execution
+            cancelCommand = Math.abs(desiredAngle) < MIN_DEGREES_TO_MOVE;
+
+            abort = false;
+
             System.out.println("desiredAngle: " + desiredAngle);
         } catch (Exception e) {
             System.out.println("Error in intialize in RotateToAimCommand:");
@@ -142,10 +146,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
             }
 
             // When no more can or should be done:
-            if (abort || Math.abs(desiredAngle) < 0.001) {
-                // The last condition above is *not* the judgment of whether aiming has
-                // succeeded; it is a failsafe for cases in which desiredAngle is 0
-                System.out.println("\n\n\n\n\n\n\ndesiredAngle: " + desiredAngle);
+            if (abort) {
                 return true;
             }
 

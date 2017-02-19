@@ -16,13 +16,11 @@ public class DriveToBoilerRangeCommand extends EncoderDrivingCommand {
     }
 
     @Override
-    protected void setInchesToMove() {
+    protected double getInchesToMove() {
         cvReading = Robot.boilerVision.processImage();
         if (cvReading != null) {
-            initialInchesToMove = BoilerVision.getDistanceToBoiler(cvReading[1]);
-        } else {
-            initialInchesToMove = 0;
-            cancelCommand = true;
+            return BoilerVision.getDistanceToBoiler(cvReading[1]);
         }
+        return 0.0;
     }
 }

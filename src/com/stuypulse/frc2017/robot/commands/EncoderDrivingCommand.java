@@ -10,14 +10,16 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public abstract class EncoderDrivingCommand extends AutoMovementCommand {
 
-    protected double initialInchesToMove; // positive is forward
-    protected boolean cancelCommand; // set by subclass
+    private static final double MIN_INCHES_TO_MOVE = 0.1;
+
+    private double initialInchesToMove; // positive is forward, negative is backward
+    private boolean cancelCommand; // true when initialInchesToMove is zero or too small for us to meaningfully go
 
     private boolean abort;
     private boolean doneRamping;
-    private double startTime;
+    private double startTime; // TODO: this is never assigned to!
 
-    abstract protected void setInchesToMove();
+    abstract protected double getInchesToMove();
 
     public EncoderDrivingCommand() {
         super();
@@ -32,11 +34,13 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
                 return;
             }
             Robot.drivetrain.resetEncoders();
-            initialInchesToMove = 0.0;
-            cancelCommand = false;
+
+            // Set inches we want to drive
+            initialInchesToMove = getInchesToMove();
+            // If it is zero (or close), cancel execution
+            cancelCommand = Math.abs(initialInchesToMove) < MIN_INCHES_TO_MOVE;
             abort = false;
             doneRamping = false;
-            setInchesToMove();
             System.out.println("initialInchesToMove: " + initialInchesToMove);
         } catch (Exception e) {
             System.out.println("Error in initialize in EncoderDrivingCommand:");

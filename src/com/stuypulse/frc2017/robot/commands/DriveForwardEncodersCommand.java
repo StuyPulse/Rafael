@@ -1,6 +1,5 @@
 package com.stuypulse.frc2017.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -27,9 +26,10 @@ public class DriveForwardEncodersCommand extends EncoderDrivingCommand {
     }
 
     @Override
-    protected void setInchesToMove() {
-        initialInchesToMove = set ? inches : SmartDashboard.getNumber("encoder-drive-inches", 0);
+    protected double getInchesToMove() {
+        return set ? inches : SmartDashboard.getNumber("encoder-drive-inches", 0.0);
     }
+
     @Override
     public boolean isFinished() {
         //make public instead of protected so that OptionalCVPositionForGearCommand can call

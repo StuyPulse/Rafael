@@ -23,14 +23,12 @@ public class RotateToBoilerCommand extends GyroRotationalCommand {
     }
 
     @Override
-    protected void setDesiredAngle() {
+    protected double getDesiredAngle() {
         cvReading = Robot.boilerVision.processImage();
         if (cvReading != null) {
-            desiredAngle = cvReading[2];
-        } else {
-            desiredAngle = 0;
-            cancelCommand = true;
+            return cvReading[2];
         }
+        return 0.0;
     }
 
     @Override

@@ -17,13 +17,11 @@ public class DriveToPegCommand extends EncoderDrivingCommand {
         super();
     }
 
-    protected void setInchesToMove() {
+    protected double getInchesToMove() {
         cvReading = Robot.liftVision.mTip_processImage();
         if(cvReading != null) {
-            initialInchesToMove = cvReading.getMagnitude();
-        } else {
-            initialInchesToMove = 0.0;
-            cancelCommand = true;
+            return cvReading.getMagnitude();
         }
+        return 0.0;
     }
 }
