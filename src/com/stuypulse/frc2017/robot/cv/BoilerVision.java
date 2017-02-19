@@ -48,9 +48,8 @@ public class BoilerVision extends VisionModule {
         if (boilerCamera == null) {
             initializeCamera();
         }
-        Mat raw = new Mat();
-        Mat frame = new Mat();
-        boilerCamera.readSized(raw, frame);
+
+        Mat frame = Camera.getImage(boilerCamera);
         double[] reading = hsvThresholding(frame);
         return reading;
     }
