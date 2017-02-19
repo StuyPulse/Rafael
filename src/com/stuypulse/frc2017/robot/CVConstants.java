@@ -14,7 +14,8 @@ public interface CVConstants {
 
     double CAMERA_VIEWING_ANGLE_Y = 34.3; // angular height of frame
 
-    double CAMERA_Y = 7.5;
+    double LIFT_CAMERA_Y = 7.5;
+    double BOILER_CAMERA_Y = 6; // TODO: Set exact
 
     double BOILER_CAMERA_TILT_ANGLE = 50.0;
 
