@@ -80,7 +80,7 @@ public class LiftVision extends VisionModule {
         }
         Mat frame = getImage();
         Vector[] targets = hsvThresholding(frame);
-        frame.release(); // TODO: get a LGTM from CV programmers (-Wilson)
+        frame.release();
         return targets;
     }
 

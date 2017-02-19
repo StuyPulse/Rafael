@@ -27,14 +27,18 @@ public interface CVConstants {
     double REFLEXITE_LENGTH = 5.0;
 
     // Taken from measurements
-    // TODO: say what P, D, and W are
-    // F = (P * D) / W
+    // F (focal length) = (P * D) / W
+    // P = apparent width in the frame of an object (px)
+    // D = distance from camera to the object
+    // W = actual width of the object
     double CAMERA_FOCAL_LENGTH_X = (26.5 * 29) / 2;
     double CAMERA_FOCAL_LENGTH_Y = (26.5 * 69) / 5;
 
     double DISTANCE_BETWEEN_REFLEXITE = 8.25;
 
-    double PEG_LENGTH = 10.5 + 3.38; // TODO: what are 10.5 and 3.38
+    // 10.5in is length of the actual peg itself; 3.38 is depth of the lift on
+    // which the peg is mounted.
+    double PEG_LENGTH = 10.5 + 3.38;
 
     double PAST_PEG_DISTANCE = 3.0;
 }
