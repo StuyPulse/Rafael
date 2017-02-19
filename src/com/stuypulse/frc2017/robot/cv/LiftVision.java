@@ -76,7 +76,7 @@ public class LiftVision extends VisionModule {
 
     /**
      * Process an image from the camera and determine the distance and angle to the lift targets, if they exist
-     * @return {@code Vector[]} containing {@code Vector]s to the left and right targets
+     * @return {@code Vector[]} containing {@code Vector}s to the left and right targets
      * or {@code null} if we failed to se the targets
      */
     public Vector[] processImageVectors() {
