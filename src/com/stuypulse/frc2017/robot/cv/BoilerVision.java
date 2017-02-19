@@ -215,7 +215,7 @@ public class BoilerVision extends VisionModule {
     }
 
     /**
-     * @param y The y coordinate of the center of the boiler target
+     * @param y The y coordinate of the center of the boiler target from the center of the frame
      * @return Distance from the boiler in inches
      */
     public static double getDistanceToBoiler(double y) {
@@ -224,7 +224,7 @@ public class BoilerVision extends VisionModule {
     }
 
     /**
-     * @param height Height of the boiler target in the frame
+     * @param height Height of the boiler target frome the center of the frame
      * @return Vertical angle to the boiler
      */
     public static double yInFrameToDegreesFromHorizon(double height) {
