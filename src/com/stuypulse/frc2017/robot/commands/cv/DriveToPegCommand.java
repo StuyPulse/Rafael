@@ -9,7 +9,7 @@ import com.stuypulse.frc2017.util.Vector;
  */
 public class DriveToPegCommand extends EncoderDrivingCommand {
 
-    private double[] cvReading;
+    private Vector cvReading;
 
     public DriveToPegCommand() {
         // Use requires() here to declare subsystem dependencies
@@ -18,9 +18,9 @@ public class DriveToPegCommand extends EncoderDrivingCommand {
     }
 
     protected void setInchesToMove() {
-        cvReading = Robot.liftVision.processImage();
+        cvReading = Robot.liftVision.mTip_processImage();
         if(cvReading != null) {
-            initialInchesToMove = cvReading[0];
+            initialInchesToMove = cvReading.getMagnitude();
         } else {
             initialInchesToMove = 0.0;
             cancelCommand = true;
