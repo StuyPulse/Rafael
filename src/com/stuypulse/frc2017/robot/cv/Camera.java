@@ -83,8 +83,4 @@ public class Camera {
         return yCoor / CAMERA_FRAME_PX_HEIGHT * CAMERA_VIEWING_ANGLE_Y;
     }
 
-    public static double yInFrameToDegreesFromHorizon(double height) {
-        return BOILER_CAMERA_TILT_ANGLE - frameYPxToDegrees(height);
-    }
-
 }
