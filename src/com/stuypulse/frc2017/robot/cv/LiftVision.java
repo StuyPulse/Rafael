@@ -54,10 +54,8 @@ public class LiftVision extends VisionModule {
         if (targets == null) {
             return null;
         }
-        // TODO: filterLift runs findDistanceAndAngle, prints the
-        // output, then throws it away and returns the vectors. Just
-        // print it out here to simplify filterLift.
         double[] reading = findDistanceAndAngle(targets[0].getMagnitude(), targets[1].getMagnitude(), targets[0].getDegrees(), targets[1].getDegrees());
+        System.out.println("Dist to peg tip: " + reading[0] + "\nAngle: " + reading[1] + "\n------------------------------------");
         return reading;
     }
 
@@ -88,14 +86,14 @@ public class LiftVision extends VisionModule {
 
     /**
      * Get a fresh image from the lift camera, emptying the buffer first.
-     * 
+     *
      * When getting images on the roboRio, images will
      * be buffered a few at a time (so after you grab an image,
      * the next few read calls return the same one). We get around it here
      * by grabbing a few images and throwing them out,
      * before finally grabbing and returning an image we know
      * will be fresh.
-     * 
+     *
      * Yes, OpenCV has a method for setting the buffer size
      * of the camera. No, it does not work. The issue may be
      * on the roboRio-side (rather than the camera).
@@ -184,8 +182,6 @@ public class LiftVision extends VisionModule {
         // TODO: either split up this function, or label its individual parts
         // with comments
 
-        Vector[] targets = null;
-
         Mat drawn = original.clone();
 
         ArrayList<MatOfPoint> contours = new ArrayList<MatOfPoint>();
@@ -262,42 +258,25 @@ public class LiftVision extends VisionModule {
             Imgproc.rectangle(drawn, new Point(rect.x,rect.y), new Point(rect.x+rect.width,rect.y+rect.height), new Scalar(0, 255, 0), 1);
         }
 
+        // Get Vectors to reflexite targets if we can
+        Vector[] targets;
         if (contours.size() == 2) {
             sortContours(contours);
 	        targets = getTargetVectors(contours);
 	        Point center1 = new Point(CVConstants.CAMERA_FRAME_PX_WIDTH / 2 + getCenterX(contours.get(0)), CVConstants.CAMERA_FRAME_PX_HEIGHT / 2 +  getCenterY(contours.get(0)));
 	        Point center2 = new Point(CVConstants.CAMERA_FRAME_PX_WIDTH / 2 + getCenterX(contours.get(1)), CVConstants.CAMERA_FRAME_PX_HEIGHT / 2 + getCenterY(contours.get(1)));
-	        double height1 = getHeight(contours.get(0));
-	        double height2 = getHeight(contours.get(1));
-	        //System.out.println(LiftMath.stripXToAngle(getCenterX(contours.get(0))) + "\n" + LiftMath.stripXToAngle(getCenterX(contours.get(1))));
-	        //System.out.println("center1: " + center1);
-	        //System.out.println("center2: " + center2);
-	        //System.out.println("----------------------------------");
-	        // TODO: ONLY DRAW ON drawn IF hasGuiApp()
-	        Imgproc.circle(drawn, center1, 1, new Scalar(0,0,255), 2);
-	        Imgproc.circle(drawn, center2, 1, new Scalar(0,0,255), 2);
-	        Imgproc.line(drawn, new Point(0, 134.5), new Point(360, 134.5), new Scalar(0,0,255), 1);
-	        Imgproc.line(drawn, new Point(179.5, 0), new Point(179.5, 270), new Scalar(0,0,255), 1);
 	        if (hasGuiApp()) {
+	            Imgproc.circle(drawn, center1, 1, new Scalar(0,0,255), 2);
+	            Imgproc.circle(drawn, center2, 1, new Scalar(0,0,255), 2);
+	            Imgproc.line(drawn, new Point(0, 134.5), new Point(360, 134.5), new Scalar(0,0,255), 1);
+	            Imgproc.line(drawn, new Point(179.5, 0), new Point(179.5, 270), new Scalar(0,0,255), 1);
 	            postImage(drawn, "Detected");
 	        }
-        } // TODO: else... (rather than asking if targets is null). Then move final stuff below into the `if` above
-
-        if (targets == null) {
-            for (int i = 0; i < contours.size(); i++) {
-                contours.get(i).release();
-            }
-
-            hierarchy.release();
-            approxCurve.release();
-            drawn.release();
-            return null;
+        } else {
+            targets = null;
         }
 
-        double[] reading = findDistanceAndAngle(targets[0].getMagnitude(), targets[1].getMagnitude(), targets[0].getDegrees(), targets[1].getDegrees());
-
-        System.out.println("Dist to peg tip: " + reading[0] + "\nAngle: " + reading[1] + "\n------------------------------------");
-
+        // Release contours and Mats we have created
         for (int i = 0; i < contours.size(); i++) {
             contours.get(i).release();
         }
