@@ -24,17 +24,13 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
         requires(Robot.drivetrain);
     }
 
-    public EncoderDrivingCommand(BoolBox forceStopController) {
-        super(forceStopController);
-    }
-
     // Called just before this Command runs the first time
     protected void initialize() {
         try {
-            if (externallyStopped()) {
+            if (getForceStopped()) {
+                System.out.println("[EncoderDrivingCommand] Quitting in initialize(), because auto-movement is force-stopped.");
                 return;
             }
-            super.initialize();
             Robot.drivetrain.resetEncoders();
             initialInchesToMove = 0.0;
             cancelCommand = false;
@@ -53,6 +49,7 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
     private final static double distForMaxSpeed = 5 * 12.0;
 
     // Called repeatedly when this Command is scheduled to run
+    @Override
     protected void execute() {
         try {
             super.execute();

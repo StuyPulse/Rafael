@@ -12,7 +12,7 @@ public class DriveToBoilerRangeCommand extends EncoderDrivingCommand {
     private double cvReading[];
 
     public DriveToBoilerRangeCommand() {
-        super(Robot.stopAutoMovement);
+        super();
     }
 
     @Override

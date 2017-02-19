@@ -11,15 +11,15 @@ public class RotateToBoilerCommand extends GyroRotationalCommand {
     private double[] cvReading;
 
     public RotateToBoilerCommand() {
-        super(Robot.stopAutoMovement, false);
+        super(false);
     }
 
     public RotateToBoilerCommand(boolean gentle) {
-        super(Robot.stopAutoMovement, gentle);
+        super(gentle);
     }
 
     public RotateToBoilerCommand(boolean gentle, double tolerance) {
-        super(Robot.stopAutoMovement, gentle, tolerance);
+        super(gentle, tolerance);
     }
 
     @Override

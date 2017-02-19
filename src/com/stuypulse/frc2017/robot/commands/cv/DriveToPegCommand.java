@@ -14,7 +14,7 @@ public class DriveToPegCommand extends EncoderDrivingCommand {
     public DriveToPegCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        super(Robot.stopAutoMovement);
+        super();
     }
 
     protected void setInchesToMove() {

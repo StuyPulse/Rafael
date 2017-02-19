@@ -14,15 +14,15 @@ public class RotateToLiftCommand extends GyroRotationalCommand {
     private Vector cvReading;
 
     public RotateToLiftCommand() {
-        super(Robot.stopAutoMovement, false);
+        super(false);
     }
 
     public RotateToLiftCommand(boolean gentle) {
-        super(Robot.stopAutoMovement, gentle);
+        super(gentle);
     }
 
     public RotateToLiftCommand(boolean gentle, double tolerance) {
-        super(Robot.stopAutoMovement, gentle, tolerance);
+        super(gentle, tolerance);
     }
 
     protected void setDesiredAngle() {

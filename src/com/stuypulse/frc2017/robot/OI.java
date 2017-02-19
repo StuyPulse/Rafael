@@ -73,9 +73,9 @@ public class OI {
 		driverPad.getRightBumper().whenReleased(new DriveTrainHighGearCommand());
 
 	     //Auton testing
-        driverPad.getLeftTrigger().whenPressed(new RotateDegreesGyroCommand());
-        driverPad.getRightTrigger().whenPressed(new DriveForwardEncodersCommand());
-        driverPad.getBottomButton().whenPressed(new DriveForwardCommand(1.0));
+        driverPad.getLeftTrigger().whenPressed(new RunAutoCommand(new RotateDegreesGyroCommand()));
+        driverPad.getRightTrigger().whenPressed(new RunAutoCommand(new DriveForwardEncodersCommand()));
+        driverPad.getBottomButton().whenPressed(new DriveForwardCommand(1.0)); // TODO: remove and delete DriveFowardCommand
 
         driverPad.getLeftButton().whenPressed(new SetupForGearCommand());
         driverPad.getRightButton().whenPressed(new RunAutoCommand(new RotateToLiftCommand()));

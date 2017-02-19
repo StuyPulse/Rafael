@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ * Resets Robot.stopAutoMovement before and after running the {@code command}
  */
 public class RunAutoCommand extends CommandGroup {
 

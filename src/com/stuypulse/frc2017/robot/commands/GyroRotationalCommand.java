@@ -34,8 +34,8 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
         tolerance = 1.0;
     }
 
-    public GyroRotationalCommand(BoolBox forceStopBox, boolean gentle) {
-        super(forceStopBox);
+    public GyroRotationalCommand(boolean gentle) {
+        super();
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.drivetrain);
@@ -44,15 +44,6 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     }
 
     public GyroRotationalCommand(boolean gentle, double tolerance) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-        requires(Robot.drivetrain);
-        gentleRotate = gentle;
-        this.tolerance = tolerance;
-    }
-
-    public GyroRotationalCommand(BoolBox forceStopBox, boolean gentle, double tolerance) {
-        super(forceStopBox);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.drivetrain);
@@ -72,11 +63,10 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
         try {
             // If we received a forceStoppedBox controller and it is already
             // true, stop immediately.
-            if (externallyStopped()) {
-                System.out.println("EXTERNALLY STOPPED ============================");
+            if (getForceStopped()) {
+                System.out.println("[GyroRotationalCommand] Quitting in initialize(), because auto-movement is force-stopped.");
                 return;
             }
-            super.initialize();
             abort = false;
             cancelCommand = false;
             Robot.drivetrain.resetGyro();
