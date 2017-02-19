@@ -14,9 +14,11 @@ public interface CVConstants {
 
     double CAMERA_VIEWING_ANGLE_Y = 34.3; // angular height of frame
 
-    double CAMERA_Y = 6; // TODO: SET EXACT
+    double CAMERA_Y = 7.5;
 
     double BOILER_CAMERA_TILT_ANGLE = 50.0;
+
+    // lift camera is assumed to be horizontal
 
     double CAMERA_FRAME_PX_HEIGHT = 270.0;
 
