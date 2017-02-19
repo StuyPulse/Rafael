@@ -2,6 +2,8 @@ package com.stuypulse.frc2017.robot.cv;
 
 import java.io.File;
 
+import org.opencv.core.Mat;
+
 import stuyvision.ModuleRunner;
 import stuyvision.capture.DeviceCaptureSource;
 import stuyvision.capture.ImageCaptureSource;
@@ -19,8 +21,8 @@ public class Main {
         ModuleRunner runner = new ModuleRunner(5);
         // processBoilerSamples(runner);
         // processLiftSamples(runner);
-        //processLiftTestImages(runner);
-        processCamera(runner);
+        processLiftTestImages(runner);
+        //processCamera(runner);
         VisionGui.begin(args, runner);
     }
 
@@ -57,10 +59,15 @@ public class Main {
 
     public static void processLiftTestImages(ModuleRunner runner) {
         File[] imgs = getFiles(LIFT_TEST_IMAGES_PATH);
-        for(int i = 0; i < imgs.length && i < MAX_IMAGES; i++) {
-        	System.out.println(imgs[i].getName());
+        Mat frame = new Mat();
+        for(int i = 0; i < imgs.length && i < 10; i++) {
             String path = System.getProperty("user.dir") + LIFT_TEST_IMAGES_PATH + imgs[i].getName();
-            runner.addMapping(new ImageCaptureSource(path), new LiftVision());
+            System.out.println(imgs[i].getName() + " - " + path);
+            LiftVision v = new LiftVision();
+            ImageCaptureSource img = new ImageCaptureSource(path);
+            img.readFrame(frame);
+            v.run(frame);
+            runner.addMapping(img, v);
         }
     }
 }

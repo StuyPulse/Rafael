@@ -109,12 +109,15 @@ public class LiftVision extends VisionModule {
         raw.release();
         return frame;
     }
-
+    private boolean firstFrame = true;
     public void run(Mat frame) {
         Vector[] targets = hsvThresholding(frame);
-        if (targets != null) {
-            System.out.println(targets[0]);
-            System.out.println(targets[1]);
+        if (targets != null && firstFrame) {
+            System.out.println("======================================================");
+            System.out.println("Target 0: " + targets[0] + "\n");
+            System.out.println("Target 1: " + targets[1] + "\n");
+            System.out.println("Path to tip: " + LiftMath.mTip_getPath(targets[0], targets[1]) + "\n");
+            firstFrame = false;
         }
     }
 
