@@ -18,6 +18,9 @@ public class ScoreGearCommand extends CommandGroup {
         addSequential(new GearPusherPushGearCommand());
     	addSequential(new DelaySecondsCommand(SmartDashboard.getNumber("delay-two", 1.0), Robot.gearpusher));
     	addSequential(new GearPusherRetractGearCommand());
+
+        // AFTER THIS, the bot must back up and the gear trap must be closed
+
         // To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());

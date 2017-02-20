@@ -5,6 +5,7 @@ import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
+import com.stuypulse.frc2017.robot.commands.ScoreGearCommand;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -25,14 +26,13 @@ public class ScoreBoilerGearCommand extends CommandGroup {
 			direction = 1;
 		} else {
 			direction = -1;
-		} 
+		}
 		addSequential(new DriveForwardEncodersCommand(START_TO_BOILER_GEAR_TURN_DISTANCE));
 		addSequential(new RotateDegreesGyroCommand(direction * BOILER_GEAR_TURN_TO_BOILER_GEAR_ANGLE));
 		// If use-CV was selected in SmartDashboard, align and drive forward
 		// with CV; otherwise, just drive forward.
 		addSequential(new OptionalCVPositionForGearCommand(AFTER_TURN_TO_BOILER_GEAR_DISTANCE));
-		addSequential(new GearTrapReleaseGearCommand());
-		addSequential(new GearPusherRetractGearCommand());
+        addSequential(new ScoreGearCommand());
 		addSequential(new DriveForwardEncodersCommand(BOILER_GEAR_REVERSE_DISTANCE));
 		addSequential(new GearTrapTrapGearCommand());
     }
