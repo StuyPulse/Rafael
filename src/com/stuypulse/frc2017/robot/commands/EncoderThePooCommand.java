@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
 /**
  *
  */
-public abstract class EncoderDrivingCommand extends AutoMovementCommand {
+public abstract class EncoderThePooCommand extends AutoMovementCommand {
 
     private static final double MIN_INCHES_TO_MOVE = 0.1;
 
@@ -19,11 +19,11 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
 
     private boolean abort;
     private boolean doneRamping;
-    private double startTime; // TODO: this is never assigned to!
+    private double startTime;
 
     abstract protected double getInchesToMove();
 
-    public EncoderDrivingCommand() {
+    public EncoderThePooCommand() {
         super();
         requires(Robot.drivetrain);
     }
@@ -43,6 +43,7 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
             cancelCommand = Math.abs(initialInchesToMove) < MIN_INCHES_TO_MOVE;
             abort = false;
             doneRamping = false;
+            startTime = Timer.getFPGATimestamp();
             System.out.println("[EncoderDrivingCommand] initialInchesToMove: " + initialInchesToMove);
         } catch (Exception e) {
             System.out.println("Error in initialize in EncoderDrivingCommand:");
@@ -70,7 +71,7 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
                 } else if (t < RAMP_TIME) {
                     speed = t * t + 4 * t - 1;
                 }
-                if (t > RAMP_TIME || inchesToGo < 18.0) {
+                if (t > RAMP_TIME || inchesToGo < initialInchesToMove / 2) {
                     speed = 1;
                     doneRamping = true;
                 }
@@ -78,8 +79,21 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
                 speed = Math.min(1.0, speed);
             }
             speed *= Math.signum(initialInchesToMove);
-            System.out.println("Speed: " + speed);
-            Robot.drivetrain.tankDrive(speed, speed);
+            double vLeft = speed;
+            double vRight = speed;
+            if (Robot.ch.getSelected() && Robot.drivetrain.encoderDistance() > 10.0) {
+                System.err.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                vLeft *= Robot.drivetrain.rightEncoderDistance() / Robot.drivetrain.leftEncoderDistance();
+            }
+            /*if (Math.abs(Robot.drivetrain.rightEncoderDistance() - Robot.drivetrain.leftEncoderDistance()) > 1.0) {
+                vLeft += 0.1 * Math.signum(Robot.drivetrain.rightEncoderDistance() - Robot.drivetrain.leftEncoderDistance());
+            }//*/
+            if (Robot.ch.getSelected()) {
+                System.out.println("speed: " + speed);
+                System.out.println("  left: " + vLeft);
+                System.out.println("  right: " + vRight);
+            }
+            Robot.drivetrain.tankDrive(vLeft, vRight);
         } catch (Exception e) {
             System.out.println("Error in execute in EncoderDrivingCommand:");
             e.printStackTrace();

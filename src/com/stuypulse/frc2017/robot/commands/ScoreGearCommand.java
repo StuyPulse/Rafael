@@ -11,15 +11,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class ScoreGearCommand extends CommandGroup {
 
-    public static final double FIRST_DELAY = 3.0;
-    public static final double SECOND_DELAY = 3.0;
-
     public ScoreGearCommand() {
+        addSequential(new DelaySecondsCommand(0.1));
         addSequential(new GearPusherRetractGearCommand());
         addSequential(new GearTrapReleaseGearCommand());
-        addSequential(new DelaySecondsCommand(SmartDashboard.getNumber("delay-one", FIRST_DELAY), Robot.gearpusher));
+        addSequential(new DelaySecondsCommand(0.5));
         addSequential(new GearPusherPushGearCommand());
-        addSequential(new DelaySecondsCommand(SmartDashboard.getNumber("delay-two", SECOND_DELAY), Robot.gearpusher));
+        addSequential(new DelaySecondsCommand(0.5));
         addSequential(new GearPusherRetractGearCommand());
 
         // AFTER THIS, the bot must back up and the gear trap must be closed

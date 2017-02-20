@@ -1,6 +1,7 @@
 package com.stuypulse.frc2017.robot.commands.cv;
 
 import com.stuypulse.frc2017.robot.Robot;
+import com.stuypulse.frc2017.robot.commands.DriveTrainLowGearCommand;
 import com.stuypulse.frc2017.robot.cv.LiftMath;
 import com.stuypulse.frc2017.util.Vector;
 
@@ -30,6 +31,7 @@ public class SetupForGearCommand extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
 
+	    addSequential(new DriveTrainLowGearCommand());
         addSequential(new ResetForceStopCommand());
 	    addSequential(new RotateToLiftCommand());
 	    addSequential(new RotateToLiftCommand(true));

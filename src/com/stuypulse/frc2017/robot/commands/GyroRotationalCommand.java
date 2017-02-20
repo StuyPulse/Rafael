@@ -23,6 +23,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
 
     private boolean abort; // When there is an error in a method
 
+    private int onTargetCounter;
     private boolean gentleRotate;
     private double tolerance;
 
@@ -73,6 +74,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
 
             // Set angle we want to rotate
             desiredAngle = getDesiredAngle();
+            onTargetCounter = 0;
             // If it is zero (or close), cancel execution
             cancelCommand = Math.abs(desiredAngle) < MIN_DEGREES_TO_MOVE;
 
@@ -151,7 +153,13 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
             double degsOff = degreesToMove();
             SmartDashboard.putNumber("CV degrees off", degsOff);
 
-            return Math.abs(degsOff) < tolerance;
+            boolean onTarget = Math.abs(degsOff) < tolerance;
+            if (onTarget) {
+                onTargetCounter++;
+            } else {
+                onTargetCounter = 0;
+            }
+            return onTargetCounter >= SmartDashboard.getNumber("autorotate-counter-threshold", 3);
         } catch (Exception e) {
             System.out.println("Error in isFinished in RotateToAimCommand:");
             e.printStackTrace();

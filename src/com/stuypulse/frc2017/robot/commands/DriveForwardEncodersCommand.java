@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class DriveForwardEncodersCommand extends EncoderDrivingCommand {
+public class DriveForwardEncodersCommand extends EncoderThePooCommand {
 
     private double inches;
     private boolean set;

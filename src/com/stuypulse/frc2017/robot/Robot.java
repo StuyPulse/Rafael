@@ -76,6 +76,7 @@ public class Robot extends IterativeRobot {
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<Command>();
+    public static SendableChooser<Boolean> ch = new SendableChooser<Boolean>();
 
     public static LiftVision liftVision;
     public static BoilerVision boilerVision;
@@ -117,19 +118,24 @@ public class Robot extends IterativeRobot {
     private void setupSmartDashboardFields() {
         SmartDashboard.putNumber("Shooter speed", RobotMap.SHOOTER_IDEAL_SPEED);
         SmartDashboard.putNumber("gyro-rotate-degs", 0.0);
-        SmartDashboard.putNumber("cv tolerance", 1.0);
+        SmartDashboard.putNumber("cv tolerance", 3.0);
         SmartDashboard.putNumber("autorotate-speed", 0.4);
         SmartDashboard.putNumber("autorotate-range", 0.6);
         SmartDashboard.putNumber("autorotate-gentle-speed", 0.4);
-        SmartDashboard.putNumber("autorotate-gentle-range", 0.4);
+        SmartDashboard.putNumber("autorotate-gentle-range", 0.6);
+        SmartDashboard.putNumber("autorotate-counter-threshold", 3);
         SmartDashboard.putNumber("encoder-drive-inches", 0.0);
         SmartDashboard.putNumber("IR Sensor Distance", RobotMap.IR_SENSOR_THRESHOLD);
         SmartDashboard.putNumber("IR Sensor Time", RobotMap.IR_TIME_IN_MECHANISM_THRESHOLD);
         SmartDashboard.putNumber("drive fwd time", 5.0);
         SmartDashboard.putNumber("drive fwd speed", 0.5);
-        SmartDashboard.putNumber("delay-one", ScoreGearCommand.FIRST_DELAY);
-        SmartDashboard.putNumber("delay-two", ScoreGearCommand.SECOND_DELAY);
+        SmartDashboard.putNumber("delay-one", 0.5);
+        SmartDashboard.putNumber("delay-two", 0.5);
         SmartDashboard.putNumber("distance onto peg", CVConstants.PAST_PEG_DISTANCE);
+
+        ch.addDefault("Are you a cloud?", true);
+        ch.addObject("Use basic EncoderDrivingCommand", false);
+        SmartDashboard.putData("Winne The Poo", ch);
     }
 
     private void setupAutonChooser(){
@@ -208,7 +214,7 @@ public class Robot extends IterativeRobot {
 
         // TODO: Set SHOOTER_IDEAL_SPEED to the ideal speed when it is known,
         // then set shooter speed to SHOOTER_IDEAL_SPEED here.
-        Robot.shooter.setSpeed(SmartDashboard.getNumber("Shooter speed", 0.0));
+        //Robot.shooter.setSpeed(SmartDashboard.getNumber("Shooter speed", 0.0));
 
         // The gear-pusher piston, and the gear trap pistons, start *retracted*,
         // because when extended they reach outside the frame perimeter.
@@ -219,7 +225,10 @@ public class Robot extends IterativeRobot {
         // is also why blocking the thread is appropriate:
         Robot.drivetrain.resetEncoders();
         Robot.geartrap.trap();
-        Robot.gearpusher.push(Value.kReverse); // TODO: confirm this is right
+        try {
+            Timer.delay(0.5);
+        } catch (Exception e) {}
+        Robot.gearpusher.push(Value.kReverse);
 
         isAutonomous = true;
 
