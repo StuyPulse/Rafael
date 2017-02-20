@@ -14,6 +14,7 @@ import com.stuypulse.frc2017.robot.commands.auton.ShootFromMiddleGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootingFromAllianceWallCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootingFromBoilerGearCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
+import com.stuypulse.frc2017.robot.commands.ScoreGearCommand;
 import com.stuypulse.frc2017.robot.cv.BoilerVision;
 import com.stuypulse.frc2017.robot.cv.Camera;
 import com.stuypulse.frc2017.robot.cv.LiftVision;
@@ -122,8 +123,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("IR Sensor Time", RobotMap.IR_TIME_IN_MECHANISM_THRESHOLD);
         SmartDashboard.putNumber("drive fwd time", 5.0);
         SmartDashboard.putNumber("drive fwd speed", 0.5);
-        SmartDashboard.putNumber("delay-one", 1.0);
-        SmartDashboard.putNumber("delay-two", 1.0);
+        SmartDashboard.putNumber("delay-one", ScoreGearCommand.FIRST_DELAY);
+        SmartDashboard.putNumber("delay-two", ScoreGearCommand.SECOND_DELAY);
         SmartDashboard.putNumber("distance onto peg", CVConstants.PAST_PEG_DISTANCE);
     }
 
