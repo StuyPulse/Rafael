@@ -86,11 +86,6 @@ public interface RobotMap {
     // Time between trapping gear and pushing gear, at start of auton
     double AUTON_INIT_DELAY_BEFORE_PUSH_GEAR = 0.1; // TODO: tune value
 
-    // Time after the gear trap starts opening to wait before pushing the gear
-    // TODO: tune value AND determine whether AUTON_INIT_DELAY_BEFORE_PUSH_GEAR is the same thing.
-    double GEAR_PUSHER_PUSH_AFTER_GEAR_OPEN_TIME = 0.5;
-    
-    
     // TODO: this is used from two commands; confirm it works for both
     double BOILER_TO_HOPPER_BACKUP_DISTANCE = -158.4;
 
