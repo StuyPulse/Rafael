@@ -37,6 +37,7 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
             }
             Robot.drivetrain.resetEncoders();
 
+            maxSpeed = 0.85;
             // Set inches we want to drive
             initialInchesToMove = getInchesToMove();
             // If it is zero (or close), cancel execution
@@ -53,6 +54,8 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
 
     private final static double distForMaxSpeed = 5 * 12.0;
 
+    private double maxSpeed;
+
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void inferiorExecute() {
@@ -61,24 +64,28 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
             double inchesToGo = inchesToMove();
             if (doneRamping) {
                 // Based on the one that has worked for GyroRotationalCommand
-                speed = 0.45 + 0.4 * Math.min(1.0, Math.pow(inchesToGo / distForMaxSpeed, 2));
+                speed = (maxSpeed - 0.4) + 0.4 * Math.min(1.0, Math.pow(inchesToGo / distForMaxSpeed, 2));
             } else {
                 double t = Timer.getFPGATimestamp() - startTime;
                 final double RAMP_TIME = 1.0;
                 if (t < RAMP_TIME * 0.5) {
                     speed = t * t;
                 } else if (t < RAMP_TIME) {
-                    speed = t * t + 4 * t - 1;
+                    speed = t * t + 4.0 * t - 1.0;
                 }
-                if (t > RAMP_TIME || inchesToGo < 18.0) {
-                    speed = 1;
+                if (t > RAMP_TIME || inchesToGo < 0.5 * initialInchesToMove) {
+                    speed = 1.0;
                     doneRamping = true;
                 }
-                speed *= 0.7; // Max at 0.7 while ramping
+                speed *= maxSpeed; // Max at maxSpeed while ramping
                 speed = Math.min(1.0, speed);
             }
-            speed *= Math.signum(initialInchesToMove);
-            Robot.drivetrain.tankDrive(speed, speed);
+            if (inchesToGo > 0.5 * initialInchesToMove) {
+                // The max speed for the rest of the 
+                maxSpeed = speed;
+            }
+            double velocity = speed * Math.signum(initialInchesToMove);
+            Robot.drivetrain.tankDrive(velocity, velocity);
         } catch (Exception e) {
             System.out.println("Error in execute in EncoderDrivingCommand:");
             e.printStackTrace();
