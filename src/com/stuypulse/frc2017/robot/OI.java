@@ -111,6 +111,7 @@ public class OI {
         operatorPad.getRightButton().whenReleased(new GearTrapTrapGearCommand());
 
         operatorPad.getTopButton().whenPressed(new ScoreGearCommand());
+        operatorPad.getTopButton().whenReleased(new GearTrapTrapGearCommand());
 
         // Shooter:
         operatorPad.getDPadDown().whenPressed(new ShooterStopCommand());
