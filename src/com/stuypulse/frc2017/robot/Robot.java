@@ -72,6 +72,8 @@ public class Robot extends IterativeRobot {
      */
     private static boolean isAutoOverridden;
 
+    public static boolean isAutonomous;
+
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<Command>();
 
@@ -108,6 +110,8 @@ public class Robot extends IterativeRobot {
 
         //boilerVision = new BoilerVision();
         liftVision = new LiftVision();
+
+        isAutonomous = false;
     }
 
     private void setupSmartDashboardFields() {
@@ -217,6 +221,8 @@ public class Robot extends IterativeRobot {
         Robot.geartrap.trap();
         Robot.gearpusher.push(Value.kReverse); // TODO: confirm this is right
 
+        isAutonomous = true;
+
         // Gear-shift physically starts in HIGH gear.
     }
 
@@ -245,6 +251,7 @@ public class Robot extends IterativeRobot {
         Robot.geartrap.trap();
         Camera.configureCamera(0);
         Camera.configureCamera(1);
+        isAutonomous = false;
     }
     /**
      * This function is called periodically during operator control
