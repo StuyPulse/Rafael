@@ -16,7 +16,7 @@ public class DriveToPegCommand extends EncoderDrivingCommand {
     }
 
     protected double getInchesToMove() {
-        Vector cvReading = Robot.liftVision.mTip_processImage();
+        Vector cvReading = Robot.liftVision.mTip_processImage(true);
         boolean foundGoal = cvReading != null;
         Robot.cvFoundGoal = foundGoal;
         if(foundGoal) {

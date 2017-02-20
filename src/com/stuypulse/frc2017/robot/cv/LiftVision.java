@@ -2,6 +2,7 @@ package com.stuypulse.frc2017.robot.cv;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import org.opencv.core.Core;
@@ -12,6 +13,7 @@ import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 import com.stuypulse.frc2017.robot.CVConstants;
@@ -50,7 +52,11 @@ public class LiftVision extends VisionModule {
      * or {@code null} if we failed to see the targets
      */
     public double[] processImage() {
-        Vector[] targets = processImageVectors();
+        return processImage(false);
+    }
+
+    public double[] processImage(boolean save) {
+        Vector[] targets = processImageVectors(save);
         if (targets == null) {
             return null;
         }
@@ -67,7 +73,11 @@ public class LiftVision extends VisionModule {
      * or {@code null} if we could failed to see the targets.
      */
     public Vector mTip_processImage() {
-        Vector[] targets = processImageVectors();
+        return mTip_processImage(false);
+    }
+
+    public Vector mTip_processImage(boolean save) {
+        Vector[] targets = processImageVectors(save);
         if (targets == null) {
             return null;
         }
@@ -80,11 +90,22 @@ public class LiftVision extends VisionModule {
      * or {@code null} if we failed to se the targets
      */
     public Vector[] processImageVectors() {
+        return processImageVectors(false);
+    }
+
+    public Vector[] processImageVectors(boolean save) {
         if (liftCamera == null) {
             initializeCamera();
         }
         Mat frame = Camera.getImage(liftCamera);
+        String date = (new Date()).toString();
+        if (save) {
+            Imgcodecs.imwrite("/tmp/" + date + ".png", frame);
+        }
         Mat filtered = filterLift(frame);
+        if (save) {
+            Imgcodecs.imwrite("/tmp/" + date + "-FILTERED.png", frame);
+        }
         Vector[] targets = getTargets(frame, filtered);
 
         frame.release();
