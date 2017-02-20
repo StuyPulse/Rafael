@@ -9,16 +9,16 @@ import com.stuypulse.frc2017.robot.cv.BoilerVision;
  */
 public class DriveToBoilerRangeCommand extends EncoderDrivingCommand {
 
-    private double cvReading[];
-
     public DriveToBoilerRangeCommand() {
         super();
     }
 
     @Override
     protected double getInchesToMove() {
-        cvReading = Robot.boilerVision.processImage();
-        if (cvReading != null) {
+        double[] cvReading = Robot.boilerVision.processImage();
+        boolean foundGoal = cvReading != null;
+        Robot.cvFoundGoal = foundGoal;
+        if (foundGoal) {
             return BoilerVision.getDistanceToBoiler(cvReading[1]);
         }
         return 0.0;

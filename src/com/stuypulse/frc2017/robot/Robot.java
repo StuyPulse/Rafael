@@ -77,6 +77,7 @@ public class Robot extends IterativeRobot {
     public static LiftVision liftVision;
     public static BoilerVision boilerVision;
     public static Vector[] cvVector;
+    public static boolean cvFoundGoal = false;
 
     public static BoolBox stopAutoMovement = new BoolBox(false);
 

@@ -9,8 +9,6 @@ import com.stuypulse.frc2017.util.Vector;
  */
 public class RotateToLiftCommand extends GyroRotationalCommand {
 
-    private Vector cvReading;
-
     public RotateToLiftCommand() {
         super(false);
     }
@@ -24,8 +22,10 @@ public class RotateToLiftCommand extends GyroRotationalCommand {
     }
 
     protected double getDesiredAngle() {
-        cvReading = Robot.liftVision.mTip_processImage();
-        if (cvReading != null) {
+        Vector cvReading = Robot.liftVision.mTip_processImage();
+        boolean foundGoal = cvReading != null;
+        Robot.cvFoundGoal = foundGoal;
+        if (foundGoal) {
             System.out.println(cvReading);
             return cvReading.getDegrees();
         }

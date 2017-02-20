@@ -8,8 +8,6 @@ import com.stuypulse.frc2017.robot.commands.GyroRotationalCommand;
  */
 public class RotateToBoilerCommand extends GyroRotationalCommand {
 
-    private double[] cvReading;
-
     public RotateToBoilerCommand() {
         super(false);
     }
@@ -24,8 +22,10 @@ public class RotateToBoilerCommand extends GyroRotationalCommand {
 
     @Override
     protected double getDesiredAngle() {
-        cvReading = Robot.boilerVision.processImage();
-        if (cvReading != null) {
+        double[] cvReading = Robot.boilerVision.processImage();
+        boolean foundGoal = cvReading != null;
+        Robot.cvFoundGoal = foundGoal;
+        if (foundGoal) {
             return cvReading[2];
         }
         return 0.0;
