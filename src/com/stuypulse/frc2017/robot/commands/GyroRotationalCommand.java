@@ -18,6 +18,8 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
 
     private static final double MIN_DEGREES_TO_MOVE = 0.1;
 
+    private static final int MINIMUM_FRAMES_TO_STOP = 10;
+
     private double desiredAngle; // positive is clockwise, negative is counterclockwise
     private boolean cancelCommand; // true when desiredAngle is zero or too small for us to meaningfully go
 
@@ -28,6 +30,8 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     private double tolerance;
 
     private boolean useSignalLights;
+
+    private int framesPointingCorrectlyCounter;
 
     public GyroRotationalCommand() {
         super();
@@ -110,7 +114,12 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
 
     private double howMuchWeHaveToGo() {
         // Used for ramping
-        return Math.abs(degreesToMove() / (CAMERA_VIEWING_ANGLE_X / 2));
+        
+    	// TODO: Use a constant other than CAMERA_VIEWING_ANGLE
+    	//       (max-speed-beyond-this-angle or something like that)
+    	//       instead of a variable that assumes that we're using CV (we might want to
+    	//       rotate further than the FOV of the camera)
+    	return Math.abs(degreesToMove() / (CAMERA_VIEWING_ANGLE_X / 2));
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -120,9 +129,12 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
             double baseSpeed = gentleRotate
                     ? SmartDashboard.getNumber("autorotate-gentle-speed")
                     : SmartDashboard.getNumber("autorotate-speed");
+
+            // Cap off at 1 because we don't move beyond our defined angular speed
+            double turnScale = Math.max(Math.pow( howMuchWeHaveToGo(), 2), 1);
             double speed = gentleRotate
-                    ? baseSpeed + SmartDashboard.getNumber("autorotate-range") * Math.pow(howMuchWeHaveToGo(), 2)
-                    : baseSpeed + SmartDashboard.getNumber("autorotate-gentle-range") * Math.pow(howMuchWeHaveToGo(), 2);
+                    ? baseSpeed + SmartDashboard.getNumber("autorotate-range") * turnScale
+                    : baseSpeed + SmartDashboard.getNumber("autorotate-gentle-range") * turnScale;
             // left is negative when turning left
             boolean turnLeft = degreesToMove() < 0.0;
             printInfo(speed, baseSpeed, turnLeft);
@@ -138,8 +150,17 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
         }
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+    	// Return true if pointing in the right direction for long enough
+    	if (isAngleCorrect()) 
+    		framesPointingCorrectlyCounter++;
+    	else 
+    		framesPointingCorrectlyCounter = 0;
+    	return (framesPointingCorrectlyCounter > MINIMUM_FRAMES_TO_STOP);
+    }
+
+    // Make this return true when this Command no longer needs to run execute()
+    private boolean isAngleCorrect() {
         try {
             // TODO: don't assign to tolerance here
             tolerance = SmartDashboard.getNumber("cv tolerance");
