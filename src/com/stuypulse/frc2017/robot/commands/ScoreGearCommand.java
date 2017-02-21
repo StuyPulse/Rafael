@@ -34,14 +34,4 @@ public class ScoreGearCommand extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     }
-
-    @Override
-    public boolean isFinished() {
-        // If we are in autonomous and CV did not find the goal, terminate this command
-        // rather than dump out a gear.
-        if (Robot.isAutonomous && !Robot.cvFoundGoal) {
-            return true;
-        }
-        return super.isFinished();
-    }
 }

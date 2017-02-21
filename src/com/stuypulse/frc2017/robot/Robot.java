@@ -81,7 +81,7 @@ public class Robot extends IterativeRobot {
     public static LiftVision liftVision;
     public static BoilerVision boilerVision;
     public static Vector[] cvVector;
-    public static boolean cvFoundGoal = false;
+    public static boolean cvFoundGoal = true;
 
     public static BoolBox stopAutoMovement = new BoolBox(false);
 
@@ -117,14 +117,15 @@ public class Robot extends IterativeRobot {
 
     private void setupSmartDashboardFields() {
         SmartDashboard.putNumber("Shooter speed", RobotMap.SHOOTER_IDEAL_SPEED);
-        SmartDashboard.putNumber("gyro-rotate-degs", 0.0);
+        SmartDashboard.putNumber("gyro-rotate-degs", 5.0);
         SmartDashboard.putNumber("cv tolerance", 3.0);
         SmartDashboard.putNumber("autorotate-speed", 0.4);
         SmartDashboard.putNumber("autorotate-range", 0.6);
         SmartDashboard.putNumber("autorotate-gentle-speed", 0.4);
         SmartDashboard.putNumber("autorotate-gentle-range", 0.6);
-        SmartDashboard.putNumber("autorotate-counter-threshold", 3);
-        SmartDashboard.putNumber("encoder-drive-inches", 0.0);
+        SmartDashboard.putNumber("autorotate-counter-threshold", 3.0);
+        SmartDashboard.putNumber("autorotate-min-degrees", 1.5);
+        SmartDashboard.putNumber("encoder-drive-inches", 108.0);
         SmartDashboard.putNumber("IR Sensor Distance", RobotMap.IR_SENSOR_THRESHOLD);
         SmartDashboard.putNumber("IR Sensor Time", RobotMap.IR_TIME_IN_MECHANISM_THRESHOLD);
         SmartDashboard.putNumber("drive fwd time", 5.0);
@@ -146,9 +147,10 @@ public class Robot extends IterativeRobot {
     	autonChooser.addObject("Only Mobility To HP Station", new MobilityToHPCommand());
     	autonChooser.addObject("Only Score HP Gear", new ScoreHPGearCommand());
     	autonChooser.addObject("Score HP Gear THEN Approach HP Station", new DoubleSequentialCommand(new ScoreHPGearCommand(), new ApproachHPFromHPGearCommand()));
-    	autonChooser.addObject("Only Score Middle Gear", new ScoreMiddleGearCommand());
-    	autonChooser.addObject("Score Middle Gear THEN Approach HP Station", new DoubleSequentialCommand(new ScoreMiddleGearCommand(), new ApproachHPFromMiddleGearCommand()));
-    	autonChooser.addObject("Score Middle Gear THEN Shoot", new DoubleSequentialCommand(new ScoreMiddleGearCommand(), new ShootFromMiddleGearCommand()));
+    	autonChooser.addObject("Only Score Middle Gear (CV)", new ScoreMiddleGearCommand(true));
+    	autonChooser.addObject("Only Score Middle Gear (No CV)", new ScoreMiddleGearCommand(false));
+    	autonChooser.addObject("Score Middle Gear THEN Approach HP Station", new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ApproachHPFromMiddleGearCommand()));
+    	autonChooser.addObject("Score Middle Gear THEN Shoot", new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ShootFromMiddleGearCommand()));
     	autonChooser.addObject("Only Score Boiler Gear", new ScoreBoilerGearCommand());
     	autonChooser.addObject("Score Boiler Gear THEN Approach HP Station", new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ApproachHPFromBoilerGearCommand()));
     	autonChooser.addObject("Score Boiler Gear THEN Shoot", new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ShootingFromBoilerGearCommand()));

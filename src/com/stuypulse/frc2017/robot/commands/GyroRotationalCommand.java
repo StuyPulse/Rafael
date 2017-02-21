@@ -76,7 +76,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
             desiredAngle = getDesiredAngle();
             onTargetCounter = 0;
             // If it is zero (or close), cancel execution
-            cancelCommand = Math.abs(desiredAngle) < MIN_DEGREES_TO_MOVE;
+            cancelCommand = Math.abs(desiredAngle) < SmartDashboard.getNumber("autorotate-min-degrees");
 
             abort = false;
 

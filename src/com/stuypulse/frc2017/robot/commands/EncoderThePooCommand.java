@@ -81,13 +81,15 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
             speed *= Math.signum(initialInchesToMove);
             double vLeft = speed;
             double vRight = speed;
-            if (Robot.ch.getSelected() && Robot.drivetrain.encoderDistance() > 10.0) {
-                System.err.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                vLeft *= Robot.drivetrain.rightEncoderDistance() / Robot.drivetrain.leftEncoderDistance();
+            if (Robot.ch.getSelected()) {
+                /*if (Robot.drivetrain.encoderDistance() > 10.0) {
+                    System.err.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    vLeft *= Robot.drivetrain.rightEncoderDistance() / Robot.drivetrain.leftEncoderDistance();
+                }//*/
+                if (Math.abs(Robot.drivetrain.rightEncoderDistance() - Robot.drivetrain.leftEncoderDistance()) > 1.0) {
+                    vLeft += 0.1 * Math.signum(Robot.drivetrain.rightEncoderDistance() - Robot.drivetrain.leftEncoderDistance());
+                }//*/
             }
-            /*if (Math.abs(Robot.drivetrain.rightEncoderDistance() - Robot.drivetrain.leftEncoderDistance()) > 1.0) {
-                vLeft += 0.1 * Math.signum(Robot.drivetrain.rightEncoderDistance() - Robot.drivetrain.leftEncoderDistance());
-            }//*/
             if (Robot.ch.getSelected()) {
                 System.out.println("speed: " + speed);
                 System.out.println("  left: " + vLeft);
@@ -124,8 +126,7 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
     }
 
     private double inchesToMove() {
-        // Encoders only return nonnegative values
-        return Math.abs(initialInchesToMove) - Robot.drivetrain.encoderDistance();
+        return initialInchesToMove - Robot.drivetrain.encoderDistance();
     }
 
     // Used in isFinished, end, interrupted
