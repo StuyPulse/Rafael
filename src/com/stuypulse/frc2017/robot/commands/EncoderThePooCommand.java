@@ -4,6 +4,7 @@ import com.stuypulse.frc2017.robot.Robot;
 import com.stuypulse.frc2017.util.BoolBox;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -86,8 +87,8 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
                     System.err.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                     vLeft *= Robot.drivetrain.rightEncoderDistance() / Robot.drivetrain.leftEncoderDistance();
                 }//*/
-                if (Math.abs(Robot.drivetrain.rightEncoderDistance() - Robot.drivetrain.leftEncoderDistance()) > 1.0) {
-                    vLeft += 0.1 * Math.signum(Robot.drivetrain.rightEncoderDistance() - Robot.drivetrain.leftEncoderDistance());
+                if (Math.abs(Robot.drivetrain.rightEncoderDistance() - Robot.drivetrain.leftEncoderDistance()) > SmartDashboard.getNumber("winne-threshold")) {
+                    vLeft += SmartDashboard.getNumber("winne-scale") * Math.signum(Robot.drivetrain.rightEncoderDistance() - Robot.drivetrain.leftEncoderDistance());
                 }//*/
             }
             if (Robot.ch.getSelected()) {

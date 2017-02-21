@@ -133,6 +133,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("delay-one", 0.5);
         SmartDashboard.putNumber("delay-two", 0.5);
         SmartDashboard.putNumber("distance onto peg", CVConstants.PAST_PEG_DISTANCE);
+        SmartDashboard.putNumber("winne-threshold", 0.1);
+        SmartDashboard.putNumber("winne-scale", 0.1);
 
         ch.addDefault("Are you a cloud?", true);
         ch.addObject("Use basic EncoderDrivingCommand", false);
@@ -141,12 +143,13 @@ public class Robot extends IterativeRobot {
 
     private void setupAutonChooser(){
     	autonChooser = new SendableChooser<Command>();
-    	autonChooser.addDefault("Do Nothing", new CommandGroup());
+    	autonChooser.addObject("Do Nothing", new CommandGroup());
     	autonChooser.addObject("Minimal Mobility", new MobilityMinimalCommand());
     	autonChooser.addObject("Minimal Mobility From Middle Gear Start", new MiddleGearMobilityMinimalCommand());
     	autonChooser.addObject("Only Mobility To HP Station", new MobilityToHPCommand());
-    	autonChooser.addObject("Only Score HP Gear", new ScoreHPGearCommand());
-    	autonChooser.addObject("Score HP Gear THEN Approach HP Station", new DoubleSequentialCommand(new ScoreHPGearCommand(), new ApproachHPFromHPGearCommand()));
+    	autonChooser.addObject("Only Score HP Gear (CV)", new ScoreHPGearCommand(true));
+        autonChooser.addDefault("Only Score HP Gear (No CV)", new ScoreHPGearCommand(false));
+    	autonChooser.addObject("Score HP Gear THEN Approach HP Station", new DoubleSequentialCommand(new ScoreHPGearCommand(true), new ApproachHPFromHPGearCommand()));
     	autonChooser.addObject("Only Score Middle Gear (CV)", new ScoreMiddleGearCommand(true));
     	autonChooser.addObject("Only Score Middle Gear (No CV)", new ScoreMiddleGearCommand(false));
     	autonChooser.addObject("Score Middle Gear THEN Approach HP Station", new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ApproachHPFromMiddleGearCommand()));
