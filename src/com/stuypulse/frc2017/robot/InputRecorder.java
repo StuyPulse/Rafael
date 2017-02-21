@@ -1,9 +1,14 @@
 package com.stuypulse.frc2017.robot;
 import java.util.ArrayList;
 import com.stuypulse.frc2017.util.Gamepad;
+
+import edu.wpi.first.wpilibj.command.Subsystem;
+
 import java.util.List;
 
-
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -14,29 +19,29 @@ public class InputRecorder{
 	public Gamepad driverPad;
 	public Gamepad operatorPad;
 	private double duration;
-	private double time;
-	/*/IMPORTANT:
-	
-	*This method has a duration period of when it would record someone's operator and driverpad inputs. The first time it starts recording, it assumes all buttons arent
-	*pressed. If a button is held to the very end of the recording duration, it would automatically record that the button has been released at the end of the duration.
-	*I did not review this code well, so expect a lot of bugs.
-	*
-	*
-	*
-	*/
-	public InputRecorder(double duration) {
+	private double time;//endtime
+	private double starttime;
+	private String path;
+	public InputRecorder(String FilePath) {
+		path = FilePath;
 		driverPad = new Gamepad(RobotMap.DRIVER_PAD_PORT);
 		operatorPad = new Gamepad(RobotMap.OPERATOR_PAD_PORT);
-		this.duration = duration;
-		this.time = duration + System.currentTimeMillis();
 		ArrayList<ArrayList<Boolean>> InputArray = new ArrayList<ArrayList<Boolean>>();
+		InputArray.add(new ArrayList<Boolean>());
 		ArrayList<ArrayList<Double>> InputTimesArray = new ArrayList<ArrayList<Double>>();//0-17 for input types, Double to check each one's time.
+		for(int i = 1; i <=17 ; i++ ){
+			InputTimesArray.add(new ArrayList<Double>());
+		}
+		while(operatorPad.getRawStartButton()){
+			//wait until released
+		}
+		starttime = System.currentTimeMillis();
 		Loop(InputArray, InputTimesArray);
 	}
 	public void Loop( ArrayList<ArrayList<Boolean>>  InputArray,ArrayList<ArrayList<Double>> InputTimesArray){
 		reset(InputArray);
 		int k = 0;
-		while(System.currentTimeMillis() < time){
+		while(!operatorPad.getRawStartButton()){//condition to continue running
 			update(InputArray);
 			while (k <= 17){
 				UpdateInputTime(k, InputArray,InputTimesArray);
@@ -44,6 +49,8 @@ public class InputRecorder{
 			}
 		};
 		CutEndpoint(InputTimesArray);
+		duration = System.currentTimeMillis()-starttime;
+		time = duration + System.currentTimeMillis();
 	}
 	public void UpdateInputTime(int k,ArrayList<ArrayList<Boolean>>  InputArray,ArrayList<ArrayList<Double>> InputTimesArray){
 		if(InputArray.get(1).get(k) != (InputArray.get(0)).get(k)){

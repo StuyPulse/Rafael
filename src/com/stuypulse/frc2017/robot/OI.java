@@ -60,7 +60,6 @@ public class OI {
 	public OI() {
 		driverPad = new Gamepad(RobotMap.DRIVER_PAD_PORT);
 		operatorPad = new Gamepad(RobotMap.OPERATOR_PAD_PORT);
-
 		//DriverPad Bindings
 		//The right bumper is being used to gearshift
 		driverPad.getRightBumper().whenPressed(new DriveTrainLowGearCommand());
