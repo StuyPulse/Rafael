@@ -45,11 +45,11 @@ public class GearPusher extends Subsystem {
 	}
 	
 	public void extend() {
-		push(Value.kForward);
+		push(Value.kReverse);
 	}
 	
 	public void retract() {
-		push(Value.kReverse);
+		push(Value.kForward);
 	}
 
     /**
@@ -57,7 +57,7 @@ public class GearPusher extends Subsystem {
      * @return
      */
     public boolean isPushed() {
-        return position == Value.kForward;
+        return position == Value.kReverse;
     }
 
     /**
@@ -65,7 +65,7 @@ public class GearPusher extends Subsystem {
      * @return
      */
     public boolean isRetracted() {
-        return position == Value.kReverse;
+        return position == Value.kForward;
     }
 
 }

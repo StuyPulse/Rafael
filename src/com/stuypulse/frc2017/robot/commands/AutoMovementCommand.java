@@ -10,60 +10,53 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 abstract public class AutoMovementCommand extends Command {
 
-    private boolean forceStoppedLocal;
     private BoolBox forceStoppedController;
-    private boolean usingController;
 
     public AutoMovementCommand() {
-        forceStoppedLocal = false;
-        usingController = false;
+        forceStoppedController = Robot.stopAutoMovement;
     }
 
     public AutoMovementCommand(BoolBox controller) {
         forceStoppedController = controller;
-        usingController = true;
     }
 
-    protected boolean getForceStopped() {
-        if (forceStoppedController == null) {
-            return forceStoppedLocal;
-        }
+    public boolean getForceStopped() {
         return forceStoppedController.get();
     }
 
-    private void setForceStopped(boolean newVal) {
-        if (forceStoppedController == null) {
-            forceStoppedLocal = newVal;
-        } else {
-            forceStoppedController.set(newVal);
-        }
-    }
-
-
     // Called just before this Command runs the first time
-    protected void initialize() {
-        if (!usingController) {
-            forceStoppedLocal = false;
-        }
-    }
+    @Override
+    abstract protected void initialize();
 
     // Called repeatedly when this Command is scheduled to run
+    /**
+     * Updates the forceStoppedController and calls inferiorExecute
+     * if execution was not force-stopped.
+     */
+    @Override
     protected void execute() {
         if (Robot.oi.driverIsOverriding()) {
-            setForceStopped(true);
+            forceStoppedController.set(true);
+        }
+        if (!getForceStopped()) {
+            inferiorExecute();
         }
     }
 
+    /**
+     * Called in execute() only if Command was not force stopped.
+     */
+    abstract protected void inferiorExecute();
+
+    @Override
     abstract protected boolean isFinished();
 
-    protected boolean externallyStopped() {
-        return forceStoppedController != null && forceStoppedController.get();
-    }
-
     // Called once after isFinished returns true
+    @Override
     abstract protected void end();
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
+    @Override
     abstract protected void interrupted();
 }

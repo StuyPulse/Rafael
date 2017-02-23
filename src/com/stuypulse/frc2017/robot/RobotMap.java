@@ -21,8 +21,8 @@ public interface RobotMap {
     ////////////////////////////////////////////////////////////////////////////
     // CAMERA PORTS: ///////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
-    int BOILER_CAMERA_PORT = 0;
-    int LIFT_CAMERA_PORT = 1;
+    int BOILER_CAMERA_PORT = 1;
+    int LIFT_CAMERA_PORT = 0;
 
     ////////////////////////////////////////////////////////////////////////////
     // GAMEPAD PORTS: //////////////////////////////////////////////////////////
@@ -39,7 +39,7 @@ public interface RobotMap {
     int RIGHT_TOP_MOTOR_PORT = 3;
     int RIGHT_BOTTOM_MOTOR_PORT = 4;
 
-    int DRIVETRAIN_ENCODERS_PULSES_PER_REVOLUTION = 256; // TODO: Test value
+    int DRIVETRAIN_ENCODERS_PULSES_PER_REVOLUTION = 256;
     double DRIVETRAIN_WHEEL_DIAMETER = 4.0;
     double DRIVETRAIN_ENCODERS_FACTOR = 4.0; // output must be scaled *down* by 4 due to type of encoder
     double DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION = Math.PI * DRIVETRAIN_WHEEL_DIAMETER;
@@ -53,7 +53,7 @@ public interface RobotMap {
     // Shooter
     int SHOOTER_MOTOR_A_PORT = 7;
     int SHOOTER_MOTOR_B_PORT = 8;
-    
+
     int SHOOTER_ENCODER_PULSES_PER_REVOLUTION =  1024;
 
     // Winch
@@ -84,7 +84,7 @@ public interface RobotMap {
     ////////////////////////////////////////////////////////////////////////////
 
     // Time between trapping gear and pushing gear, at start of auton
-    double AUTON_INIT_DELAY_BEFORE_PUSH_GEAR = 0.1; // TODO: tune value
+    double DELAY_AFTER_PUSH_GEAR = 0.1; // TODO: tune value
 
     // TODO: this is used from two commands; confirm it works for both
     double BOILER_TO_HOPPER_BACKUP_DISTANCE = -158.4;
@@ -109,13 +109,13 @@ public interface RobotMap {
     // LEDS: ///////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     // Ports
-    int BLENDER_LED_PORT = 0;
-    int GEAR_LED_PORT = 8;
-    // The third LED is (supposed to be) on port 9, for future use.
+    int BLENDER_LED_PORT = 9;
+    int GEAR_LED_PORT = 8; // for when gear is in robot
+    // The third LED is (supposed to be) on port 10, for future use. // port 10 means port 0 on NavX (see DigitalIO docs)
 
     // On-values (i.e. which bit to send to indicate to turn the LED on)
-    // TODO: test these values
     boolean BLENDER_LED_ON_VALUE = true;
+    // TODO: test gear led on-value
     boolean GEAR_LED_ON_VALUE = true;
 
     ////////////////////////////////////////////////////////////////////////////
@@ -124,7 +124,7 @@ public interface RobotMap {
     int IR_SENSOR_PORT = 0;
     double IR_SENSOR_THRESHOLD = 3.5;
     double IR_TIME_IN_MECHANISM_THRESHOLD = 1.0;
-    
+
     double EQUATION_FACTOR = 12.23368994;
 	double EQUATION_EXPONENT = -0.9779601588;
 	double CONVERSION_FACTOR_CM_TO_INCHES = 0.393701;

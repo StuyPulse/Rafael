@@ -27,11 +27,11 @@ public class Drivetrain extends Subsystem {
 	private CANTalon rightTopMotor;
 	private CANTalon leftBottomMotor;
     private CANTalon rightBottomMotor;
-    
+
     private Solenoid gearShift;
-    
+
     private RobotDrive robotDrive;
-    
+
     private boolean shifted;
     private AHRS gyro;
 
@@ -59,15 +59,15 @@ public class Drivetrain extends Subsystem {
 
     	leftTopMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	rightTopMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-    	
+
     	shifted = false;
-    	
+
     	robotDrive = new RobotDrive(leftBottomMotor, leftTopMotor, rightBottomMotor, rightTopMotor);
 
     	//Encoders are located on the top motors on either of the motor complexes located on the left/right hemispheres.
     	leftTopMotor.configEncoderCodesPerRev(RobotMap.DRIVETRAIN_ENCODERS_PULSES_PER_REVOLUTION);
     	rightTopMotor.configEncoderCodesPerRev(RobotMap.DRIVETRAIN_ENCODERS_PULSES_PER_REVOLUTION);
-    	
+
     	gyro = new AHRS(SPI.Port.kMXP);
     	resetGyro();
     }
@@ -88,11 +88,11 @@ public class Drivetrain extends Subsystem {
     public double gyroAngle() {
         return gyro.getAngle();
     }
-    
+
     public void resetGyro() {
         gyro.reset();
     }
-    
+
     public void resetEncoders() {
     	leftTopMotor.reset();
     	rightTopMotor.reset();
@@ -101,7 +101,7 @@ public class Drivetrain extends Subsystem {
     	leftTopMotor.setPosition(0);
     	rightTopMotor.setPosition(0);
     }
-    
+
     public double encoderDistance() {
     	return Math.max( leftEncoderDistance() , rightEncoderDistance() );
     }
@@ -125,24 +125,24 @@ public class Drivetrain extends Subsystem {
     public void highGearShift() {
         gearShift.set(false);
     }
-    
+
     public void lowGearShift() {
         gearShift.set(true);
     }
-    
+
     public double getLeftTopMotorCurrent(){
         return leftTopMotor.getOutputCurrent();
     }
-    
+
     public double getRightBottomMotorCurrent(){
         return rightBottomMotor.getOutputCurrent();
     }
     public double getLeftBottomMotorCurrent(){
         return leftBottomMotor.getOutputCurrent();
     }
-    
+
     public double getRightTopMotorCurrent(){
         return rightTopMotor.getOutputCurrent();
     }
-    
+
 }

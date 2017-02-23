@@ -1,30 +1,22 @@
-package com.stuypulse.frc2017.robot.commands;
+package com.stuypulse.frc2017.robot.commands.cv;
+
+import com.stuypulse.frc2017.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class DelaySecondsCommand extends Command {
+public class ResetForceStopCommand extends Command {
 
-    private double time;
-
-    public DelaySecondsCommand(double seconds) {
-    	setTimeout(seconds);
-    	time = seconds;
-    }
-
-    public DelaySecondsCommand(double seconds, Subsystem toRequire) {
-        requires(toRequire);
-        setTimeout(seconds);
-        time = seconds;
+    public ResetForceStopCommand() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        setTimeout(time);
+        Robot.stopAutoMovement.set(false);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -33,7 +25,7 @@ public class DelaySecondsCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return isTimedOut();
+        return true;
     }
 
     // Called once after isFinished returns true
