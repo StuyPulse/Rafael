@@ -12,12 +12,12 @@ public class BallGateOpenCommand extends Command {
     public BallGateOpenCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.ballgate); 
+        requires(Robot.ballgate);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.ballgate.open();
+        Robot.ballgate.open();
     }
 
     // Called repeatedly when this Command is scheduled to run

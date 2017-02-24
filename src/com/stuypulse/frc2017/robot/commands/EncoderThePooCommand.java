@@ -1,7 +1,6 @@
 package com.stuypulse.frc2017.robot.commands;
 
 import com.stuypulse.frc2017.robot.Robot;
-import com.stuypulse.frc2017.util.BoolBox;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,7 +32,8 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
     protected void initialize() {
         try {
             if (getForceStopped()) {
-                System.out.println("[EncoderDrivingCommand] Quitting in initialize(), because auto-movement is force-stopped.");
+                System.out.println(
+                        "[EncoderDrivingCommand] Quitting in initialize(), because auto-movement is force-stopped.");
                 return;
             }
             Robot.drivetrain.resetEncoders();
@@ -87,8 +87,10 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
                     System.err.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                     vLeft *= Robot.drivetrain.rightEncoderDistance() / Robot.drivetrain.leftEncoderDistance();
                 }//*/
-                if (Math.abs(Robot.drivetrain.rightEncoderDistance() - Robot.drivetrain.leftEncoderDistance()) > SmartDashboard.getNumber("winne-threshold")) {
-                    vLeft += SmartDashboard.getNumber("winne-scale") * Math.signum(Robot.drivetrain.rightEncoderDistance() - Robot.drivetrain.leftEncoderDistance());
+                if (Math.abs(Robot.drivetrain.rightEncoderDistance()
+                        - Robot.drivetrain.leftEncoderDistance()) > SmartDashboard.getNumber("winne-threshold")) {
+                    vLeft += SmartDashboard.getNumber("winne-scale") * Math
+                            .signum(Robot.drivetrain.rightEncoderDistance() - Robot.drivetrain.leftEncoderDistance());
                 }//*/
             }
             if (Robot.ch.getSelected()) {

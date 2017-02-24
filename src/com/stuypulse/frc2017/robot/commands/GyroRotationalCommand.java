@@ -3,7 +3,6 @@ package com.stuypulse.frc2017.robot.commands;
 import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_VIEWING_ANGLE_X;
 
 import com.stuypulse.frc2017.robot.Robot;
-import com.stuypulse.frc2017.util.BoolBox;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;;
 
@@ -11,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;;
  * Abstract command for rotating a certain number of degrees.
  * The angle to rotate is determined at runtime during initialize,
  * by the abstract method <code>getDesiredAngle</code>
+ * 
  * @author Berkow
  *
  */
@@ -67,7 +67,8 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
             // If we received a forceStoppedBox controller and it is already
             // true, stop immediately.
             if (getForceStopped()) {
-                System.out.println("[GyroRotationalCommand] Quitting in initialize(), because auto-movement is force-stopped.");
+                System.out.println(
+                        "[GyroRotationalCommand] Quitting in initialize(), because auto-movement is force-stopped.");
                 return;
             }
             Robot.drivetrain.resetGyro();
@@ -92,6 +93,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     // DECREASE these if it is UNDERshooting
     private double TUNE_FACTOR = 1;//.1;
     private double TUNE_OFFSET = 0.0;
+
     private double angleMoved() {
         double gyro = Robot.drivetrain.gyroAngle();
         // TODO: the gyro > 180 condition accounted for
@@ -122,7 +124,8 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
                     : SmartDashboard.getNumber("autorotate-speed");
             double speed = gentleRotate
                     ? baseSpeed + SmartDashboard.getNumber("autorotate-range") * Math.pow(howMuchWeHaveToGo(), 2)
-                    : baseSpeed + SmartDashboard.getNumber("autorotate-gentle-range") * Math.pow(howMuchWeHaveToGo(), 2);
+                    : baseSpeed
+                            + SmartDashboard.getNumber("autorotate-gentle-range") * Math.pow(howMuchWeHaveToGo(), 2);
             // left is negative when turning left
             boolean turnLeft = degreesToMove() < 0.0;
             printInfo(speed, baseSpeed, turnLeft);

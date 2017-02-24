@@ -54,7 +54,7 @@ public interface RobotMap {
     int SHOOTER_MOTOR_A_PORT = 7;
     int SHOOTER_MOTOR_B_PORT = 8;
 
-    int SHOOTER_ENCODER_PULSES_PER_REVOLUTION =  1024;
+    int SHOOTER_ENCODER_PULSES_PER_REVOLUTION = 1024;
 
     // Winch
     int WINCH_MOTOR_PORT = 5;
@@ -126,8 +126,8 @@ public interface RobotMap {
     double IR_TIME_IN_MECHANISM_THRESHOLD = 1.0;
 
     double EQUATION_FACTOR = 12.23368994;
-	double EQUATION_EXPONENT = -0.9779601588;
-	double CONVERSION_FACTOR_CM_TO_INCHES = 0.393701;
+    double EQUATION_EXPONENT = -0.9779601588;
+    double CONVERSION_FACTOR_CM_TO_INCHES = 0.393701;
 
     ////////////////////////////////////////////////////////////////////////////
     // PIOTR DRIVE: //////////////////////////////////////////////////////////////
@@ -135,4 +135,3 @@ public interface RobotMap {
     double PIOTR_DRIVE_MARGIN_OF_ERROR = -0.001;
     double PIOTR_DRIVE_TURN_ADJUSTMENT = 0.1;
 }
-

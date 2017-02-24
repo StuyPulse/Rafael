@@ -18,8 +18,8 @@ public class BlenderStopCommand extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
         Robot.ballgate.close();
-    	Robot.blender.stop();
-        
+        Robot.blender.stop();
+
     }
 
     // Called repeatedly when this Command is scheduled to run

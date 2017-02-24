@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class DoubleSequentialCommand extends CommandGroup {
-    
+
     public DoubleSequentialCommand(Command firstCommand, Command secondCommand) {
         // Add Commands here:
         // e.g. addSequential(new Command1());
@@ -25,8 +25,8 @@ public class DoubleSequentialCommand extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(firstCommand);
-    	addSequential(secondCommand);
-    	
+        addSequential(firstCommand);
+        addSequential(secondCommand);
+
     }
 }

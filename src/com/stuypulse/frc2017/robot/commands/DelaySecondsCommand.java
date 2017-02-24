@@ -2,7 +2,6 @@ package com.stuypulse.frc2017.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -12,8 +11,8 @@ public class DelaySecondsCommand extends Command {
     private double time;
 
     public DelaySecondsCommand(double seconds) {
-    	setTimeout(seconds);
-    	time = seconds;
+        setTimeout(seconds);
+        time = seconds;
     }
 
     public DelaySecondsCommand(double seconds, Subsystem toRequire) {
@@ -33,7 +32,7 @@ public class DelaySecondsCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return isTimedOut();
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true

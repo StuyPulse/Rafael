@@ -20,12 +20,12 @@ public class Drivetrain extends Subsystem {
     /**
      * Talon for left top motor. Has encoder on it.
      */
-	private CANTalon leftTopMotor;
+    private CANTalon leftTopMotor;
     /**
      * Talon for right top motor. Has encoder on it.
      */
-	private CANTalon rightTopMotor;
-	private CANTalon leftBottomMotor;
+    private CANTalon rightTopMotor;
+    private CANTalon leftBottomMotor;
     private CANTalon rightBottomMotor;
 
     private Solenoid gearShift;
@@ -35,15 +35,14 @@ public class Drivetrain extends Subsystem {
     private boolean shifted;
     private AHRS gyro;
 
-
-	// Put methods for controlling this subsystem
+    // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
     public Drivetrain() {
-    	leftTopMotor = new CANTalon(RobotMap.LEFT_TOP_MOTOR_PORT);
-    	rightTopMotor = new CANTalon(RobotMap.RIGHT_TOP_MOTOR_PORT);
-    	leftBottomMotor = new CANTalon(RobotMap.LEFT_BOTTOM_MOTOR_PORT);
-    	rightBottomMotor = new CANTalon(RobotMap.RIGHT_BOTTOM_MOTOR_PORT);
+        leftTopMotor = new CANTalon(RobotMap.LEFT_TOP_MOTOR_PORT);
+        rightTopMotor = new CANTalon(RobotMap.RIGHT_TOP_MOTOR_PORT);
+        leftBottomMotor = new CANTalon(RobotMap.LEFT_BOTTOM_MOTOR_PORT);
+        rightBottomMotor = new CANTalon(RobotMap.RIGHT_BOTTOM_MOTOR_PORT);
 
         leftTopMotor.enableBrakeMode(true);
         rightTopMotor.enableBrakeMode(true);
@@ -55,21 +54,21 @@ public class Drivetrain extends Subsystem {
         leftBottomMotor.setInverted(true);
         rightBottomMotor.setInverted(true);
 
-    	gearShift = new Solenoid(RobotMap.GEAR_SHIFT_SOLENOID_PORT);
+        gearShift = new Solenoid(RobotMap.GEAR_SHIFT_SOLENOID_PORT);
 
-    	leftTopMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-    	rightTopMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        leftTopMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        rightTopMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 
-    	shifted = false;
+        shifted = false;
 
-    	robotDrive = new RobotDrive(leftBottomMotor, leftTopMotor, rightBottomMotor, rightTopMotor);
+        robotDrive = new RobotDrive(leftBottomMotor, leftTopMotor, rightBottomMotor, rightTopMotor);
 
-    	//Encoders are located on the top motors on either of the motor complexes located on the left/right hemispheres.
-    	leftTopMotor.configEncoderCodesPerRev(RobotMap.DRIVETRAIN_ENCODERS_PULSES_PER_REVOLUTION);
-    	rightTopMotor.configEncoderCodesPerRev(RobotMap.DRIVETRAIN_ENCODERS_PULSES_PER_REVOLUTION);
+        //Encoders are located on the top motors on either of the motor complexes located on the left/right hemispheres.
+        leftTopMotor.configEncoderCodesPerRev(RobotMap.DRIVETRAIN_ENCODERS_PULSES_PER_REVOLUTION);
+        rightTopMotor.configEncoderCodesPerRev(RobotMap.DRIVETRAIN_ENCODERS_PULSES_PER_REVOLUTION);
 
-    	gyro = new AHRS(SPI.Port.kMXP);
-    	resetGyro();
+        gyro = new AHRS(SPI.Port.kMXP);
+        resetGyro();
     }
 
     public void initDefaultCommand() {
@@ -78,11 +77,11 @@ public class Drivetrain extends Subsystem {
     }
 
     public void tankDrive(double left, double right) {
-    	robotDrive.tankDrive(left, right);
+        robotDrive.tankDrive(left, right);
     }
 
     public void stop() {
-    	tankDrive(0,0);
+        tankDrive(0, 0);
     }
 
     public double gyroAngle() {
@@ -94,32 +93,34 @@ public class Drivetrain extends Subsystem {
     }
 
     public void resetEncoders() {
-    	leftTopMotor.reset();
-    	rightTopMotor.reset();
-    	leftTopMotor.enable();
-    	rightTopMotor.enable();
-    	leftTopMotor.setPosition(0);
-    	rightTopMotor.setPosition(0);
+        leftTopMotor.reset();
+        rightTopMotor.reset();
+        leftTopMotor.enable();
+        rightTopMotor.enable();
+        leftTopMotor.setPosition(0);
+        rightTopMotor.setPosition(0);
     }
 
     public double encoderDistance() {
-    	return Math.max( leftEncoderDistance() , rightEncoderDistance() );
+        return Math.max(leftEncoderDistance(), rightEncoderDistance());
     }
 
     public double leftEncoderDistance() {
-        return (leftTopMotor.getPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION) / RobotMap.DRIVETRAIN_ENCODERS_FACTOR;
+        return (leftTopMotor.getPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION)
+                / RobotMap.DRIVETRAIN_ENCODERS_FACTOR;
     }
 
     public double rightEncoderDistance() {
         // Distance is scaled by -1.0 because right encoder was reporting
         // incorrect (negated) values
-        return -1.0 * (rightTopMotor.getPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION) / RobotMap.DRIVETRAIN_ENCODERS_FACTOR;
+        return -1.0 * (rightTopMotor.getPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION)
+                / RobotMap.DRIVETRAIN_ENCODERS_FACTOR;
     }
 
     //Sets the solenoid to a shifted state manually
     public void manualGearShift(boolean shift) {
-    	gearShift.set(shift);
-    	shifted = shift;
+        gearShift.set(shift);
+        shifted = shift;
     }
 
     public void highGearShift() {
@@ -130,18 +131,19 @@ public class Drivetrain extends Subsystem {
         gearShift.set(true);
     }
 
-    public double getLeftTopMotorCurrent(){
+    public double getLeftTopMotorCurrent() {
         return leftTopMotor.getOutputCurrent();
     }
 
-    public double getRightBottomMotorCurrent(){
+    public double getRightBottomMotorCurrent() {
         return rightBottomMotor.getOutputCurrent();
     }
-    public double getLeftBottomMotorCurrent(){
+
+    public double getLeftBottomMotorCurrent() {
         return leftBottomMotor.getOutputCurrent();
     }
 
-    public double getRightTopMotorCurrent(){
+    public double getRightTopMotorCurrent() {
         return rightTopMotor.getOutputCurrent();
     }
 

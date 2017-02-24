@@ -12,12 +12,12 @@ public class BallGateCloseCommand extends Command {
     public BallGateCloseCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.ballgate);
+        requires(Robot.ballgate);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.ballgate.close();
+        Robot.ballgate.close();
     }
 
     // Called repeatedly when this Command is scheduled to run

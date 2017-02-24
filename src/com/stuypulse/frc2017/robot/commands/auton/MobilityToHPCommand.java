@@ -11,8 +11,8 @@ public class MobilityToHPCommand extends CommandGroup {
     public static final double MOBILITY_TO_NEUTRAL_ZONE_DISTANCE = 415.3;//427.3 - 12 inches deviation
 
     public MobilityToHPCommand() {
-    	
-    	addSequential(new DriveForwardEncodersCommand(MOBILITY_TO_NEUTRAL_ZONE_DISTANCE));
+
+        addSequential(new DriveForwardEncodersCommand(MOBILITY_TO_NEUTRAL_ZONE_DISTANCE));
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

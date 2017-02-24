@@ -1,8 +1,6 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
 import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
-import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
-import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 import com.stuypulse.frc2017.robot.commands.ScoreGearCommand;

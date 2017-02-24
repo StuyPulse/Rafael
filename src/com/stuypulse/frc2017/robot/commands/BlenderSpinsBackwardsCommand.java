@@ -12,14 +12,14 @@ public class BlenderSpinsBackwardsCommand extends Command {
     public BlenderSpinsBackwardsCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	   requires(Robot.blender);
-           requires(Robot.ballgate);
+        requires(Robot.blender);
+        requires(Robot.ballgate);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.ballgate.open();
-    	Robot.blender.runBackwards();
+        Robot.ballgate.open();
+        Robot.blender.runBackwards();
     }
 
     // Called repeatedly when this Command is scheduled to run

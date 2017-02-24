@@ -34,7 +34,8 @@ public class DriveVectorPathCommand extends CommandGroup {
         DriveForwardEncodersCommand driveToFirstVector = new DriveForwardEncodersCommand();
         DriveForwardEncodersCommand driveToSecondVector = new DriveForwardEncodersCommand();
 
-        addSequential(new UpdateVectorCommandsCommand(rotateToFirstVector, driveToFirstVector, rotateToSecondVector, driveToSecondVector));
+        addSequential(new UpdateVectorCommandsCommand(rotateToFirstVector, driveToFirstVector, rotateToSecondVector,
+                driveToSecondVector));
         addSequential(rotateToFirstVector);
         addSequential(driveToFirstVector);
 
@@ -50,8 +51,9 @@ class UpdateVectorCommandsCommand extends InstantCommand {
     private RotateDegreesGyroCommand rotateToSecondVector;
     private DriveForwardEncodersCommand driveToSecondVector;
 
-    public UpdateVectorCommandsCommand(RotateDegreesGyroCommand rotateToFirstVector, DriveForwardEncodersCommand driveToFirstVector,
-                                       RotateDegreesGyroCommand rotateToSecondVector, DriveForwardEncodersCommand driveToSecondVector) {
+    public UpdateVectorCommandsCommand(RotateDegreesGyroCommand rotateToFirstVector,
+            DriveForwardEncodersCommand driveToFirstVector,
+            RotateDegreesGyroCommand rotateToSecondVector, DriveForwardEncodersCommand driveToSecondVector) {
         this.rotateToFirstVector = rotateToFirstVector;
         this.driveToFirstVector = driveToFirstVector;
         this.rotateToSecondVector = rotateToSecondVector;

@@ -12,12 +12,12 @@ public class WinchStopMotorCommand extends Command {
     public WinchStopMotorCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.winch);
+        requires(Robot.winch);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.winch.stopWinch();
+        Robot.winch.stopWinch();
     }
 
     // Called repeatedly when this Command is scheduled to run

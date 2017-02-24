@@ -12,12 +12,12 @@ public class GearPusherRetractGearCommand extends Command {
     public GearPusherRetractGearCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.gearpusher);
+        requires(Robot.gearpusher);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.gearpusher.retract();
+        Robot.gearpusher.retract();
     }
 
     // Called repeatedly when this Command is scheduled to run

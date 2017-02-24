@@ -1,8 +1,6 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
 import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
-import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
-import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 import com.stuypulse.frc2017.robot.commands.ScoreGearCommand;
@@ -20,25 +18,25 @@ public class ScoreHPGearCommand extends CommandGroup {
     public static final double AFTER_TURN_TO_HP_GEAR_DISTANCE = 19;
     public static final double HP_GEAR_REVERSE_DISTANCE = -6;
 
-    public  ScoreHPGearCommand(boolean useCV) {
+    public ScoreHPGearCommand(boolean useCV) {
 
-    	int direction;
-		if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
-			direction = 1;
-		} else {
-			direction = -1;
-		}
-		addSequential(new DriveForwardEncodersCommand(START_TO_HP_GEAR_TURN_DISTANCE));
-		addSequential(new RotateDegreesGyroCommand(direction * HP_GEAR_TURN_TO_HP_GEAR_ANGLE));
+        int direction;
+        if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
+            direction = 1;
+        } else {
+            direction = -1;
+        }
+        addSequential(new DriveForwardEncodersCommand(START_TO_HP_GEAR_TURN_DISTANCE));
+        addSequential(new RotateDegreesGyroCommand(direction * HP_GEAR_TURN_TO_HP_GEAR_ANGLE));
 
-		if (useCV) {
-		    addSequential(new SetupForGearCommand());
-		} else {
-		    addSequential(new DriveForwardEncodersCommand(AFTER_TURN_TO_HP_GEAR_DISTANCE));
-		}
+        if (useCV) {
+            addSequential(new SetupForGearCommand());
+        } else {
+            addSequential(new DriveForwardEncodersCommand(AFTER_TURN_TO_HP_GEAR_DISTANCE));
+        }
 
         addSequential(new ScoreGearCommand());
-		addSequential(new DriveForwardEncodersCommand(HP_GEAR_REVERSE_DISTANCE));
-		addSequential(new GearTrapTrapGearCommand());
+        addSequential(new DriveForwardEncodersCommand(HP_GEAR_REVERSE_DISTANCE));
+        addSequential(new GearTrapTrapGearCommand());
     }
 }

@@ -1,8 +1,8 @@
 package com.stuypulse.frc2017.robot.cv;
 
-import static com.stuypulse.frc2017.robot.CVConstants.BOILER_TARGET_HEIGHT;
 import static com.stuypulse.frc2017.robot.CVConstants.BOILER_CAMERA_TILT_ANGLE;
 import static com.stuypulse.frc2017.robot.CVConstants.BOILER_CAMERA_Y;
+import static com.stuypulse.frc2017.robot.CVConstants.BOILER_TARGET_HEIGHT;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ import stuyvision.gui.DoubleSliderVariable;
 import stuyvision.gui.IntegerSliderVariable;
 
 public class BoilerVision extends VisionModule {
-    public IntegerSliderVariable minHue = new IntegerSliderVariable("Min Hue", 64,  0, 255);
+    public IntegerSliderVariable minHue = new IntegerSliderVariable("Min Hue", 64, 0, 255);
     public IntegerSliderVariable maxHue = new IntegerSliderVariable("Max Hue", 95, 0, 255);
 
     public IntegerSliderVariable minSaturation = new IntegerSliderVariable("Min Saturation", 160, 0, 255);
@@ -47,7 +47,7 @@ public class BoilerVision extends VisionModule {
 
     /**
      * @return {@code double[]} containing the distance and angle to the boiler
-     * or {@code null} if we failed to see the targets
+     *         or {@code null} if we failed to see the targets
      */
     public double[] processImage() {
         if (boilerCamera == null) {
@@ -70,7 +70,8 @@ public class BoilerVision extends VisionModule {
     }
 
     /**
-     * @param frame The frame containing the unfiltered image to be processed
+     * @param frame
+     *            The frame containing the unfiltered image to be processed
      * @return {@code Mat} with everything but the boiler targets filtered out
      */
     public Mat filterBoiler(Mat frame) {
@@ -98,7 +99,8 @@ public class BoilerVision extends VisionModule {
         Imgproc.erode(channels.get(0), channels.get(0), erodeKernel);
 
         // Filter the saturation channel
-        Core.inRange(channels.get(1), new Scalar(minSaturation.value()), new Scalar(maxSaturation.value()), channels.get(1));
+        Core.inRange(channels.get(1), new Scalar(minSaturation.value()), new Scalar(maxSaturation.value()),
+                channels.get(1));
         if (hasGuiApp()) {
             postImage(channels.get(1), "Saturation-Filtered Frame");
         }
@@ -127,10 +129,13 @@ public class BoilerVision extends VisionModule {
     }
 
     /**
-     * @param original The original, unfiltered frame
-     * @param filtered The frame after filtering out the boiler targets
-     * @return {@code double[]} containing the x offset, y offset, and angle to targets (from the center of the image)
-     * or {@code null} if we failed to see the targets
+     * @param original
+     *            The original, unfiltered frame
+     * @param filtered
+     *            The frame after filtering out the boiler targets
+     * @return {@code double[]} containing the x offset, y offset, and angle to
+     *         targets (from the center of the image)
+     *         or {@code null} if we failed to see the targets
      */
     public double[] getBoilerTargets(Mat original, Mat filtered) {
 
@@ -146,7 +151,7 @@ public class BoilerVision extends VisionModule {
 
             // boundingRect strategy
             MatOfPoint2f contour2f = new MatOfPoint2f(contours.get(i).toArray());
-            double approxDistance = Imgproc.arcLength(contour2f, true)*0.02;
+            double approxDistance = Imgproc.arcLength(contour2f, true) * 0.02;
             Imgproc.approxPolyDP(contour2f, approxCurve, approxDistance, true);
             MatOfPoint points = new MatOfPoint(approxCurve.toArray());
 
@@ -168,14 +173,15 @@ public class BoilerVision extends VisionModule {
         // Create a bounding rectangle around the two detected rectangles
         MatOfPoint p = new MatOfPoint(pointsList.toArray(new Point[pointsList.size()]));
         Rect combined = Imgproc.boundingRect(p);
-        Point center = new Point(combined.x+combined.width/2, combined.y+combined.height/2);
+        Point center = new Point(combined.x + combined.width / 2, combined.y + combined.height / 2);
 
         if (hasGuiApp()) {
             double w = drawn.width();
             double h = drawn.height();
-            Imgproc.rectangle(drawn, new Point(combined.x, combined.y), new Point(combined.x+combined.width, combined.y+combined.height), new Scalar(0, 255, 0), 1);
+            Imgproc.rectangle(drawn, new Point(combined.x, combined.y),
+                    new Point(combined.x + combined.width, combined.y + combined.height), new Scalar(0, 255, 0), 1);
             Imgproc.circle(drawn, center, 1, new Scalar(0, 0, 255), 2);
-            Imgproc.line(drawn, new Point(w/2, h/2), center, new Scalar(0, 0, 255));
+            Imgproc.line(drawn, new Point(w / 2, h / 2), center, new Scalar(0, 0, 255));
         }
 
         double[] vector = new double[3];
@@ -201,9 +207,12 @@ public class BoilerVision extends VisionModule {
     }
 
     /**
-     * @param width The width of the object
-     * @param height The height of the object
-     * @return {@code true} if the aspect ratio is in range, {@code false} otherwise
+     * @param width
+     *            The width of the object
+     * @param height
+     *            The height of the object
+     * @return {@code true} if the aspect ratio is in range, {@code false}
+     *         otherwise
      */
     public boolean aspectRatioThreshold(double width, double height) {
         // Boiler targets are always wider than they are tall
@@ -215,7 +224,9 @@ public class BoilerVision extends VisionModule {
     }
 
     /**
-     * @param y The y coordinate of the center of the boiler target from the center of the frame
+     * @param y
+     *            The y coordinate of the center of the boiler target from the
+     *            center of the frame
      * @return Distance from the boiler in inches
      */
     public static double getDistanceToBoiler(double y) {
@@ -224,14 +235,15 @@ public class BoilerVision extends VisionModule {
     }
 
     /**
-     * @param height Height of the boiler target frome the center of the frame
+     * @param height
+     *            Height of the boiler target frome the center of the frame
      * @return Vertical angle to the boiler
      */
     public static double yInFrameToDegreesFromHorizon(double height) {
         return BOILER_CAMERA_TILT_ANGLE - Camera.frameYPxToDegrees(height);
     }
 
-    public DeviceCaptureSource getBoilerCamera(){
-    	return boilerCamera;
+    public DeviceCaptureSource getBoilerCamera() {
+        return boilerCamera;
     }
 }

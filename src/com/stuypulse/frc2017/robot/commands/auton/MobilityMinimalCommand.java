@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class MobilityMinimalCommand extends CommandGroup {
 
     public static final double MOBILITY_TO_BASELINE_DISTANCE = 93.3;
-    
-    public  MobilityMinimalCommand() {
+
+    public MobilityMinimalCommand() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -28,23 +28,9 @@ public class MobilityMinimalCommand extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    		
-    	/*if (middleGear && isRedAlliance){
-    		addSequential(new DriveForwardEncodersCommand(RobotMap.START_TO_MOBILITY_TURN_DISTANCE));
-    		addSequential(new RotateDegreesGyroCommand(RobotMap.START_TO_MOBILITY_TURN_ANGLE));
-    		addSequential(new DriveForwardEncodersCommand(RobotMap.MOBILITY_TURN_DISTANCE));
-    		addSequential(new RotateDegreesGyroCommand(RobotMap.MOBILITY_TURN_ANGLE));
-    		addSequential(new DriveForwardEncodersCommand(RobotMap.END_MOBILITY_TURN_DISTANCE));
-    	}else if(middleGear && !isRedAlliance){
-    		addSequential(new DriveForwardEncodersCommand(RobotMap.START_TO_MOBILITY_TURN_DISTANCE));
-    		addSequential(new RotateDegreesGyroCommand(-1 * RobotMap.START_TO_MOBILITY_TURN_ANGLE));
-    		addSequential(new DriveForwardEncodersCommand(RobotMap.MOBILITY_TURN_DISTANCE));
-    		addSequential(new RotateDegreesGyroCommand(-1 * RobotMap.MOBILITY_TURN_ANGLE));
-    		addSequential(new DriveForwardEncodersCommand(RobotMap.END_MOBILITY_TURN_DISTANCE));
-    	*/
-    	addSequential(new DriveForwardEncodersCommand(MOBILITY_TO_BASELINE_DISTANCE));
-    	
-    }
-    	
+
+        addSequential(new DriveForwardEncodersCommand(MOBILITY_TO_BASELINE_DISTANCE));
+
     }
 
+}

@@ -12,12 +12,12 @@ public class GearPusherToggleCommand extends Command {
     public GearPusherToggleCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.gearpusher);
+        requires(Robot.gearpusher);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.gearpusher.toggle();
+        Robot.gearpusher.toggle();
     }
 
     // Called repeatedly when this Command is scheduled to run

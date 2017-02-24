@@ -11,13 +11,13 @@ public class BallGateToggleCommand extends Command {
 
     public BallGateToggleCommand() {
         // Use requires() here to declare subsystem dependencies
-    	// Eg: requires(Robot.ballgate);
-    	requires(Robot.ballgate);
+        // Eg: requires(Robot.ballgate);
+        requires(Robot.ballgate);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.ballgate.toggle();
+        Robot.ballgate.toggle();
     }
 
     // Called repeatedly when this Command is scheduled to run

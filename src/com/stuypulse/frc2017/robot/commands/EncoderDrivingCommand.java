@@ -1,7 +1,6 @@
 package com.stuypulse.frc2017.robot.commands;
 
 import com.stuypulse.frc2017.robot.Robot;
-import com.stuypulse.frc2017.util.BoolBox;
 
 import edu.wpi.first.wpilibj.Timer;
 
@@ -32,7 +31,8 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
     protected void initialize() {
         try {
             if (getForceStopped()) {
-                System.out.println("[EncoderDrivingCommand] Quitting in initialize(), because auto-movement is force-stopped.");
+                System.out.println(
+                        "[EncoderDrivingCommand] Quitting in initialize(), because auto-movement is force-stopped.");
                 return;
             }
             Robot.drivetrain.resetEncoders();

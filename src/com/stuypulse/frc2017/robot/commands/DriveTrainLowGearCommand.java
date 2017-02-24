@@ -12,12 +12,12 @@ public class DriveTrainLowGearCommand extends Command {
     public DriveTrainLowGearCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.drivetrain);
+        requires(Robot.drivetrain);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drivetrain.lowGearShift();
+        Robot.drivetrain.lowGearShift();
     }
 
     // Called repeatedly when this Command is scheduled to run
