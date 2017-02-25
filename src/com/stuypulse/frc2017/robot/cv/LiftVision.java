@@ -71,7 +71,7 @@ public class LiftVision extends VisionModule {
      * Take a new image and determine how we should move to
      * get to the peg, if we see it.
      * Part of the "tip" method of approaching the peg (see LiftMath).
-     * 
+     *
      * @return The {@code Vector} describing how we should move to the peg,
      *         or {@code null} if we could failed to see the targets.
      */
@@ -90,7 +90,7 @@ public class LiftVision extends VisionModule {
     /**
      * Process an image from the camera and determine the distance and angle to
      * the lift targets, if they exist
-     * 
+     *
      * @return {@code Vector[]} containing {@code Vector}s to the left and right
      *         targets
      *         or {@code null} if we failed to se the targets
@@ -121,6 +121,7 @@ public class LiftVision extends VisionModule {
 
     private boolean firstFrame = true;
 
+    @Override
     public void run(Mat frame) {
         Mat filtered = filterLift(frame);
         Vector[] targets = getTargets(frame, filtered);
@@ -218,6 +219,7 @@ public class LiftVision extends VisionModule {
 
         // Sort the contours in ascending order (by area)
         contours.sort(new Comparator<MatOfPoint>() {
+            @Override
             public int compare(MatOfPoint m1, MatOfPoint m2) {
                 Rect rect1 = Imgproc.boundingRect(m1);
                 Rect rect2 = Imgproc.boundingRect(m2);
@@ -432,7 +434,7 @@ public class LiftVision extends VisionModule {
 
     /**
      * Sorts contours from left to right (assumes a length of 2)
-     * 
+     *
      * @param contours
      *            List of contours to sort
      */

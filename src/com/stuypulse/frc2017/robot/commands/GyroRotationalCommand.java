@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;;
  * Abstract command for rotating a certain number of degrees.
  * The angle to rotate is determined at runtime during initialize,
  * by the abstract method <code>getDesiredAngle</code>
- * 
+ *
  * @author Berkow
  *
  */
@@ -142,6 +142,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     }
 
     // Make this return true when this Command no longer needs to run execute()
+    @Override
     protected boolean isFinished() {
         try {
             // TODO: don't assign to tolerance here
@@ -172,6 +173,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     }
 
     // Called once after isFinished returns true
+    @Override
     protected void end() {
         printEndInfo("end");
         Robot.drivetrain.stop();
@@ -179,6 +181,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
+    @Override
     protected void interrupted() {
         printEndInfo("interrupted");
         Robot.drivetrain.stop();

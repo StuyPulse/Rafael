@@ -29,6 +29,7 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
     }
 
     // Called just before this Command runs the first time
+    @Override
     protected void initialize() {
         try {
             if (getForceStopped()) {
@@ -107,6 +108,7 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
     }
 
     // Make this return true when this Command no longer needs to run execute()
+    @Override
     protected boolean isFinished() {
         if (abort || cancelCommand || getForceStopped()) {
             printEndInfo("isFinished");
@@ -116,6 +118,7 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
     }
 
     // Called once after isFinished returns true
+    @Override
     protected void end() {
         printEndInfo("end");
         Robot.drivetrain.stop();
@@ -123,6 +126,7 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
+    @Override
     protected void interrupted() {
         printEndInfo("interrupted");
         Robot.drivetrain.stop();

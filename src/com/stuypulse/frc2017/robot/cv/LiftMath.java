@@ -62,7 +62,7 @@ public class LiftMath {
      * For tip method (see LiftMath). Get Vector describing the movement to do
      * to score the peg: rotate by the angle of the returned Vector, then drive
      * forward that distance.
-     * 
+     *
      * @param lift_left
      *            Vector to left reflexite strip
      * @param lift_right

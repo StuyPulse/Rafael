@@ -34,14 +34,16 @@ public class VectorDrawer {
     }
 
     public void addVectors(Vector[] vectors) {
-        for (Vector vector : vectors)
+        for (Vector vector : vectors) {
             addVector(vector);
+        }
     }
 
     public Mat getImage() {
         // If there are no vectors, just return an empty tiny image.
-        if (vectors.size() == 0)
+        if (vectors.size() == 0) {
             return new Mat(0, 0, CvType.CV_8UC1);
+        }
 
         Mat drawTo;
         // Everything is zero because we
@@ -54,14 +56,16 @@ public class VectorDrawer {
         for (Vector vector : vectors) {
             double x = vector.getX(),
                     y = vector.getY();
-            if (x < minX)
+            if (x < minX) {
                 minX = x;
-            else if (x > maxX)
+            } else if (x > maxX) {
                 maxX = x;
-            if (y < minY)
+            }
+            if (y < minY) {
                 minY = y;
-            else if (y > maxY)
+            } else if (y > maxY) {
                 maxY = y;
+            }
         }
         drawTo = new Mat((int) (maxX - minX), (int) (maxY - minY), CvType.CV_8UC1);
 

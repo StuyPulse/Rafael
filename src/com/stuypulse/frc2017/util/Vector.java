@@ -40,7 +40,7 @@ public class Vector {
      *         POSITIVE Y axis, in radians.
      */
     public double getRadians() {
-        return Math.atan2(this.dx, this.dy);
+        return Math.atan2(dx, dy);
     }
 
     /**
@@ -48,14 +48,14 @@ public class Vector {
      *         POSITIVE Y axis, in degrees.
      */
     public double getDegrees() {
-        return Math.toDegrees(Math.atan2(this.dx, this.dy));
+        return Math.toDegrees(Math.atan2(dx, dy));
     }
 
     /**
      * @return the magnitude of {@code this} vector
      */
     public double getMagnitude() {
-        return Math.sqrt((this.dx * this.dx) + (this.dy * this.dy));
+        return Math.sqrt((dx * dx) + (dy * dy));
     }
 
     // public double withDegrees(double degrees) {
@@ -68,8 +68,8 @@ public class Vector {
      *         direction is the same as {@code this}
      */
     public Vector withMagnitude(double magnitude) {
-        double scalar = magnitude / this.getMagnitude();
-        return this.scaleBy(scalar);
+        double scalar = magnitude / getMagnitude();
+        return scaleBy(scalar);
     }
 
     /**
@@ -77,29 +77,29 @@ public class Vector {
      * @return {@code this} rotated {@code degs} degrees (clockwise).
      */
     public Vector rotateBy(double degs) {
-        double result_degs = this.getDegrees() + degs;
-        return Vector.fromPolar(result_degs, this.getMagnitude());
+        double result_degs = getDegrees() + degs;
+        return Vector.fromPolar(result_degs, getMagnitude());
     }
 
     /**
      * @return the sum of {@code this} and {@code v}.
      */
     public Vector plus(Vector v) {
-        return new Vector(this.dx + v.dx, this.dy + v.dy);
+        return new Vector(dx + v.dx, dy + v.dy);
     }
 
     /**
      * @return the difference of {@code this} and {@code v}.
      */
     public Vector minus(Vector v) {
-        return new Vector(this.dx - v.dx, this.dy - v.dy);
+        return new Vector(dx - v.dx, dy - v.dy);
     }
 
     /**
      * @return {@code this} scaled by {@code factor}
      */
     public Vector scaleBy(double factor) {
-        return new Vector(factor * this.dx, factor * this.dy);
+        return new Vector(factor * dx, factor * dy);
     }
 
     /**
@@ -108,7 +108,7 @@ public class Vector {
      *         numbers) of {@code this} and {@code v}.
      */
     public Vector times(Vector v) {
-        return new Vector(this.dx * v.dx, this.dy * v.dx + this.dx * v.dy);
+        return new Vector(dx * v.dx, dy * v.dx + dx * v.dy);
     }
 
     public static Vector sum(Vector... vectors) {
@@ -143,6 +143,7 @@ public class Vector {
         return dy;
     }
 
+    @Override
     public String toString() {
         return "Magnitude (in): " + getMagnitude() + "\nDegrees: " + getDegrees() + "\ndx: " + dx + "\ndy: " + dy;
     }

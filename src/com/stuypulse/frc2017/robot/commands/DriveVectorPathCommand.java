@@ -60,6 +60,7 @@ class UpdateVectorCommandsCommand extends InstantCommand {
         this.driveToSecondVector = driveToSecondVector;
     }
 
+    @Override
     protected void initialize() {
         double angleToTurn = Robot.cvVector[0].getDegrees();
 

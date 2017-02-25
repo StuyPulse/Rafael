@@ -50,7 +50,7 @@ public class Camera {
      * Yes, OpenCV has a method for setting the buffer size
      * of the camera. No, it does not work. The issue may be
      * on the roboRio-side (rather than the camera).
-     * 
+     *
      * @return
      */
     public static Mat getImage(DeviceCaptureSource camera) {

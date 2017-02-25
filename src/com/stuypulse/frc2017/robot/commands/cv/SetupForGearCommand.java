@@ -75,6 +75,7 @@ class SetVectors extends InstantCommand {
 
     private double DISTANCE_FROM_PEG = 10;
 
+    @Override
     protected void initialize() {
         Vector[] targetVectors = Robot.liftVision.processImageVectors();
         if (targetVectors != null) {

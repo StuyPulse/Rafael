@@ -25,6 +25,7 @@ public class GearPusher extends Subsystem {
         position = Value.kOff;
     }
 
+    @Override
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
@@ -53,7 +54,7 @@ public class GearPusher extends Subsystem {
 
     /**
      * TODO: Test whether it is kReverse or kForward when pushed
-     * 
+     *
      * @return
      */
     public boolean isPushed() {
@@ -62,7 +63,7 @@ public class GearPusher extends Subsystem {
 
     /**
      * TODO: Test whether it is kReverse or kForward when retracted
-     * 
+     *
      * @return
      */
     public boolean isRetracted() {

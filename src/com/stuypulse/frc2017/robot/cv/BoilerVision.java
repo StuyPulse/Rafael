@@ -63,6 +63,7 @@ public class BoilerVision extends VisionModule {
         return reading;
     }
 
+    @Override
     public void run(Mat frame) {
         Mat filtered = filterBoiler(frame);
         getBoilerTargets(frame, filtered);

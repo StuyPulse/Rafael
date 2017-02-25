@@ -21,6 +21,7 @@ public class RotateToLiftCommand extends GyroRotationalCommand {
         super(gentle, tolerance);
     }
 
+    @Override
     protected double getDesiredAngle() {
         Vector cvReading = Robot.liftVision.mTip_processImage(true);
         boolean foundGoal = cvReading != null;

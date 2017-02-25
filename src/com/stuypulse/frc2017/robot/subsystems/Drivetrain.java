@@ -71,6 +71,7 @@ public class Drivetrain extends Subsystem {
         resetGyro();
     }
 
+    @Override
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         setDefaultCommand(new DrivetrainTankDriveCommand());

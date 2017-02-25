@@ -27,6 +27,7 @@ public class Winch extends Subsystem {
         winchMotor.set(0.0);
     }
 
+    @Override
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
