@@ -48,7 +48,7 @@ public class Vector {
      *         POSITIVE Y axis, in degrees.
      */
     public double getDegrees() {
-        return Math.toDegrees(Math.atan2(dx, dy));
+        return Math.toDegrees(getRadians());
     }
 
     /**

@@ -46,10 +46,6 @@ public class Shooter extends Subsystem {
         shooterMotorB.set(0.0);
     }
 
-    public double getCurrentMotorSpeedInRPM() {
-        return (shooterMotorA.getSpeed() + shooterMotorB.getSpeed()) / 2.0;
-    }
-
     public void resetEncoder() {
         shooterMotorA.reset();
         shooterMotorA.enable();

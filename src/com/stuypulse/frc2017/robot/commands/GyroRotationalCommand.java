@@ -10,9 +10,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;;
  * Abstract command for rotating a certain number of degrees.
  * The angle to rotate is determined at runtime during initialize,
  * by the abstract method <code>getDesiredAngle</code>
- *
- * @author Berkow
- *
  */
 public abstract class GyroRotationalCommand extends AutoMovementCommand {
 

@@ -42,7 +42,7 @@ public class BoilerVision extends VisionModule {
     private DeviceCaptureSource boilerCamera;
 
     public void initializeCamera() {
-        boilerCamera = Camera.initializeCamera(RobotMap.BOILER_CAMERA_PORT);
+        boilerCamera = Cameras.initializeCamera(RobotMap.BOILER_CAMERA_PORT);
     }
 
     /**
@@ -54,7 +54,7 @@ public class BoilerVision extends VisionModule {
             initializeCamera();
         }
 
-        Mat frame = Camera.getImage(boilerCamera);
+        Mat frame = Cameras.getImage(boilerCamera);
         Mat filtered = filterBoiler(frame);
         double reading[] = getBoilerTargets(frame, filtered);
 
@@ -241,7 +241,7 @@ public class BoilerVision extends VisionModule {
      * @return Vertical angle to the boiler
      */
     public static double yInFrameToDegreesFromHorizon(double height) {
-        return BOILER_CAMERA_TILT_ANGLE - Camera.frameYPxToDegrees(height);
+        return BOILER_CAMERA_TILT_ANGLE - Cameras.frameYPxToDegrees(height);
     }
 
     public DeviceCaptureSource getBoilerCamera() {

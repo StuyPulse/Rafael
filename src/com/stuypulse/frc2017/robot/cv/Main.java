@@ -27,7 +27,7 @@ public class Main {
     }
 
     public static void processCamera(ModuleRunner runner) {
-        DeviceCaptureSource cam = Camera.initializeCamera(0);
+        DeviceCaptureSource cam = Cameras.initializeCamera(0);
         runner.addMapping(cam, new LiftVision());
     }
 

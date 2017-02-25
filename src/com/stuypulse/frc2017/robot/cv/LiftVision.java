@@ -44,7 +44,7 @@ public class LiftVision extends VisionModule {
     private DeviceCaptureSource liftCamera;
 
     public void initializeCamera() {
-        liftCamera = Camera.initializeCamera(RobotMap.LIFT_CAMERA_PORT);
+        liftCamera = Cameras.initializeCamera(RobotMap.LIFT_CAMERA_PORT);
     }
 
     /**
@@ -103,7 +103,7 @@ public class LiftVision extends VisionModule {
         if (liftCamera == null) {
             initializeCamera();
         }
-        Mat frame = Camera.getImage(liftCamera);
+        Mat frame = Cameras.getImage(liftCamera);
         String date = (new Date()).toString();
         if (save) {
             Imgcodecs.imwrite("/tmp/" + date + ".png", frame);

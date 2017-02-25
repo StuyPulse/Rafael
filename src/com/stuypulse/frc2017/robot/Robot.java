@@ -14,7 +14,7 @@ import com.stuypulse.frc2017.robot.commands.auton.ShootFromMiddleGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootingFromAllianceWallCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootingFromBoilerGearCommand;
 import com.stuypulse.frc2017.robot.cv.BoilerVision;
-import com.stuypulse.frc2017.robot.cv.Camera;
+import com.stuypulse.frc2017.robot.cv.Cameras;
 import com.stuypulse.frc2017.robot.cv.LiftVision;
 import com.stuypulse.frc2017.robot.subsystems.BallGate;
 import com.stuypulse.frc2017.robot.subsystems.Blender;
@@ -267,8 +267,8 @@ public class Robot extends IterativeRobot {
 
         Robot.drivetrain.resetEncoders();
         Robot.geartrap.trap();
-        Camera.configureCamera(0);
-        Camera.configureCamera(1);
+        Cameras.configureCamera(0);
+        Cameras.configureCamera(1);
         isAutonomous = false;
     }
 

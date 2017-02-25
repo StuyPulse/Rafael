@@ -232,7 +232,7 @@ public class LiftMath {
      *         stnrip.
      */
     public static double stripXToAngle(double stripX) {
-        return Camera.frameXPxToDegrees(stripX);
+        return Cameras.frameXPxToDegrees(stripX);
     }
 
     public static Vector stripFramePosToPhysicalPos(double stripX, double stripY, double stripHeight) {        //double imgHeight, boolean left) {

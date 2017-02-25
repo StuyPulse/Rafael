@@ -9,7 +9,7 @@ import com.stuypulse.frc2017.robot.CVConstants;
 
 import stuyvision.capture.DeviceCaptureSource;
 
-public class Camera {
+public class Cameras {
 
     private static final String pathToV4L2 = "/usr/bin/v4l2-ctl";
 
