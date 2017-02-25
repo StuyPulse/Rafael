@@ -5,17 +5,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class DriveForwardEncodersCommand extends EncoderThePooCommand {
+public class DriveInchesEncodersCommand extends EncoderThePooCommand {
 
     private double inches;
     private boolean set;
 
-    public DriveForwardEncodersCommand() {
+    public DriveInchesEncodersCommand() {
         super();
         set = false;
     }
 
-    public DriveForwardEncodersCommand(double inches) {
+    public DriveInchesEncodersCommand(double inches) {
         super();
         this.inches = inches;
         set = true;

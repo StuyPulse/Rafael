@@ -1,6 +1,6 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
-import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
+import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 import com.stuypulse.frc2017.robot.commands.ScoreGearCommand;
@@ -26,14 +26,14 @@ public class ScoreMiddleGearFromBoilerCommand extends CommandGroup {
             direction = -1;
         }
 
-        addSequential(new DriveForwardEncodersCommand(BACK_UP_FROM_BOILER_DISTANCE));
+        addSequential(new DriveInchesEncodersCommand(BACK_UP_FROM_BOILER_DISTANCE));
         addSequential(new RotateDegreesGyroCommand(TURN_AWAY_FROM_BOILER * direction));
-        addSequential(new DriveForwardEncodersCommand(MOVE_TOWARDS_LIFT));
+        addSequential(new DriveInchesEncodersCommand(MOVE_TOWARDS_LIFT));
         addSequential(new RotateDegreesGyroCommand(TURN_TOWARDS_LIFT * direction));
 
         addSequential(new OptionalCVPositionForGearCommand(MOVE_TO_LIFT));
         addSequential(new ScoreGearCommand());
-        addSequential(new DriveForwardEncodersCommand(ScoreMiddleGearCommand.MIDDLE_GEAR_REVERSE_DISTANCE));
+        addSequential(new DriveInchesEncodersCommand(ScoreMiddleGearCommand.MIDDLE_GEAR_REVERSE_DISTANCE));
         addSequential(new GearTrapTrapGearCommand());
 
         // Add Commands here:

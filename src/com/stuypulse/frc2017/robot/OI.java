@@ -5,7 +5,7 @@ import com.stuypulse.frc2017.robot.commands.BallGateOpenCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderRunWithUnjammingCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderSpinBackwardCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderStopCommand;
-import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
+import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainLowGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherPushGearCommand;
@@ -89,7 +89,7 @@ public class OI {
 
         //Auton testing
         driverPad.getDPadLeft().whenPressed(new RunAutoCommand(new RotateDegreesGyroCommand()));
-        driverPad.getDPadDown().whenPressed(new RunAutoCommand(new DriveForwardEncodersCommand()));
+        driverPad.getDPadDown().whenPressed(new RunAutoCommand(new DriveInchesEncodersCommand()));
         //driverPad.getBottomButton().whenPressed(new DriveForwardCommand(1.0)); // TODO: remove and delete DriveFowardCommand
 
         driverPad.getDPadUp().whenPressed(new SetupForGearCommand());

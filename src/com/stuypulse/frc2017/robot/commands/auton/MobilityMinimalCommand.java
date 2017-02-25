@@ -1,6 +1,6 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
-import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
+import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -29,7 +29,7 @@ public class MobilityMinimalCommand extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
 
-        addSequential(new DriveForwardEncodersCommand(MOBILITY_TO_BASELINE_DISTANCE));
+        addSequential(new DriveInchesEncodersCommand(MOBILITY_TO_BASELINE_DISTANCE));
 
     }
 

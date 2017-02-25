@@ -1,7 +1,7 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
 import com.stuypulse.frc2017.robot.commands.BlenderRunWithUnjammingCommand;
-import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
+import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -22,7 +22,7 @@ public class ShootingFromBoilerGearCommand extends CommandGroup {
         } else {
             direction = -1;
 
-            addSequential(new DriveForwardEncodersCommand(BOILER_GEAR_REVERSE_SHOOTING_DISTANCE));
+            addSequential(new DriveInchesEncodersCommand(BOILER_GEAR_REVERSE_SHOOTING_DISTANCE));
             addSequential(new RotateDegreesGyroCommand(direction * BOILER_GEAR_TURN_TO_BOILER_ANGLE));
             addSequential(new OptionalCVPositionForBoilerCommand(BOILER_GEAR_TO_BOILER_DISTANCE));
             addSequential(new BlenderRunWithUnjammingCommand());

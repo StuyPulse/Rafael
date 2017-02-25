@@ -1,7 +1,7 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
 import com.stuypulse.frc2017.robot.Robot;
-import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
+import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.cv.SetupForBoilerCommand;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class OptionalCVPositionForBoilerCommand extends Command {
 
     private SetupForBoilerCommand cvCommand;
-    private DriveForwardEncodersCommand driveCommand;
+    private DriveInchesEncodersCommand driveCommand;
 
     public OptionalCVPositionForBoilerCommand(double approxDistance) {
         // Use requires() here to declare subsystem dependencies
@@ -23,7 +23,7 @@ public class OptionalCVPositionForBoilerCommand extends Command {
         // initialize()), in case WPILib expects commands to be instantiated
         // early on under the hood.
         cvCommand = new SetupForBoilerCommand();
-        driveCommand = new DriveForwardEncodersCommand(approxDistance);
+        driveCommand = new DriveInchesEncodersCommand(approxDistance);
     }
 
     // Called just before this Command runs the first time

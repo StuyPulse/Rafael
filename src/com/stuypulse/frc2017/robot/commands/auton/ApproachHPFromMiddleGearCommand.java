@@ -1,6 +1,6 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
-import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
+import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 
@@ -26,8 +26,8 @@ public class ApproachHPFromMiddleGearCommand extends CommandGroup {
 
         addSequential(new DriveTrainHighGearCommand());
         addSequential(new RotateDegreesGyroCommand(direction * MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_ANGLE));
-        addSequential(new DriveForwardEncodersCommand(MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_DISTANCE));
+        addSequential(new DriveInchesEncodersCommand(MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_DISTANCE));
         addSequential(new RotateDegreesGyroCommand(direction * AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_ANGLE));
-        addSequential(new DriveForwardEncodersCommand(AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_DISTANCE));
+        addSequential(new DriveInchesEncodersCommand(AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_DISTANCE));
     }
 }

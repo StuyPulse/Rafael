@@ -1,6 +1,6 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
-import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
+import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class MiddleGearMobilityMinimalCommand extends CommandGroup {
-    private double FIRST_MOBILITY_TURN_DISTANCE = 53.3; //baseline-robot length
-    private double FIRST_MOBILITY_TURN_ANGLE = -90;
-    private double SECOND_MOBILITY_TURN_DISTANCE = 61.1;
-    private double SECOND_MOBILITY_TURN_ANGLE = 90;
-    private double FINAL_MOBILITY_TURN_DISTANCE = 52; //robot length + 12 inches deviation
+    private static final double FIRST_MOBILITY_TURN_DISTANCE = 53.3; //baseline-robot length
+    private static final double FIRST_MOBILITY_TURN_ANGLE = -90;
+    private static final double SECOND_MOBILITY_TURN_DISTANCE = 61.1;
+    private static final double SECOND_MOBILITY_TURN_ANGLE = 90;
+    private static final double FINAL_MOBILITY_TURN_DISTANCE = 52; //robot length + 12 inches deviation
 
     public MiddleGearMobilityMinimalCommand() {
         // Add Commands here:
@@ -39,10 +39,10 @@ public class MiddleGearMobilityMinimalCommand extends CommandGroup {
         } else {
             direction = -1;
         }
-        addSequential(new DriveForwardEncodersCommand(FIRST_MOBILITY_TURN_DISTANCE));
+        addSequential(new DriveInchesEncodersCommand(FIRST_MOBILITY_TURN_DISTANCE));
         addSequential(new RotateDegreesGyroCommand(direction * FIRST_MOBILITY_TURN_ANGLE));
-        addSequential(new DriveForwardEncodersCommand(SECOND_MOBILITY_TURN_DISTANCE));
+        addSequential(new DriveInchesEncodersCommand(SECOND_MOBILITY_TURN_DISTANCE));
         addSequential(new RotateDegreesGyroCommand(direction * SECOND_MOBILITY_TURN_ANGLE));
-        addSequential(new DriveForwardEncodersCommand(FINAL_MOBILITY_TURN_DISTANCE));
+        addSequential(new DriveInchesEncodersCommand(FINAL_MOBILITY_TURN_DISTANCE));
     }
 }

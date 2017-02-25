@@ -1,7 +1,7 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
 import com.stuypulse.frc2017.robot.Robot;
-import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
+import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.cv.SetupForGearCommand;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -15,12 +15,12 @@ public class OptionalCVPositionForGearCommand extends Command {
     // instantiate both commands in constructor in case command framework
     // requires it
     private SetupForGearCommand cvCommand;
-    private DriveForwardEncodersCommand driveCommand;
+    private DriveInchesEncodersCommand driveCommand;
 
     public OptionalCVPositionForGearCommand(double approxDistance) {
         requires(Robot.drivetrain);
         cvCommand = new SetupForGearCommand();
-        driveCommand = new DriveForwardEncodersCommand(approxDistance);
+        driveCommand = new DriveInchesEncodersCommand(approxDistance);
     }
 
     // Called just before this Command runs the first time
