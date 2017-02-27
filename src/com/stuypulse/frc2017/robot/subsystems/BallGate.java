@@ -16,7 +16,7 @@ public class BallGate extends Subsystem {
     private boolean closed;
 
     public BallGate() {
-        gatePiston = new Solenoid(RobotMap.PCM_4, RobotMap.BALL_GATE_SOLENOID_PORT);
+        gatePiston = new Solenoid(RobotMap.PCM, RobotMap.BALL_GATE_SOLENOID_PORT);
         closed = true;
     }
 
