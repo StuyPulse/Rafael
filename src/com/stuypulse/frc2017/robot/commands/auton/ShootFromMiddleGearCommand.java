@@ -13,13 +13,13 @@ public class ShootFromMiddleGearCommand extends CommandGroup {
     public static final double MIDDLE_GEAR_TO_BOILER_DISTANCE = 109.7;
 
     public ShootFromMiddleGearCommand() {
-    	if(DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red){
-    		addSequential(new RotateDegreesGyroCommand(MIDDLE_GEAR_TO_BOILER_ANGLE));
-    	}else{
-    		addSequential(new RotateDegreesGyroCommand(-1.0 * MIDDLE_GEAR_TO_BOILER_ANGLE));
-    	}
+        if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
+            addSequential(new RotateDegreesGyroCommand(MIDDLE_GEAR_TO_BOILER_ANGLE));
+        } else {
+            addSequential(new RotateDegreesGyroCommand(-1.0 * MIDDLE_GEAR_TO_BOILER_ANGLE));
+        }
         addSequential(new OptionalCVPositionForBoilerCommand(MIDDLE_GEAR_TO_BOILER_DISTANCE));
-    	// To run multiple commands at the same time,
+        // To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());
         //      addSequential(new Command2());

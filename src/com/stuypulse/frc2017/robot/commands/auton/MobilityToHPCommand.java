@@ -1,6 +1,6 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
-import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
+import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -11,8 +11,8 @@ public class MobilityToHPCommand extends CommandGroup {
     public static final double MOBILITY_TO_NEUTRAL_ZONE_DISTANCE = 415.3;//427.3 - 12 inches deviation
 
     public MobilityToHPCommand() {
-    	
-    	addSequential(new DriveForwardEncodersCommand(MOBILITY_TO_NEUTRAL_ZONE_DISTANCE));
+
+        addSequential(new DriveInchesEncodersCommand(MOBILITY_TO_NEUTRAL_ZONE_DISTANCE));
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

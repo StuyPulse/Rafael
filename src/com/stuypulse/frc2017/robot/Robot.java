@@ -13,10 +13,8 @@ import com.stuypulse.frc2017.robot.commands.auton.ScoreMiddleGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootFromMiddleGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootingFromAllianceWallCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootingFromBoilerGearCommand;
-import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
-import com.stuypulse.frc2017.robot.commands.ScoreGearCommand;
 import com.stuypulse.frc2017.robot.cv.BoilerVision;
-import com.stuypulse.frc2017.robot.cv.Camera;
+import com.stuypulse.frc2017.robot.cv.Cameras;
 import com.stuypulse.frc2017.robot.cv.LiftVision;
 import com.stuypulse.frc2017.robot.subsystems.BallGate;
 import com.stuypulse.frc2017.robot.subsystems.Blender;
@@ -30,7 +28,6 @@ import com.stuypulse.frc2017.util.IRSensor;
 import com.stuypulse.frc2017.util.LEDSignal;
 import com.stuypulse.frc2017.util.Vector;
 
-import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -141,27 +138,32 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Winne The Poo", ch);
     }
 
-    private void setupAutonChooser(){
-    	autonChooser = new SendableChooser<Command>();
-    	autonChooser.addObject("Do Nothing", new CommandGroup());
-    	autonChooser.addObject("Minimal Mobility", new MobilityMinimalCommand());
-    	autonChooser.addObject("Minimal Mobility From Middle Gear Start", new MiddleGearMobilityMinimalCommand());
-    	autonChooser.addObject("Only Mobility To HP Station", new MobilityToHPCommand());
-    	autonChooser.addObject("Only Score HP Gear (CV)", new ScoreHPGearCommand(true));
+    private void setupAutonChooser() {
+        autonChooser = new SendableChooser<Command>();
+        autonChooser.addObject("Do Nothing", new CommandGroup());
+        autonChooser.addObject("Minimal Mobility", new MobilityMinimalCommand());
+        autonChooser.addObject("Minimal Mobility From Middle Gear Start", new MiddleGearMobilityMinimalCommand());
+        autonChooser.addObject("Only Mobility To HP Station", new MobilityToHPCommand());
+        autonChooser.addObject("Only Score HP Gear (CV)", new ScoreHPGearCommand(true));
         autonChooser.addDefault("Only Score HP Gear (No CV)", new ScoreHPGearCommand(false));
-    	autonChooser.addObject("Score HP Gear THEN Approach HP Station", new DoubleSequentialCommand(new ScoreHPGearCommand(true), new ApproachHPFromHPGearCommand()));
-    	autonChooser.addObject("Only Score Middle Gear (CV)", new ScoreMiddleGearCommand(true));
-    	autonChooser.addObject("Only Score Middle Gear (No CV)", new ScoreMiddleGearCommand(false));
-    	autonChooser.addObject("Score Middle Gear THEN Approach HP Station", new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ApproachHPFromMiddleGearCommand()));
-    	autonChooser.addObject("Score Middle Gear THEN Shoot", new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ShootFromMiddleGearCommand()));
-    	autonChooser.addObject("Only Score Boiler Gear", new ScoreBoilerGearCommand());
-    	autonChooser.addObject("Score Boiler Gear THEN Approach HP Station", new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ApproachHPFromBoilerGearCommand()));
-    	autonChooser.addObject("Score Boiler Gear THEN Shoot", new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ShootingFromBoilerGearCommand()));
-    	autonChooser.addObject("Only Shoot", new ShootingFromAllianceWallCommand());
-    	SmartDashboard.putData("Auton Setting", autonChooser);
+        autonChooser.addObject("Score HP Gear THEN Approach HP Station",
+                new DoubleSequentialCommand(new ScoreHPGearCommand(true), new ApproachHPFromHPGearCommand()));
+        autonChooser.addObject("Only Score Middle Gear (CV)", new ScoreMiddleGearCommand(true));
+        autonChooser.addObject("Only Score Middle Gear (No CV)", new ScoreMiddleGearCommand(false));
+        autonChooser.addObject("Score Middle Gear THEN Approach HP Station",
+                new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ApproachHPFromMiddleGearCommand()));
+        autonChooser.addObject("Score Middle Gear THEN Shoot",
+                new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ShootFromMiddleGearCommand()));
+        autonChooser.addObject("Only Score Boiler Gear", new ScoreBoilerGearCommand());
+        autonChooser.addObject("Score Boiler Gear THEN Approach HP Station",
+                new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ApproachHPFromBoilerGearCommand()));
+        autonChooser.addObject("Score Boiler Gear THEN Shoot",
+                new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ShootingFromBoilerGearCommand()));
+        autonChooser.addObject("Only Shoot", new ShootingFromAllianceWallCommand());
+        SmartDashboard.putData("Auton Setting", autonChooser);
     }
 
-    private void setupCVChooser(){
+    private void setupCVChooser() {
         cvChooser = new SendableChooser<Boolean>();
         cvChooser.addDefault("Do not use CV in auton", false);
         cvChooser.addObject("Use CV in auton", true);
@@ -179,7 +181,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Left top drivetrain motor current", Robot.drivetrain.getLeftTopMotorCurrent());
         SmartDashboard.putNumber("Right top drivetrain motor current", Robot.drivetrain.getRightTopMotorCurrent());
         SmartDashboard.putNumber("Left bottom drivetrain motor current", Robot.drivetrain.getLeftBottomMotorCurrent());
-        SmartDashboard.putNumber("Right bottom drivetrain motor current", Robot.drivetrain.getRightBottomMotorCurrent());
+        SmartDashboard.putNumber("Right bottom drivetrain motor current",
+                Robot.drivetrain.getRightBottomMotorCurrent());
         SmartDashboard.putNumber("Winch motor current", Robot.winch.getMotorCurrent());
     }
 
@@ -232,7 +235,8 @@ public class Robot extends IterativeRobot {
         Robot.geartrap.trap();
         try {
             Timer.delay(0.5);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
         Robot.gearpusher.push(Value.kReverse);
 
         isAutonomous = true;
@@ -263,10 +267,11 @@ public class Robot extends IterativeRobot {
 
         Robot.drivetrain.resetEncoders();
         Robot.geartrap.trap();
-        Camera.configureCamera(0);
-        Camera.configureCamera(1);
+        Cameras.configureCamera(0);
+        Cameras.configureCamera(1);
         isAutonomous = false;
     }
+
     /**
      * This function is called periodically during operator control
      */

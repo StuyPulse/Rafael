@@ -19,65 +19,75 @@ import com.stuypulse.frc2017.util.Vector;
 
 public class VectorDrawer {
 
-	private int imageWidth, imageHeight;
+    private int imageWidth, imageHeight;
 
-	private ArrayList<Vector> vectors;
+    private ArrayList<Vector> vectors;
 
-	public VectorDrawer(int imageWidth, int imageHeight) {
-		this.imageWidth = imageWidth;
-		this.imageHeight = imageHeight;
-		vectors = new ArrayList<Vector>();
-	}
+    public VectorDrawer(int imageWidth, int imageHeight) {
+        this.imageWidth = imageWidth;
+        this.imageHeight = imageHeight;
+        vectors = new ArrayList<Vector>();
+    }
 
-	public void addVector(Vector vector) {
-		vectors.add(vector);
-	}
+    public void addVector(Vector vector) {
+        vectors.add(vector);
+    }
 
-	public void addVectors(Vector[] vectors) {
-		for(Vector vector : vectors) addVector(vector);
-	}
+    public void addVectors(Vector[] vectors) {
+        for (Vector vector : vectors) {
+            addVector(vector);
+        }
+    }
 
-	public Mat getImage() {
-		// If there are no vectors, just return an empty tiny image.
-		if (vectors.size() == 0) return new Mat( 0, 0, CvType.CV_8UC1 );
+    public Mat getImage() {
+        // If there are no vectors, just return an empty tiny image.
+        if (vectors.size() == 0) {
+            return new Mat(0, 0, CvType.CV_8UC1);
+        }
 
-		Mat drawTo;
-		// Everything is zero because we
-		// want to include (0,0) (the origin) in the image
-		double minX = 0;
-		double minY = 0;
-		double maxX = 0;
-		double maxY = 0;
+        Mat drawTo;
+        // Everything is zero because we
+        // want to include (0,0) (the origin) in the image
+        double minX = 0;
+        double minY = 0;
+        double maxX = 0;
+        double maxY = 0;
 
-		for(Vector vector : vectors) {
-			double x = vector.getX(),
-				   y = vector.getY();
-			if      (x < minX) minX = x;
-			else if (x > maxX) maxX = x;
-			if      (y < minY) minY = y;
-			else if (y > maxY) maxY = y;
-		}
-		drawTo = new Mat((int)(maxX - minX), (int)(maxY - minY), CvType.CV_8UC1);
-		
-		// Start at the origin and draw out the vectors
-		// Offset by minX and minY so we don't draw outside of the frame
-		double offsetX = -1 * Math.min(0, minX),
-			   offsetY = -1 * Math.min(0, minY);
-		
-		Point lastPoint = new Point(offsetX,offsetY);
-		
-		// Draw white lines connecting each vector
-		for(Vector vector : vectors) {
-			Point currentPoint = vector.getPoint();
-			currentPoint.x += offsetX;
-			currentPoint.y += offsetY;
-			Imgproc.line(drawTo, lastPoint, currentPoint, new Scalar(255,255,255));
-			lastPoint = currentPoint;
-		}
-		// Now we scale the image to fit into imageWidth and imageHeight
-		Imgproc.resize(drawTo, drawTo, new Size(imageWidth, imageHeight));
+        for (Vector vector : vectors) {
+            double x = vector.getX(),
+                    y = vector.getY();
+            if (x < minX) {
+                minX = x;
+            } else if (x > maxX) {
+                maxX = x;
+            }
+            if (y < minY) {
+                minY = y;
+            } else if (y > maxY) {
+                maxY = y;
+            }
+        }
+        drawTo = new Mat((int) (maxX - minX), (int) (maxY - minY), CvType.CV_8UC1);
 
-		return drawTo;
-	}
+        // Start at the origin and draw out the vectors
+        // Offset by minX and minY so we don't draw outside of the frame
+        double offsetX = -1 * Math.min(0, minX),
+                offsetY = -1 * Math.min(0, minY);
+
+        Point lastPoint = new Point(offsetX, offsetY);
+
+        // Draw white lines connecting each vector
+        for (Vector vector : vectors) {
+            Point currentPoint = vector.getPoint();
+            currentPoint.x += offsetX;
+            currentPoint.y += offsetY;
+            Imgproc.line(drawTo, lastPoint, currentPoint, new Scalar(255, 255, 255));
+            lastPoint = currentPoint;
+        }
+        // Now we scale the image to fit into imageWidth and imageHeight
+        Imgproc.resize(drawTo, drawTo, new Size(imageWidth, imageHeight));
+
+        return drawTo;
+    }
 
 }

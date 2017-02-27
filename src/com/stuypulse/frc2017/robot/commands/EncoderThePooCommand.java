@@ -1,7 +1,6 @@
 package com.stuypulse.frc2017.robot.commands;
 
 import com.stuypulse.frc2017.robot.Robot;
-import com.stuypulse.frc2017.util.BoolBox;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -30,10 +29,12 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
     }
 
     // Called just before this Command runs the first time
+    @Override
     protected void initialize() {
         try {
             if (getForceStopped()) {
-                System.out.println("[EncoderDrivingCommand] Quitting in initialize(), because auto-movement is force-stopped.");
+                System.out.println(
+                        "[EncoderDrivingCommand] Quitting in initialize(), because auto-movement is force-stopped.");
                 return;
             }
             Robot.drivetrain.resetEncoders();
@@ -87,8 +88,10 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
                     System.err.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                     vLeft *= Robot.drivetrain.rightEncoderDistance() / Robot.drivetrain.leftEncoderDistance();
                 }//*/
-                if (Math.abs(Robot.drivetrain.rightEncoderDistance() - Robot.drivetrain.leftEncoderDistance()) > SmartDashboard.getNumber("winne-threshold")) {
-                    vLeft += SmartDashboard.getNumber("winne-scale") * Math.signum(Robot.drivetrain.rightEncoderDistance() - Robot.drivetrain.leftEncoderDistance());
+                if (Math.abs(Robot.drivetrain.rightEncoderDistance()
+                        - Robot.drivetrain.leftEncoderDistance()) > SmartDashboard.getNumber("winne-threshold")) {
+                    vLeft += SmartDashboard.getNumber("winne-scale") * Math
+                            .signum(Robot.drivetrain.rightEncoderDistance() - Robot.drivetrain.leftEncoderDistance());
                 }//*/
             }
             if (Robot.ch.getSelected()) {
@@ -105,6 +108,7 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
     }
 
     // Make this return true when this Command no longer needs to run execute()
+    @Override
     protected boolean isFinished() {
         if (abort || cancelCommand || getForceStopped()) {
             printEndInfo("isFinished");
@@ -114,6 +118,7 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
     }
 
     // Called once after isFinished returns true
+    @Override
     protected void end() {
         printEndInfo("end");
         Robot.drivetrain.stop();
@@ -121,6 +126,7 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
+    @Override
     protected void interrupted() {
         printEndInfo("interrupted");
         Robot.drivetrain.stop();

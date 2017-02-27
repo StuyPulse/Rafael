@@ -5,13 +5,11 @@ import static com.stuypulse.frc2017.robot.CVConstants.CAMERA_VIEWING_ANGLE_Y;
 
 import org.opencv.core.Mat;
 
-import static com.stuypulse.frc2017.robot.CVConstants.BOILER_CAMERA_TILT_ANGLE;
-
 import com.stuypulse.frc2017.robot.CVConstants;
 
 import stuyvision.capture.DeviceCaptureSource;
 
-public class Camera {
+public class Cameras {
 
     private static final String pathToV4L2 = "/usr/bin/v4l2-ctl";
 
@@ -19,7 +17,9 @@ public class Camera {
         Runtime rt = Runtime.getRuntime();
         String cmdStart = pathToV4L2 + " -d " + port + " ";
         try {
-            rt.exec(cmdStart + "-c exposure_auto=1,exposure_absolute=5,brightness=30,contrast=10,saturation=200,white_balance_temperature_auto=0,sharpness=50").waitFor();
+            rt.exec(cmdStart
+                    + "-c exposure_auto=1,exposure_absolute=5,brightness=30,contrast=10,saturation=200,white_balance_temperature_auto=0,sharpness=50")
+                    .waitFor();
             rt.exec(cmdStart + "-c white_balance_temperature=4624").waitFor();
             System.out.println("Finished configuring");
             return true;
@@ -50,6 +50,7 @@ public class Camera {
      * Yes, OpenCV has a method for setting the buffer size
      * of the camera. No, it does not work. The issue may be
      * on the roboRio-side (rather than the camera).
+     *
      * @return
      */
     public static Mat getImage(DeviceCaptureSource camera) {
@@ -64,20 +65,22 @@ public class Camera {
     }
 
     /**
-     * @param xCoor Center x-coordinate of the reflexite strip.
+     * @param xCoor
+     *            Center x-coordinate of the reflexite strip.
      * @return Corresponding angle difference along that height (in degrees)
      *
-     * Uses pinhole camera method.
+     *         Uses pinhole camera method.
      */
     public static double frameXPxToDegrees(double xCoor) {
         return Math.toDegrees(Math.atan(xCoor / CVConstants.CAMERA_FOCAL_LENGTH_X));
     }
 
     /**
-     * @param yCoor Center y-coordinate of the reflexite strip.
+     * @param yCoor
+     *            Center y-coordinate of the reflexite strip.
      * @return Corresponding angle difference along that height (in degrees)
      *
-     * Uses pinhole method.
+     *         Uses pinhole method.
      */
     public static double frameYPxToDegrees(double yCoor) {
         return yCoor / CAMERA_FRAME_PX_HEIGHT * CAMERA_VIEWING_ANGLE_Y;

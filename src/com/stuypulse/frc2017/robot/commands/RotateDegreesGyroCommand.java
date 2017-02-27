@@ -7,26 +7,26 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class RotateDegreesGyroCommand extends GyroRotationalCommand {
 
-    private double _angle;
-    private boolean set;
+    private double angle;
+    private boolean angleIsPreset;
 
     public RotateDegreesGyroCommand() {
         super();
-        set = false;
+        angleIsPreset = false;
     }
 
     public RotateDegreesGyroCommand(double angle) {
         super();
-        _angle = angle;
-        set = true;
+        this.angle = angle;
+        angleIsPreset = true;
     }
 
     public void setDesiredAngle(double angle) {
-        _angle = angle;
+        this.angle = angle;
     }
 
     @Override
     protected double getDesiredAngle() {
-        return set ? _angle : SmartDashboard.getNumber("gyro-rotate-degs", 0);
+        return angleIsPreset ? angle : SmartDashboard.getNumber("gyro-rotate-degs", 0);
     }
 }

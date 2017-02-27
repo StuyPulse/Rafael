@@ -1,7 +1,7 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
 import com.stuypulse.frc2017.robot.Robot;
-import com.stuypulse.frc2017.robot.commands.DriveForwardEncodersCommand;
+import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.cv.SetupForGearCommand;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -15,15 +15,16 @@ public class OptionalCVPositionForGearCommand extends Command {
     // instantiate both commands in constructor in case command framework
     // requires it
     private SetupForGearCommand cvCommand;
-    private DriveForwardEncodersCommand driveCommand;
+    private DriveInchesEncodersCommand driveCommand;
 
     public OptionalCVPositionForGearCommand(double approxDistance) {
         requires(Robot.drivetrain);
         cvCommand = new SetupForGearCommand();
-        driveCommand = new DriveForwardEncodersCommand(approxDistance);
+        driveCommand = new DriveInchesEncodersCommand(approxDistance);
     }
 
     // Called just before this Command runs the first time
+    @Override
     protected void initialize() {
         if (Robot.cvChooser.getSelected()) {
             cvCommand.initialize();
@@ -35,6 +36,7 @@ public class OptionalCVPositionForGearCommand extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to rune
+    @Override
     protected void execute() {
         if (Robot.cvChooser.getSelected()) {
             cvCommand.execute();
@@ -44,6 +46,7 @@ public class OptionalCVPositionForGearCommand extends Command {
     }
 
     // Make this return true when this Command no longer needs to run execute()
+    @Override
     protected boolean isFinished() {
         if (Robot.cvChooser.getSelected()) {
             return cvCommand.isFinished();
@@ -53,6 +56,7 @@ public class OptionalCVPositionForGearCommand extends Command {
     }
 
     // Called once after isFinished returns true
+    @Override
     protected void end() {
         if (Robot.cvChooser.getSelected()) {
             cvCommand.end();
@@ -63,6 +67,7 @@ public class OptionalCVPositionForGearCommand extends Command {
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
+    @Override
     protected void interrupted() {
         if (Robot.cvChooser.getSelected()) {
             cvCommand.interrupted();

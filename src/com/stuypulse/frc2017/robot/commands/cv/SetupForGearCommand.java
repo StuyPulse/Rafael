@@ -1,7 +1,6 @@
 package com.stuypulse.frc2017.robot.commands.cv;
 
 import com.stuypulse.frc2017.robot.Robot;
-import com.stuypulse.frc2017.robot.commands.DriveTrainLowGearCommand;
 import com.stuypulse.frc2017.robot.cv.LiftMath;
 import com.stuypulse.frc2017.util.Vector;
 
@@ -13,7 +12,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
  */
 public class SetupForGearCommand extends CommandGroup {
 
-	public SetupForGearCommand() {
+    public SetupForGearCommand() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -31,10 +30,10 @@ public class SetupForGearCommand extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
 
-	    //addSequential(new DriveTrainLowGearCommand());
+        //addSequential(new DriveTrainLowGearCommand());
         addSequential(new ResetForceStopCommand());
-	    addSequential(new RotateToLiftCommand());
-	    addSequential(new RotateToLiftCommand(true));
+        addSequential(new RotateToLiftCommand());
+        addSequential(new RotateToLiftCommand(true));
 
         addSequential(new DriveToPegCommand());
         addSequential(new ResetForceStopCommand());
@@ -42,32 +41,33 @@ public class SetupForGearCommand extends CommandGroup {
 
     @Override
     public boolean isFinished() {
-		//make public instead of protected so tat OptionalCVPositionForGearCommand can call
-    	return super.isFinished();
-	}
+        //make public instead of protected so tat OptionalCVPositionForGearCommand can call
+        return super.isFinished();
+    }
 
-	@Override
-	public void initialize() {
-		//make public instead of protected so tat OptionalCVPositionForGearCommand can call
-		super.initialize();
-	}
+    @Override
+    public void initialize() {
+        //make public instead of protected so tat OptionalCVPositionForGearCommand can call
+        super.initialize();
+    }
 
-	@Override
-	public void execute() {
-		//make public instead of protected so tat OptionalCVPositionForGearCommand can call
-		super.execute();
-	}
+    @Override
+    public void execute() {
+        //make public instead of protected so tat OptionalCVPositionForGearCommand can call
+        super.execute();
+    }
 
-	@Override
-	public void end() {
-		//make public instead of protected so tat OptionalCVPositionForGearCommand can call
-		super.end();
-	}
-	@Override
-	public void interrupted(){
-	  //make public instead of protected so tat OptionalCVPositionForGearCommand can call
-	    super.interrupted();
-	}
+    @Override
+    public void end() {
+        //make public instead of protected so tat OptionalCVPositionForGearCommand can call
+        super.end();
+    }
+
+    @Override
+    public void interrupted() {
+        //make public instead of protected so tat OptionalCVPositionForGearCommand can call
+        super.interrupted();
+    }
 
 }
 
@@ -75,10 +75,12 @@ class SetVectors extends InstantCommand {
 
     private double DISTANCE_FROM_PEG = 10;
 
+    @Override
     protected void initialize() {
         Vector[] targetVectors = Robot.liftVision.processImageVectors();
         if (targetVectors != null) {
-            Vector[] path = LiftMath.mTwoStep_getPath(targetVectors[0], targetVectors[1], DISTANCE_FROM_PEG, DISTANCE_FROM_PEG - 0.1);
+            Vector[] path = LiftMath.mTwoStep_getPath(targetVectors[0], targetVectors[1], DISTANCE_FROM_PEG,
+                    DISTANCE_FROM_PEG - 0.1);
             Robot.cvVector = path;
         }
     }
