@@ -34,6 +34,7 @@ public interface RobotMap {
     /// CANTALON PORTS and ENCODER CONVERSIONS: ////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     // Drivetrain
+    // Top and bottom because the motors are placed one on top of another
     int LEFT_TOP_MOTOR_PORT = 1;
     int LEFT_BOTTOM_MOTOR_PORT = 2;
     int RIGHT_TOP_MOTOR_PORT = 3;
@@ -84,9 +85,11 @@ public interface RobotMap {
     ////////////////////////////////////////////////////////////////////////////
 
     // Time between trapping gear and pushing gear, at start of auton
+    // FIXME: Appears to never be used. DELETE if not used
     double DELAY_AFTER_PUSH_GEAR = 0.1; // TODO: tune value
 
     // TODO: this is used from two commands; confirm it works for both
+    // FIXME: Under investigation
     double BOILER_TO_HOPPER_BACKUP_DISTANCE = -158.4;
 
     // Blender
