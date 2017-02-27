@@ -25,6 +25,7 @@ public class Drivetrain extends Subsystem {
      * Talon for right top motor. Has encoder on it.
      */
     private CANTalon rightTopMotor;
+
     private CANTalon leftBottomMotor;
     private CANTalon rightBottomMotor;
 

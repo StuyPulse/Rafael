@@ -198,6 +198,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void disabledPeriodic() {
         // TODO: why the scheduler called here (in the default code)?
+        // FIXME: Under investigation
         Scheduler.getInstance().run();
     }
 
@@ -214,11 +215,8 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
-        // schedule the autonomous command
-        autonomousCommand = autonChooser.getSelected();
-        if (autonomousCommand != null) {
-            autonomousCommand.start();
-        }
+
+        isAutonomous = true;
 
         // TODO: Set SHOOTER_IDEAL_SPEED to the ideal speed when it is known,
         // then set shooter speed to SHOOTER_IDEAL_SPEED here.
@@ -233,15 +231,19 @@ public class Robot extends IterativeRobot {
         // is also why blocking the thread is appropriate:
         Robot.drivetrain.resetEncoders();
         Robot.geartrap.trap();
-        try {
-            Timer.delay(0.5);
-        } catch (Exception e) {
-        }
+
+        Timer.delay(0.5);
+
         Robot.gearpusher.push(Value.kReverse);
 
-        isAutonomous = true;
+        // Gear-shift physically starts in HIGH gear
 
-        // Gear-shift physically starts in HIGH gear.
+        // schedule the autonomous command
+        autonomousCommand = autonChooser.getSelected();
+        if (autonomousCommand != null) {
+            autonomousCommand.start();
+        }
+
     }
 
     /**
@@ -257,6 +259,9 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void teleopInit() {
+
+        isAutonomous = false;
+
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
@@ -267,9 +272,9 @@ public class Robot extends IterativeRobot {
 
         Robot.drivetrain.resetEncoders();
         Robot.geartrap.trap();
+        // TODO: Why config cameras here and not in autonInit()?
         Cameras.configureCamera(0);
         Cameras.configureCamera(1);
-        isAutonomous = false;
     }
 
     /**
@@ -279,7 +284,6 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         blender.checkForJam();
-        irsensor.handleAutoGearPush();
         irsensor.gearLEDSignalControl();
         updateSmartDashboardOutputs();
     }

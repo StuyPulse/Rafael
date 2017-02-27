@@ -85,7 +85,6 @@ public interface RobotMap {
     double DELAY_AFTER_PUSH_GEAR = 0.1; // TODO: tune value
 
     // TODO: this is used from two commands; confirm it works for both
-    // FIXME: Under investigation
     double BOILER_TO_HOPPER_BACKUP_DISTANCE = -158.4;
 
     // Blender
