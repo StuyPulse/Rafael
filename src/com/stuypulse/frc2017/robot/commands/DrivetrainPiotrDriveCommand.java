@@ -29,23 +29,23 @@ public class DrivetrainPiotrDriveCommand extends Command {
 
         //if robot is moving forward
         if (leftJoystick + rightJoystick >= RobotMap.PIOTR_DRIVE_MARGIN_OF_ERROR) {
-            if (Robot.oi.driverPad.getRawLeftBumper()) {
+            if (Robot.oi.driverPad.getRawLeftTrigger()) {
                 rightJoystick += RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
                 leftJoystick -= RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
             }
 
-            if (Robot.oi.driverPad.getRawRightBumper()) {
+            if (Robot.oi.driverPad.getRawRightTrigger()) {
                 rightJoystick -= RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
                 leftJoystick += RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
             }
         } else {
             //if robot is moving backwards
-            if (Robot.oi.driverPad.getRawLeftBumper()) {
+            if (Robot.oi.driverPad.getRawLeftTrigger()) {
                 rightJoystick -= RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
                 leftJoystick += RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
             }
 
-            if (Robot.oi.driverPad.getRawRightBumper()) {
+            if (Robot.oi.driverPad.getRawRightTrigger()) {
                 rightJoystick += RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
                 leftJoystick -= RobotMap.PIOTR_DRIVE_TURN_ADJUSTMENT;
             }

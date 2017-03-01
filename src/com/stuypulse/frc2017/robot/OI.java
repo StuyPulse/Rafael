@@ -71,27 +71,22 @@ public class OI {
         ////////////////////////////////////////////////////////////////////////
         // Driver Pad Bindings /////////////////////////////////////////////////
 
-        // (Right and left joysticks for tank drive)
+        // Joysticks and right/left triggers used for PiotrDrive
 
         // Gear shift:
         driverPad.getRightBumper().whenPressed(new DriveTrainLowGearCommand());
         driverPad.getRightBumper().whenReleased(new DriveTrainHighGearCommand());
-
-        // CV Boiler:
-        driverPad.getRightTrigger().whenPressed(new RunAutoCommand(new RotateToBoilerCommand()));
-        driverPad.getLeftTrigger().whenPressed(new SetupForBoilerCommand());
-        // TODO: does Piotr want these as well?
-        // driverPad.getRightButton().whenPressed(new RunAutoCommand(new RotateToBoilerCommand()));
-        // driverPad.getBottomButton().whenPressed(new SetupForBoilerCommand());
-
         // CV Lift:
         driverPad.getLeftBumper().whenPressed(new RunAutoCommand(new RotateToLiftCommand()));
 
-        //Auton testing
+        // CV Boiler [unbound because not tested]
+        // driverPad.getRightButton().whenPressed(new RunAutoCommand(new RotateToBoilerCommand()));
+        // driverPad.getBottomButton().whenPressed(new SetupForBoilerCommand());
+
+        // CV testing bindings:
         driverPad.getDPadLeft().whenPressed(new RunAutoCommand(new RotateDegreesGyroCommand()));
         driverPad.getDPadDown().whenPressed(new RunAutoCommand(new DriveInchesEncodersCommand()));
-        //driverPad.getBottomButton().whenPressed(new DriveForwardCommand(1.0)); // TODO: remove and delete DriveFowardCommand
-
+        //driverPad.getBottomButton().whenPressed(new DriveForwardCommand(1.0));
         driverPad.getDPadUp().whenPressed(new SetupForGearCommand());
         driverPad.getDPadRight().whenPressed(new RunAutoCommand(new RotateToLiftCommand()));
 
@@ -101,9 +96,6 @@ public class OI {
         // Gear scoring:
         operatorPad.getBottomButton().whenPressed(new GearPusherPushGearCommand());
         operatorPad.getBottomButton().whenReleased(new GearPusherRetractGearCommand());
-
-        // [AutomaticActionsToggle functionality no longer desired]
-        // operatorPad.getTopButton().whenPressed(new AutomaticActionsToggleCommand());
 
         operatorPad.getRightButton().whenPressed(new GearTrapReleaseGearCommand());
         operatorPad.getRightButton().whenReleased(new GearTrapTrapGearCommand());
