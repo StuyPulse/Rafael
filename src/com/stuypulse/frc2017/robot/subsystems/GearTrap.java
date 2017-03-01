@@ -17,7 +17,7 @@ public class GearTrap extends Subsystem {
     private boolean trapped;
 
     public GearTrap() {
-        gearTrap = new Solenoid(RobotMap.PCM_1, RobotMap.GEAR_TRAP_SOLENOID_PORT);
+        gearTrap = new Solenoid(RobotMap.PCM, RobotMap.GEAR_TRAP_SOLENOID_PORT);
         trapped = false; // Starts out un-trapped
     }
 
