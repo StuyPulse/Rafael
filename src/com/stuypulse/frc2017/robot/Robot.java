@@ -27,6 +27,7 @@ import com.stuypulse.frc2017.util.BoolBox;
 import com.stuypulse.frc2017.util.IRSensor;
 import com.stuypulse.frc2017.util.LEDSignal;
 import com.stuypulse.frc2017.util.Vector;
+import com.stuypulse.frc2017.util.OrderedSendableChooser;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -35,7 +36,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -56,11 +56,11 @@ public class Robot extends IterativeRobot {
     public static Winch winch;
     public static LEDSignal ledBlenderSignal;
     public static LEDSignal ledGearSensingSignal;
-    public static SendableChooser<Boolean> cvChooser;
+    public static OrderedSendableChooser<Boolean> cvChooser;
 
     public static OI oi;
 
-    public static SendableChooser<Command> autonChooser;
+    public static OrderedSendableChooser<Command> autonChooser;
 
     /**
      * This controls whether automatic functionality like extending the gear
@@ -72,8 +72,8 @@ public class Robot extends IterativeRobot {
     public static boolean isAutonomous;
 
     Command autonomousCommand;
-    SendableChooser<Command> chooser = new SendableChooser<Command>();
-    public static SendableChooser<Boolean> ch = new SendableChooser<Boolean>();
+    OrderedSendableChooser<Command> chooser = new OrderedSendableChooser<Command>();
+    public static OrderedSendableChooser<Boolean> ch = new OrderedSendableChooser<Boolean>();
 
     public static LiftVision liftVision;
     public static BoilerVision boilerVision;
@@ -139,7 +139,7 @@ public class Robot extends IterativeRobot {
     }
 
     private void setupAutonChooser() {
-        autonChooser = new SendableChooser<Command>();
+        autonChooser = new OrderedSendableChooser<Command>();
         autonChooser.addObject("Do Nothing", new CommandGroup());
         autonChooser.addObject("Minimal Mobility", new MobilityMinimalCommand());
         autonChooser.addObject("Minimal Mobility From Middle Gear Start", new MiddleGearMobilityMinimalCommand());
@@ -164,7 +164,7 @@ public class Robot extends IterativeRobot {
     }
 
     private void setupCVChooser() {
-        cvChooser = new SendableChooser<Boolean>();
+        cvChooser = new OrderedSendableChooser<Boolean>();
         cvChooser.addDefault("Do not use CV in auton", false);
         cvChooser.addObject("Use CV in auton", true);
         SmartDashboard.putData("Use CV in auton?", cvChooser);
