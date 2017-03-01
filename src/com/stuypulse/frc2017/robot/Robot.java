@@ -197,8 +197,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void disabledPeriodic() {
-        // TODO: why the scheduler called here (in the default code)?
-        // FIXME: Under investigation
+        // Commands can run while disabled, but they can't move the robot
         Scheduler.getInstance().run();
     }
 
