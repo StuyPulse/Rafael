@@ -114,7 +114,7 @@ public class OI {
         operatorPad.getLeftBumper().whenReleased(new BallGateCloseCommand());
 
         operatorPad.getRightBumper()
-                .whenPressed(new DoubleSequentialCommand(new BallGateCloseCommand(), new BlenderSpinBackwardCommand()));
+                .whenPressed(new BlenderSpinBackwardCommand());
         operatorPad.getRightBumper().whenReleased(new BlenderStopCommand());
 
         operatorPad.getRightTrigger().whenPressed(new BlenderRunWithUnjammingCommand());
