@@ -148,20 +148,20 @@ public class Robot extends IterativeRobot {
         autonChooser.addObject("Minimal Mobility", new MobilityMinimalCommand());
         autonChooser.addObject("Minimal Mobility From Middle Gear Start", new MiddleGearMobilityMinimalCommand());
         autonChooser.addObject("Only Mobility To HP Station", new MobilityToHPCommand());
-        autonChooser.addObject("Only Score HP Gear (CV)", new ScoreHPGearCommand(true));
-        autonChooser.addObject("Only Score HP Gear (No CV)", new ScoreHPGearCommand(false));
-        autonChooser.addObject("Score HP Gear THEN Approach HP Station",
+        autonChooser.addObject("Only Score HUMAN-PLAYER gear (CV)", new ScoreHPGearCommand(true));
+        autonChooser.addObject("Only Score HUMAN-PLAYER gear (No CV)", new ScoreHPGearCommand(false));
+        autonChooser.addObject("Score HUMAN-PLAYER gear THEN Approach HP Station",
                 new DoubleSequentialCommand(new ScoreHPGearCommand(true), new ApproachHPFromHPGearCommand()));
-        autonChooser.addObject("Only Score Middle Gear (CV)", new ScoreMiddleGearCommand(true));
-        autonChooser.addDefault("Only Score Middle Gear (No CV)", new ScoreMiddleGearCommand(false));
-        autonChooser.addObject("Score Middle Gear THEN Approach HP Station",
+        autonChooser.addObject("Only Score MIDDLE Gear (CV)", new ScoreMiddleGearCommand(true));
+        autonChooser.addDefault("Only Score MIDDLE Gear (No CV)", new ScoreMiddleGearCommand(false));
+        autonChooser.addObject("Score MIDDLE Gear THEN Approach HP Station",
                 new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ApproachHPFromMiddleGearCommand()));
-        autonChooser.addObject("Score Middle Gear THEN Shoot",
+        autonChooser.addObject("Score MIDDLE Gear THEN Shoot",
                 new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ShootFromMiddleGearCommand()));
-        autonChooser.addObject("Only Score Boiler Gear", new ScoreBoilerGearCommand());
-        autonChooser.addObject("Score Boiler Gear THEN Approach HP Station",
+        autonChooser.addObject("Only Score BOILER Gear", new ScoreBoilerGearCommand());
+        autonChooser.addObject("Score BOILER Gear THEN Approach HP Station",
                 new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ApproachHPFromBoilerGearCommand()));
-        autonChooser.addObject("Score Boiler Gear THEN Shoot",
+        autonChooser.addObject("Score BOILER Gear THEN Shoot",
                 new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ShootingFromBoilerGearCommand()));
         autonChooser.addObject("Only Shoot", new ShootingFromAllianceWallCommand());
         SmartDashboard.putData("Auton Setting", autonChooser);
