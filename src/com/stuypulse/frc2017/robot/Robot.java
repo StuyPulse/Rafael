@@ -137,8 +137,8 @@ public class Robot extends IterativeRobot {
 
     private void setupStraightDrivingChooser() {
         straightDrivingChooser = new OrderedSendableChooser<Boolean>();
-        straightDrivingChooser.addDefault("Use encoders to drive straight", true);
-        straightDrivingChooser.addObject("Use basic drive-straight", false);
+        straightDrivingChooser.addDefault("Use basic drive-straight", false);
+        straightDrivingChooser.addObject("Use automatically-adjusting drive-straight", true);
         SmartDashboard.putData("Straight driving", straightDrivingChooser);
     }
 
