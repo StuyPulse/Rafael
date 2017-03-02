@@ -4,7 +4,7 @@ import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.kauailabs.navx.frc.AHRS;
 import com.stuypulse.frc2017.robot.RobotMap;
-import com.stuypulse.frc2017.robot.commands.DrivetrainTankDriveCommand;
+import com.stuypulse.frc2017.robot.commands.DrivetrainPiotrDriveCommand;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SPI;
@@ -75,7 +75,7 @@ public class Drivetrain extends Subsystem {
     @Override
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new DrivetrainTankDriveCommand());
+        setDefaultCommand(new DrivetrainPiotrDriveCommand());
     }
 
     public void tankDrive(double left, double right) {
