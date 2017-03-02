@@ -13,9 +13,9 @@ public class Main {
 
     final static String BOILER_IMAGE_PATH = "/images/LED Boiler/";
     final static String LIFT_IMAGE_PATH = "/images/LED Peg/";
-    final static String LIFT_TEST_IMAGES_PATH = "/images/LiftTestImages/";
+    final static String LIFT_TEST_IMAGES_PATH = "/images/FieldTestImages/";
 
-    final static int MAX_IMAGES = 1;
+    final static int MAX_IMAGES = 16;
 
     public static void main(String[] args) {
         ModuleRunner runner = new ModuleRunner(5);

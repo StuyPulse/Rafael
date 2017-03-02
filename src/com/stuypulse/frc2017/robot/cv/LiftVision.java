@@ -234,7 +234,7 @@ public class LiftVision extends VisionModule {
             }
         });
 
-        for (int i = 0; i < contours.size(); i++) {
+        for (int i = 0; i < contours.size();) {
             // Use boundingRects to find targets
             MatOfPoint2f contour2f = new MatOfPoint2f(contours.get(i).toArray());
             double approxDistance = Imgproc.arcLength(contour2f, true) * 0.02;
@@ -250,15 +250,15 @@ public class LiftVision extends VisionModule {
             if ((area < minGoalArea.value() || area > maxGoalArea.value())
                     || !aspectRatioThreshold(rect.width, rect.height)) {
                 contours.remove(i);
-                continue;
+            } else {
+                // Sort the targets in ascending order (by area)
+                int j = 0;
+                while (j < rects.size() && rects.get(j).area() < area) {
+                    j++;
+                }
+                rects.add(j, rect);
+                i++;
             }
-
-            // Sort the targets in ascending order (by area)
-            int j = 0;
-            while (j < rects.size() && rects.get(j).area() < area) {
-                j++;
-            }
-            rects.add(j, rect);
         }
 
         // One vision target was broken up by the peg
