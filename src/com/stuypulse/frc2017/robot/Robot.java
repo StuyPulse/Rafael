@@ -73,7 +73,7 @@ public class Robot extends IterativeRobot {
 
     Command autonomousCommand;
     OrderedSendableChooser<Command> chooser = new OrderedSendableChooser<Command>();
-    public static OrderedSendableChooser<Boolean> ch = new OrderedSendableChooser<Boolean>();
+    public static OrderedSendableChooser<Boolean> straightDrivingChooser = new OrderedSendableChooser<Boolean>();
 
     public static LiftVision liftVision;
     public static BoilerVision boilerVision;
@@ -133,9 +133,9 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("winne-threshold", 0.1);
         SmartDashboard.putNumber("winne-scale", 0.1);
 
-        ch.addDefault("Are you a cloud?", true);
-        ch.addObject("Use basic EncoderDrivingCommand", false);
-        SmartDashboard.putData("Winne The Poo", ch);
+        straightDrivingChooser.addDefault("Use encoders to drive straight", true);
+        straightDrivingChooser.addObject("Use basic drive-straight", false);
+        SmartDashboard.putData("Straight driving", straightDrivingChooser);
     }
 
     private void setupAutonChooser() {

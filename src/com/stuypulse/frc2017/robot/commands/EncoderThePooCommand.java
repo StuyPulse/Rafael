@@ -83,7 +83,7 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
             speed *= Math.signum(initialInchesToMove);
             double vLeft = speed;
             double vRight = speed;
-            if (Robot.ch.getSelected()) {
+            if (Robot.straightDrivingChooser.getSelected()) {
                 /*if (Robot.drivetrain.encoderDistance() > 10.0) {
                     System.err.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                     vLeft *= Robot.drivetrain.rightEncoderDistance() / Robot.drivetrain.leftEncoderDistance();
@@ -94,7 +94,7 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
                             .signum(Robot.drivetrain.rightEncoderDistance() - Robot.drivetrain.leftEncoderDistance());
                 }//*/
             }
-            if (Robot.ch.getSelected()) {
+            if (Robot.straightDrivingChooser.getSelected()) {
                 System.out.println("speed: " + speed);
                 System.out.println("  left: " + vLeft);
                 System.out.println("  right: " + vRight);
