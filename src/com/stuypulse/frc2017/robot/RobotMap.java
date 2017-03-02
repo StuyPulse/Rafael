@@ -88,7 +88,7 @@ public interface RobotMap {
     double BOILER_TO_HOPPER_BACKUP_DISTANCE = -158.4;
 
     // Blender
-    double BLENDER_MOTOR_SPEED = 1.0; // TODO: Set ideal speed.
+    double BLENDER_MOTOR_SPEED = 0.5; // TODO: Set ideal speed.
     double BLENDER_MOTOR_UNJAM_SPEED = -1.0; // Run backwards at max speed (-1.0 is not a placeholder)
     double BLENDER_MOTOR_UNJAM_TIME = 0.5;
     double BLENDER_CURRENT_THRESHOLD_FOR_JAM = 23; //Amperes
