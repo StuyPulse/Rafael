@@ -96,7 +96,7 @@ public interface RobotMap {
     double BLENDER_DEGREES_PER_PULSE_THRESHOLD_FOR_JAM = -1.0; //TODO: Find a suitable value for this.
 
     // Shooter
-    double SHOOTER_IDEAL_SPEED = -1.0; // TODO: set shooter speed
+    double SHOOTER_IDEAL_SPEED = 0.8; // TODO: set shooter speed
     double SHOOTER_MAXIMUM_SPEED = 1.0; // TODO: Test+tune to max desirable speed
     double SHOOTER_MINIMUM_SPEED = 0.3; //TODO: Test+tune minimum speed
 
