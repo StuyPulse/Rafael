@@ -116,17 +116,19 @@ public class Robot extends IterativeRobot {
     private void setupSmartDashboardFields() {
         SmartDashboard.putNumber("Shooter speed", RobotMap.SHOOTER_IDEAL_SPEED);
         SmartDashboard.putNumber("gyro-rotate-degs", 5.0);
-        SmartDashboard.putNumber("cv tolerance", 3.0);
-        SmartDashboard.putNumber("tolerance-vary-scalar", 1.0);
+        SmartDashboard.putNumber("cv tolerance", 2.5);
+        SmartDashboard.putNumber("tolerance-vary-scalar", 0.5);
 
-        SmartDashboard.putNumber("autorotate-speed", 0.47);
+        SmartDashboard.putNumber("autorotate-speed", 0.45);
         SmartDashboard.putNumber("autorotate-range", 0.4);
-        SmartDashboard.putNumber("autorotate-counter-threshold", 80.0);
+        SmartDashboard.putNumber("autorotate-counter-threshold", 40.0);
         // When autorotate-woah-degrees is larger, GyroRotationalCommand
         // will ramp down through a larger angle.
         SmartDashboard.putNumber("autorotate-woah-degrees", 30);
         SmartDashboard.putNumber("autorotate-min-degrees", 1.5);
         SmartDashboard.putNumber("autorotate-stall-speed-threshold", 50.0);
+        SmartDashboard.putNumber("left-speed-scale", 0.8);
+        SmartDashboard.putNumber("angle-offset", -2.0);
 
         SmartDashboard.putNumber("auto-drive-base-speed", 0.45);
         SmartDashboard.putNumber("auto-drive-range", 0.4);

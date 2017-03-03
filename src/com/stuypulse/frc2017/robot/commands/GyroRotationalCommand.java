@@ -138,7 +138,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
             printInfo(speed, baseSpeed, turnLeft);
             // left is negative when turning left
             if (turnLeft) {
-                Robot.drivetrain.tankDrive(-speed, speed);
+                Robot.drivetrain.tankDrive(-speed * SmartDashboard.getNumber("left-speed-scale"), speed);
             } else {
                 Robot.drivetrain.tankDrive(speed, -speed);
             }

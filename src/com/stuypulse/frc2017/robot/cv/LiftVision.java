@@ -114,7 +114,7 @@ public class LiftVision extends VisionModule {
         }
         Mat filtered = filterLift(frame);
         if (save) {
-            Imgcodecs.imwrite("/tmp/" + date + "-FILTERED.png", frame);
+            Imgcodecs.imwrite("/tmp/" + date + "-FILTERED.png", filtered);
         }
         Vector[] targets = getTargets(frame, filtered);
 
