@@ -23,7 +23,7 @@ public class RotateToLiftCommand extends GyroRotationalCommand {
 
     @Override
     protected double getDesiredAngle() {
-        Vector cvReading = Robot.liftVision.mTip_processImage(false);
+        Vector cvReading = Robot.liftVision.mTip_processImage(true);
         boolean foundGoal = cvReading != null;
         Robot.cvFoundGoal = foundGoal;
         if (foundGoal) {
