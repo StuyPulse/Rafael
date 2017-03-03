@@ -5,7 +5,13 @@ import com.stuypulse.frc2017.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * BlenderSpinBackwardCommand: 
+ *      Tests the blender by making it controllable with the 
+ *      left operator pad joystick.
+ *      
+ *      When the left operator pad button (X I think) is pressed,
+ *      the command ends
+ *                      
  */
 public class BlenderSpinBackwardCommand extends Command {
 
