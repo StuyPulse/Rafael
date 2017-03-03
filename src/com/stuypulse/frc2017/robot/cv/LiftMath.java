@@ -79,7 +79,7 @@ public class LiftMath {
         Vector peg_base_to_tip = lift_ltr.rotateBy(90).withMagnitude(CVConstants.PEG_LENGTH);
         Vector to_peg_tip = to_peg_base.plus(peg_base_to_tip);
         // We want to move past the tip of the peg, so the peg actually impales us:
-        Vector to_beyond_peg_tip = to_peg_tip.withMagnitude(to_peg_tip.getMagnitude() + CVConstants.PAST_PEG_DISTANCE);
+        Vector to_beyond_peg_tip = to_peg_tip.withMagnitude(to_peg_tip.getMagnitude() + SmartDashboard.getNumber("distance onto peg"));
         return to_beyond_peg_tip;
     }
 
