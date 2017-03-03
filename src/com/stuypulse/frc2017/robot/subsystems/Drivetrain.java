@@ -119,6 +119,20 @@ public class Drivetrain extends Subsystem {
                 / RobotMap.DRIVETRAIN_ENCODERS_FACTOR;
     }
 
+    public double leftEncoderSpeed() {
+        return (leftTopMotor.getSpeed() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION)
+        / RobotMap.DRIVETRAIN_ENCODERS_FACTOR;
+    }
+
+    public double rightEncoderSpeed() {
+        return -1.0 * (rightTopMotor.getSpeed() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION)
+        / RobotMap.DRIVETRAIN_ENCODERS_FACTOR;
+    }
+
+    public double avgAbsEncoderSpeed() {
+        return (Math.abs(leftEncoderSpeed()) + Math.abs(rightEncoderSpeed())) / 2;
+    }
+
     //Sets the solenoid to a shifted state manually
     public void manualGearShift(boolean shift) {
         gearShift.set(shift);

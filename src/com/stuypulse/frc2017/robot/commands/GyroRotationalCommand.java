@@ -24,6 +24,8 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     private boolean gentleRotate;
     private double tolerance;
 
+    private double lastMotorValue;
+
     private boolean useSignalLights;
 
     public GyroRotationalCommand() {
@@ -70,6 +72,8 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
             }
             Robot.drivetrain.resetGyro();
 
+            lastMotorValue = 0.0;
+
             // Set angle we want to rotate
             desiredAngle = getDesiredAngle();
             onTargetCounter = 0;
@@ -109,7 +113,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
 
     private double howMuchWeHaveToGo() {
         // Used for ramping
-        return Math.abs(degreesToMove() / (CAMERA_VIEWING_ANGLE_X / 2));
+        return Math.abs(degreesToMove() / (SmartDashboard.getNumber("autorotate-woah-degrees", 8)));
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -123,14 +127,22 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
                     ? baseSpeed + SmartDashboard.getNumber("autorotate-range") * Math.pow(howMuchWeHaveToGo(), 2)
                     : baseSpeed
                             + SmartDashboard.getNumber("autorotate-gentle-range") * Math.pow(howMuchWeHaveToGo(), 2);
-            // left is negative when turning left
             boolean turnLeft = degreesToMove() < 0.0;
+
+            if (Robot.drivetrain.avgAbsEncoderSpeed() < SmartDashboard.getNumber("autorotate-stall-speed-threshold")) {
+                System.out.println("STALL (speed " + Robot.drivetrain.avgAbsEncoderSpeed() + ") motor value originally "+ speed);
+                speed += 0.1;
+            }
+
+            speed = Math.min(1.0, speed);
             printInfo(speed, baseSpeed, turnLeft);
+            // left is negative when turning left
             if (turnLeft) {
                 Robot.drivetrain.tankDrive(-speed, speed);
             } else {
                 Robot.drivetrain.tankDrive(speed, -speed);
             }
+            lastMotorValue = speed;
         } catch (Exception e) {
             System.out.println("\n\n\n\n\nError in execute in RotateToAimCommand:");
             e.printStackTrace();
@@ -143,7 +155,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     protected boolean isFinished() {
         try {
             // TODO: don't assign to tolerance here
-            tolerance = SmartDashboard.getNumber("cv tolerance");
+            tolerance = SmartDashboard.getNumber("cv tolerance") + SmartDashboard.getNumber("tolerance-vary-scalar") * lastMotorValue;
 
             if (abort || cancelCommand || getForceStopped()) {
                 printEndInfo("isFinished");

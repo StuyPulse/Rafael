@@ -117,12 +117,23 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Shooter speed", RobotMap.SHOOTER_IDEAL_SPEED);
         SmartDashboard.putNumber("gyro-rotate-degs", 5.0);
         SmartDashboard.putNumber("cv tolerance", 3.0);
-        SmartDashboard.putNumber("autorotate-speed", 0.4);
-        SmartDashboard.putNumber("autorotate-range", 0.6);
+        SmartDashboard.putNumber("tolerance-vary-scalar", 1.0);
+
+        SmartDashboard.putNumber("autorotate-speed", 0.47);
+        SmartDashboard.putNumber("autorotate-range", 0.4);
+        SmartDashboard.putNumber("autorotate-counter-threshold", 80.0);
+        SmartDashboard.putNumber("autorotate-woah-degrees", 30);
+        SmartDashboard.putNumber("autorotate-min-degrees", 1.5);
+        SmartDashboard.putNumber("autorotate-stall-speed-threshold", 50.0);
+
+        SmartDashboard.putNumber("auto-drive-base-speed", 0.45);
+        SmartDashboard.putNumber("auto-drive-range", 0.4);
+        SmartDashboard.putNumber("auto-drive-ramp-max-speed", 0.7);
+        SmartDashboard.putNumber("auto-drive-dist-for-max-speed", 3 * 12.0);
+
         SmartDashboard.putNumber("autorotate-gentle-speed", 0.4);
         SmartDashboard.putNumber("autorotate-gentle-range", 0.6);
-        SmartDashboard.putNumber("autorotate-counter-threshold", 3.0);
-        SmartDashboard.putNumber("autorotate-min-degrees", 1.5);
+
         SmartDashboard.putNumber("encoder-drive-inches", 108.0);
         SmartDashboard.putNumber("IR Sensor Distance", RobotMap.IR_SENSOR_THRESHOLD);
         SmartDashboard.putNumber("IR Sensor Time", RobotMap.IR_TIME_IN_MECHANISM_THRESHOLD);
@@ -179,6 +190,9 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("IRVoltage", irsensor.getVoltage());
         SmartDashboard.putNumber("Encoder drivetrain left", Robot.drivetrain.leftEncoderDistance());
         SmartDashboard.putNumber("Encoder drivetrain right", Robot.drivetrain.rightEncoderDistance());
+        SmartDashboard.putNumber("Encoder left-speed", Robot.drivetrain.leftEncoderSpeed());
+        SmartDashboard.putNumber("Encoder right-speed", Robot.drivetrain.rightEncoderSpeed());
+        SmartDashboard.putNumber("Encoders avg-abs speed", Robot.drivetrain.avgAbsEncoderSpeed());
         SmartDashboard.putNumber("Gyro angle", Robot.drivetrain.gyroAngle());
         SmartDashboard.putNumber("Shooter Motor A current", Robot.shooter.getCurrentShooterMotorA());
         SmartDashboard.putNumber("Shooter Motor B current", Robot.shooter.getCurrentShooterMotorB());

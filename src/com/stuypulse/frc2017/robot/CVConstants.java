@@ -41,5 +41,5 @@ public interface CVConstants {
     // which the peg is mounted.
     double PEG_LENGTH = 10.5 + 3.38;
 
-    double PAST_PEG_DISTANCE = 3.0;
+    double PAST_PEG_DISTANCE = 12.0; // Not really 12in onto the peg... part of this accounts EncoderThePooCommand undershooting
 }

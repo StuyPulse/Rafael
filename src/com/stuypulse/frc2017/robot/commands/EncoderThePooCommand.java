@@ -54,17 +54,18 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
         }
     }
 
-    private final static double distForMaxSpeed = 5 * 12.0;
+    private static double distForMaxSpeed = 3 * 12.0;
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void inferiorExecute() {
         try {
+            distForMaxSpeed = SmartDashboard.getNumber("auto-drive-dist-for-max-speed", 3 * 12.0);
             double speed = 0.0;
             double inchesToGo = inchesToMove();
             if (doneRamping) {
                 // Based on the one that has worked for GyroRotationalCommand
-                speed = 0.45 + 0.4 * Math.min(1.0, Math.pow(inchesToGo / distForMaxSpeed, 2));
+                speed = SmartDashboard.getNumber("auto-drive-base-speed", 0.45) + SmartDashboard.getNumber("auto-drive-range", 0.4) * Math.min(1.0, Math.pow(inchesToGo / distForMaxSpeed, 2));
             } else {
                 double t = Timer.getFPGATimestamp() - startTime;
                 final double RAMP_TIME = 1.0;
@@ -77,7 +78,7 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
                     speed = 1;
                     doneRamping = true;
                 }
-                speed *= 0.7; // Max at 0.7 while ramping
+                speed *= SmartDashboard.getNumber("auto-drive-ramp-max-speed", 0.7); // Max at 0.7 while ramping
                 speed = Math.min(1.0, speed);
             }
             speed *= Math.signum(initialInchesToMove);
