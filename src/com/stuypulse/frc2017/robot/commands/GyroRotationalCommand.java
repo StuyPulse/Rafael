@@ -113,7 +113,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
 
     private double howMuchWeHaveToGo() {
         // Used for ramping
-        return Math.abs(degreesToMove() / (SmartDashboard.getNumber("autorotate-woah-degrees", 8)));
+        return Math.abs(degreesToMove() / (SmartDashboard.getNumber("autorotate-woah-degrees")));
     }
 
     // Called repeatedly when this Command is scheduled to run

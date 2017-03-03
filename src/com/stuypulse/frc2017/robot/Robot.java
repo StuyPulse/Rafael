@@ -122,6 +122,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("autorotate-speed", 0.47);
         SmartDashboard.putNumber("autorotate-range", 0.4);
         SmartDashboard.putNumber("autorotate-counter-threshold", 80.0);
+        // When autorotate-woah-degrees is larger, GyroRotationalCommand
+        // will ramp down through a larger angle.
         SmartDashboard.putNumber("autorotate-woah-degrees", 30);
         SmartDashboard.putNumber("autorotate-min-degrees", 1.5);
         SmartDashboard.putNumber("autorotate-stall-speed-threshold", 50.0);
