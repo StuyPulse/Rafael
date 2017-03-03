@@ -113,7 +113,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
 
     private double howMuchWeHaveToGo() {
         // Used for ramping
-        return Math.abs(degreesToMove() / (SmartDashboard.getNumber("autorotate-woah-degrees")));
+        return Math.abs(degreesToMove() / SmartDashboard.getNumber("autorotate-woah-degrees"));
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -140,7 +140,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
             if (turnLeft) {
                 Robot.drivetrain.tankDrive(-speed * SmartDashboard.getNumber("left-speed-scale"), speed);
             } else {
-                Robot.drivetrain.tankDrive(speed, -speed);
+                Robot.drivetrain.tankDrive(speed * SmartDashboard.getNumber("left-speed-scale"), -speed);
             }
             lastMotorValue = speed;
         } catch (Exception e) {
@@ -154,7 +154,6 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     @Override
     protected boolean isFinished() {
         try {
-            // TODO: don't assign to tolerance here
             tolerance = SmartDashboard.getNumber("cv tolerance") + SmartDashboard.getNumber("tolerance-vary-scalar") * lastMotorValue;
 
             if (abort || cancelCommand || getForceStopped()) {
