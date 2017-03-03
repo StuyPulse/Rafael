@@ -54,13 +54,13 @@ public abstract class EncoderStraightDrivingCommand extends AutoMovementCommand 
         }
     }
 
-    private static double distForMaxSpeed = 3 * 12.0;
+    private double distForMaxSpeed = 3 * 12.0;
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void inferiorExecute() {
         try {
-            distForMaxSpeed = SmartDashboard.getNumber("auto-drive-dist-for-max-speed", 3 * 12.0);
+            distForMaxSpeed = SmartDashboard.getNumber("auto-drive-dist-for-max-speed");
             double speed = 0.0;
             double inchesToGo = inchesToMove();
             if (doneRamping) {
@@ -78,7 +78,7 @@ public abstract class EncoderStraightDrivingCommand extends AutoMovementCommand 
                     speed = 1;
                     doneRamping = true;
                 }
-                speed *= SmartDashboard.getNumber("auto-drive-ramp-max-speed", 0.7); // Max at 0.7 while ramping
+                speed *= SmartDashboard.getNumber("auto-drive-ramp-max-speed", 0.7); // Max motor value while ramping
                 speed = Math.min(1.0, speed);
             }
             speed *= Math.signum(initialInchesToMove);

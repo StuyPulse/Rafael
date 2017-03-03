@@ -131,7 +131,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("auto-drive-base-speed", 0.45);
         SmartDashboard.putNumber("auto-drive-range", 0.4);
         SmartDashboard.putNumber("auto-drive-ramp-max-speed", 0.7);
-        SmartDashboard.putNumber("auto-drive-dist-for-max-speed", 3 * 12.0);
+        SmartDashboard.putNumber("auto-drive-dist-for-max-speed", 5 * 12.0);
 
         SmartDashboard.putNumber("autorotate-gentle-speed", 0.4);
         SmartDashboard.putNumber("autorotate-gentle-range", 0.6);
