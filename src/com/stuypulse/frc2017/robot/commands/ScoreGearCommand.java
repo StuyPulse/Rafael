@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class ScoreGearCommand extends CommandGroup {
 
     public ScoreGearCommand() {
-        addSequential(new DelaySecondsCommand(0.1));
+        addSequential(new DelaySecondsCommand(0.5));//0.1));
         addSequential(new GearPusherRetractGearCommand());
         addSequential(new GearTrapReleaseGearCommand());
-        addSequential(new DelaySecondsCommand(0.5));
+        addSequential(new DelaySecondsCommand(1.0));//0.5));
         addSequential(new GearPusherPushGearCommand());
-        addSequential(new DelaySecondsCommand(0.5));
+        addSequential(new DelaySecondsCommand(1.0));//0.5));
         addSequential(new GearPusherRetractGearCommand());
 
         // AFTER THIS, the bot must back up and the gear trap must be closed
