@@ -142,6 +142,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("delay-one", 0.5);
         SmartDashboard.putNumber("delay-two", 0.5);
         SmartDashboard.putNumber("distance onto peg", CVConstants.PAST_PEG_DISTANCE);
+        // "winne-*" fields are for EncoderStraightDrivingCommand (for... historical reasons)
         SmartDashboard.putNumber("winne-threshold", 0.1);
         SmartDashboard.putNumber("winne-scale", 0.1);
     }

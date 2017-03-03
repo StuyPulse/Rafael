@@ -6,9 +6,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * Use sensors to adjust left and right drivetrain speeds for straight driving
  */
-public abstract class EncoderThePooCommand extends AutoMovementCommand {
+public abstract class EncoderStraightDrivingCommand extends AutoMovementCommand {
 
     private static final double MIN_INCHES_TO_MOVE = 0.1;
 
@@ -23,7 +23,7 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
 
     abstract protected double getInchesToMove();
 
-    public EncoderThePooCommand() {
+    public EncoderStraightDrivingCommand() {
         super();
         requires(Robot.drivetrain);
     }
@@ -34,7 +34,7 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
         try {
             if (getForceStopped()) {
                 System.out.println(
-                        "[EncoderDrivingCommand] Quitting in initialize(), because auto-movement is force-stopped.");
+                        "[EncoderStraightDrivingCommand] Quitting in initialize(), because auto-movement is force-stopped.");
                 return;
             }
             Robot.drivetrain.resetEncoders();
@@ -46,9 +46,9 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
             abort = false;
             doneRamping = false;
             startTime = Timer.getFPGATimestamp();
-            System.out.println("[EncoderDrivingCommand] initialInchesToMove: " + initialInchesToMove);
+            System.out.println("[EncoderStraightDrivingCommand] initialInchesToMove: " + initialInchesToMove);
         } catch (Exception e) {
-            System.out.println("Error in initialize in EncoderDrivingCommand:");
+            System.out.println("Error in initialize in EncoderStraightDrivingCommand:");
             e.printStackTrace();
             abort = true;
         }
@@ -102,7 +102,7 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
             }
             Robot.drivetrain.tankDrive(vLeft, vRight);
         } catch (Exception e) {
-            System.out.println("Error in execute in EncoderDrivingCommand:");
+            System.out.println("Error in execute in EncoderStraightDrivingCommand:");
             e.printStackTrace();
             abort = true;
         }
@@ -139,11 +139,11 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
 
     // Used in isFinished, end, interrupted
     private void printEndInfo(String where) {
-        System.out.println("[EncoderDrivingCommand#" + where + "] tolerance: " + TOLERANCE);
-        System.out.println("[EncoderDrivingCommand#" + where + "] desired inches to move: " + initialInchesToMove);
-        System.out.println("[EncoderDrivingCommand#" + where + "] doneRamping: " + doneRamping);
-        System.out.println("[EncoderDrivingCommand#" + where + "] cancelCommand: " + cancelCommand);
-        System.out.println("[EncoderDrivingCommand#" + where + "] getForceStopped(): " + getForceStopped());
-        System.out.println("[EncoderDrivingCommand#" + where + "] abort: " + abort);
+        System.out.println("[EncoderStraightDrivingCommand#" + where + "] tolerance: " + TOLERANCE);
+        System.out.println("[EncoderStraightDrivingCommand#" + where + "] desired inches to move: " + initialInchesToMove);
+        System.out.println("[EncoderStraightDrivingCommand#" + where + "] doneRamping: " + doneRamping);
+        System.out.println("[EncoderStraightDrivingCommand#" + where + "] cancelCommand: " + cancelCommand);
+        System.out.println("[EncoderStraightDrivingCommand#" + where + "] getForceStopped(): " + getForceStopped());
+        System.out.println("[EncoderStraightDrivingCommand#" + where + "] abort: " + abort);
     }
 }
