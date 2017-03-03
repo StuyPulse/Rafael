@@ -137,16 +137,9 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("auto-drive-ramp-max-speed", 0.7);
         SmartDashboard.putNumber("auto-drive-dist-for-max-speed", 5 * 12.0);
 
-        SmartDashboard.putNumber("autorotate-gentle-speed", 0.4);
-        SmartDashboard.putNumber("autorotate-gentle-range", 0.6);
-
         SmartDashboard.putNumber("encoder-drive-inches", 108.0);
-        SmartDashboard.putNumber("IR Sensor Distance", RobotMap.IR_SENSOR_THRESHOLD);
-        SmartDashboard.putNumber("IR Sensor Time", RobotMap.IR_TIME_IN_MECHANISM_THRESHOLD);
         SmartDashboard.putNumber("drive fwd time", 5.0);
         SmartDashboard.putNumber("drive fwd speed", 0.5);
-        SmartDashboard.putNumber("delay-one", 0.5);
-        SmartDashboard.putNumber("delay-two", 0.5);
         SmartDashboard.putNumber("distance onto peg", CVConstants.PAST_PEG_DISTANCE);
         // "winne-*" fields are for EncoderStraightDrivingCommand (for... historical reasons)
         SmartDashboard.putNumber("winne-threshold", 0.1);
