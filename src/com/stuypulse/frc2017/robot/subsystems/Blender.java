@@ -40,6 +40,11 @@ public class Blender extends Subsystem {
         // setDefaultCommand(new MySpecialCommand());
     }
 
+    // TESTING ONLY
+    public void set(double motorVoltage) {
+        blenderMotor.set(motorVoltage);
+    }
+    
     public void run() {
         blenderMotor.set(RobotMap.BLENDER_MOTOR_SPEED);
     }

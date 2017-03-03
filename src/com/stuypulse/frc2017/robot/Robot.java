@@ -1,5 +1,6 @@
 package com.stuypulse.frc2017.robot;
 
+import com.stuypulse.frc2017.robot.commands.BlenderTestMotorWithGamepadCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromBoilerGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromHPGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromMiddleGearCommand;
@@ -26,8 +27,8 @@ import com.stuypulse.frc2017.robot.subsystems.Winch;
 import com.stuypulse.frc2017.util.BoolBox;
 import com.stuypulse.frc2017.util.IRSensor;
 import com.stuypulse.frc2017.util.LEDSignal;
-import com.stuypulse.frc2017.util.Vector;
 import com.stuypulse.frc2017.util.OrderedSendableChooser;
+import com.stuypulse.frc2017.util.Vector;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -301,6 +302,9 @@ public class Robot extends IterativeRobot {
         // TODO: Why config cameras here and not in autonInit()?
         Cameras.configureCamera(0);
         Cameras.configureCamera(1);
+        
+        // TESTING
+        (new BlenderTestMotorWithGamepadCommand() ).start();
     }
 
     /**
