@@ -112,7 +112,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     }
 
     private double howMuchWeHaveToGo() {
-        // Used for ramping
+        // Used for ramping down
         return Math.min(1.0, Math.abs(degreesToMove() / SmartDashboard.getNumber("autorotate-woah-degrees")));
     }
 
@@ -131,7 +131,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
 
             if (Robot.drivetrain.avgAbsEncoderSpeed() < SmartDashboard.getNumber("autorotate-stall-speed-threshold")) {
                 System.out.println("STALL (speed " + Robot.drivetrain.avgAbsEncoderSpeed() + ") motor value originally "+ speed);
-                speed += 0.1;
+                speed += SmartDashboard.getNumber("autorotate-stall-motor-boost");
             }
 
             speed = Math.min(1.0, speed);
