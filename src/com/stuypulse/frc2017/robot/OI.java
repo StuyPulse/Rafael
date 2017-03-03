@@ -21,6 +21,7 @@ import com.stuypulse.frc2017.robot.commands.ShooterStopCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStartMotorCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStopMotorCommand;
 import com.stuypulse.frc2017.robot.commands.auton.DoubleSequentialCommand;
+import com.stuypulse.frc2017.robot.commands.cv.ProcessTestImageCommand;
 import com.stuypulse.frc2017.robot.commands.cv.RotateToBoilerCommand;
 import com.stuypulse.frc2017.robot.commands.cv.RotateToLiftCommand;
 import com.stuypulse.frc2017.robot.commands.cv.RunAutoCommand;
@@ -89,6 +90,7 @@ public class OI {
         //driverPad.getBottomButton().whenPressed(new DriveForwardCommand(1.0));
         driverPad.getDPadUp().whenPressed(new SetupForGearCommand());
         driverPad.getDPadRight().whenPressed(new RunAutoCommand(new RotateToLiftCommand()));
+        driverPad.getStartButton().whenPressed(new ProcessTestImageCommand());
 
         ////////////////////////////////////////////////////////////////////////
         // Operator Pad Bindings ///////////////////////////////////////////////
