@@ -131,7 +131,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("autorotate-min-degrees", 1.5);
         SmartDashboard.putNumber("autorotate-stall-speed-threshold", 50.0);
         SmartDashboard.putNumber("left-speed-scale", 0.8);
-        SmartDashboard.putNumber("angle-offset", -2.0);
+        SmartDashboard.putNumber("angle-offset", -1.0);
 
         SmartDashboard.putNumber("auto-drive-base-speed", 0.45);
         SmartDashboard.putNumber("auto-drive-range", 0.4);
