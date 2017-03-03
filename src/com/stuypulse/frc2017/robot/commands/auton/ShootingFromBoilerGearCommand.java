@@ -24,7 +24,7 @@ public class ShootingFromBoilerGearCommand extends CommandGroup {
 
             addSequential(new DriveInchesEncodersCommand(BOILER_GEAR_REVERSE_SHOOTING_DISTANCE));
             addSequential(new RotateDegreesGyroCommand(direction * BOILER_GEAR_TURN_TO_BOILER_ANGLE));
-            addSequential(new OptionalCVPositionForBoilerCommand(BOILER_GEAR_TO_BOILER_DISTANCE));
+            //addSequential(new OptionalCVPositionForBoilerCommand(BOILER_GEAR_TO_BOILER_DISTANCE));
             addSequential(new BlenderRunWithUnjammingCommand());
 
         }

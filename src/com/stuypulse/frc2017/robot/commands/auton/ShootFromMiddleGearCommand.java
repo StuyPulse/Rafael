@@ -18,7 +18,7 @@ public class ShootFromMiddleGearCommand extends CommandGroup {
         } else {
             addSequential(new RotateDegreesGyroCommand(-1.0 * MIDDLE_GEAR_TO_BOILER_ANGLE));
         }
-        addSequential(new OptionalCVPositionForBoilerCommand(MIDDLE_GEAR_TO_BOILER_DISTANCE));
+        //(new OptionalCVPositionForBoilerCommand(MIDDLE_GEAR_TO_BOILER_DISTANCE));
         // To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());

@@ -56,7 +56,6 @@ public class Robot extends IterativeRobot {
     public static Winch winch;
     public static LEDSignal ledBlenderSignal;
     public static LEDSignal ledGearSensingSignal;
-    public static OrderedSendableChooser<Boolean> cvChooser;
 
     public static OI oi;
 
@@ -104,7 +103,6 @@ public class Robot extends IterativeRobot {
 
         setupSmartDashboardFields();
         setupStraightDrivingChooser();
-        setupCVChooser();
         setupAutonChooser();
 
         //boilerVision = new BoilerVision();
@@ -178,20 +176,14 @@ public class Robot extends IterativeRobot {
                 new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ApproachHPFromMiddleGearCommand()));
         autonChooser.addObject("Score MIDDLE Gear THEN Shoot",
                 new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ShootFromMiddleGearCommand()));
-        autonChooser.addObject("Only Score BOILER Gear", new ScoreBoilerGearCommand());
+        autonChooser.addObject("Only Score BOILER Gear (CV)", new ScoreBoilerGearCommand(true));
+        autonChooser.addObject("Only Score BOILER Gear (no CV)", new ScoreBoilerGearCommand(false));
         autonChooser.addObject("Score BOILER Gear THEN Approach HP Station",
-                new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ApproachHPFromBoilerGearCommand()));
+                new DoubleSequentialCommand(new ScoreBoilerGearCommand(true), new ApproachHPFromBoilerGearCommand()));
         autonChooser.addObject("Score BOILER Gear THEN Shoot",
-                new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ShootingFromBoilerGearCommand()));
+                new DoubleSequentialCommand(new ScoreBoilerGearCommand(true), new ShootingFromBoilerGearCommand()));
         autonChooser.addObject("Only Shoot", new ShootingFromAllianceWallCommand());
         SmartDashboard.putData("Auton Setting", autonChooser);
-    }
-
-    private void setupCVChooser() {
-        cvChooser = new OrderedSendableChooser<Boolean>();
-        cvChooser.addDefault("Do not use CV in auton", false);
-        cvChooser.addObject("Use CV in auton", true);
-        SmartDashboard.putData("Use CV in auton?", cvChooser);
     }
 
     private void updateSmartDashboardOutputs() {

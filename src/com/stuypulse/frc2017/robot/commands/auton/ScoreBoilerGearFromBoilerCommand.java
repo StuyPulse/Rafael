@@ -31,7 +31,7 @@ public class ScoreBoilerGearFromBoilerCommand extends CommandGroup {
         addSequential(new RotateDegreesGyroCommand(TURN_FROM_BOILER_BACK_UP * direction));
         addSequential(new DriveInchesEncodersCommand(FORWARD_FROM_BOILER_TURN));
         addSequential(new RotateDegreesGyroCommand(TURN_TO_BOILER_GEAR * direction));
-        addSequential(new OptionalCVPositionForGearCommand(FORWARD_TO_BOILER_GEAR));
+        //addSequential(new OptionalCVPositionForGearCommand(FORWARD_TO_BOILER_GEAR));
         addSequential(new GearTrapReleaseGearCommand());
         addSequential(new GearPusherRetractGearCommand());
         addSequential(new DriveInchesEncodersCommand(ScoreBoilerGearCommand.BOILER_GEAR_REVERSE_DISTANCE));

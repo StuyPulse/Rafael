@@ -1,5 +1,6 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
+import com.stuypulse.frc2017.robot.Robot;
 import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
@@ -18,8 +19,10 @@ public class ScoreHPGearCommand extends CommandGroup {
     public static final double AFTER_TURN_TO_HP_GEAR_DISTANCE = 19;
     public static final double HP_GEAR_REVERSE_DISTANCE = -6;
 
-    public ScoreHPGearCommand(boolean useCV) {
+    private boolean useCV;
 
+    public ScoreHPGearCommand(boolean useCV) {
+        this.useCV = useCV;
         int direction;
         if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
             direction = 1;
@@ -38,5 +41,15 @@ public class ScoreHPGearCommand extends CommandGroup {
         addSequential(new ScoreGearCommand());
         addSequential(new DriveInchesEncodersCommand(HP_GEAR_REVERSE_DISTANCE));
         addSequential(new GearTrapTrapGearCommand());
+    }
+
+    @Override
+    public boolean isFinished() {
+        // If we are in autonomous and CV did not find the goal, terminate this command
+        // rather than dump out a gear.
+        if (useCV && Robot.isAutonomous && !Robot.cvFoundGoal) {
+            return true;
+        }
+        return super.isFinished();
     }
 }
