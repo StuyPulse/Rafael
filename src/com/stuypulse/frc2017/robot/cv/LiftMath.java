@@ -79,18 +79,20 @@ public class LiftMath {
         Vector peg_base_to_tip = lift_ltr.rotateBy(90).withMagnitude(CVConstants.PEG_LENGTH);
         Vector to_peg_tip = to_peg_base.plus(peg_base_to_tip);
         // We want to move past the tip of the peg, so the peg actually impales us:
-        Vector to_beyond_peg_tip = to_peg_tip.withMagnitude(to_peg_tip.getMagnitude() + SmartDashboard.getNumber("distance onto peg"));
+        Vector to_beyond_peg_tip = to_peg_tip
+                .withMagnitude(to_peg_tip.getMagnitude() + SmartDashboard.getNumber("distance onto peg"));
         return to_beyond_peg_tip;
     }
 
     /**
-     * @param stripY
-     *            Center y-coordinate of reflexite strip.
+     * @param stripHeight
+     *            Height of a reflexite strip in the frame (px).
      * @return Distance from camera to the reflexite strip.
      */
-    public static double stripYToDistance(double stripY, double stripHeight) {
-        return REFLEXITE_LENGTH * CAMERA_FOCAL_LENGTH_Y / stripHeight;
-        // System.out.println("Argument to stripYToDistance is " + stripY);
+    public static double stripHeightToDistance(double stripHeight) {
+        // Scales by cosine of tilt angle (where + is up-tilt) to account for tilt.
+        return REFLEXITE_LENGTH * CAMERA_FOCAL_LENGTH_Y / stripHeight
+                * Math.cos(Math.toRadians(SmartDashboard.getNumber("lift-camera-tilt-degs", 0.0)));
     }
 
     public static double distance(Point first, Point second) {
@@ -229,16 +231,16 @@ public class LiftMath {
      * @param stripX
      *            Center x-coordinate of reflexite
      * @return Angle between where the camera is pointing and the reflexite
-     *         stnrip.
+     *         strip.
      */
     public static double stripXToAngle(double stripX) {
         return Cameras.frameXPxToDegrees(stripX);
     }
 
-    public static Vector stripFramePosToPhysicalPos(double stripX, double stripY, double stripHeight) {        //double imgHeight, boolean left) {
+    public static Vector stripFramePosToPhysicalPos(double stripX, double stripHeight) {        //double imgHeight, boolean left) {
         //System.out.println("Horizontal Angle: " + stripXToAngle(stripX));
         //System.out.println("Perpendicular length: " + stripYToDistance(stripY, stripHeight));
         //System.out.println("------------------------------------");
-        return Vector.fromPolar(stripXToAngle(stripX), stripYToDistance(stripY, stripHeight));
+        return Vector.fromPolar(stripXToAngle(stripX), stripHeightToDistance(stripHeight));
     }
 }

@@ -116,7 +116,10 @@ public class Robot extends IterativeRobot {
     private void setupSmartDashboardFields() {
         SmartDashboard.putNumber("Shooter speed", RobotMap.SHOOTER_IDEAL_SPEED);
         SmartDashboard.putNumber("gyro-rotate-degs", 5.0);
-        SmartDashboard.putNumber("cv tolerance", 2.5);
+
+        SmartDashboard.putNumber("lift-camera-tilt-degs", 0.0);
+
+        SmartDashboard.putNumber("cv tolerance", 2.0);
         SmartDashboard.putNumber("tolerance-vary-scalar", 0.5);
 
         SmartDashboard.putNumber("autorotate-speed", 0.45);

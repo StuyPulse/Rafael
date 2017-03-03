@@ -456,9 +456,9 @@ public class LiftVision extends VisionModule {
      */
     public Vector[] getTargetVectors(ArrayList<MatOfPoint> contours) {
         Vector rightTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(1)),
-                getCenterY(contours.get(1)), getHeight(contours.get(1)));
+                getHeight(contours.get(1)));
         Vector leftTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(0)),
-                getCenterY(contours.get(0)), getHeight(contours.get(0)));
+                getHeight(contours.get(0)));
         return new Vector[] { leftTarget, rightTarget };
     }
 
