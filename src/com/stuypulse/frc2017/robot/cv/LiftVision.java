@@ -104,6 +104,10 @@ public class LiftVision extends VisionModule {
             initializeCamera();
         }
         Mat frame = Cameras.getImage(liftCamera);
+        if (frame == null) {
+            System.out.println("Failed to read from camera");
+            return null;
+        }
         String date = (new Date()).toString();
         if (save) {
             Imgcodecs.imwrite("/tmp/" + date + ".png", frame);
