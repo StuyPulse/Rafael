@@ -125,7 +125,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
                     + SmartDashboard.getNumber("autorotate-range", 0.4) * Math.pow(howMuchWeHaveToGo(), 2);
             boolean turnLeft = degreesToMove() < 0.0;
 
-            if (Robot.drivetrain.avgAbsEncoderSpeed() < SmartDashboard.getNumber("autorotate-stall-speed-threshold", 50.0)) {
+            if (onTargetCounter < SmartDashboard.getNumber("max-on-target", 10000.0) && Robot.drivetrain.avgAbsEncoderSpeed() < SmartDashboard.getNumber("autorotate-stall-speed-threshold", 50.0)) {
                 System.out.println("STALL (speed " + Robot.drivetrain.avgAbsEncoderSpeed() + ") motor value originally "+ speed);
                 speed += SmartDashboard.getNumber("autorotate-stall-motor-boost", 0.1);
             }

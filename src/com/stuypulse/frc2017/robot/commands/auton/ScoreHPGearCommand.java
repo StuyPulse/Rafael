@@ -14,10 +14,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class ScoreHPGearCommand extends CommandGroup {
-    public static final double START_TO_HP_GEAR_TURN_DISTANCE = 102.0;
+    public static final double START_TO_HP_GEAR_TURN_DISTANCE = 109.0;
     public static final double HP_GEAR_TURN_TO_HP_GEAR_ANGLE = 60;
     public static final double AFTER_TURN_TO_HP_GEAR_DISTANCE = 19;
-    public static final double HP_GEAR_REVERSE_DISTANCE = -6;
+    public static final double HP_GEAR_REVERSE_DISTANCE = -12;
 
     private boolean useCV;
 
@@ -48,7 +48,7 @@ public class ScoreHPGearCommand extends CommandGroup {
         // If we are in autonomous and CV did not find the goal, terminate this command
         // rather than dump out a gear.
         if (useCV && Robot.isAutonomous && !Robot.cvFoundGoal) {
-            return true;
+            //return true;
         }
         return super.isFinished();
     }
