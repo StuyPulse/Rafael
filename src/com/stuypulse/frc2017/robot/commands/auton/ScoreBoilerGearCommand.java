@@ -34,7 +34,8 @@ public class ScoreBoilerGearCommand extends CommandGroup {
         if (useCV) {
             addSequential(new SetupForGearCommand());
         } else {
-            addSequential(new DriveInchesEncodersCommand(AFTER_TURN_TO_BOILER_GEAR_DISTANCE));
+            return;
+            //addSequential(new DriveInchesEncodersCommand(AFTER_TURN_TO_BOILER_GEAR_DISTANCE));
         }
         addSequential(new ScoreGearCommand());
         addSequential(new DriveInchesEncodersCommand(BOILER_GEAR_REVERSE_DISTANCE));

@@ -35,7 +35,8 @@ public class ScoreHPGearCommand extends CommandGroup {
         if (useCV) {
             addSequential(new SetupForGearCommand());
         } else {
-            addSequential(new DriveInchesEncodersCommand(AFTER_TURN_TO_HP_GEAR_DISTANCE));
+            return;
+            //addSequential(new DriveInchesEncodersCommand(AFTER_TURN_TO_HP_GEAR_DISTANCE));
         }
 
         addSequential(new ScoreGearCommand());
