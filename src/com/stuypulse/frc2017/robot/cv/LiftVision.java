@@ -32,13 +32,13 @@ public class LiftVision extends VisionModule {
     public IntegerSliderVariable minSaturation = new IntegerSliderVariable("Min Saturation", 50, 0, 255);
     public IntegerSliderVariable maxSaturation = new IntegerSliderVariable("Max Saturation", 255, 0, 255);
 
-    public IntegerSliderVariable minValue = new IntegerSliderVariable("Min Value", 60, 0, 255);
+    public IntegerSliderVariable minValue = new IntegerSliderVariable("Min Value", 45, 0, 255);
     public IntegerSliderVariable maxValue = new IntegerSliderVariable("Max Value", 255, 0, 255);
 
     public DoubleSliderVariable minGoalRatio = new DoubleSliderVariable("Min Ratio", 0.5, 0.5, 10.0);
     public DoubleSliderVariable maxGoalRatio = new DoubleSliderVariable("Max Ratio", 3.0, 0.5, 10.0);
 
-    public DoubleSliderVariable minGoalArea = new DoubleSliderVariable("Min Area", 25.0, 0.0, 10000);
+    public DoubleSliderVariable minGoalArea = new DoubleSliderVariable("Min Area", 100.0, 0.0, 10000);
     public DoubleSliderVariable maxGoalArea = new DoubleSliderVariable("Max Area", 10000.0, 0.0, 10000);
 
     private DeviceCaptureSource liftCamera;
