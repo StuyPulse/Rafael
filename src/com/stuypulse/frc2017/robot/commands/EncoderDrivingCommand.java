@@ -117,8 +117,7 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
     }
 
     private double inchesToMove() {
-        // Encoders only return nonnegative values
-        return Math.abs(initialInchesToMove) - Robot.drivetrain.encoderDistance();
+        return initialInchesToMove - Robot.drivetrain.encoderDistance();
     }
 
     // Used in isFinished, end, interrupted
