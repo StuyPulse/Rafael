@@ -29,7 +29,7 @@ public class LiftVision extends VisionModule {
     public IntegerSliderVariable minHue = new IntegerSliderVariable("Min Hue", 60, 0, 255);
     public IntegerSliderVariable maxHue = new IntegerSliderVariable("Max Hue", 95, 0, 255);
 
-    public IntegerSliderVariable minSaturation = new IntegerSliderVariable("Min Saturation", 50, 0, 255);
+    public IntegerSliderVariable minSaturation = new IntegerSliderVariable("Min Saturation", 70, 0, 255);
     public IntegerSliderVariable maxSaturation = new IntegerSliderVariable("Max Saturation", 255, 0, 255);
 
     public IntegerSliderVariable minValue = new IntegerSliderVariable("Min Value", 45, 0, 255);
