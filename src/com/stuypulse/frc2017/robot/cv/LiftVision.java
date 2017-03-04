@@ -47,15 +47,15 @@ public class LiftVision extends VisionModule {
         liftCamera = Cameras.initializeCamera(RobotMap.LIFT_CAMERA_PORT);
     }
 
+
     /**
+     * @param save
+     *            Whether to save the image to /tmp
      * @return {@code double[]} containing the distance and angle to the tip of
      *         the peg
      *         or {@code null} if we failed to see the targets
      */
-    public double[] processImage() {
-        return processImage(false);
-    }
-
+    @Deprecated
     public double[] processImage(boolean save) {
         Vector[] targets = processImageVectors(save);
         if (targets == null) {

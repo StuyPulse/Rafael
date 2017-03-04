@@ -60,7 +60,7 @@ public abstract class EncoderStraightDrivingCommand extends AutoMovementCommand 
     @Override
     protected void inferiorExecute() {
         try {
-            distForMaxSpeed = SmartDashboard.getNumber("auto-drive-dist-for-max-speed");
+            distForMaxSpeed = SmartDashboard.getNumber("auto-drive-dist-for-max-speed", 3 * 12.0);
             double speed = 0.0;
             double inchesToGo = inchesToMove();
             if (doneRamping) {
@@ -90,8 +90,8 @@ public abstract class EncoderStraightDrivingCommand extends AutoMovementCommand 
                     vLeft *= Robot.drivetrain.rightEncoderDistance() / Robot.drivetrain.leftEncoderDistance();
                 }//*/
                 if (Math.abs(Robot.drivetrain.rightEncoderDistance()
-                        - Robot.drivetrain.leftEncoderDistance()) > SmartDashboard.getNumber("winne-threshold")) {
-                    vLeft += SmartDashboard.getNumber("winne-scale") * Math
+                        - Robot.drivetrain.leftEncoderDistance()) > SmartDashboard.getNumber("winne-threshold", 0.1)) {
+                    vLeft += SmartDashboard.getNumber("winne-scale", 0.1) * Math
                             .signum(Robot.drivetrain.rightEncoderDistance() - Robot.drivetrain.leftEncoderDistance());
                 }//*/
             }

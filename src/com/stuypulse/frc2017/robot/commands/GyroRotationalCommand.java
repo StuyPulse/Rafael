@@ -78,7 +78,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
             desiredAngle = getDesiredAngle();
             onTargetCounter = 0;
             // If it is zero (or close), cancel execution
-            cancelCommand = Math.abs(desiredAngle) < SmartDashboard.getNumber("autorotate-min-degrees");
+            cancelCommand = Math.abs(desiredAngle) < SmartDashboard.getNumber("autorotate-min-degrees", 1.5);
 
             abort = false;
 
@@ -113,30 +113,30 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
 
     private double howMuchWeHaveToGo() {
         // Used for ramping down
-        return Math.min(1.0, Math.abs(degreesToMove() / SmartDashboard.getNumber("autorotate-woah-degrees")));
+        return Math.min(1.0, Math.abs(degreesToMove() / SmartDashboard.getNumber("autorotate-woah-degrees", 30.0)));
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void inferiorExecute() {
         try {
-            double baseSpeed = SmartDashboard.getNumber("autorotate-speed");
+            double baseSpeed = SmartDashboard.getNumber("autorotate-speed", 0.45);
             double speed = baseSpeed
-                    + SmartDashboard.getNumber("autorotate-range") * Math.pow(howMuchWeHaveToGo(), 2);
+                    + SmartDashboard.getNumber("autorotate-range", 0.4) * Math.pow(howMuchWeHaveToGo(), 2);
             boolean turnLeft = degreesToMove() < 0.0;
 
-            if (Robot.drivetrain.avgAbsEncoderSpeed() < SmartDashboard.getNumber("autorotate-stall-speed-threshold")) {
+            if (Robot.drivetrain.avgAbsEncoderSpeed() < SmartDashboard.getNumber("autorotate-stall-speed-threshold", 50.0)) {
                 System.out.println("STALL (speed " + Robot.drivetrain.avgAbsEncoderSpeed() + ") motor value originally "+ speed);
-                speed += SmartDashboard.getNumber("autorotate-stall-motor-boost");
+                speed += SmartDashboard.getNumber("autorotate-stall-motor-boost", 0.1);
             }
 
             speed = Math.min(1.0, speed);
             printInfo(speed, baseSpeed, turnLeft);
             // left is negative when turning left
             if (turnLeft) {
-                Robot.drivetrain.tankDrive(-speed * SmartDashboard.getNumber("left-speed-scale"), speed);
+                Robot.drivetrain.tankDrive(-speed * SmartDashboard.getNumber("left-speed-scale", 1.0), speed);
             } else {
-                Robot.drivetrain.tankDrive(speed * SmartDashboard.getNumber("left-speed-scale"), -speed);
+                Robot.drivetrain.tankDrive(speed * SmartDashboard.getNumber("left-speed-scale", 1.0), -speed);
             }
             lastMotorValue = speed;
         } catch (Exception e) {
@@ -150,7 +150,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     @Override
     protected boolean isFinished() {
         try {
-            tolerance = SmartDashboard.getNumber("cv tolerance") + SmartDashboard.getNumber("tolerance-vary-scalar") * lastMotorValue;
+            tolerance = SmartDashboard.getNumber("cv tolerance", 2.0) + SmartDashboard.getNumber("tolerance-vary-scalar", 0.5) * lastMotorValue;
 
             if (abort || cancelCommand || getForceStopped()) {
                 printEndInfo("isFinished");
