@@ -33,7 +33,8 @@ public class ScoreMiddleGearCommand extends CommandGroup {
         // Drive to gear, release trap, drive back, retract gear pusher, close trap.
 
         if (useCV) {
-            addSequential(new DriveInchesEncodersCommand(10));
+            // First, move forward to get close enough for the camera to see
+            addSequential(new DriveInchesEncodersCommand(30));
             addSequential(new SetupForGearCommand());
         } else {
             addSequential(new DriveInchesEncodersCommand(START_TO_MIDDLE_GEAR_DISTANCE));
