@@ -45,6 +45,7 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
             cancelCommand = Math.abs(initialInchesToMove) < MIN_INCHES_TO_MOVE;
             abort = false;
             doneRamping = false;
+            startTime = Timer.getFPGATimestamp();
             System.out.println("[EncoderDrivingCommand] initialInchesToMove: " + initialInchesToMove);
         } catch (Exception e) {
             System.out.println("Error in initialize in EncoderDrivingCommand:");
@@ -60,7 +61,7 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
     protected void inferiorExecute() {
         try {
             // TODO: set distForMaxSpeed to a constant value.
-            distForMaxSpeed = SmartDashboard.getNumber("auto-drive-dist-for-max-speed", 5 * 12.0);
+            distForMaxSpeed = SmartDashboard.getNumber("auto-drive-dist-for-max-speed", 3 * 12.0);
             double speed = 0.0;
             double inchesToGo = inchesToMove();
             if (doneRamping) {
@@ -74,7 +75,7 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
                 } else if (t < RAMP_TIME) {
                     speed = t * t + 4 * t - 1;
                 }
-                if (t > RAMP_TIME || inchesToGo < 18.0) {
+                if (t > RAMP_TIME || inchesToGo < initialInchesToMove / 2) {
                     speed = 1;
                     doneRamping = true;
                 }
