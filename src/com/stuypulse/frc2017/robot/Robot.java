@@ -118,7 +118,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("lift-camera-tilt-degs", 0.0);
 
         SmartDashboard.putNumber("cv tolerance", 2.0);
-        SmartDashboard.putNumber("tolerance-vary-scalar", 0.5);
+        SmartDashboard.putNumber("tolerance-vary-scalar", 0.0);
         SmartDashboard.putNumber("max-on-target", 10000.0);
 
         SmartDashboard.putNumber("autorotate-speed", 0.35);
