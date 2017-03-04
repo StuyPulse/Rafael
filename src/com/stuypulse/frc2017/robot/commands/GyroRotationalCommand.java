@@ -122,7 +122,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
         try {
             double baseSpeed = SmartDashboard.getNumber("autorotate-speed");
             double speed = baseSpeed
-                    + SmartDashboard.getNumber("autorotate-gentle-range") * Math.pow(howMuchWeHaveToGo(), 2);
+                    + SmartDashboard.getNumber("autorotate-range") * Math.pow(howMuchWeHaveToGo(), 2);
             boolean turnLeft = degreesToMove() < 0.0;
 
             if (Robot.drivetrain.avgAbsEncoderSpeed() < SmartDashboard.getNumber("autorotate-stall-speed-threshold")) {
