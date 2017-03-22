@@ -5,6 +5,7 @@ import com.ctre.CANTalon.FeedbackDevice;
 import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.BlenderJoystickDriveCommand;
 
+import edu.wpi.first.wpilibj.CANSpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
