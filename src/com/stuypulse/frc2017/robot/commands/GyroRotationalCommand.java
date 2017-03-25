@@ -24,6 +24,8 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     private boolean gentleRotate;
     private double tolerance;
 
+    private double lastMotorValue;
+
     private boolean useSignalLights;
 
     public GyroRotationalCommand() {
@@ -70,11 +72,13 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
             }
             Robot.drivetrain.resetGyro();
 
+            lastMotorValue = 0.0;
+
             // Set angle we want to rotate
             desiredAngle = getDesiredAngle();
             onTargetCounter = 0;
             // If it is zero (or close), cancel execution
-            cancelCommand = Math.abs(desiredAngle) < SmartDashboard.getNumber("autorotate-min-degrees");
+            cancelCommand = Math.abs(desiredAngle) < SmartDashboard.getNumber("autorotate-min-degrees", 1.5);
 
             abort = false;
 
@@ -108,29 +112,33 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     }
 
     private double howMuchWeHaveToGo() {
-        // Used for ramping
-        return Math.abs(degreesToMove() / (CAMERA_VIEWING_ANGLE_X / 2));
+        // Used for ramping down
+        return Math.min(1.0, Math.abs(degreesToMove() / SmartDashboard.getNumber("autorotate-woah-degrees", 30.0)));
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void inferiorExecute() {
         try {
-            double baseSpeed = gentleRotate
-                    ? SmartDashboard.getNumber("autorotate-gentle-speed")
-                    : SmartDashboard.getNumber("autorotate-speed");
-            double speed = gentleRotate
-                    ? baseSpeed + SmartDashboard.getNumber("autorotate-range") * Math.pow(howMuchWeHaveToGo(), 2)
-                    : baseSpeed
-                            + SmartDashboard.getNumber("autorotate-gentle-range") * Math.pow(howMuchWeHaveToGo(), 2);
-            // left is negative when turning left
+            double baseSpeed = SmartDashboard.getNumber("autorotate-speed", 0.45);
+            double speed = baseSpeed
+                    + SmartDashboard.getNumber("autorotate-range", 0.4) * Math.pow(howMuchWeHaveToGo(), 2);
             boolean turnLeft = degreesToMove() < 0.0;
-            printInfo(speed, baseSpeed, turnLeft);
-            if (turnLeft) {
-                Robot.drivetrain.tankDrive(-speed, speed);
-            } else {
-                Robot.drivetrain.tankDrive(speed, -speed);
+
+            if (onTargetCounter < SmartDashboard.getNumber("max-on-target", 10000.0) && Robot.drivetrain.avgAbsEncoderSpeed() < SmartDashboard.getNumber("autorotate-stall-speed-threshold", 50.0)) {
+                System.out.println("STALL (speed " + Robot.drivetrain.avgAbsEncoderSpeed() + ") motor value originally "+ speed);
+                speed += SmartDashboard.getNumber("autorotate-stall-motor-boost", 0.1);
             }
+
+            speed = Math.min(1.0, speed);
+            printInfo(speed, baseSpeed, turnLeft);
+            // left is negative when turning left
+            if (turnLeft) {
+                Robot.drivetrain.tankDrive(-speed * SmartDashboard.getNumber("left-speed-scale", 1.0), speed);
+            } else {
+                Robot.drivetrain.tankDrive(speed * SmartDashboard.getNumber("left-speed-scale", 1.0), -speed);
+            }
+            lastMotorValue = speed;
         } catch (Exception e) {
             System.out.println("\n\n\n\n\nError in execute in RotateToAimCommand:");
             e.printStackTrace();
@@ -142,8 +150,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     @Override
     protected boolean isFinished() {
         try {
-            // TODO: don't assign to tolerance here
-            tolerance = SmartDashboard.getNumber("cv tolerance");
+            tolerance = SmartDashboard.getNumber("cv tolerance", 2.0) + SmartDashboard.getNumber("tolerance-vary-scalar", 0.5) * lastMotorValue;
 
             if (abort || cancelCommand || getForceStopped()) {
                 printEndInfo("isFinished");

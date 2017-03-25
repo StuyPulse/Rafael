@@ -42,7 +42,7 @@ public class IRSensor {
     }
 
     public boolean isGearDetected() {
-        return getDistance() < SmartDashboard.getNumber("IR Sensor Distance", RobotMap.IR_SENSOR_THRESHOLD);
+        return getDistance() < RobotMap.IR_SENSOR_THRESHOLD;
     }
 
     public void handleAutoGearPush() {
@@ -56,7 +56,7 @@ public class IRSensor {
                 isTimerRunning = true;
             }
             // If the "time is up", push the gear and reset the timer
-        	if (timeSinceEntry.get() > SmartDashboard.getNumber("IR Sensor Time", RobotMap.IR_TIME_IN_MECHANISM_THRESHOLD)) {
+        	if (timeSinceEntry.get() > RobotMap.IR_TIME_IN_MECHANISM_THRESHOLD) {
         		Robot.gearpusher.extend();
         		timeSinceEntry.stop();
         		isTimerRunning = false;

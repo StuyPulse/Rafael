@@ -31,7 +31,7 @@ public class ScoreMiddleGearFromBoilerCommand extends CommandGroup {
         addSequential(new DriveInchesEncodersCommand(MOVE_TOWARDS_LIFT));
         addSequential(new RotateDegreesGyroCommand(TURN_TOWARDS_LIFT * direction));
 
-        addSequential(new OptionalCVPositionForGearCommand(MOVE_TO_LIFT));
+        //addSequential(new OptionalCVPositionForGearCommand(MOVE_TO_LIFT));
         addSequential(new ScoreGearCommand());
         addSequential(new DriveInchesEncodersCommand(ScoreMiddleGearCommand.MIDDLE_GEAR_REVERSE_DISTANCE));
         addSequential(new GearTrapTrapGearCommand());

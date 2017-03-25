@@ -55,6 +55,10 @@ public class BoilerVision extends VisionModule {
         }
 
         Mat frame = Cameras.getImage(boilerCamera);
+        if (frame == null) {
+            System.out.println("Failed to read from camera");
+            return null;
+        }
         Mat filtered = filterBoiler(frame);
         double reading[] = getBoilerTargets(frame, filtered);
 

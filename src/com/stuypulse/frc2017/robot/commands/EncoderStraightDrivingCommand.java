@@ -6,9 +6,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * Use sensors to adjust left and right drivetrain speeds for straight driving
  */
-public abstract class EncoderThePooCommand extends AutoMovementCommand {
+public abstract class EncoderStraightDrivingCommand extends AutoMovementCommand {
 
     private static final double MIN_INCHES_TO_MOVE = 0.1;
 
@@ -23,7 +23,7 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
 
     abstract protected double getInchesToMove();
 
-    public EncoderThePooCommand() {
+    public EncoderStraightDrivingCommand() {
         super();
         requires(Robot.drivetrain);
     }
@@ -34,7 +34,7 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
         try {
             if (getForceStopped()) {
                 System.out.println(
-                        "[EncoderDrivingCommand] Quitting in initialize(), because auto-movement is force-stopped.");
+                        "[EncoderStraightDrivingCommand] Quitting in initialize(), because auto-movement is force-stopped.");
                 return;
             }
             Robot.drivetrain.resetEncoders();
@@ -46,25 +46,26 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
             abort = false;
             doneRamping = false;
             startTime = Timer.getFPGATimestamp();
-            System.out.println("[EncoderDrivingCommand] initialInchesToMove: " + initialInchesToMove);
+            System.out.println("[EncoderStraightDrivingCommand] initialInchesToMove: " + initialInchesToMove);
         } catch (Exception e) {
-            System.out.println("Error in initialize in EncoderDrivingCommand:");
+            System.out.println("Error in initialize in EncoderStraightDrivingCommand:");
             e.printStackTrace();
             abort = true;
         }
     }
 
-    private final static double distForMaxSpeed = 5 * 12.0;
+    private double distForMaxSpeed = 3 * 12.0;
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void inferiorExecute() {
         try {
+            distForMaxSpeed = SmartDashboard.getNumber("auto-drive-dist-for-max-speed", 3 * 12.0);
             double speed = 0.0;
             double inchesToGo = inchesToMove();
             if (doneRamping) {
                 // Based on the one that has worked for GyroRotationalCommand
-                speed = 0.45 + 0.4 * Math.min(1.0, Math.pow(inchesToGo / distForMaxSpeed, 2));
+                speed = SmartDashboard.getNumber("auto-drive-base-speed", 0.45) + SmartDashboard.getNumber("auto-drive-range", 0.4) * Math.min(1.0, Math.pow(inchesToGo / distForMaxSpeed, 2));
             } else {
                 double t = Timer.getFPGATimestamp() - startTime;
                 final double RAMP_TIME = 1.0;
@@ -77,7 +78,7 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
                     speed = 1;
                     doneRamping = true;
                 }
-                speed *= 0.7; // Max at 0.7 while ramping
+                speed *= SmartDashboard.getNumber("auto-drive-ramp-max-speed", 0.7); // Max motor value while ramping
                 speed = Math.min(1.0, speed);
             }
             speed *= Math.signum(initialInchesToMove);
@@ -89,8 +90,8 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
                     vLeft *= Robot.drivetrain.rightEncoderDistance() / Robot.drivetrain.leftEncoderDistance();
                 }//*/
                 if (Math.abs(Robot.drivetrain.rightEncoderDistance()
-                        - Robot.drivetrain.leftEncoderDistance()) > SmartDashboard.getNumber("winne-threshold")) {
-                    vLeft += SmartDashboard.getNumber("winne-scale") * Math
+                        - Robot.drivetrain.leftEncoderDistance()) > SmartDashboard.getNumber("winne-threshold", 0.1)) {
+                    vLeft += SmartDashboard.getNumber("winne-scale", 0.1) * Math
                             .signum(Robot.drivetrain.rightEncoderDistance() - Robot.drivetrain.leftEncoderDistance());
                 }//*/
             }
@@ -101,7 +102,7 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
             }
             Robot.drivetrain.tankDrive(vLeft, vRight);
         } catch (Exception e) {
-            System.out.println("Error in execute in EncoderDrivingCommand:");
+            System.out.println("Error in execute in EncoderStraightDrivingCommand:");
             e.printStackTrace();
             abort = true;
         }
@@ -138,11 +139,11 @@ public abstract class EncoderThePooCommand extends AutoMovementCommand {
 
     // Used in isFinished, end, interrupted
     private void printEndInfo(String where) {
-        System.out.println("[EncoderDrivingCommand#" + where + "] tolerance: " + TOLERANCE);
-        System.out.println("[EncoderDrivingCommand#" + where + "] desired inches to move: " + initialInchesToMove);
-        System.out.println("[EncoderDrivingCommand#" + where + "] doneRamping: " + doneRamping);
-        System.out.println("[EncoderDrivingCommand#" + where + "] cancelCommand: " + cancelCommand);
-        System.out.println("[EncoderDrivingCommand#" + where + "] getForceStopped(): " + getForceStopped());
-        System.out.println("[EncoderDrivingCommand#" + where + "] abort: " + abort);
+        System.out.println("[EncoderStraightDrivingCommand#" + where + "] tolerance: " + TOLERANCE);
+        System.out.println("[EncoderStraightDrivingCommand#" + where + "] desired inches to move: " + initialInchesToMove);
+        System.out.println("[EncoderStraightDrivingCommand#" + where + "] doneRamping: " + doneRamping);
+        System.out.println("[EncoderStraightDrivingCommand#" + where + "] cancelCommand: " + cancelCommand);
+        System.out.println("[EncoderStraightDrivingCommand#" + where + "] getForceStopped(): " + getForceStopped());
+        System.out.println("[EncoderStraightDrivingCommand#" + where + "] abort: " + abort);
     }
 }

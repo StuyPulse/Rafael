@@ -57,9 +57,13 @@ public class Cameras {
         Mat raw = new Mat();
         Mat frame = new Mat();
         for (int i = 0; i < 5; i++) {
-            camera.readFrame(raw);
+            if (!camera.readFrame(raw)) {
+                return null;
+            }
         }
-        camera.readSized(raw, frame);
+        if (!camera.readSized(raw, frame)) {
+            return null;
+        }
         raw.release();
         return frame;
     }

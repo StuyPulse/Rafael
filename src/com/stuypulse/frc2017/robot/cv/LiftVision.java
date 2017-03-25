@@ -29,16 +29,16 @@ public class LiftVision extends VisionModule {
     public IntegerSliderVariable minHue = new IntegerSliderVariable("Min Hue", 60, 0, 255);
     public IntegerSliderVariable maxHue = new IntegerSliderVariable("Max Hue", 95, 0, 255);
 
-    public IntegerSliderVariable minSaturation = new IntegerSliderVariable("Min Saturation", 50, 0, 255);
+    public IntegerSliderVariable minSaturation = new IntegerSliderVariable("Min Saturation", 70, 0, 255);
     public IntegerSliderVariable maxSaturation = new IntegerSliderVariable("Max Saturation", 255, 0, 255);
 
-    public IntegerSliderVariable minValue = new IntegerSliderVariable("Min Value", 60, 0, 255);
+    public IntegerSliderVariable minValue = new IntegerSliderVariable("Min Value", 45, 0, 255);
     public IntegerSliderVariable maxValue = new IntegerSliderVariable("Max Value", 255, 0, 255);
 
     public DoubleSliderVariable minGoalRatio = new DoubleSliderVariable("Min Ratio", 0.5, 0.5, 10.0);
     public DoubleSliderVariable maxGoalRatio = new DoubleSliderVariable("Max Ratio", 3.0, 0.5, 10.0);
 
-    public DoubleSliderVariable minGoalArea = new DoubleSliderVariable("Min Area", 25.0, 0.0, 10000);
+    public DoubleSliderVariable minGoalArea = new DoubleSliderVariable("Min Area", 100.0, 0.0, 10000);
     public DoubleSliderVariable maxGoalArea = new DoubleSliderVariable("Max Area", 10000.0, 0.0, 10000);
 
     private DeviceCaptureSource liftCamera;
@@ -47,15 +47,15 @@ public class LiftVision extends VisionModule {
         liftCamera = Cameras.initializeCamera(RobotMap.LIFT_CAMERA_PORT);
     }
 
+
     /**
+     * @param save
+     *            Whether to save the image to /tmp
      * @return {@code double[]} containing the distance and angle to the tip of
      *         the peg
      *         or {@code null} if we failed to see the targets
      */
-    public double[] processImage() {
-        return processImage(false);
-    }
-
+    @Deprecated
     public double[] processImage(boolean save) {
         Vector[] targets = processImageVectors(save);
         if (targets == null) {
@@ -104,13 +104,17 @@ public class LiftVision extends VisionModule {
             initializeCamera();
         }
         Mat frame = Cameras.getImage(liftCamera);
+        if (frame == null) {
+            System.out.println("Failed to read from camera");
+            return null;
+        }
         String date = (new Date()).toString();
         if (save) {
             Imgcodecs.imwrite("/tmp/" + date + ".png", frame);
         }
         Mat filtered = filterLift(frame);
         if (save) {
-            Imgcodecs.imwrite("/tmp/" + date + "-FILTERED.png", frame);
+            Imgcodecs.imwrite("/tmp/" + date + "-FILTERED.png", filtered);
         }
         Vector[] targets = getTargets(frame, filtered);
 
@@ -234,7 +238,7 @@ public class LiftVision extends VisionModule {
             }
         });
 
-        for (int i = 0; i < contours.size(); i++) {
+        for (int i = 0; i < contours.size();) {
             // Use boundingRects to find targets
             MatOfPoint2f contour2f = new MatOfPoint2f(contours.get(i).toArray());
             double approxDistance = Imgproc.arcLength(contour2f, true) * 0.02;
@@ -250,15 +254,15 @@ public class LiftVision extends VisionModule {
             if ((area < minGoalArea.value() || area > maxGoalArea.value())
                     || !aspectRatioThreshold(rect.width, rect.height)) {
                 contours.remove(i);
-                continue;
+            } else {
+                // Sort the targets in ascending order (by area)
+                int j = 0;
+                while (j < rects.size() && rects.get(j).area() < area) {
+                    j++;
+                }
+                rects.add(j, rect);
+                i++;
             }
-
-            // Sort the targets in ascending order (by area)
-            int j = 0;
-            while (j < rects.size() && rects.get(j).area() < area) {
-                j++;
-            }
-            rects.add(j, rect);
         }
 
         // One vision target was broken up by the peg
@@ -452,9 +456,9 @@ public class LiftVision extends VisionModule {
      */
     public Vector[] getTargetVectors(ArrayList<MatOfPoint> contours) {
         Vector rightTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(1)),
-                getCenterY(contours.get(1)), getHeight(contours.get(1)));
+                getHeight(contours.get(1)));
         Vector leftTarget = LiftMath.stripFramePosToPhysicalPos(getCenterX(contours.get(0)),
-                getCenterY(contours.get(0)), getHeight(contours.get(0)));
+                getHeight(contours.get(0)));
         return new Vector[] { leftTarget, rightTarget };
     }
 

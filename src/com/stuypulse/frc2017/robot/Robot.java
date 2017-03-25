@@ -56,7 +56,6 @@ public class Robot extends IterativeRobot {
     public static Winch winch;
     public static LEDSignal ledBlenderSignal;
     public static LEDSignal ledGearSensingSignal;
-    public static OrderedSendableChooser<Boolean> cvChooser;
 
     public static OI oi;
 
@@ -104,7 +103,6 @@ public class Robot extends IterativeRobot {
 
         setupSmartDashboardFields();
         setupStraightDrivingChooser();
-        setupCVChooser();
         setupAutonChooser();
 
         //boilerVision = new BoilerVision();
@@ -116,29 +114,43 @@ public class Robot extends IterativeRobot {
     private void setupSmartDashboardFields() {
         SmartDashboard.putNumber("Shooter speed", RobotMap.SHOOTER_IDEAL_SPEED);
         SmartDashboard.putNumber("gyro-rotate-degs", 5.0);
-        SmartDashboard.putNumber("cv tolerance", 3.0);
-        SmartDashboard.putNumber("autorotate-speed", 0.4);
-        SmartDashboard.putNumber("autorotate-range", 0.6);
-        SmartDashboard.putNumber("autorotate-gentle-speed", 0.4);
-        SmartDashboard.putNumber("autorotate-gentle-range", 0.6);
-        SmartDashboard.putNumber("autorotate-counter-threshold", 3.0);
+
+        SmartDashboard.putNumber("lift-camera-tilt-degs", 0.0);
+
+        SmartDashboard.putNumber("cv tolerance", 2.0);
+        SmartDashboard.putNumber("tolerance-vary-scalar", 0.5);
+        SmartDashboard.putNumber("max-on-target", 10000.0);
+
+        SmartDashboard.putNumber("autorotate-speed", 0.35);
+        SmartDashboard.putNumber("autorotate-range", 0.25);
+        SmartDashboard.putNumber("autorotate-counter-threshold", 40.0);
+        SmartDashboard.putNumber("autorotate-stall-motor-boost", 0.08);
+        // When autorotate-woah-degrees is larger, GyroRotationalCommand
+        // will ramp down through a larger angle.
+        SmartDashboard.putNumber("autorotate-woah-degrees", 10);
         SmartDashboard.putNumber("autorotate-min-degrees", 1.5);
+        SmartDashboard.putNumber("autorotate-stall-speed-threshold", 50.0);
+        SmartDashboard.putNumber("left-speed-scale", 1.0);
+        SmartDashboard.putNumber("angle-offset", -1.0);
+
+        SmartDashboard.putNumber("auto-drive-base-speed", 0.45);
+        SmartDashboard.putNumber("auto-drive-range", 0.4);
+        SmartDashboard.putNumber("auto-drive-ramp-max-speed", 0.7);
+        SmartDashboard.putNumber("auto-drive-dist-for-max-speed", 5 * 12.0);
+
         SmartDashboard.putNumber("encoder-drive-inches", 108.0);
-        SmartDashboard.putNumber("IR Sensor Distance", RobotMap.IR_SENSOR_THRESHOLD);
-        SmartDashboard.putNumber("IR Sensor Time", RobotMap.IR_TIME_IN_MECHANISM_THRESHOLD);
         SmartDashboard.putNumber("drive fwd time", 5.0);
         SmartDashboard.putNumber("drive fwd speed", 0.5);
-        SmartDashboard.putNumber("delay-one", 0.5);
-        SmartDashboard.putNumber("delay-two", 0.5);
         SmartDashboard.putNumber("distance onto peg", CVConstants.PAST_PEG_DISTANCE);
+        // "winne-*" fields are for EncoderStraightDrivingCommand (for... historical reasons)
         SmartDashboard.putNumber("winne-threshold", 0.1);
         SmartDashboard.putNumber("winne-scale", 0.1);
     }
 
     private void setupStraightDrivingChooser() {
         straightDrivingChooser = new OrderedSendableChooser<Boolean>();
-        straightDrivingChooser.addDefault("Use encoders to drive straight", true);
-        straightDrivingChooser.addObject("Use basic drive-straight", false);
+        straightDrivingChooser.addDefault("Use basic drive-straight", false);
+        straightDrivingChooser.addObject("Use automatically-adjusting drive-straight", true);
         SmartDashboard.putData("Straight driving", straightDrivingChooser);
     }
 
@@ -147,31 +159,27 @@ public class Robot extends IterativeRobot {
         autonChooser.addObject("Do Nothing", new CommandGroup());
         autonChooser.addObject("Minimal Mobility", new MobilityMinimalCommand());
         autonChooser.addObject("Minimal Mobility From Middle Gear Start", new MiddleGearMobilityMinimalCommand());
-        autonChooser.addObject("Only Mobility To HP Station", new MobilityToHPCommand());
-        autonChooser.addObject("Only Score HP Gear (CV)", new ScoreHPGearCommand(true));
-        autonChooser.addDefault("Only Score HP Gear (No CV)", new ScoreHPGearCommand(false));
-        autonChooser.addObject("Score HP Gear THEN Approach HP Station",
-                new DoubleSequentialCommand(new ScoreHPGearCommand(true), new ApproachHPFromHPGearCommand()));
-        autonChooser.addObject("Only Score Middle Gear (CV)", new ScoreMiddleGearCommand(true));
-        autonChooser.addObject("Only Score Middle Gear (No CV)", new ScoreMiddleGearCommand(false));
-        autonChooser.addObject("Score Middle Gear THEN Approach HP Station",
+        //autonChooser.addObject("Only Mobility To HP Station", new MobilityToHPCommand());
+        autonChooser.addObject("Only Score HUMAN-PLAYER gear (CV)", new ScoreHPGearCommand(true));
+        autonChooser.addObject("Only APPROACH HUMAN-PLAYER gear (No CV)", new ScoreHPGearCommand(false));
+        //autonChooser.addObject("Score HUMAN-PLAYER gear THEN Approach HP Station",
+        //        new DoubleSequentialCommand(new ScoreHPGearCommand(true), new ApproachHPFromHPGearCommand()));
+        autonChooser.addObject("Only Score MIDDLE Gear (CV)", new ScoreMiddleGearCommand(true));
+        autonChooser.addDefault("Only Score MIDDLE Gear (No CV)", new ScoreMiddleGearCommand(false));
+        // Leaving middle-then-approach-hp because it does *score* the gear, so we could
+        // hypothetically try the approach-hp if we really need it.
+        autonChooser.addObject("Score MIDDLE Gear THEN Approach HP Station",
                 new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ApproachHPFromMiddleGearCommand()));
-        autonChooser.addObject("Score Middle Gear THEN Shoot",
-                new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ShootFromMiddleGearCommand()));
-        autonChooser.addObject("Only Score Boiler Gear", new ScoreBoilerGearCommand());
-        autonChooser.addObject("Score Boiler Gear THEN Approach HP Station",
-                new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ApproachHPFromBoilerGearCommand()));
-        autonChooser.addObject("Score Boiler Gear THEN Shoot",
-                new DoubleSequentialCommand(new ScoreBoilerGearCommand(), new ShootingFromBoilerGearCommand()));
-        autonChooser.addObject("Only Shoot", new ShootingFromAllianceWallCommand());
+        //autonChooser.addObject("Score MIDDLE Gear THEN Shoot",
+        //        new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ShootFromMiddleGearCommand()));
+        autonChooser.addObject("Only Score BOILER Gear (CV)", new ScoreBoilerGearCommand(true));
+        autonChooser.addObject("Only APPROACH BOILER Gear (No CV)", new ScoreBoilerGearCommand(false));
+        //autonChooser.addObject("Score BOILER Gear THEN Approach HP Station",
+        //        new DoubleSequentialCommand(new ScoreBoilerGearCommand(true), new ApproachHPFromBoilerGearCommand()));
+        //autonChooser.addObject("Score BOILER Gear THEN Shoot",
+        //        new DoubleSequentialCommand(new ScoreBoilerGearCommand(true), new ShootingFromBoilerGearCommand()));
+        //autonChooser.addObject("Only Shoot", new ShootingFromAllianceWallCommand());
         SmartDashboard.putData("Auton Setting", autonChooser);
-    }
-
-    private void setupCVChooser() {
-        cvChooser = new OrderedSendableChooser<Boolean>();
-        cvChooser.addDefault("Do not use CV in auton", false);
-        cvChooser.addObject("Use CV in auton", true);
-        SmartDashboard.putData("Use CV in auton?", cvChooser);
     }
 
     private void updateSmartDashboardOutputs() {
@@ -179,6 +187,9 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("IRVoltage", irsensor.getVoltage());
         SmartDashboard.putNumber("Encoder drivetrain left", Robot.drivetrain.leftEncoderDistance());
         SmartDashboard.putNumber("Encoder drivetrain right", Robot.drivetrain.rightEncoderDistance());
+        SmartDashboard.putNumber("Encoder left-speed", Robot.drivetrain.leftEncoderSpeed());
+        SmartDashboard.putNumber("Encoder right-speed", Robot.drivetrain.rightEncoderSpeed());
+        SmartDashboard.putNumber("Encoders avg-abs speed", Robot.drivetrain.avgAbsEncoderSpeed());
         SmartDashboard.putNumber("Gyro angle", Robot.drivetrain.gyroAngle());
         SmartDashboard.putNumber("Shooter Motor A current", Robot.shooter.getCurrentShooterMotorA());
         SmartDashboard.putNumber("Shooter Motor B current", Robot.shooter.getCurrentShooterMotorB());
