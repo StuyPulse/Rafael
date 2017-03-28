@@ -1,6 +1,8 @@
 package com.stuypulse.frc2017.robot.commands.cv;
 
+import com.stuypulse.frc2017.robot.CVConstants;
 import com.stuypulse.frc2017.robot.Robot;
+import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 import com.stuypulse.frc2017.robot.cv.LiftMath;
 import com.stuypulse.frc2017.util.Vector;
 
@@ -35,6 +37,18 @@ public class SetupForGearCommand extends CommandGroup {
         addSequential(new RotateToLiftCommand());
         //addSequential(new RotateToLiftCommand(true));
 
+        addSequential(new DriveToPegCommand());
+        addSequential(new ResetForceStopCommand());
+    }
+
+    public SetupForGearCommand(boolean overshoot){
+        addSequential(new ResetForceStopCommand());
+        if(overshoot) {
+            addSequential(new RotateDegreesGyroCommand(-1 * CVConstants.ROTATE_OFFSET_ANGLE));
+            addSequential(new OvershootRotateToLiftCommand());
+        } else {
+            addSequential(new RotateToLiftCommand());
+        }
         addSequential(new DriveToPegCommand());
         addSequential(new ResetForceStopCommand());
     }

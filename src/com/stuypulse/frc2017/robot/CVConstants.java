@@ -42,4 +42,6 @@ public interface CVConstants {
     double PEG_LENGTH = 10.5 + 3.38;
 
     double PAST_PEG_DISTANCE = 12.0; // Not really 12in onto the peg... part of this accounts EncoderDrivingCommand undershooting
+
+    double ROTATE_OFFSET_ANGLE = 30.0;
 }
