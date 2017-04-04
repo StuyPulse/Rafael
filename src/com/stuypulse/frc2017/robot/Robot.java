@@ -57,6 +57,7 @@ public class Robot extends IterativeRobot {
     public static LEDSignal ledBlenderSignal;
     public static LEDSignal ledGearSensingSignal;
     public static LEDSignal ledGearShiftSignal;
+    public static LEDSignal ledPressureSensingSignal;
 
     public static OI oi;
 

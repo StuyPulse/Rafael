@@ -27,9 +27,9 @@ public class PressureSensor {
     
     public void pressureLEDSignalControl() {
         if (isPressureLow()) {
-            Robot.ledGearSensingSignal.stayOn();
+            Robot.ledPressureSensingSignal.stayOn();
         } else {
-            Robot.ledGearSensingSignal.stayOff();
+            Robot.ledPressureSensingSignal.stayOff();
         }
     }
 }
