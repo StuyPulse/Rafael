@@ -145,6 +145,14 @@ public class Robot extends IterativeRobot {
         // "winne-*" fields are for EncoderStraightDrivingCommand (for... historical reasons)
         SmartDashboard.putNumber("winne-threshold", 0.1);
         SmartDashboard.putNumber("winne-scale", 0.1);
+
+        // PID
+        SmartDashboard.putNumber("kP", 0.0);
+        SmartDashboard.putNumber("kI", 0.0);
+        SmartDashboard.putNumber("kD", 0.0);
+        SmartDashboard.putNumber("pid-drive-distance", 12);
+        SmartDashboard.putNumber("pid-drive-speed", 0.5);
+        SmartDashboard.putNumber("pid-rotate-angle", 90);
     }
 
     private void setupStraightDrivingChooser() {
