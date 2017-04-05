@@ -13,11 +13,13 @@ public class RotateDegreesPIDCommand extends PIDCommand {
 
     private double angle;
     private boolean auto;
+
     private PIDController controller;
 
     public RotateDegreesPIDCommand() {
-        this(0.0);
+        super(0.0, 0.0, 0.0);
         this.auto = true;
+        requires(Robot.drivetrain);
     }
 
     public RotateDegreesPIDCommand(double angle) {

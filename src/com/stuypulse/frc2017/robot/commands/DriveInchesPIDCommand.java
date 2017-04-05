@@ -20,10 +20,11 @@ public class DriveInchesPIDCommand extends PIDCommand {
     public DriveInchesPIDCommand() {
         super(0.0, 0.0, 0.0);
         this.auto = true;
+        requires(Robot.drivetrain);
     }
 
     public DriveInchesPIDCommand(double speed, double distance) {
-        super(0.0,0.0,0.0);
+        super(0.0, 0.0, 0.0);
         this.speed = speed;
         this.distance = distance;
         this.auto = false;
