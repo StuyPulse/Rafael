@@ -56,6 +56,7 @@ public class Robot extends IterativeRobot {
     public static Winch winch;
     public static LEDSignal ledBlenderSignal;
     public static LEDSignal ledGearSensingSignal;
+    public static LEDSignal ledGearShiftSignal;
 
     public static OI oi;
 
@@ -100,6 +101,7 @@ public class Robot extends IterativeRobot {
         irsensor = new IRSensor();
         ledBlenderSignal = new LEDSignal(RobotMap.BLENDER_LED_PORT, RobotMap.BLENDER_LED_ON_VALUE);
         ledGearSensingSignal = new LEDSignal(RobotMap.GEAR_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);
+        ledGearShiftSignal = new LEDSignal(RobotMap.GEAR_SHIFT_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);
 
         setupSmartDashboardFields();
         setupStraightDrivingChooser();

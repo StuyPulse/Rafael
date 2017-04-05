@@ -1,6 +1,7 @@
 package com.stuypulse.frc2017.robot.commands;
 
 import com.stuypulse.frc2017.robot.Robot;
+import com.stuypulse.frc2017.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -19,6 +20,7 @@ public class DriveTrainHighGearCommand extends Command {
     @Override
     protected void initialize() {
         Robot.drivetrain.highGearShift();
+        Robot.ledGearShiftSignal.stayOff();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -29,6 +31,7 @@ public class DriveTrainHighGearCommand extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
+        
         return true;
     }
 
