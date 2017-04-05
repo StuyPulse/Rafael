@@ -20,7 +20,7 @@ public class DriveTrainHighGearCommand extends Command {
     @Override
     protected void initialize() {
         Robot.drivetrain.highGearShift();
-        Robot.ledGearSensingSignal.stayOff();
+        Robot.ledGearShiftSignal.stayOff();
     }
 
     // Called repeatedly when this Command is scheduled to run

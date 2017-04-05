@@ -110,7 +110,9 @@ public interface RobotMap {
     int BLENDER_LED_PORT = 9;
     int GEAR_LED_PORT = 8; // for when gear is in robot
     // The third LED is (supposed to be) on port 10, for future use. // port 10 means port 0 on NavX (see DigitalIO docs)
-
+    int GEAR_SHIFT_LED_PORT = 10;
+    
+    
     // On-values (i.e. which bit to send to indicate to turn the LED on)
     boolean BLENDER_LED_ON_VALUE = true;
     // TODO: test gear led on-value
@@ -126,6 +128,13 @@ public interface RobotMap {
     double EQUATION_FACTOR = 12.23368994;
     double EQUATION_EXPONENT = -0.9779601588;
     double CONVERSION_FACTOR_CM_TO_INCHES = 0.393701;
+    
+    ////////////////////////////////////////////////////////////////////////////
+    // PRESSURE SENSOR: ////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+    int PRESSURE_SENSOR_PORT = 1;
+    double PRESSURE_SENSOR_THRESHOLD = 40.0;
+    
 
     ////////////////////////////////////////////////////////////////////////////
     // PIOTR DRIVE: //////////////////////////////////////////////////////////////

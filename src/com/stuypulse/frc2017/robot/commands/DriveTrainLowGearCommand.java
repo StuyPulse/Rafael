@@ -20,7 +20,7 @@ public class DriveTrainLowGearCommand extends Command {
     @Override
     protected void initialize() {
         Robot.drivetrain.lowGearShift();
-        Robot.ledGearSensingSignal.stayOn();
+        Robot.ledGearShiftSignal.stayOn();
     }
 
     // Called repeatedly when this Command is scheduled to run
