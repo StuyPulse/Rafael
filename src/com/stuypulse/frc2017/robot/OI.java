@@ -15,17 +15,14 @@ import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 import com.stuypulse.frc2017.robot.commands.ScoreGearCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateIdealSpeedCommand;
-import com.stuypulse.frc2017.robot.commands.ShooterAccelerateMaximumSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateMinimumSpeedCommand;
+import com.stuypulse.frc2017.robot.commands.ShooterAccelerateReverseSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterStopCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStartMotorCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStopMotorCommand;
-import com.stuypulse.frc2017.robot.commands.auton.DoubleSequentialCommand;
 import com.stuypulse.frc2017.robot.commands.cv.ProcessTestImageCommand;
-import com.stuypulse.frc2017.robot.commands.cv.RotateToBoilerCommand;
 import com.stuypulse.frc2017.robot.commands.cv.RotateToLiftCommand;
 import com.stuypulse.frc2017.robot.commands.cv.RunAutoCommand;
-import com.stuypulse.frc2017.robot.commands.cv.SetupForBoilerCommand;
 import com.stuypulse.frc2017.robot.commands.cv.SetupForGearCommand;
 import com.stuypulse.frc2017.util.Gamepad;
 
@@ -107,9 +104,9 @@ public class OI {
 
         // Shooter:
         operatorPad.getDPadDown().whenPressed(new ShooterStopCommand());
-        operatorPad.getDPadRight().whenPressed(new ShooterAccelerateMinimumSpeedCommand());
+        operatorPad.getDPadRight().whenPressed(new ShooterAccelerateReverseSpeedCommand());
         operatorPad.getDPadUp().whenPressed(new ShooterAccelerateIdealSpeedCommand());
-        operatorPad.getDPadLeft().whenPressed(new ShooterAccelerateMaximumSpeedCommand());
+        operatorPad.getDPadLeft().whenPressed(new ShooterAccelerateMinimumSpeedCommand());
 
         // Ball scoring:
         operatorPad.getLeftBumper().whenPressed(new BallGateOpenCommand());
