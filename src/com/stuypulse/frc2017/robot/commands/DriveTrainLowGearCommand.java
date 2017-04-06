@@ -1,7 +1,6 @@
 package com.stuypulse.frc2017.robot.commands;
 
 import com.stuypulse.frc2017.robot.Robot;
-import com.stuypulse.frc2017.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -20,7 +19,6 @@ public class DriveTrainLowGearCommand extends Command {
     @Override
     protected void initialize() {
         Robot.drivetrain.lowGearShift();
-        Robot.ledGearSensingSignal.stayOn();
     }
 
     // Called repeatedly when this Command is scheduled to run
