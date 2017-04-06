@@ -26,7 +26,7 @@ public class RotateDegreesGyroCommand extends GyroRotationalCommand {
     }
 
     @Override
-    protected double getDesiredAngle() {
+    public double getDesiredAngle() {
         return angleIsPreset ? angle : SmartDashboard.getNumber("gyro-rotate-degs", 0);
     }
 }

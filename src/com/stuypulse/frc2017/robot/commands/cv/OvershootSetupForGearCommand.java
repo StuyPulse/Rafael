@@ -6,7 +6,7 @@ import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 import com.stuypulse.frc2017.util.Vector;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 
 /**
  *
@@ -30,24 +30,51 @@ public class OvershootSetupForGearCommand extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-        double angToLift = getAngle();
+
+        RotateDegreesGyroCommand rotateBack = new RotateDegreesGyroCommand();
+
+        //get angle
+        addSequential(new GetAngleToLiftCommand(rotateBack));
         addSequential(new ResetForceStopCommand());
         addSequential(new RotateDegreesGyroCommand(CVConstants.ROTATE_OFFSET_ANGLE));
-        double gyroAngle = Robot.drivetrain.gyroAngle();
-        addSequential(new RotateDegreesGyroCommand(-1 * gyroAngle + angToLift));
+        addSequential(new GetRotateBackAngleCommand(rotateBack));
+        addSequential(rotateBack);
         addSequential(new DriveToPegCommand());
         addSequential(new ResetForceStopCommand());
     }
 
-    public double getAngle() {
+}
+
+class GetAngleToLiftCommand extends InstantCommand {
+
+    private RotateDegreesGyroCommand rotateBack;
+
+    public GetAngleToLiftCommand(RotateDegreesGyroCommand rotateBack) {
+        this.rotateBack = rotateBack;
+    }
+
+    public void initialize() {
         Vector cvReading = Robot.liftVision.mTip_processImage(true);
         boolean foundGoal = cvReading != null;
         Robot.cvFoundGoal = foundGoal;
         if (foundGoal) {
             System.out.println(cvReading);
-            return cvReading.getDegrees() + SmartDashboard.getNumber("angle-offset", 0.0);
+            rotateBack.setDesiredAngle(cvReading.getDegrees());
         }
-        System.out.println("No reading");
-        return 0.0;
     }
+
+}
+
+class GetRotateBackAngleCommand extends InstantCommand {
+
+    private RotateDegreesGyroCommand rotateBack;
+
+    public GetRotateBackAngleCommand(RotateDegreesGyroCommand rotateBack) {
+        this.rotateBack = rotateBack;
+    }
+
+    public void initialize() {
+        rotateBack.setDesiredAngle(-1 * Robot.drivetrain.gyroAngle() + rotateBack.getDesiredAngle());
+   }
+
 }
