@@ -5,7 +5,7 @@ import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 import com.stuypulse.frc2017.robot.commands.ScoreGearCommand;
-import com.stuypulse.frc2017.robot.commands.cv.SetupForGearCommand;
+import com.stuypulse.frc2017.robot.commands.cv.OvershootSetupForGearCommand;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -33,7 +33,7 @@ public class ScoreHPGearCommand extends CommandGroup {
         addSequential(new RotateDegreesGyroCommand(direction * HP_GEAR_TURN_TO_HP_GEAR_ANGLE));
 
         if (useCV) {
-            addSequential(new SetupForGearCommand());
+            addSequential(new OvershootSetupForGearCommand());
         } else {
             return;
             //addSequential(new DriveInchesEncodersCommand(AFTER_TURN_TO_HP_GEAR_DISTANCE));
