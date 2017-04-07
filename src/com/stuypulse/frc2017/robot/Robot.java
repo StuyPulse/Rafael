@@ -214,6 +214,7 @@ public class Robot extends IterativeRobot {
     }
 
     private void updateSmartDashboardOutputs() {
+        SmartDashboard.putNumber("IRDistanceThreshold", RobotMap.IR_SENSOR_THRESHOLD);
         SmartDashboard.putNumber("IRDistance", irsensor.getDistance());
         SmartDashboard.putNumber("IRVoltage", irsensor.getVoltage());
         SmartDashboard.putNumber("Encoder drivetrain left", Robot.drivetrain.leftEncoderDistance());
