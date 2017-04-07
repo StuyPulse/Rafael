@@ -26,6 +26,7 @@ import com.stuypulse.frc2017.robot.subsystems.Winch;
 import com.stuypulse.frc2017.util.BoolBox;
 import com.stuypulse.frc2017.util.IRSensor;
 import com.stuypulse.frc2017.util.LEDSignal;
+import com.stuypulse.frc2017.util.PressureSensor;
 import com.stuypulse.frc2017.util.Vector;
 import com.stuypulse.frc2017.util.OrderedSendableChooser;
 
@@ -54,9 +55,12 @@ public class Robot extends IterativeRobot {
     public static Blender blender;
     public static BallGate ballgate;
     public static Winch winch;
+
     public static LEDSignal ledGearSensingSignal;
     public static LEDSignal ledGearShiftSignal;
     public static LEDSignal ledPressureSensingSignal;
+
+    public static PressureSensor pressureSensor;
 
     public static OI oi;
 
@@ -98,7 +102,10 @@ public class Robot extends IterativeRobot {
         ballgate = new BallGate();
         winch = new Winch();
         oi = new OI();
+
         irsensor = new IRSensor();
+        pressureSensor = new PressureSensor();
+
         ledPressureSensingSignal = new LEDSignal(RobotMap.PRESSURE_LED_PORT, RobotMap.PRESSURE_LED_ON_VALUE);
         ledGearSensingSignal = new LEDSignal(RobotMap.GEAR_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);
         ledGearShiftSignal = new LEDSignal(RobotMap.GEAR_SHIFT_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);
@@ -288,6 +295,7 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         blender.checkForJam();
         irsensor.gearLEDSignalControl();
+        pressureSensor.pressureLEDSignalControl();
         updateSmartDashboardOutputs();
     }
 
@@ -319,6 +327,7 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         blender.checkForJam();
         irsensor.gearLEDSignalControl();
+        pressureSensor.pressureLEDSignalControl();
         updateSmartDashboardOutputs();
     }
 
