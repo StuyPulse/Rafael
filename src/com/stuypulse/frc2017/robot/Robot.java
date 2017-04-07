@@ -149,12 +149,17 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("winne-scale", 0.1);
 
         // PID
-        SmartDashboard.putNumber("kP", 0.0);
-        SmartDashboard.putNumber("kI", 0.0);
-        SmartDashboard.putNumber("kD", 0.0);
+        SmartDashboard.putNumber("P DriveInches", 0.0);
+        SmartDashboard.putNumber("I DriveInches", 0.0);
+        SmartDashboard.putNumber("D DriveInches", 0.0);
         SmartDashboard.putNumber("pid-drive-distance", 12);
         SmartDashboard.putNumber("pid-drive-speed", 0.5);
+
+        SmartDashboard.putNumber("P RotateDegrees", 0.0);
+        SmartDashboard.putNumber("I RotateDegrees", 0.0);
+        SmartDashboard.putNumber("D RotateDegrees", 0.0);
         SmartDashboard.putNumber("pid-rotate-angle", 90);
+
     }
 
     private void setupStraightDrivingChooser() {

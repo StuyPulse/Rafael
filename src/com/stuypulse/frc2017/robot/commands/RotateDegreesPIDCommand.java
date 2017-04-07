@@ -37,9 +37,9 @@ public class RotateDegreesPIDCommand extends PIDCommand {
 
         controller = getPIDController();
         controller.setPID(
-                SmartDashboard.getNumber("kP", 0.0),
-                SmartDashboard.getNumber("kI", 0.0),
-                SmartDashboard.getNumber("kD", 0.0)
+                SmartDashboard.getNumber("P RotateDegrees", 0.0),
+                SmartDashboard.getNumber("I RotateDegrees", 0.0),
+                SmartDashboard.getNumber("D RotateDegrees", 0.0)
         );
         controller.reset();
         if (!controller.isEnabled()) {
@@ -52,6 +52,8 @@ public class RotateDegreesPIDCommand extends PIDCommand {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        // This should be converted to a graph (LinePlot) when testing
+        SmartDashboard.putNumber("PID RotateDegrees OUTPUT", returnPIDInput());
     }
 
     // Make this return true when this Command no longer needs to run execute()
