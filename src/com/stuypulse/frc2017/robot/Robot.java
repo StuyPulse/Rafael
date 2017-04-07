@@ -270,7 +270,6 @@ public class Robot extends IterativeRobot {
         // always happen, regardless of what comes next, and it is quick. This
         // is also why blocking the thread is appropriate:
         Robot.drivetrain.resetEncoders();
-        Robot.geartrap.trap();
 
         Timer.delay(0.5);
 
@@ -312,7 +311,6 @@ public class Robot extends IterativeRobot {
         }
 
         Robot.drivetrain.resetEncoders();
-        Robot.geartrap.trap();
         // TODO: Why config cameras here and not in autonInit()?
         Cameras.configureCamera(0);
         Cameras.configureCamera(1);

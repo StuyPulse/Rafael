@@ -31,14 +31,13 @@ public class Blender extends Subsystem {
         currentValues = new double[CURRENTS_TO_RECORD];
         blenderMotor.enableBrakeMode(true);
         isJammed = false;
-        blenderMotor.setInverted(true);
     }
 
     @Override
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
-        setDefaultCommand(new BlenderJoystickDriveCommand());
+        //setDefaultCommand(new BlenderJoystickDriveCommand());
     }
 
     public void joystickDrive(double speed) {

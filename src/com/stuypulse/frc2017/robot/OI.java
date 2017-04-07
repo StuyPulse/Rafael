@@ -1,7 +1,7 @@
 package com.stuypulse.frc2017.robot;
 
-import com.stuypulse.frc2017.robot.commands.BlenderRunWithUnjammingCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderSpinBackwardCommand;
+import com.stuypulse.frc2017.robot.commands.BlenderSpinCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderStopCommand;
 import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.DriveInchesPIDCommand;
@@ -118,7 +118,7 @@ public class OI {
                 .whenPressed(new BlenderSpinBackwardCommand());
         operatorPad.getRightBumper().whenReleased(new BlenderStopCommand());
 
-        operatorPad.getRightTrigger().whenPressed(new BlenderRunWithUnjammingCommand());
+        operatorPad.getRightTrigger().whenPressed(new BlenderSpinCommand());
         operatorPad.getRightTrigger().whenReleased(new BlenderStopCommand()); // stop blender and close ball gate
 
         // Climbing:

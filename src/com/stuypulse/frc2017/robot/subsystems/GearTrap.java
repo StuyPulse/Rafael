@@ -31,17 +31,17 @@ public class GearTrap extends Subsystem {
         set(!trapped);
     }
 
-    public void set(boolean trap) {
-        gearTrap.set(trap);
+    private void set(boolean trap) {
+        gearTrap.set(!trap);
         trapped = trap;
     }
 
     public void trap() {
-        gearTrap.set(true);
+        set(true);
     }
 
     public void release() {
-        gearTrap.set(false);
+        set(false);
     }
 
     public boolean isTrapped() {
