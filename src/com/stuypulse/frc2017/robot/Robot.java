@@ -153,21 +153,24 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("winne-scale", 0.1);
 
         // PID DriveInches
-        SmartDashboard.putNumber("P DriveInches", 0.0);
+        SmartDashboard.putNumber("P DriveInches", 0.05);
         SmartDashboard.putNumber("I DriveInches", 0.0);
         SmartDashboard.putNumber("D DriveInches", 0.0);
-        SmartDashboard.putNumber("pid-drive-distance", 12);
+        SmartDashboard.putNumber("pid-drive-distance", 70);
         SmartDashboard.putNumber("pid-drive-speed", 0.5);
+        SmartDashboard.putNumber("PID DriveInches OUTPUT", 0.0);
         // PID RotateDegrees
         SmartDashboard.putNumber("P RotateDegrees", 0.0);
         SmartDashboard.putNumber("I RotateDegrees", 0.0);
         SmartDashboard.putNumber("D RotateDegrees", 0.0);
         SmartDashboard.putNumber("pid-rotate-angle", 90);
+        SmartDashboard.putNumber("PID RotateDegrees OUTPUT", 0.0);
         // PID ShooterAccelerate
         SmartDashboard.putNumber("P ShooterAccelerate", 0.0);
         SmartDashboard.putNumber("I ShooterAccelerate", 0.0);
         SmartDashboard.putNumber("D ShooterAccelerate", 0.0);
         SmartDashboard.putNumber("pid-shooter-speed", 0);
+        SmartDashboard.putNumber("PID ShooterAccelerate OUTPUT", 0.0);
 
     }
 

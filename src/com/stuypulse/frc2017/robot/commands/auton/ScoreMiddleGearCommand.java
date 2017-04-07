@@ -2,6 +2,7 @@ package com.stuypulse.frc2017.robot.commands.auton;
 
 import com.stuypulse.frc2017.robot.Robot;
 import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
+import com.stuypulse.frc2017.robot.commands.DriveInchesPIDCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
 import com.stuypulse.frc2017.robot.commands.ScoreGearCommand;
 import com.stuypulse.frc2017.robot.commands.cv.SetupForGearCommand;
@@ -37,7 +38,9 @@ public class ScoreMiddleGearCommand extends CommandGroup {
             addSequential(new DriveInchesEncodersCommand(30));
             addSequential(new SetupForGearCommand());
         } else {
-            addSequential(new DriveInchesEncodersCommand(START_TO_MIDDLE_GEAR_DISTANCE));
+            // TODO: Replace speed and modify to work without magic numbers
+            addSequential(new DriveInchesPIDCommand(0.5, START_TO_MIDDLE_GEAR_DISTANCE));
+            //new DriveInchesEncodersCommand(START_TO_MIDDLE_GEAR_DISTANCE));
         }
         addSequential(new ScoreGearCommand());
         addSequential(new DriveInchesEncodersCommand(MIDDLE_GEAR_REVERSE_DISTANCE));
