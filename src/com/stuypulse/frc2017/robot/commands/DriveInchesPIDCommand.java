@@ -55,13 +55,17 @@ public class DriveInchesPIDCommand extends PIDCommand {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        if (Robot.oi.driverIsOverriding()) {
+            Robot.stopAutoMovement.set(true);
+            return;
+        }
         // This should be converted to a graph (LinePlot) when testing
         SmartDashboard.putNumber("PID DriveInches OUTPUT", returnPIDInput());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.drivetrain.encoderDistance() >= distance;
+        return Robot.stopAutoMovement.get() || Robot.drivetrain.encoderDistance() >= distance;
     }
 
     // Called once after isFinished returns true

@@ -52,13 +52,18 @@ public class RotateDegreesPIDCommand extends PIDCommand {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        if (Robot.oi.driverIsOverriding()) {
+            Robot.stopAutoMovement.set(true);
+            return;
+        }
         // This should be converted to a graph (LinePlot) when testing
         SmartDashboard.putNumber("PID RotateDegrees OUTPUT", returnPIDInput());
+
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.drivetrain.gyroAngle() >= this.angle;
+        return Robot.stopAutoMovement.get() || Robot.drivetrain.gyroAngle() >= this.angle;
     }
 
     // Called once after isFinished returns true
