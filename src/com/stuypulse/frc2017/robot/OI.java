@@ -1,7 +1,5 @@
 package com.stuypulse.frc2017.robot;
 
-import com.stuypulse.frc2017.robot.commands.BallGateCloseCommand;
-import com.stuypulse.frc2017.robot.commands.BallGateOpenCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderRunWithUnjammingCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderSpinBackwardCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderStopCommand;
@@ -109,9 +107,6 @@ public class OI {
         operatorPad.getDPadLeft().whenPressed(new ShooterAccelerateMinimumSpeedCommand());
 
         // Ball scoring:
-        operatorPad.getLeftBumper().whenPressed(new BallGateOpenCommand());
-        operatorPad.getLeftBumper().whenReleased(new BallGateCloseCommand());
-
         operatorPad.getRightBumper()
                 .whenPressed(new BlenderSpinBackwardCommand());
         operatorPad.getRightBumper().whenReleased(new BlenderStopCommand());

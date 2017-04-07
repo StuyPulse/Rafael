@@ -16,7 +16,6 @@ import com.stuypulse.frc2017.robot.commands.auton.ShootingFromBoilerGearCommand;
 import com.stuypulse.frc2017.robot.cv.BoilerVision;
 import com.stuypulse.frc2017.robot.cv.Cameras;
 import com.stuypulse.frc2017.robot.cv.LiftVision;
-import com.stuypulse.frc2017.robot.subsystems.BallGate;
 import com.stuypulse.frc2017.robot.subsystems.Blender;
 import com.stuypulse.frc2017.robot.subsystems.Drivetrain;
 import com.stuypulse.frc2017.robot.subsystems.GearPusher;
@@ -53,7 +52,6 @@ public class Robot extends IterativeRobot {
     public static GearTrap geartrap;
     public static Shooter shooter;
     public static Blender blender;
-    public static BallGate ballgate;
     public static Winch winch;
 
     public static LEDSignal ledGearSensingSignal;
@@ -99,7 +97,6 @@ public class Robot extends IterativeRobot {
         blender = new Blender();
         geartrap = new GearTrap();
         gearpusher = new GearPusher();
-        ballgate = new BallGate();
         winch = new Winch();
         oi = new OI();
 
