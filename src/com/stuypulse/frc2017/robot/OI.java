@@ -4,6 +4,7 @@ import com.stuypulse.frc2017.robot.commands.BlenderRunWithUnjammingCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderSpinBackwardCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderStopCommand;
 import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
+import com.stuypulse.frc2017.robot.commands.DriveInchesPIDCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainLowGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherPushGearCommand;
@@ -11,6 +12,7 @@ import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
+import com.stuypulse.frc2017.robot.commands.RotateDegreesPIDCommand;
 import com.stuypulse.frc2017.robot.commands.ScoreGearCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateIdealSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateMinimumSpeedCommand;
@@ -87,6 +89,10 @@ public class OI {
         driverPad.getDPadUp().whenPressed(new SetupForGearCommand());
         driverPad.getDPadRight().whenPressed(new RunAutoCommand(new RotateToLiftCommand()));
         driverPad.getStartButton().whenPressed(new ProcessTestImageCommand());
+
+        // PID testing bindings
+        driverPad.getRightButton().whenPressed(new DriveInchesPIDCommand());
+        driverPad.getTopButton().whenPressed(new RotateDegreesPIDCommand());
 
         ////////////////////////////////////////////////////////////////////////
         // Operator Pad Bindings ///////////////////////////////////////////////
