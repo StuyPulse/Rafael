@@ -12,13 +12,11 @@ public class BlenderStopCommand extends Command {
     public BlenderStopCommand() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.blender);
-        requires(Robot.ballgate);
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.ballgate.close();
         Robot.blender.stop();
 
     }

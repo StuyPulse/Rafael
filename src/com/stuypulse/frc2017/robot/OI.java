@@ -75,7 +75,7 @@ public class OI {
         // Gear shift:
         driverPad.getRightBumper().whenPressed(new DriveTrainLowGearCommand());
         driverPad.getRightBumper().whenReleased(new DriveTrainHighGearCommand());
-        
+
         // Testing Talons
         driverPad.getTopButton().whenPressed(new DrivetrainFullForwardTestCommand());
         driverPad.getBottomButton().whenPressed(new DrivetrainFullBackwardTestCommand());
