@@ -53,7 +53,6 @@ public class GearPusher extends Subsystem {
     }
 
     /**
-     * TODO: Test whether it is kReverse or kForward when pushed
      *
      * @return
      */

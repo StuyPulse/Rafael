@@ -33,6 +33,9 @@ public class GearTrap extends Subsystem {
 
     private void set(boolean trap) {
         gearTrap.set(!trap);
+        // Setting the solenoid to `true` opens the trap and setting to `false`
+        // closes it
+        // The default position is closed
         trapped = trap;
     }
 
