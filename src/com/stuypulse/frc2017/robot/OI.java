@@ -8,6 +8,7 @@ import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainLowGearCommand;
 import com.stuypulse.frc2017.robot.commands.DrivetrainFullBackwardTestCommand;
 import com.stuypulse.frc2017.robot.commands.DrivetrainFullForwardTestCommand;
+import com.stuypulse.frc2017.robot.commands.DrivetrainStopCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherPushGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
@@ -75,9 +76,13 @@ public class OI {
         driverPad.getRightBumper().whenPressed(new DriveTrainLowGearCommand());
         driverPad.getRightBumper().whenReleased(new DriveTrainHighGearCommand());
         
+        // Testing Talons
         driverPad.getTopButton().whenPressed(new DrivetrainFullForwardTestCommand());
         driverPad.getBottomButton().whenPressed(new DrivetrainFullBackwardTestCommand());
-
+        
+        driverPad.getTopButton().whenReleased(new DrivetrainStopCommand());
+        driverPad.getBottomButton().whenReleased(new DrivetrainStopCommand());
+        
         // CV Lift:
         driverPad.getLeftBumper().whenPressed(new RunAutoCommand(new RotateToLiftCommand()));
 
