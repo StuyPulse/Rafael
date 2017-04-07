@@ -6,6 +6,8 @@ import com.stuypulse.frc2017.robot.commands.BlenderStopCommand;
 import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainLowGearCommand;
+import com.stuypulse.frc2017.robot.commands.DrivetrainFullBackwardTestCommand;
+import com.stuypulse.frc2017.robot.commands.DrivetrainFullForwardTestCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherPushGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
@@ -72,6 +74,10 @@ public class OI {
         // Gear shift:
         driverPad.getRightBumper().whenPressed(new DriveTrainLowGearCommand());
         driverPad.getRightBumper().whenReleased(new DriveTrainHighGearCommand());
+        
+        driverPad.getTopButton().whenPressed(new DrivetrainFullForwardTestCommand());
+        driverPad.getBottomButton().whenPressed(new DrivetrainFullBackwardTestCommand());
+
         // CV Lift:
         driverPad.getLeftBumper().whenPressed(new RunAutoCommand(new RotateToLiftCommand()));
 
