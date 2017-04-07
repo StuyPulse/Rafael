@@ -2,55 +2,48 @@ package com.stuypulse.frc2017.robot.commands;
 
 import com.stuypulse.frc2017.robot.Robot;
 
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-
-public class ShooterAcceleratePIDCommand extends PIDCommand {
+public class ShooterAcceleratePIDCommand extends Command {
 
     private double speed;
     private boolean auto;
-
+    
+    
     public ShooterAcceleratePIDCommand(double speed) {
-        super(0.0,0.0,0.0);
-        this.speed = speed;
         requires(Robot.shooter);
+        this.speed = speed;
     }
 
     public ShooterAcceleratePIDCommand() {
         this(0.0);
         auto = true;
     }
-
+    
     // Called just before this Command runs the first time
     protected void initialize() {
-        if (auto) {
-            speed = SmartDashboard.getNumber("pid-shooter-speed",0.0);
-        }
+        if (auto) speed = SmartDashboard.getNumber("pid-shooter-speed", 0.0);
 
-        PIDController controller = getPIDController();
-        controller.setPID(
+        Robot.shooter.setPIDF(
                 SmartDashboard.getNumber("P ShooterAccelerate", 0.0),
                 SmartDashboard.getNumber("I ShooterAccelerate", 0.0),
-                SmartDashboard.getNumber("D ShooterAccelerate", 0.0)
+                SmartDashboard.getNumber("D ShooterAccelerate", 0.0),
+                SmartDashboard.getNumber("F ShooterAccelerate", 0.0)
                 );
-        controller.reset();
-        if (!controller.isEnabled())
-            controller.enable();
-
-        Robot.shooter.stop();
+        Robot.shooter.setSpeed(speed);
     }
+
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        // This should be converted to a graph (LinePlot) when testing
-        SmartDashboard.putNumber("PID ShooterAccelerate OUTPUT", returnPIDInput());
+        // Log
+        SmartDashboard.putNumber("PID ShooterAccelerate OUTPUT", (Robot.shooter.getSpeed() - speed));
     }
 
-    // Only stop when interrupted!
+    // Must be interrupted
     protected boolean isFinished() {
         return false;
     }
@@ -63,17 +56,5 @@ public class ShooterAcceleratePIDCommand extends PIDCommand {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    }
-
-    @Override
-    protected double returnPIDInput() {
-        // TODO Auto-generated method stub
-        return (Robot.shooter.getSpeed() - speed);
-    }
-
-    @Override
-    protected void usePIDOutput(double output) {
-        // TODO Auto-generated method stub
-        Robot.shooter.setSpeed(output);
     }
 }

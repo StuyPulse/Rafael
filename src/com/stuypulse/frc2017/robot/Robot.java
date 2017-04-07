@@ -173,6 +173,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("P ShooterAccelerate", 0.0);
         SmartDashboard.putNumber("I ShooterAccelerate", 0.0);
         SmartDashboard.putNumber("D ShooterAccelerate", 0.0);
+        SmartDashboard.putNumber("F ShooterAccelerate", 0.0);
         SmartDashboard.putNumber("pid-shooter-speed", 0);
         SmartDashboard.putNumber("PID ShooterAccelerate OUTPUT", 0.0);
 
