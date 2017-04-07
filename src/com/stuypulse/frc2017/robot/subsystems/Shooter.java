@@ -25,6 +25,8 @@ public class Shooter extends Subsystem {
         shooterMotorB = new CANTalon(RobotMap.SHOOTER_MOTOR_B_PORT);
         shooterMotorA.enableBrakeMode(false);
         shooterMotorB.enableBrakeMode(false);
+        shooterMotorA.setInverted(true);
+        shooterMotorB.setInverted(true);
         shooterMotorA.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
         shooterMotorA.configEncoderCodesPerRev(RobotMap.SHOOTER_ENCODER_PULSES_PER_REVOLUTION);
     }
