@@ -112,6 +112,10 @@ public class Robot extends IterativeRobot {
         setupAutonChooser();
 
         //boilerVision = new BoilerVision();
+
+        // The lift camera is configured (with V4L) when the
+        // first image is processed (see processImageVectors()
+        // in LiftVision).
         liftVision = new LiftVision();
 
         isAutonomous = false;
@@ -314,9 +318,6 @@ public class Robot extends IterativeRobot {
         }
 
         Robot.drivetrain.resetEncoders();
-        // TODO: Why config cameras here and not in autonInit()?
-        Cameras.configureCamera(0);
-        Cameras.configureCamera(1);
     }
 
     /**
