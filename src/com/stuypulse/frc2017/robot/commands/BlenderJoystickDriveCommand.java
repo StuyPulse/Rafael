@@ -21,7 +21,7 @@ public class BlenderJoystickDriveCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double rightJoystick = Robot.oi.operatorPad.getRightY();
+    	double rightJoystick = Robot.oi.operatorPad.getLeftY();
     	Robot.blender.joystickDrive(rightJoystick);
     }
 
