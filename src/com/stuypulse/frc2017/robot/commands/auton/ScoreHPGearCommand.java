@@ -49,7 +49,7 @@ public class ScoreHPGearCommand extends CommandGroup {
         // If we are in autonomous and CV did not find the goal, terminate this command
         // rather than dump out a gear.
         if (useCV && Robot.isAutonomous && !Robot.cvFoundGoal) {
-            //return true;
+            return true;
         }
         return super.isFinished();
     }
