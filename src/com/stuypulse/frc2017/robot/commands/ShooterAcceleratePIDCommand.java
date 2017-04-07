@@ -12,8 +12,8 @@ public class ShooterAcceleratePIDCommand extends Command {
 
     private double speed;
     private boolean auto;
-    
-    
+
+
     public ShooterAcceleratePIDCommand(double speed) {
         requires(Robot.shooter);
         this.speed = speed;
@@ -26,7 +26,9 @@ public class ShooterAcceleratePIDCommand extends Command {
     
     // Called just before this Command runs the first time
     protected void initialize() {
-        if (auto) speed = SmartDashboard.getNumber("pid-shooter-speed", 0.0);
+        if (auto) {
+            speed = SmartDashboard.getNumber("pid-shooter-speed", 0.0);
+        }
 
         Robot.shooter.setPIDF(
                 SmartDashboard.getNumber("P ShooterAccelerate", 0.0),
