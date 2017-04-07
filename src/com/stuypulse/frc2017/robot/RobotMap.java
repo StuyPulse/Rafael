@@ -1,5 +1,7 @@
 package com.stuypulse.frc2017.robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -139,4 +141,22 @@ public interface RobotMap {
     ////////////////////////////////////////////////////////////////////////////
     double PIOTR_DRIVE_MARGIN_OF_ERROR = -0.001;
     double PIOTR_DRIVE_TURN_ADJUSTMENT = 0.1;
+    
+    ////////////////////////////////////////////////////////////////////////////
+    // PID: ////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+    double DRIVETRAIN_DRIVE_PID_P = 0.0;
+    double DRIVETRAIN_DRIVE_PID_I = 0.0;
+    double DRIVETRAIN_DRIVE_PID_D = 0.0;
+
+    // TODO: Maybe this should be removed and only defined in the command?
+    double DRIVETRAIN_DRIVE_PID_SPEED = 0.0;
+
+    double DRIVETRAIN_ROTATE_PID_P = 0.0;
+    double DRIVETRAIN_ROTATE_PID_I = 0.0;
+    double DRIVETRAIN_ROTATE_PID_D = 0.0;
+
+    double SHOOTER_ACCELERATE_PID_P = 0.0;
+    double SHOOTER_ACCELERATE_PID_I = 0.0;
+    double SHOOTER_ACCELERATE_PID_D = 0.0;
 }
