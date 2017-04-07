@@ -15,12 +15,14 @@ public class PressureSensor {
     
     int Vcc = 5;
     
-    public double getVout() {
+    public double getVoltage() {
         return pressureSensor.getVoltage();
     }
-    
+
+    // TODO: what units does getPressure()'s return value use? Should be commented,
+    // as well as the source of these `250` and `25` numbers.
     public double getPressure() {
-        return ((250 * (getVout() / Vcc)) - 25);
+        return ((250 * (getVoltage() / Vcc)) - 25);
     }
     
     public boolean isPressureLow() {

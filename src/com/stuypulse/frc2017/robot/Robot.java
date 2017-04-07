@@ -226,6 +226,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Right bottom drivetrain motor current",
                 Robot.drivetrain.getRightBottomMotorCurrent());
         SmartDashboard.putNumber("Winch motor current", Robot.winch.getMotorCurrent());
+        SmartDashboard.putNumber("Pressure sensor (volts)", pressureSensor.getVoltage());
+        SmartDashboard.putNumber("Pressure sensor (pressure)", pressureSensor.getPressure());
     }
 
     /**
