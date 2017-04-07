@@ -60,6 +60,8 @@ class GetAngleToLiftCommand extends InstantCommand {
         if (foundGoal) {
             System.out.println(cvReading);
             rotateBack.setDesiredAngle(cvReading.getDegrees());
+        } else {
+            rotateBack.setDesiredAngle(0.0);
         }
     }
 
