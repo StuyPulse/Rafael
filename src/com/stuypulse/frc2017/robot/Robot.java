@@ -54,7 +54,6 @@ public class Robot extends IterativeRobot {
     public static Blender blender;
     public static BallGate ballgate;
     public static Winch winch;
-    public static LEDSignal ledBlenderSignal;
     public static LEDSignal ledGearSensingSignal;
     public static LEDSignal ledGearShiftSignal;
     public static LEDSignal ledPressureSensingSignal;
@@ -100,7 +99,7 @@ public class Robot extends IterativeRobot {
         winch = new Winch();
         oi = new OI();
         irsensor = new IRSensor();
-        ledBlenderSignal = new LEDSignal(RobotMap.BLENDER_LED_PORT, RobotMap.BLENDER_LED_ON_VALUE);
+        ledPressureSensingSignal = new LEDSignal(RobotMap.PRESSURE_LED_PORT, RobotMap.PRESSURE_LED_ON_VALUE);
         ledGearSensingSignal = new LEDSignal(RobotMap.GEAR_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);
         ledGearShiftSignal = new LEDSignal(RobotMap.GEAR_SHIFT_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);
 
