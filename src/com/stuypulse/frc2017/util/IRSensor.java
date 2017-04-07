@@ -42,7 +42,7 @@ public class IRSensor {
     }
 
     public boolean isGearDetected() {
-        return getDistance() < SmartDashboard.getNumber("IRDistanceThreshold", RobotMap.IR_SENSOR_THRESHOLD);//RobotMap.IR_SENSOR_THRESHOLD;
+        return getVoltage() > SmartDashboard.getNumber("IRVoltageThreshold", RobotMap.IR_SENSOR_THRESHOLD);//RobotMap.IR_SENSOR_THRESHOLD;
     }
 
     public void gearLEDSignalControl() {

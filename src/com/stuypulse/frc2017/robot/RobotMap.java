@@ -122,7 +122,7 @@ public interface RobotMap {
     // IR SENSOR: //////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     int IR_SENSOR_PORT = 0;
-    double IR_SENSOR_THRESHOLD = 3.5;
+    double IR_SENSOR_THRESHOLD = 1.5;
     double IR_TIME_IN_MECHANISM_THRESHOLD = 1.0;
 
     double EQUATION_FACTOR = 12.23368994;
