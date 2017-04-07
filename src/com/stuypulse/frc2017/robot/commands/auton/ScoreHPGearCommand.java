@@ -2,6 +2,7 @@ package com.stuypulse.frc2017.robot.commands.auton;
 
 import com.stuypulse.frc2017.robot.Robot;
 import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
+import com.stuypulse.frc2017.robot.commands.DriveInchesPIDCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 import com.stuypulse.frc2017.robot.commands.ScoreGearCommand;
@@ -29,14 +30,13 @@ public class ScoreHPGearCommand extends CommandGroup {
         } else {
             direction = -1;
         }
-        addSequential(new DriveInchesEncodersCommand(START_TO_HP_GEAR_TURN_DISTANCE));
+        addSequential(new DriveInchesPIDCommand(0.5,START_TO_HP_GEAR_TURN_DISTANCE));
         addSequential(new RotateDegreesGyroCommand(direction * HP_GEAR_TURN_TO_HP_GEAR_ANGLE));
 
         if (useCV) {
             addSequential(new SetupForGearCommand());
         } else {
-            return;
-            //addSequential(new DriveInchesEncodersCommand(AFTER_TURN_TO_HP_GEAR_DISTANCE));
+            addSequential(new DriveInchesPIDCommand(0.5, AFTER_TURN_TO_HP_GEAR_DISTANCE));
         }
 
         addSequential(new ScoreGearCommand());
