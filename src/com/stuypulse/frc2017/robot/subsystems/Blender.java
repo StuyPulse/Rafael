@@ -3,7 +3,7 @@ package com.stuypulse.frc2017.robot.subsystems;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.stuypulse.frc2017.robot.RobotMap;
-import com.stuypulse.frc2017.robot.commands.BlenderStopCommand;
+import com.stuypulse.frc2017.robot.commands.BlenderJoystickDriveCommand;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -38,6 +38,11 @@ public class Blender extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new BlenderJoystickDriveCommand());
+    }
+
+    public void joystickDrive(double speed) {
+    	blenderMotor.set(speed);
     }
 
     public void run() {
