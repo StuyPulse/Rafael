@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class BlenderJoystickDriveCommand extends Command {
 
+    private static final double MIN_MOTOR_VALUE = 0.1;
+
     public BlenderJoystickDriveCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -21,8 +23,12 @@ public class BlenderJoystickDriveCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double rightJoystick = Robot.oi.operatorPad.getLeftY();
-    	Robot.blender.joystickDrive(rightJoystick);
+        double motorValue = Robot.oi.operatorPad.getLeftY();
+        if (Math.abs(motorValue) < MIN_MOTOR_VALUE) {
+            Robot.blender.stop();
+        } else {
+            Robot.blender.joystickDrive(motorValue);
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
