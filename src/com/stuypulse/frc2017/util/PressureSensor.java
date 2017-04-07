@@ -1,5 +1,7 @@
 package com.stuypulse.frc2017.util;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+
 import com.stuypulse.frc2017.robot.Robot;
 import com.stuypulse.frc2017.robot.RobotMap;
 
