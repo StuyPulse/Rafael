@@ -28,10 +28,10 @@ public class Shooter extends Subsystem {
         shooterMotorB.enableBrakeMode(false);
         shooterMotorA.setInverted(true);
         shooterMotorB.setInverted(true);
-        //shooterMotorA.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
-        shooterMotorA.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-        shooterMotorA.changeControlMode(TalonControlMode.Speed);
-        shooterMotorB.changeControlMode(TalonControlMode.Speed);
+        shooterMotorA.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
+        //shooterMotorA.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        //shooterMotorA.changeControlMode(TalonControlMode.Speed);
+        //shooterMotorB.changeControlMode(TalonControlMode.Speed);
 
         shooterMotorA.configEncoderCodesPerRev(RobotMap.SHOOTER_ENCODER_PULSES_PER_REVOLUTION);
     }

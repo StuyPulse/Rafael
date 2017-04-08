@@ -20,6 +20,7 @@ public class ShooterAccelerateIdealSpeedCommand extends Command {
     @Override
     protected void initialize() {
         Robot.shooter.setSpeed(RobotMap.SHOOTER_IDEAL_SPEED);
+        System.out.println("Running shooter (speed " + RobotMap.SHOOTER_IDEAL_SPEED + ")");
     }
 
     // Called repeatedly when this Command is scheduled to run
