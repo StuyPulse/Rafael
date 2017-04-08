@@ -42,12 +42,9 @@ public class DriveInchesPIDCommand extends PIDCommand {
         controller.setPID(
                 SmartDashboard.getNumber("P DriveInches", 0.0),
                 SmartDashboard.getNumber("I DriveInches", 0.0),
-                SmartDashboard.getNumber("D DriveInches", 0.0)
-        );
+                SmartDashboard.getNumber("D DriveInches", 0.0));
         controller.reset();
-        if (!controller.isEnabled()) {
-            controller.enable();
-        }
+        controller.enable();
 
         Robot.drivetrain.resetEncoders();
         Robot.drivetrain.resetGyro();
