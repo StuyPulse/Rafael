@@ -58,10 +58,15 @@ public class DriveInchesPIDCommand extends PIDCommand {
         }
         // This should be converted to a graph (LinePlot) when testing
         SmartDashboard.putNumber("PID DriveInches OUTPUT", returnPIDInput());
+        System.out.println("[DriveInchesPIDCommand#" + "execute()" + "] "
+                + "\n encoderDistance: " + Robot.drivetrain.encoderDistance() 
+                + "\n distance final: " + distance 
+                + "\n isAutoOverriden: " + Robot.stopAutoMovement.get());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+        System.out.println("[DriveInchesPIDCommand#isFinished()]: FINISHED");
         return Robot.stopAutoMovement.get() || Robot.drivetrain.encoderDistance() >= distance;
     }
 
