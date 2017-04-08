@@ -30,6 +30,7 @@ import com.stuypulse.frc2017.util.Vector;
 import com.stuypulse.frc2017.util.OrderedSendableChooser;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -280,6 +281,8 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) {
             autonomousCommand.start();
         }
+
+        printAllianceColor();
     }
 
     /**
@@ -308,6 +311,8 @@ public class Robot extends IterativeRobot {
         }
 
         Robot.drivetrain.resetEncoders();
+
+        printAllianceColor();
     }
 
     /**
@@ -340,5 +345,16 @@ public class Robot extends IterativeRobot {
 
     public static void toggleAutoOverridden() {
         Robot.isAutoOverridden = !Robot.isAutoOverridden;
+    }
+
+    private static void printAllianceColor() {
+        DriverStation.Alliance color = DriverStation.getInstance().getAlliance();
+        if (color == DriverStation.Alliance.Blue) {
+            System.out.println("Alliance color: BLUE");
+        } else if (color == DriverStation.Alliance.Red) {
+            System.out.println("Alliance color: RED");
+        } else {
+            System.out.println("Alliance color: INVALID (= " + color + ")");
+        }
     }
 }
