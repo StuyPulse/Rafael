@@ -36,4 +36,9 @@ public class Winch extends Subsystem {
     public double getMotorCurrent() {
         return winchMotor.getOutputCurrent();
     }
+    
+    public String getDataSummary() {
+        return "############\n" + 
+               "Voltage: " + winchMotor.getVolta
+    }
 }

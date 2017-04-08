@@ -1,20 +1,13 @@
 package com.stuypulse.frc2017.robot;
 
-import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromBoilerGearCommand;
-import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromHPGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromMiddleGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.DoubleSequentialCommand;
 import com.stuypulse.frc2017.robot.commands.auton.MiddleGearMobilityMinimalCommand;
 import com.stuypulse.frc2017.robot.commands.auton.MobilityMinimalCommand;
-import com.stuypulse.frc2017.robot.commands.auton.MobilityToHPCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreBoilerGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreHPGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreMiddleGearCommand;
-import com.stuypulse.frc2017.robot.commands.auton.ShootFromMiddleGearCommand;
-import com.stuypulse.frc2017.robot.commands.auton.ShootingFromAllianceWallCommand;
-import com.stuypulse.frc2017.robot.commands.auton.ShootingFromBoilerGearCommand;
 import com.stuypulse.frc2017.robot.cv.BoilerVision;
-import com.stuypulse.frc2017.robot.cv.Cameras;
 import com.stuypulse.frc2017.robot.cv.LiftVision;
 import com.stuypulse.frc2017.robot.subsystems.Blender;
 import com.stuypulse.frc2017.robot.subsystems.Drivetrain;
@@ -23,16 +16,16 @@ import com.stuypulse.frc2017.robot.subsystems.GearTrap;
 import com.stuypulse.frc2017.robot.subsystems.Shooter;
 import com.stuypulse.frc2017.robot.subsystems.Winch;
 import com.stuypulse.frc2017.util.BoolBox;
+import com.stuypulse.frc2017.util.DataBuffer;
 import com.stuypulse.frc2017.util.IRSensor;
 import com.stuypulse.frc2017.util.LEDSignal;
+import com.stuypulse.frc2017.util.OrderedSendableChooser;
 import com.stuypulse.frc2017.util.PressureSensor;
 import com.stuypulse.frc2017.util.Vector;
-import com.stuypulse.frc2017.util.OrderedSendableChooser;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -86,6 +79,8 @@ public class Robot extends IterativeRobot {
 
     public static IRSensor irsensor;
 
+    private static DataBuffer winchBuffer;
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -120,6 +115,8 @@ public class Robot extends IterativeRobot {
         // first image is processed (see processImageVectors()
         // in LiftVision).
         liftVision = new LiftVision();
+
+        winchBuffer = new DataBuffer();
     }
 
     private void setupSmartDashboardFields() {
@@ -325,6 +322,8 @@ public class Robot extends IterativeRobot {
         irsensor.gearLEDSignalControl();
         pressureSensor.pressureLEDSignalControl();
         updateSmartDashboardOutputs();
+        
+        winchBuffer.addData(winch.getDataSummary());
     }
 
     /**
