@@ -66,12 +66,12 @@ public class DriveInchesPIDCommand extends PIDCommand {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        System.out.println("[DriveInchesPIDCommand#isFinished()]: FINISHED");
         return Robot.stopAutoMovement.get() || Robot.drivetrain.encoderDistance() >= distance;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+        System.out.println("[DriveInchesPIDCommand#end()]: END");
         Robot.drivetrain.stop();
         controller.disable();
     }

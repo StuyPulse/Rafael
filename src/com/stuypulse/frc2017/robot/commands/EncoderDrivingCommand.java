@@ -123,11 +123,11 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
 
     // Used in isFinished, end, interrupted
     private void printEndInfo(String where) {
-        System.out.println("[EncoderDrivingCommand#" + where + "] tolerance: " + TOLERANCE);
+        /*System.out.println("[EncoderDrivingCommand#" + where + "] tolerance: " + TOLERANCE);
         System.out.println("[EncoderDrivingCommand#" + where + "] desired inches to move: " + initialInchesToMove);
         System.out.println("[EncoderDrivingCommand#" + where + "] doneRamping: " + doneRamping);
         System.out.println("[EncoderDrivingCommand#" + where + "] cancelCommand: " + cancelCommand);
         System.out.println("[EncoderDrivingCommand#" + where + "] getForceStopped(): " + getForceStopped());
-        System.out.println("[EncoderDrivingCommand#" + where + "] abort: " + abort);
+        System.out.println("[EncoderDrivingCommand#" + where + "] abort: " + abort);*/
     }
 }
