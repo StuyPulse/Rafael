@@ -18,17 +18,13 @@ public class GearTrap extends Subsystem {
 
     public GearTrap() {
         gearTrap = new Solenoid(RobotMap.PCM, RobotMap.GEAR_TRAP_SOLENOID_PORT);
-        trapped = false; // Starts out un-trapped
+        trapped = true; // Starts out trapped
     }
 
     @Override
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    }
-
-    public void toggle() {
-        set(!trapped);
     }
 
     private void set(boolean trap) {
