@@ -20,7 +20,6 @@ import com.stuypulse.frc2017.robot.subsystems.Blender;
 import com.stuypulse.frc2017.robot.subsystems.Drivetrain;
 import com.stuypulse.frc2017.robot.subsystems.GearPusher;
 import com.stuypulse.frc2017.robot.subsystems.GearTrap;
-import com.stuypulse.frc2017.robot.subsystems.HopperFlap;
 import com.stuypulse.frc2017.robot.subsystems.Shooter;
 import com.stuypulse.frc2017.robot.subsystems.Winch;
 import com.stuypulse.frc2017.util.BoolBox;
@@ -54,7 +53,6 @@ public class Robot extends IterativeRobot {
     public static Shooter shooter;
     public static Blender blender;
     public static Winch winch;
-    public static HopperFlap hopperflap;
 
     public static LEDSignal ledGearSensingSignal;
     public static LEDSignal ledGearShiftSignal;
