@@ -264,8 +264,8 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
-
         isAutonomous = true;
+        Robot.stopAutoMovement.set(false);
 
         // The gear-pusher piston starts *retracted*,
         // because when extended they reach outside the frame perimeter.
@@ -280,7 +280,6 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) {
             autonomousCommand.start();
         }
-
     }
 
     /**
@@ -297,8 +296,8 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void teleopInit() {
-
         isAutonomous = false;
+        Robot.stopAutoMovement.set(false);
 
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
