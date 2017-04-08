@@ -114,12 +114,12 @@ public class OI {
         operatorPad.getDPadLeft().whenPressed(new ShooterAccelerateMinimumSpeedCommand());
 
         // Ball scoring:
-        operatorPad.getRightBumper()
-                .whenPressed(new BlenderSpinBackwardCommand());
-        operatorPad.getRightBumper().whenReleased(new BlenderStopCommand());
-
-        operatorPad.getRightTrigger().whenPressed(new BlenderSpinCommand());
-        operatorPad.getRightTrigger().whenReleased(new BlenderStopCommand()); // stop blender and close ball gate
+        operatorPad.getRightBumper().whileHeld(new BlenderSpinBackwardCommand());
+        operatorPad.getRightTrigger().whileHeld(new BlenderSpinCommand());
+        // NOTE: We use whileHeld here, and do not specify a whenReleased,
+        // because the default command of the blender runs off of joystick
+        // output. When one of these commands isn't running, control of the
+        // blender goes to the joystick.
 
         // Climbing:
         operatorPad.getLeftTrigger().whenPressed(new WinchStartMotorCommand());

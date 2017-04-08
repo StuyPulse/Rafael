@@ -37,7 +37,7 @@ public class Blender extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
-        //setDefaultCommand(new BlenderJoystickDriveCommand());
+        setDefaultCommand(new BlenderJoystickDriveCommand());
     }
 
     public void joystickDrive(double speed) {
