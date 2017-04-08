@@ -75,17 +75,16 @@ public class Robot extends IterativeRobot {
     public static boolean isAutonomous;
 
     Command autonomousCommand;
-    OrderedSendableChooser<Command> chooser = new OrderedSendableChooser<Command>();
     public static OrderedSendableChooser<Boolean> straightDrivingChooser;
 
     public static LiftVision liftVision;
     public static BoilerVision boilerVision;
     public static Vector[] cvVector;
-    public static boolean cvFoundGoal = true;
+    public static boolean cvFoundGoal;
 
-    public static BoolBox stopAutoMovement = new BoolBox(false);
+    public static BoolBox stopAutoMovement;
 
-    IRSensor irsensor;
+    public static IRSensor irsensor;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -103,6 +102,9 @@ public class Robot extends IterativeRobot {
 
         irsensor = new IRSensor();
         pressureSensor = new PressureSensor();
+        stopAutoMovement = new BoolBox(false);
+        cvFoundGoal = true;
+        isAutonomous = false;
 
         ledPressureSensingSignal = new LEDSignal(RobotMap.PRESSURE_LED_PORT, RobotMap.PRESSURE_LED_ON_VALUE);
         ledGearSensingSignal = new LEDSignal(RobotMap.GEAR_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);
@@ -118,8 +120,6 @@ public class Robot extends IterativeRobot {
         // first image is processed (see processImageVectors()
         // in LiftVision).
         liftVision = new LiftVision();
-
-        isAutonomous = false;
     }
 
     private void setupSmartDashboardFields() {
