@@ -15,9 +15,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class ScoreBoilerGearCommand extends CommandGroup {
-    public static final double START_TO_BOILER_GEAR_TURN_DISTANCE = 109.0;//114.3;
+    public static final double START_TO_BOILER_GEAR_TURN_DISTANCE = 100.0;//114.3;
     public static final double BOILER_GEAR_TURN_TO_BOILER_GEAR_ANGLE = -60;
-    public static final double AFTER_TURN_TO_BOILER_GEAR_DISTANCE = 51;
+    public static final double AFTER_TURN_TO_BOILER_GEAR_DISTANCE = 80;
     public static final double BOILER_GEAR_REVERSE_DISTANCE = -12;
 
     private boolean useCV;
@@ -30,13 +30,10 @@ public class ScoreBoilerGearCommand extends CommandGroup {
         } else {
             direction = -1;
         }
-        addSequential(new DriveInchesEncodersCommand(START_TO_BOILER_GEAR_TURN_DISTANCE));
+        addSequential(new DriveInchesPIDCommand(0.5, START_TO_BOILER_GEAR_TURN_DISTANCE));
         addSequential(new RotateDegreesGyroCommand(direction * BOILER_GEAR_TURN_TO_BOILER_GEAR_ANGLE));
-        if (useCV) {
-            addSequential(new SetupForGearCommand());
-        } else {
             addSequential(new DriveInchesPIDCommand(0.5, AFTER_TURN_TO_BOILER_GEAR_DISTANCE));
-        }
+        
         addSequential(new ScoreGearCommand());
         addSequential(new DriveInchesEncodersCommand(BOILER_GEAR_REVERSE_DISTANCE));
         addSequential(new GearTrapTrapGearCommand());

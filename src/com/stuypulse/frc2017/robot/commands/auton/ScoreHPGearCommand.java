@@ -15,9 +15,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class ScoreHPGearCommand extends CommandGroup {
-    public static final double START_TO_HP_GEAR_TURN_DISTANCE = 109.0;
+    public static final double START_TO_HP_GEAR_TURN_DISTANCE = 100.0;
     public static final double HP_GEAR_TURN_TO_HP_GEAR_ANGLE = 60;
-    public static final double AFTER_TURN_TO_HP_GEAR_DISTANCE = 19;
+    public static final double AFTER_TURN_TO_HP_GEAR_DISTANCE = 40;
     public static final double HP_GEAR_REVERSE_DISTANCE = -12;
 
     private boolean useCV;
