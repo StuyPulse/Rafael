@@ -267,21 +267,10 @@ public class Robot extends IterativeRobot {
 
         isAutonomous = true;
 
-        // TODO: Set SHOOTER_IDEAL_SPEED to the ideal speed when it is known,
-        // then set shooter speed to SHOOTER_IDEAL_SPEED here.
-        //Robot.shooter.setSpeed(SmartDashboard.getNumber("Shooter speed", 0.0));
-
-        // The gear-pusher piston, and the gear trap pistons, start *retracted*,
+        // The gear-pusher piston starts *retracted*,
         // because when extended they reach outside the frame perimeter.
-        // Thus we must immediately close the gear trap, then push the
-        // gear pusher.
-        // We do this in autonomousInit rather than a Command because it must
-        // always happen, regardless of what comes next, and it is quick. This
-        // is also why blocking the thread is appropriate:
+        // Thus we immediately push the gear pusher to keep the gear in place.
         Robot.drivetrain.resetEncoders();
-
-        Timer.delay(0.5);
-
         Robot.gearpusher.push(Value.kReverse);
 
         // Gear-shift physically starts in HIGH gear
