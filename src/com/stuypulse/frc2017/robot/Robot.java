@@ -98,13 +98,14 @@ public class Robot extends IterativeRobot {
         geartrap = new GearTrap();
         gearpusher = new GearPusher();
         winch = new Winch();
-        oi = new OI();
 
         irsensor = new IRSensor();
         pressureSensor = new PressureSensor();
         stopAutoMovement = new BoolBox(false);
         cvFoundGoal = true;
         isAutonomous = false;
+
+        oi = new OI();
 
         ledPressureSensingSignal = new LEDSignal(RobotMap.PRESSURE_LED_PORT, RobotMap.PRESSURE_LED_ON_VALUE);
         ledGearSensingSignal = new LEDSignal(RobotMap.GEAR_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);
