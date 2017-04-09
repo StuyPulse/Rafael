@@ -13,8 +13,8 @@ public class HopperFlap extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    private static final double OPEN_ANGLE = 0;
-    private static final double CLOSED_ANGLE = 170;
+    private static final double OPEN_ANGLE = 170;
+    private static final double CLOSED_ANGLE = 0;
 
     private Servo servo;
 

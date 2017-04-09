@@ -101,6 +101,7 @@ public class Robot extends IterativeRobot {
         geartrap = new GearTrap();
         gearpusher = new GearPusher();
         winch = new Winch();
+        hopperflap = new HopperFlap();
 
         irsensor = new IRSensor();
         pressureSensor = new PressureSensor();
@@ -278,6 +279,7 @@ public class Robot extends IterativeRobot {
         // Thus we immediately push the gear pusher to keep the gear in place.
         Robot.drivetrain.resetEncoders();
         Robot.gearpusher.push(Value.kReverse);
+        Robot.hopperflap.open();
 
         // Gear-shift physically starts in HIGH gear
 
@@ -306,6 +308,8 @@ public class Robot extends IterativeRobot {
     public void teleopInit() {
         isAutonomous = false;
         Robot.stopAutoMovement.set(false);
+
+        Robot.hopperflap.open();
 
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
