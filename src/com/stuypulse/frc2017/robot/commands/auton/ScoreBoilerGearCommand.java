@@ -30,8 +30,10 @@ public class ScoreBoilerGearCommand extends CommandGroup {
         addSequential(new DriveInchesPIDCommand(0.5, START_TO_BOILER_GEAR_TURN_DISTANCE));
         addSequential(new RotateDegreesGyroCommand(direction * BOILER_GEAR_TURN_TO_BOILER_GEAR_ANGLE));
 
+        // Approach the peg
+        addSequential(new DriveInchesPIDCommand(0.5, AFTER_TURN_TO_BOILER_GEAR_DISTANCE));
+
         if (score) {
-            addSequential(new DriveInchesPIDCommand(0.5, AFTER_TURN_TO_BOILER_GEAR_DISTANCE));
             addSequential(new ScoreGearCommand());
             addSequential(new DriveInchesEncodersCommand(BOILER_GEAR_REVERSE_DISTANCE));
             addSequential(new GearTrapTrapGearCommand());
