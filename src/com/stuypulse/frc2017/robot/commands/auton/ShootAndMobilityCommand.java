@@ -4,7 +4,6 @@ import com.stuypulse.frc2017.robot.commands.BlenderSpinCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderStopCommand;
 import com.stuypulse.frc2017.robot.commands.DelaySecondsCommand;
 import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
-import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateIdealSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterStopCommand;
@@ -34,8 +33,9 @@ public class ShootAndMobilityCommand extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
 
-        addSequential(new DriveTrainHighGearCommand(), 1.0); // Timeout to align to boiler
-        addSequential(new ShooterAccelerateIdealSpeedCommand()); 
+        // Drive at speed 0.6 for 1 second, to push bot against boiler:
+        addSequential(new DriveIndefinitelyCommand(0.6), 1.0);
+        addParallel(new ShooterAccelerateIdealSpeedCommand());
         addSequential(new BlenderSpinCommand());
         addSequential(new DelaySecondsCommand(5.0)); // Wait for balls to be emptied
         addSequential(new BlenderStopCommand());
