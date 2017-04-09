@@ -14,7 +14,7 @@ public class DriveInchesPIDCommand extends PIDCommand {
     private double speed;
     private double distance;
     private boolean auto;
-    
+
     private double encoderOffset; // jank impending
 
     private PIDController controller;
@@ -47,12 +47,19 @@ public class DriveInchesPIDCommand extends PIDCommand {
                 SmartDashboard.getNumber("D DriveInches", 0.0));
         controller.reset();
 
-        System.out.println("[DriveInchesPIDCommand#initialize()]: encoder value BEFORE reset: " + Robot.drivetrain.encoderDistance());
+        //System.out.println("[DriveInchesPIDCommand#initialize()]: encoder value BEFORE reset: " + Robot.drivetrain.encoderDistance());
         Robot.drivetrain.resetEncoders();
         Robot.drivetrain.resetGyro();
-        System.out.println("[DriveInchesPIDCommand#initialize()]: encoder value AFTER reset: " + Robot.drivetrain.encoderDistance());
+        // Because reset doesn't work, we're storing the offset manually
+        encoderOffset = Robot.drivetrain.encoderDistance();
+        //System.out.println("[DriveInchesPIDCommand#initialize()]: encoder value AFTER reset: " + Robot.drivetrain.encoderDistance());
 
         controller.enable();
+    }
+    
+    // Temporary: Gets encoder distance minus our offset
+    private double getActualEncoderDistance() {
+        return Robot.drivetrain.encoderDistance() - encoderOffset;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -64,14 +71,14 @@ public class DriveInchesPIDCommand extends PIDCommand {
         // This should be converted to a graph (LinePlot) when testing
         SmartDashboard.putNumber("PID DriveInches OUTPUT", returnPIDInput());
         System.out.println("[DriveInchesPIDCommand#" + "execute()" + "] "
-                + "\n encoderDistance: " + Robot.drivetrain.encoderDistance() 
+                + "\n encoderDistance: " + getActualEncoderDistance() 
                 + "\n distance final: " + distance 
                 + "\n isAutoOverriden: " + Robot.stopAutoMovement.get());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.stopAutoMovement.get() || Robot.drivetrain.encoderDistance() >= distance;
+        return Robot.stopAutoMovement.get() || getActualEncoderDistance() >= distance;
     }
 
     // Called once after isFinished returns true
