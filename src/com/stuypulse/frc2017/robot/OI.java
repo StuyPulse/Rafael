@@ -11,6 +11,7 @@ import com.stuypulse.frc2017.robot.commands.GearPusherPushGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
+import com.stuypulse.frc2017.robot.commands.HopperFlapToggleCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesPIDCommand;
 import com.stuypulse.frc2017.robot.commands.ScoreGearCommand;
@@ -124,6 +125,9 @@ public class OI {
         // Climbing:
         operatorPad.getLeftTrigger().whenPressed(new WinchStartMotorCommand());
         operatorPad.getLeftTrigger().whenReleased(new WinchStopMotorCommand());
+
+        // Flaps
+        operatorPad.getLeftBumper().whenPressed(new HopperFlapToggleCommand());
     }
 
     public boolean driverIsOverriding() {

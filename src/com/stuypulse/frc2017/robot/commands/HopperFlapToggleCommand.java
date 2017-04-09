@@ -7,17 +7,16 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class HopperFlapOpenCommand extends Command {
+public class HopperFlapToggleCommand extends Command {
 
-    public HopperFlapOpenCommand() {
+    public HopperFlapToggleCommand() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
         requires(Robot.hopperflap);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        Robot.hopperflap.close();
+        Robot.hopperflap.toggle();
     }
 
     // Called repeatedly when this Command is scheduled to run
