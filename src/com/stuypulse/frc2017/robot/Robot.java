@@ -10,6 +10,7 @@ import com.stuypulse.frc2017.robot.commands.auton.MobilityToHPCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreBoilerGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreHPGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreMiddleGearCommand;
+import com.stuypulse.frc2017.robot.commands.auton.ShootAndMobilityCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootFromMiddleGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootingFromAllianceWallCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootingFromBoilerGearCommand;
@@ -215,6 +216,7 @@ public class Robot extends IterativeRobot {
         //autonChooser.addObject("Score BOILER Gear THEN Shoot",
         //        new DoubleSequentialCommand(new ScoreBoilerGearCommand(true), new ShootingFromBoilerGearCommand()));
         //autonChooser.addObject("Only Shoot", new ShootingFromAllianceWallCommand());
+        autonChooser.addObject("Shoot from BOILER and mobility", new ShootAndMobilityCommand());
         SmartDashboard.putData("Auton Setting", autonChooser);
     }
 
