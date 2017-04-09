@@ -17,16 +17,10 @@ public class ApproachHPFromBoilerGearCommand extends CommandGroup {
     public static final double BOILER_GEAR_NEUTRAL_ZONE_TO_HP_DISTANCE = 361;
 
     public ApproachHPFromBoilerGearCommand() {
-        int direction;
-        if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
-            direction = 1;
-        } else {
-            direction = -1;
-        }
         addSequential(new DriveTrainHighGearCommand());
-        addSequential(new RotateDegreesGyroCommand((direction * BOILER_GEAR_TO_NEUTRAL_ZONE_ANGLE)));
+        addSequential(new RotateDegreesGyroCommand(BOILER_GEAR_TO_NEUTRAL_ZONE_ANGLE, true));
         addSequential(new DriveInchesEncodersCommand(BOILER_GEAR_TO_NEUTRAL_ZONE_DISTANCE));
-        addSequential(new RotateDegreesGyroCommand(direction * BOILER_GEAR_NEUTRAL_ZONE_TO_HP_ANGLE));
+        addSequential(new RotateDegreesGyroCommand(BOILER_GEAR_NEUTRAL_ZONE_TO_HP_ANGLE, true));
         addSequential(new DriveInchesEncodersCommand(BOILER_GEAR_NEUTRAL_ZONE_TO_HP_DISTANCE));
     }
 }

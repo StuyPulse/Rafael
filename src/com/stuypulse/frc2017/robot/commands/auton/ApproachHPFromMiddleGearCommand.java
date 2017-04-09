@@ -17,17 +17,10 @@ public class ApproachHPFromMiddleGearCommand extends CommandGroup {
     public static final double AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_DISTANCE = 362; //374- 12 inches deviation
 
     public ApproachHPFromMiddleGearCommand() {
-        int direction;
-        if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
-            direction = 1;
-        } else {
-            direction = -1;
-        }
-
         addSequential(new DriveTrainHighGearCommand());
-        addSequential(new RotateDegreesGyroCommand(direction * MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_ANGLE));
+        addSequential(new RotateDegreesGyroCommand(MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_ANGLE, true));
         addSequential(new DriveInchesEncodersCommand(MIDDLE_GEAR_TO_AIRSHIP_HP_SIDE_DISTANCE));
-        addSequential(new RotateDegreesGyroCommand(direction * AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_ANGLE));
+        addSequential(new RotateDegreesGyroCommand(AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_ANGLE, true));
         addSequential(new DriveInchesEncodersCommand(AIRSHIP_HP_SIDE_TO_NEUTRAL_ZONE_DISTANCE));
     }
 }

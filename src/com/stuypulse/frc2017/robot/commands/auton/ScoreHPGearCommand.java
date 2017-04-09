@@ -21,14 +21,8 @@ public class ScoreHPGearCommand extends CommandGroup {
     public static final double HP_GEAR_REVERSE_DISTANCE = -12;
 
     public ScoreHPGearCommand(boolean score) {
-        int direction;
-        if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
-            direction = 1;
-        } else {
-            direction = -1;
-        }
         addSequential(new DriveInchesPIDCommand(0.5, START_TO_HP_GEAR_TURN_DISTANCE));
-        addSequential(new RotateDegreesGyroCommand(direction * HP_GEAR_TURN_TO_HP_GEAR_ANGLE));
+        addSequential(new RotateDegreesGyroCommand(HP_GEAR_TURN_TO_HP_GEAR_ANGLE, true));
 
         // Approach the peg
         addSequential(new DriveInchesPIDCommand(0.5, AFTER_TURN_TO_HP_GEAR_DISTANCE));

@@ -20,15 +20,8 @@ public class ApproachHPFromHPGearCommand extends CommandGroup {
         // addSequential(new Command2());
         // these will run in order.
 
-        int direction;
-        if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
-            direction = 1;
-        } else {
-            direction = -1;
-        }
-
         addSequential(new DriveTrainHighGearCommand());
-        addSequential(new RotateDegreesGyroCommand(direction * HP_GEAR_TO_NEUTRAL_ZONE_ANGLE));
+        addSequential(new RotateDegreesGyroCommand(HP_GEAR_TO_NEUTRAL_ZONE_ANGLE, true));
         addSequential(new DriveInchesEncodersCommand(HP_GEAR_TO_NEUTRAL_ZONE_DISTANCE));
 
         // To run multiple commands at the same time,

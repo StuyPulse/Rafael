@@ -16,14 +16,8 @@ public class BoilerToBoilerGearCommand extends CommandGroup {
 
     public BoilerToBoilerGearCommand() {
         // Add Commands here:
-        int direction;
-        if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
-            direction = 1;
-        } else {
-            direction = -1;
-        }
         addSequential(new DriveInchesEncodersCommand(BOILER_BACK_UP_DISTANCE));
-        addSequential(new RotateDegreesGyroCommand(direction * BOILER_TURN_AROUND_ANGLE));
+        addSequential(new RotateDegreesGyroCommand(BOILER_TURN_AROUND_ANGLE, true));
         addSequential(new DriveInchesEncodersCommand(BOILER_TO_BOILER_GEAR_DISTANCE));
     }
 }

@@ -16,17 +16,9 @@ public class ShootingFromBoilerGearCommand extends CommandGroup {
     public static final double BOILER_GEAR_TO_BOILER_DISTANCE = -80.8;
 
     public ShootingFromBoilerGearCommand() {
-        int direction;
-        if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
-            direction = 1;
-        } else {
-            direction = -1;
-
-            addSequential(new DriveInchesEncodersCommand(BOILER_GEAR_REVERSE_SHOOTING_DISTANCE));
-            addSequential(new RotateDegreesGyroCommand(direction * BOILER_GEAR_TURN_TO_BOILER_ANGLE));
-            //addSequential(new OptionalCVPositionForBoilerCommand(BOILER_GEAR_TO_BOILER_DISTANCE));
-            addSequential(new BlenderRunWithUnjammingCommand());
-
-        }
+        addSequential(new DriveInchesEncodersCommand(BOILER_GEAR_REVERSE_SHOOTING_DISTANCE));
+        addSequential(new RotateDegreesGyroCommand(BOILER_GEAR_TURN_TO_BOILER_ANGLE, true));
+        //addSequential(new OptionalCVPositionForBoilerCommand(BOILER_GEAR_TO_BOILER_DISTANCE));
+        addSequential(new BlenderRunWithUnjammingCommand());
     }
 }
