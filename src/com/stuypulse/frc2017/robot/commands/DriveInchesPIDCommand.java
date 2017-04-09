@@ -44,13 +44,13 @@ public class DriveInchesPIDCommand extends PIDCommand {
                 SmartDashboard.getNumber("I DriveInches", 0.0),
                 SmartDashboard.getNumber("D DriveInches", 0.0));
         controller.reset();
-        controller.enable();
 
         System.out.println("[DriveInchesPIDCommand#initialize()]: encoder value BEFORE reset: " + Robot.drivetrain.encoderDistance());
         Robot.drivetrain.resetEncoders();
         Robot.drivetrain.resetGyro();
         System.out.println("[DriveInchesPIDCommand#initialize()]: encoder value AFTER reset: " + Robot.drivetrain.encoderDistance());
 
+        controller.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
