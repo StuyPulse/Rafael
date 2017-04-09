@@ -39,7 +39,7 @@ public class ScoreMiddleGearCommand extends CommandGroup {
             addSequential(new SetupForGearCommand());
         } else {
             // TODO: Replace speed and modify to work without magic numbers
-            addSequential(new DriveInchesPIDCommand(0.5, START_TO_MIDDLE_GEAR_DISTANCE), 5.75);
+            addSequential(new DriveInchesPIDCommand(0.5, START_TO_MIDDLE_GEAR_DISTANCE), 5.0);
             //new DriveInchesEncodersCommand(START_TO_MIDDLE_GEAR_DISTANCE));
         }
         addSequential(new ScoreGearCommand());
