@@ -77,23 +77,23 @@ public class OI {
         driverPad.getRightBumper().whenReleased(new DriveTrainHighGearCommand());
 
         // CV Lift:
-        driverPad.getLeftBumper().whenPressed(new RunAutoCommand(new RotateToLiftCommand()));
+        //driverPad.getLeftBumper().whenPressed(new RunAutoCommand(new RotateToLiftCommand()));
 
         // CV Boiler [unbound because not tested]
         // driverPad.getRightButton().whenPressed(new RunAutoCommand(new RotateToBoilerCommand()));
         // driverPad.getBottomButton().whenPressed(new SetupForBoilerCommand());
 
         // CV testing bindings:
-        driverPad.getDPadLeft().whenPressed(new RunAutoCommand(new RotateDegreesGyroCommand()));
-        driverPad.getDPadDown().whenPressed(new RunAutoCommand(new DriveInchesEncodersCommand()));
+        //driverPad.getDPadLeft().whenPressed(new RunAutoCommand(new RotateDegreesGyroCommand()));
+        //driverPad.getDPadDown().whenPressed(new RunAutoCommand(new DriveInchesEncodersCommand()));
         //driverPad.getBottomButton().whenPressed(new DriveForwardCommand(1.0));
-        driverPad.getDPadUp().whenPressed(new SetupForGearCommand());
-        driverPad.getDPadRight().whenPressed(new RunAutoCommand(new RotateToLiftCommand()));
-        driverPad.getStartButton().whenPressed(new ProcessTestImageCommand());
+        //driverPad.getDPadUp().whenPressed(new SetupForGearCommand());
+        //driverPad.getDPadRight().whenPressed(new RunAutoCommand(new RotateToLiftCommand()));
+        //driverPad.getStartButton().whenPressed(new ProcessTestImageCommand());
 
         // PID testing bindings
-        driverPad.getRightButton().whenPressed(new RunAutoCommand(new DriveInchesPIDCommand()));
-        driverPad.getTopButton().whenPressed(new RunAutoCommand(new RotateDegreesPIDCommand()));
+        //driverPad.getRightButton().whenPressed(new RunAutoCommand(new DriveInchesPIDCommand()));
+        //driverPad.getTopButton().whenPressed(new RunAutoCommand(new RotateDegreesPIDCommand()));
 
         ////////////////////////////////////////////////////////////////////////
         // Operator Pad Bindings ///////////////////////////////////////////////
