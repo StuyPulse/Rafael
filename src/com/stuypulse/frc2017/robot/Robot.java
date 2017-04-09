@@ -78,7 +78,6 @@ public class Robot extends IterativeRobot {
     public static boolean isAutonomous;
 
     Command autonomousCommand;
-    public static OrderedSendableChooser<Boolean> straightDrivingChooser;
 
     public static LiftVision liftVision;
     public static BoilerVision boilerVision;
@@ -116,7 +115,6 @@ public class Robot extends IterativeRobot {
         ledGearShiftSignal = new LEDSignal(RobotMap.GEAR_SHIFT_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);
 
         setupSmartDashboardFields();
-        setupStraightDrivingChooser();
         setupAutonChooser();
 
         //boilerVision = new BoilerVision();
@@ -183,13 +181,6 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("pid-shooter-speed", 0);
         SmartDashboard.putNumber("PID ShooterAccelerate OUTPUT", 0.0);
 
-    }
-
-    private void setupStraightDrivingChooser() {
-        straightDrivingChooser = new OrderedSendableChooser<Boolean>();
-        straightDrivingChooser.addDefault("Use basic drive-straight", false);
-        straightDrivingChooser.addObject("Use automatically-adjusting drive-straight", true);
-        SmartDashboard.putData("Straight driving", straightDrivingChooser);
     }
 
     private void setupAutonChooser() {
