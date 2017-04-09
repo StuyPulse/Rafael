@@ -48,7 +48,7 @@ public class DriveInchesPIDCommand extends PIDCommand {
         controller.reset();
 
         //System.out.println("[DriveInchesPIDCommand#initialize()]: encoder value BEFORE reset: " + Robot.drivetrain.encoderDistance());
-        Robot.drivetrain.resetEncoders();
+        //Robot.drivetrain.resetEncoders();
         Robot.drivetrain.resetGyro();
         // Because reset doesn't work, we're storing the offset manually
         encoderOffset = Robot.drivetrain.encoderDistance();
