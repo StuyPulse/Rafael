@@ -20,37 +20,21 @@ public class ScoreHPGearCommand extends CommandGroup {
     public static final double AFTER_TURN_TO_HP_GEAR_DISTANCE = 40;
     public static final double HP_GEAR_REVERSE_DISTANCE = -12;
 
-    private boolean useCV;
-
-    public ScoreHPGearCommand(boolean useCV) {
-        this.useCV = useCV;
+    public ScoreHPGearCommand(boolean score) {
         int direction;
         if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
             direction = 1;
         } else {
             direction = -1;
         }
-        addSequential(new DriveInchesPIDCommand(0.5,START_TO_HP_GEAR_TURN_DISTANCE));
+        addSequential(new DriveInchesPIDCommand(0.5, START_TO_HP_GEAR_TURN_DISTANCE));
         addSequential(new RotateDegreesGyroCommand(direction * HP_GEAR_TURN_TO_HP_GEAR_ANGLE));
-
-        if (useCV) {
-            addSequential(new SetupForGearCommand());
-        } else {
+        if (score) {
             addSequential(new DriveInchesPIDCommand(0.5, AFTER_TURN_TO_HP_GEAR_DISTANCE));
+            addSequential(new ScoreGearCommand());
+            addSequential(new DriveInchesEncodersCommand(HP_GEAR_REVERSE_DISTANCE));
+            addSequential(new GearTrapTrapGearCommand());
         }
-
-        addSequential(new ScoreGearCommand());
-        addSequential(new DriveInchesEncodersCommand(HP_GEAR_REVERSE_DISTANCE));
-        addSequential(new GearTrapTrapGearCommand());
     }
 
-    @Override
-    public boolean isFinished() {
-        // If we are in autonomous and CV did not find the goal, terminate this command
-        // rather than dump out a gear.
-        if (useCV && Robot.isAutonomous && !Robot.cvFoundGoal) {
-            return true;
-        }
-        return super.isFinished();
-    }
 }
