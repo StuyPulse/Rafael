@@ -39,11 +39,11 @@ public class ScoreMiddleGearCommand extends CommandGroup {
             addSequential(new SetupForGearCommand());
         } else {
             // TODO: Replace speed and modify to work without magic numbers
-            addSequential(new DriveInchesPIDCommand(0.5, START_TO_MIDDLE_GEAR_DISTANCE), 7.0);
+            addSequential(new DriveInchesPIDCommand(0.5, START_TO_MIDDLE_GEAR_DISTANCE), 5.75);
             //new DriveInchesEncodersCommand(START_TO_MIDDLE_GEAR_DISTANCE));
         }
         addSequential(new ScoreGearCommand());
-        addSequential(new DriveInchesEncodersCommand(MIDDLE_GEAR_REVERSE_DISTANCE));
+        addSequential(new DriveInchesEncodersCommand(MIDDLE_GEAR_REVERSE_DISTANCE), 3.0);
         addSequential(new GearTrapTrapGearCommand());
     }
 
