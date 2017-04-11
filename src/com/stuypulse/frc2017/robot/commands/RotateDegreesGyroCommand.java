@@ -9,10 +9,26 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class RotateDegreesGyroCommand extends GyroRotationalCommand {
 
     private double angle;
+
+    // If angleIsPreset is false, the angle will be retrieved dynamically
+    // from SmartDashboard
     private boolean angleIsPreset;
 
     private boolean useAlliance;
-    private int allianceDirection;
+    private int directionMultiplier;
+
+    /**
+     * If `useAlliance` is true, the angle to rotate will be negated
+     * if the alliance color (specified in DriverStation) is blue. The
+     * alliance color is retrieved in `initialize()`, not in the constructor.
+     */
+    public RotateDegreesGyroCommand(double angle, boolean useAlliance) {
+        super();
+        this.angle = angle;
+        this.useAlliance = useAlliance;
+        directionMultiplier = 1;
+        angleIsPreset = true;
+    }
 
     public RotateDegreesGyroCommand() {
         this(0.0, false);
@@ -21,17 +37,6 @@ public class RotateDegreesGyroCommand extends GyroRotationalCommand {
 
     public RotateDegreesGyroCommand(double angle) {
         this(angle, false);
-        /*super();
-        this.angle = angle;
-        angleIsPreset = true;*/
-    }
-
-    public RotateDegreesGyroCommand(double angle, boolean useAlliance) {
-        super();
-        this.angle = angle;
-        this.useAlliance = useAlliance;
-        allianceDirection = 1;
-        angleIsPreset = true;
     }
 
     public void setDesiredAngle(double angle) {
@@ -40,18 +45,25 @@ public class RotateDegreesGyroCommand extends GyroRotationalCommand {
 
     @Override
     protected double getDesiredAngle() {
-        return angleIsPreset ? (angle * allianceDirection) : SmartDashboard.getNumber("gyro-rotate-degs", 0);
+        if (angleIsPreset) {
+            return directionMultiplier * angle;
+        }
+        return SmartDashboard.getNumber("gyro-rotate-degs", 0);
     }
 
     @Override
     public void initialize() {
+        // Check alliance color in initialize() because if it
+        // is checked in the constructor, it runs in robotInit,
+        // which might be before the alliance color was set.
         if (useAlliance) {
             if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
-                allianceDirection = 1;
+                directionMultiplier = 1.0;
             } else {
-                allianceDirection = -1;
+                directionMultiplier = -1.0;
             }
         }
+        super.initialize();
     }
 
 }
