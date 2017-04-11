@@ -42,27 +42,7 @@ public class IRSensor {
     }
 
     public boolean isGearDetected() {
-        return getDistance() < RobotMap.IR_SENSOR_THRESHOLD;
-    }
-
-    public void handleAutoGearPush() {
-        /*if (!Robot.isAutoOverridden() && isGearDetected()) {// && Robot.geartrap.isTrapped()) {
-            // If the timer is stopped, start it
-            if (!isTimerRunning) {
-                // Based on a mirror of old source code, the start() method resets the
-                // timer as well (current source code, and docs, don't help; if someone can
-                // test it, do so and replace this comment).
-                timeSinceEntry.start();
-                isTimerRunning = true;
-            }
-            // If the "time is up", push the gear and reset the timer
-        	if (timeSinceEntry.get() > RobotMap.IR_TIME_IN_MECHANISM_THRESHOLD) {
-        		Robot.gearpusher.extend();
-        		timeSinceEntry.stop();
-        		isTimerRunning = false;
-        		timeSinceEntry.reset();
-        	}
-        }*/
+        return getVoltage() > SmartDashboard.getNumber("IRVoltageThreshold", RobotMap.IR_SENSOR_THRESHOLD);//RobotMap.IR_SENSOR_THRESHOLD;
     }
 
     public void gearLEDSignalControl() {

@@ -35,11 +35,18 @@ abstract public class AutoMovementCommand extends Command {
      */
     @Override
     protected void execute() {
-        if (Robot.oi.driverIsOverriding()) {
-            forceStoppedController.set(true);
-        }
-        if (!getForceStopped()) {
-            inferiorExecute();
+        try {
+            if (Robot.oi.driverIsOverriding()) {
+                forceStoppedController.set(true);
+            }
+            if (!getForceStopped()) {
+                inferiorExecute();
+            }
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+            if (forceStoppedController != null) {
+                forceStoppedController.set(true);
+            }
         }
     }
 

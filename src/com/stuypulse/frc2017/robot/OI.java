@@ -1,31 +1,29 @@
 package com.stuypulse.frc2017.robot;
 
-import com.stuypulse.frc2017.robot.commands.BallGateCloseCommand;
-import com.stuypulse.frc2017.robot.commands.BallGateOpenCommand;
-import com.stuypulse.frc2017.robot.commands.BlenderRunWithUnjammingCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderSpinBackwardCommand;
+import com.stuypulse.frc2017.robot.commands.BlenderSpinCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderStopCommand;
 import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
+import com.stuypulse.frc2017.robot.commands.DriveInchesPIDCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainLowGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherPushGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
+import com.stuypulse.frc2017.robot.commands.HopperFlapToggleCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
+import com.stuypulse.frc2017.robot.commands.RotateDegreesPIDCommand;
 import com.stuypulse.frc2017.robot.commands.ScoreGearCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateIdealSpeedCommand;
-import com.stuypulse.frc2017.robot.commands.ShooterAccelerateMaximumSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateMinimumSpeedCommand;
+import com.stuypulse.frc2017.robot.commands.ShooterAccelerateReverseSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterStopCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStartMotorCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStopMotorCommand;
-import com.stuypulse.frc2017.robot.commands.auton.DoubleSequentialCommand;
 import com.stuypulse.frc2017.robot.commands.cv.ProcessTestImageCommand;
-import com.stuypulse.frc2017.robot.commands.cv.RotateToBoilerCommand;
 import com.stuypulse.frc2017.robot.commands.cv.RotateToLiftCommand;
 import com.stuypulse.frc2017.robot.commands.cv.RunAutoCommand;
-import com.stuypulse.frc2017.robot.commands.cv.SetupForBoilerCommand;
 import com.stuypulse.frc2017.robot.commands.cv.SetupForGearCommand;
 import com.stuypulse.frc2017.util.Gamepad;
 
@@ -77,20 +75,25 @@ public class OI {
         // Gear shift:
         driverPad.getRightBumper().whenPressed(new DriveTrainLowGearCommand());
         driverPad.getRightBumper().whenReleased(new DriveTrainHighGearCommand());
+
         // CV Lift:
-        driverPad.getLeftBumper().whenPressed(new RunAutoCommand(new RotateToLiftCommand()));
+        //driverPad.getLeftBumper().whenPressed(new RunAutoCommand(new RotateToLiftCommand()));
 
         // CV Boiler [unbound because not tested]
         // driverPad.getRightButton().whenPressed(new RunAutoCommand(new RotateToBoilerCommand()));
         // driverPad.getBottomButton().whenPressed(new SetupForBoilerCommand());
 
         // CV testing bindings:
-        driverPad.getDPadLeft().whenPressed(new RunAutoCommand(new RotateDegreesGyroCommand()));
-        driverPad.getDPadDown().whenPressed(new RunAutoCommand(new DriveInchesEncodersCommand()));
+        //driverPad.getDPadLeft().whenPressed(new RunAutoCommand(new RotateDegreesGyroCommand()));
+        //driverPad.getDPadDown().whenPressed(new RunAutoCommand(new DriveInchesEncodersCommand()));
         //driverPad.getBottomButton().whenPressed(new DriveForwardCommand(1.0));
-        driverPad.getDPadUp().whenPressed(new SetupForGearCommand());
-        driverPad.getDPadRight().whenPressed(new RunAutoCommand(new RotateToLiftCommand()));
-        driverPad.getStartButton().whenPressed(new ProcessTestImageCommand());
+        //driverPad.getDPadUp().whenPressed(new SetupForGearCommand());
+        //driverPad.getDPadRight().whenPressed(new RunAutoCommand(new RotateToLiftCommand()));
+        //driverPad.getStartButton().whenPressed(new ProcessTestImageCommand());
+
+        // PID testing bindings
+        //driverPad.getRightButton().whenPressed(new RunAutoCommand(new DriveInchesPIDCommand()));
+        //driverPad.getTopButton().whenPressed(new RunAutoCommand(new RotateDegreesPIDCommand()));
 
         ////////////////////////////////////////////////////////////////////////
         // Operator Pad Bindings ///////////////////////////////////////////////
@@ -107,24 +110,24 @@ public class OI {
 
         // Shooter:
         operatorPad.getDPadDown().whenPressed(new ShooterStopCommand());
-        operatorPad.getDPadRight().whenPressed(new ShooterAccelerateMinimumSpeedCommand());
+        operatorPad.getDPadRight().whenPressed(new ShooterAccelerateReverseSpeedCommand());
         operatorPad.getDPadUp().whenPressed(new ShooterAccelerateIdealSpeedCommand());
-        operatorPad.getDPadLeft().whenPressed(new ShooterAccelerateMaximumSpeedCommand());
+        operatorPad.getDPadLeft().whenPressed(new ShooterAccelerateMinimumSpeedCommand());
 
         // Ball scoring:
-        operatorPad.getLeftBumper().whenPressed(new BallGateOpenCommand());
-        operatorPad.getLeftBumper().whenReleased(new BallGateCloseCommand());
-
-        operatorPad.getRightBumper()
-                .whenPressed(new BlenderSpinBackwardCommand());
-        operatorPad.getRightBumper().whenReleased(new BlenderStopCommand());
-
-        operatorPad.getRightTrigger().whenPressed(new BlenderRunWithUnjammingCommand());
-        operatorPad.getRightTrigger().whenReleased(new BlenderStopCommand()); // stop blender and close ball gate
+        operatorPad.getRightBumper().whileHeld(new BlenderSpinBackwardCommand());
+        operatorPad.getRightTrigger().whileHeld(new BlenderSpinCommand());
+        // NOTE: We use whileHeld here, and do not specify a whenReleased,
+        // because the default command of the blender runs off of joystick
+        // output. When one of these commands isn't running, control of the
+        // blender goes to the joystick.
 
         // Climbing:
         operatorPad.getLeftTrigger().whenPressed(new WinchStartMotorCommand());
         operatorPad.getLeftTrigger().whenReleased(new WinchStopMotorCommand());
+
+        // Flaps
+        operatorPad.getLeftBumper().whenPressed(new HopperFlapToggleCommand());
     }
 
     public boolean driverIsOverriding() {

@@ -7,39 +7,41 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class BallGateToggleCommand extends Command {
+public class BlenderJoystickDriveCommand extends Command {
 
-    public BallGateToggleCommand() {
+    private static final double MIN_MOTOR_VALUE = 0.1;
+
+    public BlenderJoystickDriveCommand() {
         // Use requires() here to declare subsystem dependencies
-        // Eg: requires(Robot.ballgate);
-        requires(Robot.ballgate);
+        // eg. requires(chassis);
+    	requires(Robot.blender);
     }
 
     // Called just before this Command runs the first time
-    @Override
     protected void initialize() {
-        Robot.ballgate.toggle();
     }
 
     // Called repeatedly when this Command is scheduled to run
-    @Override
     protected void execute() {
+        double motorValue = Robot.oi.operatorPad.getLeftY();
+        if (Math.abs(motorValue) < MIN_MOTOR_VALUE) {
+            Robot.blender.stop();
+        } else {
+            Robot.blender.joystickDrive(motorValue);
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
-    @Override
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true
-    @Override
     protected void end() {
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
-    @Override
     protected void interrupted() {
     }
 }

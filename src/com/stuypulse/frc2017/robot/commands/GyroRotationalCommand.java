@@ -193,6 +193,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
 
     // Used in inferiorExecute
     private void printInfo(double speed, double baseSpeed, boolean left) {
+/*
         String s = "";
         s += "====== GyroRotationalCommand ======\n";
         s += "| rotating: " + desiredAngle + "degrees\n";
@@ -209,15 +210,17 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
         s += "| extra motor value: " + String.format("%.2f", speed - baseSpeed) + "\n";
         s += "===================================\n";
         System.out.print(s);
+        */
     }
 
     // Used in isFinished, end, interrupted
     private void printEndInfo(String where) {
-        System.out.println("[GyroRotationalCommand#" + where + "] tolerance: " + tolerance);
+/*        System.out.println("[GyroRotationalCommand#" + where + "] tolerance: " + tolerance);
         System.out.println("[GyroRotationalCommand#" + where + "] degrees off: " + degreesToMove());
         System.out.println("[GyroRotationalCommand#" + where + "] desired angle: " + desiredAngle);
         System.out.println("[GyroRotationalCommand#" + where + "] cancelCommand: " + cancelCommand);
         System.out.println("[GyroRotationalCommand#" + where + "] getForceStopped(): " + getForceStopped());
         System.out.println("[GyroRotationalCommand#" + where + "] abort: " + abort);
+*/
     }
 }

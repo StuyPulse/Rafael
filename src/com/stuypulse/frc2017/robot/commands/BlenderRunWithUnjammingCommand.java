@@ -22,16 +22,13 @@ public class BlenderRunWithUnjammingCommand extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.blender);
-        requires(Robot.ballgate);
         motorUnjamTime = Timer.getFPGATimestamp();
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.ledBlenderSignal.stayOff();
         Robot.blender.run();
-        Robot.ballgate.open();
         motorIsUnjamming = false;
     }
 
@@ -43,11 +40,11 @@ public class BlenderRunWithUnjammingCommand extends Command {
         }
         if (!motorIsUnjamming && !Robot.isAutoOverridden()) {
             if (Robot.blender.isMotorJammed()) {
-                Robot.ledBlenderSignal.stayOff();
+                //Robot.ledBlenderSignal.stayOff();
                 Robot.blender.run();
                 motorIsUnjamming = false;
             } else {
-                Robot.ledBlenderSignal.stayOn();
+                //Robot.ledBlenderSignal.stayOn();
                 Robot.blender.setUnjamSpeed();
                 motorIsUnjamming = true;
             }
@@ -64,7 +61,6 @@ public class BlenderRunWithUnjammingCommand extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        Robot.ballgate.close();
         Robot.blender.stop();
     }
 

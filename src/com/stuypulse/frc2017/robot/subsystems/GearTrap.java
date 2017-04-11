@@ -18,7 +18,7 @@ public class GearTrap extends Subsystem {
 
     public GearTrap() {
         gearTrap = new Solenoid(RobotMap.PCM, RobotMap.GEAR_TRAP_SOLENOID_PORT);
-        trapped = false; // Starts out un-trapped
+        trapped = true; // Starts out trapped
     }
 
     @Override
@@ -27,21 +27,20 @@ public class GearTrap extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
 
-    public void toggle() {
-        set(!trapped);
-    }
-
-    public void set(boolean trap) {
-        gearTrap.set(trap);
+    private void set(boolean trap) {
+        gearTrap.set(!trap);
+        // Setting the solenoid to `true` opens the trap and setting to `false`
+        // closes it
+        // The default position is closed
         trapped = trap;
     }
 
     public void trap() {
-        gearTrap.set(true);
+        set(true);
     }
 
     public void release() {
-        gearTrap.set(false);
+        set(false);
     }
 
     public boolean isTrapped() {

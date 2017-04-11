@@ -42,6 +42,7 @@ public class LiftVision extends VisionModule {
     public DoubleSliderVariable maxGoalArea = new DoubleSliderVariable("Max Area", 10000.0, 0.0, 10000);
 
     private DeviceCaptureSource liftCamera;
+    private String date;
 
     public void initializeCamera() {
         liftCamera = Cameras.initializeCamera(RobotMap.LIFT_CAMERA_PORT);
@@ -108,7 +109,7 @@ public class LiftVision extends VisionModule {
             System.out.println("Failed to read from camera");
             return null;
         }
-        String date = (new Date()).toString();
+        date = (new Date()).toString();
         if (save) {
             Imgcodecs.imwrite("/tmp/" + date + ".png", frame);
         }
@@ -116,7 +117,7 @@ public class LiftVision extends VisionModule {
         if (save) {
             Imgcodecs.imwrite("/tmp/" + date + "-FILTERED.png", filtered);
         }
-        Vector[] targets = getTargets(frame, filtered);
+        Vector[] targets = getTargets(frame, filtered, save);
 
         frame.release();
         filtered.release();
@@ -128,7 +129,7 @@ public class LiftVision extends VisionModule {
     @Override
     public void run(Mat frame) {
         Mat filtered = filterLift(frame);
-        Vector[] targets = getTargets(frame, filtered);
+        Vector[] targets = getTargets(frame, filtered, false);
         if (targets != null && firstFrame) {
             System.out.println("======================================================");
             System.out.println("Target 0: " + targets[0] + "\n");
@@ -211,7 +212,7 @@ public class LiftVision extends VisionModule {
      *         the {@code Vector} to the right target
      *         or {@code null} if we failed to see the targets
      */
-    public Vector[] getTargets(Mat original, Mat filtered) {
+    public Vector[] getTargets(Mat original, Mat filtered, boolean save) {
         Mat drawn = original.clone();
 
         ArrayList<MatOfPoint> contours = new ArrayList<MatOfPoint>();
@@ -320,6 +321,10 @@ public class LiftVision extends VisionModule {
             }
         } else {
             targets = null;
+        }
+
+        if (save) {
+            Imgcodecs.imwrite("/tmp/" + date + "-DETECTED.png", drawn);
         }
 
         // Release contours and Mats we have created

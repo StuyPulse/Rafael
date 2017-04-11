@@ -2,6 +2,7 @@ package com.stuypulse.frc2017.robot.subsystems;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
+import com.ctre.CANTalon.TalonControlMode;
 import com.stuypulse.frc2017.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -25,7 +26,13 @@ public class Shooter extends Subsystem {
         shooterMotorB = new CANTalon(RobotMap.SHOOTER_MOTOR_B_PORT);
         shooterMotorA.enableBrakeMode(false);
         shooterMotorB.enableBrakeMode(false);
+        shooterMotorA.setInverted(true);
+        shooterMotorB.setInverted(true);
         shooterMotorA.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
+        //shooterMotorA.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        //shooterMotorA.changeControlMode(TalonControlMode.Speed);
+        //shooterMotorB.changeControlMode(TalonControlMode.Speed);
+
         shooterMotorA.configEncoderCodesPerRev(RobotMap.SHOOTER_ENCODER_PULSES_PER_REVOLUTION);
     }
 
@@ -58,8 +65,8 @@ public class Shooter extends Subsystem {
     }
 
     public double getSpeed() {
-        return shooterMotorA.getSpeed();
-
+        return shooterMotorA.getEncVelocity();
+        //return shooterMotorA.getSpeed();
     }
 
     public double getCurrentShooterMotorA() {
@@ -68,6 +75,14 @@ public class Shooter extends Subsystem {
 
     public double getCurrentShooterMotorB() {
         return shooterMotorB.getOutputCurrent();
+    }
+
+    // set motor PID values
+    public void setPIDF(double p, double i, double d, double f) {
+        shooterMotorA.setPID(p, i, d);
+        shooterMotorA.setF(f);
+        shooterMotorB.setPID(p, i, d);
+        shooterMotorB.setF(f);
     }
 
 }

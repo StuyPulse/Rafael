@@ -10,26 +10,29 @@ import com.stuypulse.frc2017.robot.commands.auton.MobilityToHPCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreBoilerGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreHPGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreMiddleGearCommand;
+import com.stuypulse.frc2017.robot.commands.auton.ShootAndMobilityCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootFromMiddleGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootingFromAllianceWallCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootingFromBoilerGearCommand;
 import com.stuypulse.frc2017.robot.cv.BoilerVision;
 import com.stuypulse.frc2017.robot.cv.Cameras;
 import com.stuypulse.frc2017.robot.cv.LiftVision;
-import com.stuypulse.frc2017.robot.subsystems.BallGate;
 import com.stuypulse.frc2017.robot.subsystems.Blender;
 import com.stuypulse.frc2017.robot.subsystems.Drivetrain;
 import com.stuypulse.frc2017.robot.subsystems.GearPusher;
 import com.stuypulse.frc2017.robot.subsystems.GearTrap;
+import com.stuypulse.frc2017.robot.subsystems.HopperFlap;
 import com.stuypulse.frc2017.robot.subsystems.Shooter;
 import com.stuypulse.frc2017.robot.subsystems.Winch;
 import com.stuypulse.frc2017.util.BoolBox;
 import com.stuypulse.frc2017.util.IRSensor;
 import com.stuypulse.frc2017.util.LEDSignal;
+import com.stuypulse.frc2017.util.PressureSensor;
 import com.stuypulse.frc2017.util.Vector;
 import com.stuypulse.frc2017.util.OrderedSendableChooser;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -52,10 +55,14 @@ public class Robot extends IterativeRobot {
     public static GearTrap geartrap;
     public static Shooter shooter;
     public static Blender blender;
-    public static BallGate ballgate;
     public static Winch winch;
-    public static LEDSignal ledBlenderSignal;
+    public static HopperFlap hopperflap;
+
     public static LEDSignal ledGearSensingSignal;
+    public static LEDSignal ledGearShiftSignal;
+    public static LEDSignal ledPressureSensingSignal;
+
+    public static PressureSensor pressureSensor;
 
     public static OI oi;
 
@@ -71,17 +78,15 @@ public class Robot extends IterativeRobot {
     public static boolean isAutonomous;
 
     Command autonomousCommand;
-    OrderedSendableChooser<Command> chooser = new OrderedSendableChooser<Command>();
-    public static OrderedSendableChooser<Boolean> straightDrivingChooser;
 
     public static LiftVision liftVision;
     public static BoilerVision boilerVision;
     public static Vector[] cvVector;
-    public static boolean cvFoundGoal = true;
+    public static boolean cvFoundGoal;
 
-    public static BoolBox stopAutoMovement = new BoolBox(false);
+    public static BoolBox stopAutoMovement;
 
-    IRSensor irsensor;
+    public static IRSensor irsensor;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -94,21 +99,30 @@ public class Robot extends IterativeRobot {
         blender = new Blender();
         geartrap = new GearTrap();
         gearpusher = new GearPusher();
-        ballgate = new BallGate();
         winch = new Winch();
-        oi = new OI();
+        hopperflap = new HopperFlap();
+
         irsensor = new IRSensor();
-        ledBlenderSignal = new LEDSignal(RobotMap.BLENDER_LED_PORT, RobotMap.BLENDER_LED_ON_VALUE);
+        pressureSensor = new PressureSensor();
+        stopAutoMovement = new BoolBox(false);
+        cvFoundGoal = true;
+        isAutonomous = false;
+
+        oi = new OI();
+
+        ledPressureSensingSignal = new LEDSignal(RobotMap.PRESSURE_LED_PORT, RobotMap.PRESSURE_LED_ON_VALUE);
         ledGearSensingSignal = new LEDSignal(RobotMap.GEAR_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);
+        ledGearShiftSignal = new LEDSignal(RobotMap.GEAR_SHIFT_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);
 
         setupSmartDashboardFields();
-        setupStraightDrivingChooser();
         setupAutonChooser();
 
         //boilerVision = new BoilerVision();
-        liftVision = new LiftVision();
 
-        isAutonomous = false;
+        // The lift camera is configured (with V4L) when the
+        // first image is processed (see processImageVectors()
+        // in LiftVision).
+        liftVision = new LiftVision();
     }
 
     private void setupSmartDashboardFields() {
@@ -118,7 +132,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("lift-camera-tilt-degs", 0.0);
 
         SmartDashboard.putNumber("cv tolerance", 2.0);
-        SmartDashboard.putNumber("tolerance-vary-scalar", 0.5);
+        SmartDashboard.putNumber("tolerance-vary-scalar", 0.0);
         SmartDashboard.putNumber("max-on-target", 10000.0);
 
         SmartDashboard.putNumber("autorotate-speed", 0.35);
@@ -135,7 +149,7 @@ public class Robot extends IterativeRobot {
 
         SmartDashboard.putNumber("auto-drive-base-speed", 0.45);
         SmartDashboard.putNumber("auto-drive-range", 0.4);
-        SmartDashboard.putNumber("auto-drive-ramp-max-speed", 0.7);
+        SmartDashboard.putNumber("auto-drive-ramp-max-speed", 0.3);
         SmartDashboard.putNumber("auto-drive-dist-for-max-speed", 5 * 12.0);
 
         SmartDashboard.putNumber("encoder-drive-inches", 108.0);
@@ -145,13 +159,28 @@ public class Robot extends IterativeRobot {
         // "winne-*" fields are for EncoderStraightDrivingCommand (for... historical reasons)
         SmartDashboard.putNumber("winne-threshold", 0.1);
         SmartDashboard.putNumber("winne-scale", 0.1);
-    }
 
-    private void setupStraightDrivingChooser() {
-        straightDrivingChooser = new OrderedSendableChooser<Boolean>();
-        straightDrivingChooser.addDefault("Use basic drive-straight", false);
-        straightDrivingChooser.addObject("Use automatically-adjusting drive-straight", true);
-        SmartDashboard.putData("Straight driving", straightDrivingChooser);
+        // PID DriveInches
+        SmartDashboard.putNumber("P DriveInches", 0.05);
+        SmartDashboard.putNumber("I DriveInches", 0.0);
+        SmartDashboard.putNumber("D DriveInches", 0.0);
+        SmartDashboard.putNumber("pid-drive-distance", 70);
+        SmartDashboard.putNumber("pid-drive-speed", 0.5);
+        SmartDashboard.putNumber("PID DriveInches OUTPUT", 0.0);
+        // PID RotateDegrees
+        SmartDashboard.putNumber("P RotateDegrees", 0.0);
+        SmartDashboard.putNumber("I RotateDegrees", 0.0);
+        SmartDashboard.putNumber("D RotateDegrees", 0.0);
+        SmartDashboard.putNumber("pid-rotate-angle", 90);
+        SmartDashboard.putNumber("PID RotateDegrees OUTPUT", 0.0);
+        // PID ShooterAccelerate
+        SmartDashboard.putNumber("P ShooterAccelerate", 0.0);
+        SmartDashboard.putNumber("I ShooterAccelerate", 0.0);
+        SmartDashboard.putNumber("D ShooterAccelerate", 0.0);
+        SmartDashboard.putNumber("F ShooterAccelerate", 0.0);
+        SmartDashboard.putNumber("pid-shooter-speed", 0);
+        SmartDashboard.putNumber("PID ShooterAccelerate OUTPUT", 0.0);
+
     }
 
     private void setupAutonChooser() {
@@ -160,29 +189,31 @@ public class Robot extends IterativeRobot {
         autonChooser.addObject("Minimal Mobility", new MobilityMinimalCommand());
         autonChooser.addObject("Minimal Mobility From Middle Gear Start", new MiddleGearMobilityMinimalCommand());
         //autonChooser.addObject("Only Mobility To HP Station", new MobilityToHPCommand());
-        autonChooser.addObject("Only Score HUMAN-PLAYER gear (CV)", new ScoreHPGearCommand(true));
-        autonChooser.addObject("Only APPROACH HUMAN-PLAYER gear (No CV)", new ScoreHPGearCommand(false));
+        autonChooser.addObject("Only Score HUMAN-PLAYER gear (No CV)", new ScoreHPGearCommand(true));
+        autonChooser.addObject("Only APPROACH HUMAN-PLAYER gear", new ScoreHPGearCommand(false));
         //autonChooser.addObject("Score HUMAN-PLAYER gear THEN Approach HP Station",
         //        new DoubleSequentialCommand(new ScoreHPGearCommand(true), new ApproachHPFromHPGearCommand()));
-        autonChooser.addObject("Only Score MIDDLE Gear (CV)", new ScoreMiddleGearCommand(true));
         autonChooser.addDefault("Only Score MIDDLE Gear (No CV)", new ScoreMiddleGearCommand(false));
+
         // Leaving middle-then-approach-hp because it does *score* the gear, so we could
         // hypothetically try the approach-hp if we really need it.
         autonChooser.addObject("Score MIDDLE Gear THEN Approach HP Station",
                 new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ApproachHPFromMiddleGearCommand()));
         //autonChooser.addObject("Score MIDDLE Gear THEN Shoot",
         //        new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ShootFromMiddleGearCommand()));
-        autonChooser.addObject("Only Score BOILER Gear (CV)", new ScoreBoilerGearCommand(true));
-        autonChooser.addObject("Only APPROACH BOILER Gear (No CV)", new ScoreBoilerGearCommand(false));
+        autonChooser.addObject("Only Score BOILER Gear (No CV)", new ScoreBoilerGearCommand(true));
+        autonChooser.addObject("Only APPROACH BOILER Gear", new ScoreBoilerGearCommand(false));
         //autonChooser.addObject("Score BOILER Gear THEN Approach HP Station",
         //        new DoubleSequentialCommand(new ScoreBoilerGearCommand(true), new ApproachHPFromBoilerGearCommand()));
         //autonChooser.addObject("Score BOILER Gear THEN Shoot",
         //        new DoubleSequentialCommand(new ScoreBoilerGearCommand(true), new ShootingFromBoilerGearCommand()));
         //autonChooser.addObject("Only Shoot", new ShootingFromAllianceWallCommand());
+        autonChooser.addObject("Shoot from BOILER and mobility", new ShootAndMobilityCommand());
         SmartDashboard.putData("Auton Setting", autonChooser);
     }
 
     private void updateSmartDashboardOutputs() {
+        SmartDashboard.putNumber("IRDistanceThreshold", RobotMap.IR_SENSOR_THRESHOLD);
         SmartDashboard.putNumber("IRDistance", irsensor.getDistance());
         SmartDashboard.putNumber("IRVoltage", irsensor.getVoltage());
         SmartDashboard.putNumber("Encoder drivetrain left", Robot.drivetrain.leftEncoderDistance());
@@ -199,6 +230,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Right bottom drivetrain motor current",
                 Robot.drivetrain.getRightBottomMotorCurrent());
         SmartDashboard.putNumber("Winch motor current", Robot.winch.getMotorCurrent());
+        SmartDashboard.putNumber("Pressure sensor (volts)", pressureSensor.getVoltage());
+        SmartDashboard.putNumber("Pressure sensor (pressure)", pressureSensor.getPressure());
     }
 
     /**
@@ -229,26 +262,15 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
-
         isAutonomous = true;
+        Robot.stopAutoMovement.set(false);
 
-        // TODO: Set SHOOTER_IDEAL_SPEED to the ideal speed when it is known,
-        // then set shooter speed to SHOOTER_IDEAL_SPEED here.
-        //Robot.shooter.setSpeed(SmartDashboard.getNumber("Shooter speed", 0.0));
-
-        // The gear-pusher piston, and the gear trap pistons, start *retracted*,
+        // The gear-pusher piston starts *retracted*,
         // because when extended they reach outside the frame perimeter.
-        // Thus we must immediately close the gear trap, then push the
-        // gear pusher.
-        // We do this in autonomousInit rather than a Command because it must
-        // always happen, regardless of what comes next, and it is quick. This
-        // is also why blocking the thread is appropriate:
+        // Thus we immediately push the gear pusher to keep the gear in place.
         Robot.drivetrain.resetEncoders();
-        Robot.geartrap.trap();
-
-        Timer.delay(0.5);
-
         Robot.gearpusher.push(Value.kReverse);
+        Robot.hopperflap.open();
 
         // Gear-shift physically starts in HIGH gear
 
@@ -258,6 +280,7 @@ public class Robot extends IterativeRobot {
             autonomousCommand.start();
         }
 
+        printAllianceColor();
     }
 
     /**
@@ -268,13 +291,16 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         blender.checkForJam();
         irsensor.gearLEDSignalControl();
+        pressureSensor.pressureLEDSignalControl();
         updateSmartDashboardOutputs();
     }
 
     @Override
     public void teleopInit() {
-
         isAutonomous = false;
+        Robot.stopAutoMovement.set(false);
+
+        Robot.hopperflap.open();
 
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
@@ -285,10 +311,8 @@ public class Robot extends IterativeRobot {
         }
 
         Robot.drivetrain.resetEncoders();
-        Robot.geartrap.trap();
-        // TODO: Why config cameras here and not in autonInit()?
-        Cameras.configureCamera(0);
-        Cameras.configureCamera(1);
+
+        printAllianceColor();
     }
 
     /**
@@ -299,6 +323,7 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         blender.checkForJam();
         irsensor.gearLEDSignalControl();
+        pressureSensor.pressureLEDSignalControl();
         updateSmartDashboardOutputs();
     }
 
@@ -320,5 +345,16 @@ public class Robot extends IterativeRobot {
 
     public static void toggleAutoOverridden() {
         Robot.isAutoOverridden = !Robot.isAutoOverridden;
+    }
+
+    private static void printAllianceColor() {
+        DriverStation.Alliance color = DriverStation.getInstance().getAlliance();
+        if (color == DriverStation.Alliance.Blue) {
+            System.out.println("Alliance color: BLUE");
+        } else if (color == DriverStation.Alliance.Red) {
+            System.out.println("Alliance color: RED");
+        } else {
+            System.out.println("Alliance color: INVALID (= " + color + ")");
+        }
     }
 }

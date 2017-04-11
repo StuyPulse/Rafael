@@ -1,5 +1,7 @@
 package com.stuypulse.frc2017.robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -76,6 +78,9 @@ public interface RobotMap {
     ////////////////////////////////////////////////////////////////////////////
     int PCM = 0;
 
+    // PWM Hopper Flap Port
+    int HOPPER_FLAP_SERVO_PORT = 9;
+
     ////////////////////////////////////////////////////////////////////////////
     // PHYSICAL CONSTANTS: /////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
@@ -96,9 +101,9 @@ public interface RobotMap {
     double BLENDER_DEGREES_PER_PULSE_THRESHOLD_FOR_JAM = -1.0; //TODO: Find a suitable value for this.
 
     // Shooter
-    double SHOOTER_IDEAL_SPEED = 0.8; // TODO: set shooter speed
-    double SHOOTER_MAXIMUM_SPEED = 1.0; // TODO: Test+tune to max desirable speed
-    double SHOOTER_MINIMUM_SPEED = 0.3; //TODO: Test+tune minimum speed
+    double SHOOTER_IDEAL_SPEED = 0.9;
+    double SHOOTER_MAXIMUM_SPEED = 1.0;
+    double SHOOTER_MINIMUM_SPEED = 0.3;
 
     // Winch
     double WINCH_MOTOR_SPEED = 1.0;
@@ -107,29 +112,54 @@ public interface RobotMap {
     // LEDS: ///////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     // Ports
-    int BLENDER_LED_PORT = 9;
+    int PRESSURE_LED_PORT = 9;
     int GEAR_LED_PORT = 8; // for when gear is in robot
-    // The third LED is (supposed to be) on port 10, for future use. // port 10 means port 0 on NavX (see DigitalIO docs)
+    // Note: port 10 means port 0 on NavX (see DigitalIO docs)
+    int GEAR_SHIFT_LED_PORT = 10;
 
     // On-values (i.e. which bit to send to indicate to turn the LED on)
-    boolean BLENDER_LED_ON_VALUE = true;
-    // TODO: test gear led on-value
+    boolean PRESSURE_LED_ON_VALUE = true;
     boolean GEAR_LED_ON_VALUE = true;
 
     ////////////////////////////////////////////////////////////////////////////
     // IR SENSOR: //////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     int IR_SENSOR_PORT = 0;
-    double IR_SENSOR_THRESHOLD = 3.5;
+    double IR_SENSOR_THRESHOLD = 1.5;
     double IR_TIME_IN_MECHANISM_THRESHOLD = 1.0;
 
     double EQUATION_FACTOR = 12.23368994;
     double EQUATION_EXPONENT = -0.9779601588;
     double CONVERSION_FACTOR_CM_TO_INCHES = 0.393701;
+    
+    ////////////////////////////////////////////////////////////////////////////
+    // PRESSURE SENSOR: ////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+    int PRESSURE_SENSOR_PORT = 1;
+    double PRESSURE_SENSOR_THRESHOLD = 40.0;
+    
 
     ////////////////////////////////////////////////////////////////////////////
     // PIOTR DRIVE: //////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     double PIOTR_DRIVE_MARGIN_OF_ERROR = -0.001;
     double PIOTR_DRIVE_TURN_ADJUSTMENT = 0.1;
+    
+    ////////////////////////////////////////////////////////////////////////////
+    // PID: ////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+    double DRIVETRAIN_DRIVE_PID_P = 0.0;
+    double DRIVETRAIN_DRIVE_PID_I = 0.0;
+    double DRIVETRAIN_DRIVE_PID_D = 0.0;
+
+    // TODO: Maybe this should be removed and only defined in the command?
+    double DRIVETRAIN_DRIVE_PID_SPEED = 0.0;
+
+    double DRIVETRAIN_ROTATE_PID_P = 0.0;
+    double DRIVETRAIN_ROTATE_PID_I = 0.0;
+    double DRIVETRAIN_ROTATE_PID_D = 0.0;
+
+    double SHOOTER_ACCELERATE_PID_P = 0.0;
+    double SHOOTER_ACCELERATE_PID_I = 0.0;
+    double SHOOTER_ACCELERATE_PID_D = 0.0;
 }
