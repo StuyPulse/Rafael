@@ -18,17 +18,10 @@ public class ApproachNeutralHopperFromBoilerCommand extends CommandGroup {
     private static final double MOVE_TO_HOPPER = 77;
 
     public ApproachNeutralHopperFromBoilerCommand() {
-        int direction;
-        if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
-            direction = 1;
-        } else {
-            direction = -1;
-        }
-
         addSequential(new DriveInchesEncodersCommand(RobotMap.BOILER_TO_HOPPER_BACKUP_DISTANCE));
-        addSequential(new RotateDegreesGyroCommand(TURN_AWAY_FROM_BOILER * direction));
+        addSequential(new RotateDegreesGyroCommand(TURN_AWAY_FROM_BOILER, true));
         addSequential(new DriveInchesEncodersCommand(MOVE_TOWARD_HOPPER));
-        addSequential(new RotateDegreesGyroCommand(TURN_TO_HOPPER * direction));
+        addSequential(new RotateDegreesGyroCommand(TURN_TO_HOPPER, true));
         addSequential(new DriveInchesEncodersCommand(MOVE_TO_HOPPER));
         // Add Commands here:
         // e.g. addSequential(new Command1());

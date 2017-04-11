@@ -33,16 +33,10 @@ public class MiddleGearMobilityMinimalCommand extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-        int direction = 1;
-        if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
-            direction = 1;
-        } else {
-            direction = -1;
-        }
         addSequential(new DriveInchesEncodersCommand(FIRST_MOBILITY_TURN_DISTANCE));
-        addSequential(new RotateDegreesGyroCommand(direction * FIRST_MOBILITY_TURN_ANGLE));
+        addSequential(new RotateDegreesGyroCommand(FIRST_MOBILITY_TURN_ANGLE, true));
         addSequential(new DriveInchesEncodersCommand(SECOND_MOBILITY_TURN_DISTANCE));
-        addSequential(new RotateDegreesGyroCommand(direction * SECOND_MOBILITY_TURN_ANGLE));
+        addSequential(new RotateDegreesGyroCommand(SECOND_MOBILITY_TURN_ANGLE, true));
         addSequential(new DriveInchesEncodersCommand(FINAL_MOBILITY_TURN_DISTANCE));
     }
 }
