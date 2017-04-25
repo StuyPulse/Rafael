@@ -26,6 +26,9 @@ public class DriveInchesPIDCommand extends PIDCommand {
     }
 
     public DriveInchesPIDCommand(double speed, double distance) {
+        // NOTE: If distance is negative, then speed must also be negative
+        // (generally, they must have the same sign) for the stop condition
+        // to work.
         super(0.0, 0.0, 0.0);
         this.speed = speed;
         this.distance = distance;
@@ -78,7 +81,14 @@ public class DriveInchesPIDCommand extends PIDCommand {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.stopAutoMovement.get() || getActualEncoderDistance() >= distance;
+        if (Robot.stopAutoMovement.get()) {
+            return true;
+        }
+        if (distance >= 0.0) {
+            return getActualEncoderDistance() >= distance;
+        }
+        // Otherwise, distance is negative
+        return getActualEncoderDistance() <= distance;
     }
 
     // Called once after isFinished returns true
