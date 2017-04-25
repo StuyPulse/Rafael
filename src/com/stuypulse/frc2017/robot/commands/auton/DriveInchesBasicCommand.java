@@ -1,14 +1,18 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.stuypulse.frc2017.robot.Robot;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class DriveInchesBasicCommand {
+public class DriveInchesBasicCommand extends Command {
 
     private double speed;
     private double inches;
+    // TODO: Determine whether this is needed, for this originally only existed
+    //       to deal with an issue where encoders were not able to be reset
     private double encodersInitial;
 
     // NOTE: speed must be negative if inches is negative

@@ -58,9 +58,9 @@ public class RotateDegreesGyroCommand extends GyroRotationalCommand {
         // which might be before the alliance color was set.
         if (useAlliance) {
             if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
-                directionMultiplier = 1.0;
+                directionMultiplier = 1;
             } else {
-                directionMultiplier = -1.0;
+                directionMultiplier = -1;
             }
         }
         super.initialize();
