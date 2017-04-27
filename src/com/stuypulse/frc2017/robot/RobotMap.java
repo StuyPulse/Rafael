@@ -22,7 +22,7 @@ public interface RobotMap {
     // public static int rangefinderModule = 1;
 
     // Hardcoded before each match for auton
-    public static final DriverStation.Alliance ALLIANCE = DriverStation.Alliance.Blue;
+    public static final DriverStation.Alliance ALLIANCE = DriverStation.Alliance.Red;
 
     ////////////////////////////////////////////////////////////////////////////
     // CAMERA PORTS: ///////////////////////////////////////////////////////////
@@ -134,9 +134,9 @@ public interface RobotMap {
     double CONVERSION_FACTOR_CM_TO_INCHES = 0.393701;
 
     // Sonar:
-    double SONAR_INSET_INCHES = 2.0;
-    int SONAR_TRIGGER_PIN = 1; // TODO: set
-    int SONAR_ECHO_PIN = 1; // TODO: set
+    double SONAR_INSET_INCHES = 2.0; // TODO: set (distance from sonar to frame perimeter)
+    int SONAR_TRIGGER_PIN = 2;
+    int SONAR_ECHO_PIN = 3;
 
     ////////////////////////////////////////////////////////////////////////////
     // PRESSURE SENSOR: ////////////////////////////////////////////////////////
