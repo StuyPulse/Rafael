@@ -120,7 +120,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     @Override
     protected void inferiorExecute() {
         try {
-            double baseSpeed = SmartDashboard.getNumber("autorotate-speed", 0.45);
+            double baseSpeed = SmartDashboard.getNumber("autorotate-speed", 0.5);
             double speed = baseSpeed
                     + SmartDashboard.getNumber("autorotate-range", 0.4) * Math.pow(howMuchWeHaveToGo(), 2);
             boolean turnLeft = degreesToMove() < 0.0;
