@@ -161,9 +161,9 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("winne-scale", 0.1);
 
         // PID DriveInches
-        SmartDashboard.putNumber("P DriveInches", 0.05);
+        SmartDashboard.putNumber("P DriveInches", 0.04);
         SmartDashboard.putNumber("I DriveInches", 0.0);
-        SmartDashboard.putNumber("D DriveInches", 0.0);
+        SmartDashboard.putNumber("D DriveInches", 0.25);
         SmartDashboard.putNumber("pid-drive-distance", 70);
         SmartDashboard.putNumber("pid-drive-speed", 0.5);
         SmartDashboard.putNumber("PID DriveInches OUTPUT", 0.0);
