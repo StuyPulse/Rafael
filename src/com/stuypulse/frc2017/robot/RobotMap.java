@@ -68,10 +68,7 @@ public interface RobotMap {
     int GEAR_SHIFT_SOLENOID_PORT = 0;
     int BALL_GATE_SOLENOID_PORT = 1;
     int GEAR_TRAP_SOLENOID_PORT = 2;
-    // The gear coverer (which obstructs balls from entering gear mechanism)
-    // and gear pusher are on a double solenoid
-    int GEAR_COVERER_SOLENOID_PORT = 3;
-    int GEAR_PUSHER_SOLENOID_PORT = 4;
+    int GEAR_PUSHER_SOLENOID_PORT = 3;
 
     ////////////////////////////////////////////////////////////////////////////
     // PCMS: ///////////////////////////////////////////////////////////////////

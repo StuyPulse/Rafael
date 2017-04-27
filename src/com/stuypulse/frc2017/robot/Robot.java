@@ -269,7 +269,7 @@ public class Robot extends IterativeRobot {
         // because when extended they reach outside the frame perimeter.
         // Thus we immediately push the gear pusher to keep the gear in place.
         Robot.drivetrain.resetEncoders();
-        Robot.gearpusher.push(Value.kReverse);
+        Robot.gearpusher.extend();
         Robot.hopperflap.open();
 
         // Gear-shift physically starts in HIGH gear
