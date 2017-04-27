@@ -128,7 +128,12 @@ public interface RobotMap {
     double EQUATION_FACTOR = 12.23368994;
     double EQUATION_EXPONENT = -0.9779601588;
     double CONVERSION_FACTOR_CM_TO_INCHES = 0.393701;
-    
+
+    // Sonar:
+    double SONAR_INSET_INCHES = 2.0;
+    int SONAR_TRIGGER_PIN = 1; // TODO: set
+    int SONAR_ECHO_PIN = 1; // TODO: set
+
     ////////////////////////////////////////////////////////////////////////////
     // PRESSURE SENSOR: ////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
