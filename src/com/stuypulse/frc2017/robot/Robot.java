@@ -183,8 +183,8 @@ public class Robot extends IterativeRobot {
         autonChooser.addObject("Minimal Mobility", new MobilityMinimalCommand());
         autonChooser.addObject("Minimal Mobility From Middle Gear Start", new MiddleGearMobilityMinimalCommand());
         //autonChooser.addObject("Only Mobility To HP Station", new MobilityToHPCommand());
-        autonChooser.addDefault("Only Score HUMAN-PLAYER gear (No CV)", new ScoreHPGearCommand(true, DriverStation.Alliance.Blue));
-        autonChooser.addObject("Only APPROACH HUMAN-PLAYER gear", new ScoreHPGearCommand(false, DriverStation.Alliance.Blue));
+        autonChooser.addDefault("Only Score HUMAN-PLAYER gear (No CV)", new ScoreHPGearCommand(true));
+        autonChooser.addObject("Only APPROACH HUMAN-PLAYER gear", new ScoreHPGearCommand(false));
         //autonChooser.addObject("Score HUMAN-PLAYER gear THEN Approach HP Station",
         //        new DoubleSequentialCommand(new ScoreHPGearCommand(true), new ApproachHPFromHPGearCommand()));
         autonChooser.addObject("Only Score MIDDLE Gear (No CV)", new ScoreMiddleGearCommand(false));

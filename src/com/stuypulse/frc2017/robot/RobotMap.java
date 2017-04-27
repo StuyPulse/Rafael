@@ -1,5 +1,6 @@
 package com.stuypulse.frc2017.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -19,6 +20,9 @@ public interface RobotMap {
     // number and the module. For example you with a rangefinder:
     // public static int rangefinderPort = 1;
     // public static int rangefinderModule = 1;
+
+    // Hardcoded before each match for auton
+    public static final DriverStation.Alliance ALLIANCE = DriverStation.Alliance.Blue;
 
     ////////////////////////////////////////////////////////////////////////////
     // CAMERA PORTS: ///////////////////////////////////////////////////////////

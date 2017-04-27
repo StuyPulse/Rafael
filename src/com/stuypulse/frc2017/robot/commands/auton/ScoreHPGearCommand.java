@@ -1,6 +1,7 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
 import com.stuypulse.frc2017.robot.Robot;
+import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.DriveInchesPIDCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
@@ -20,10 +21,10 @@ public class ScoreHPGearCommand extends CommandGroup {
     public static final double AFTER_TURN_TO_HP_GEAR_DISTANCE = 16.0;
     public static final double HP_GEAR_REVERSE_DISTANCE = -24.0;
 
-    public ScoreHPGearCommand(boolean score, DriverStation.Alliance alliance) {
+    public ScoreHPGearCommand(boolean score) {
         int direction;
-        double extra;
-        if (alliance == DriverStation.Alliance.Red) {
+        double extra; // extra distance to go due to field irregularities, based on alliance color
+        if (RobotMap.ALLIANCE == DriverStation.Alliance.Red) {
             direction = 1;
             extra = 0.0;
         } else {

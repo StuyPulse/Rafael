@@ -1,6 +1,7 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
 import com.stuypulse.frc2017.robot.Robot;
+import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.DriveInchesPIDCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
@@ -15,14 +16,14 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class ScoreBoilerGearCommand extends CommandGroup {
-    public static final double START_TO_BOILER_GEAR_TURN_DISTANCE = 100.0;
-    public static final double BOILER_GEAR_TURN_TO_BOILER_GEAR_ANGLE = -60;
-    public static final double AFTER_TURN_TO_BOILER_GEAR_DISTANCE = 24;
-    public static final double BOILER_GEAR_REVERSE_DISTANCE = -12;
+    public static final double START_TO_BOILER_GEAR_TURN_DISTANCE = 74.0;
+    public static final double BOILER_GEAR_TURN_TO_BOILER_GEAR_ANGLE = -60.0;
+    public static final double AFTER_TURN_TO_BOILER_GEAR_DISTANCE = 16.0;
+    public static final double BOILER_GEAR_REVERSE_DISTANCE = -24.0;
 
     public ScoreBoilerGearCommand(boolean score) {
         int direction;
-        if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
+        if (RobotMap.ALLIANCE == DriverStation.Alliance.Red) {
             direction = 1;
         } else {
             direction = -1;
