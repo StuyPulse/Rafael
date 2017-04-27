@@ -124,6 +124,7 @@ public class LiftVision extends VisionModule {
         return targets;
     }
 
+    // TODO: This looks janky. At least, this var should be at the top
     private boolean firstFrame = true;
 
     @Override

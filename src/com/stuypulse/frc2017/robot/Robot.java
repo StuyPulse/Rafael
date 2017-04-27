@@ -10,6 +10,7 @@ import com.stuypulse.frc2017.robot.commands.auton.MobilityToHPCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreBoilerGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreHPGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreMiddleGearCommand;
+import com.stuypulse.frc2017.robot.commands.auton.ScoreMiddleGearThenHPCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootAndMobilityCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootFromMiddleGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootingFromAllianceWallCommand;
@@ -194,6 +195,7 @@ public class Robot extends IterativeRobot {
         //autonChooser.addObject("Score HUMAN-PLAYER gear THEN Approach HP Station",
         //        new DoubleSequentialCommand(new ScoreHPGearCommand(true), new ApproachHPFromHPGearCommand()));
         autonChooser.addDefault("Only Score MIDDLE Gear (No CV)", new ScoreMiddleGearCommand(false));
+        autonChooser.addDefault("Only Score MIDDLE Gear (No CV) THEN Approach HP Station", new ScoreMiddleGearThenHPCommand(false));
 
         // Leaving middle-then-approach-hp because it does *score* the gear, so we could
         // hypothetically try the approach-hp if we really need it.
