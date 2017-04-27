@@ -1,6 +1,7 @@
 package com.stuypulse.frc2017.robot.commands;
 
 import com.stuypulse.frc2017.robot.Robot;
+import com.stuypulse.frc2017.util.Sonar;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.PIDCommand;
@@ -16,6 +17,8 @@ public class DriveInchesPIDCommand extends PIDCommand {
     private boolean auto;
 
     private double encoderOffset; // jank impending
+
+    private boolean useSonar;
 
     private PIDController controller;
 
@@ -34,6 +37,15 @@ public class DriveInchesPIDCommand extends PIDCommand {
         this.distance = distance;
         this.auto = false;
         requires(Robot.drivetrain);
+    }
+
+    public DriveInchesPIDCommand(double speed, double distance, boolean useSonar) {
+        // NOTE: This ASSUMES that we are starting up against a wall.
+        // It doesn't use the initial sonar getRange value because a few
+        // inches is an imprecise zone for these sonars. Instead it uses
+        // Sonar.SONAR_INSET_INCHES
+        this(speed, distance);
+        this.useSonar = useSonar;
     }
 
     // Called just before this Command runs the first time
@@ -82,6 +94,9 @@ public class DriveInchesPIDCommand extends PIDCommand {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         if (Robot.stopAutoMovement.get()) {
+            return true;
+        }
+        if (useSonar && Robot.sonar.getRange() - Sonar.SONAR_INSET_INCHES > distance) {
             return true;
         }
         if (distance >= 0.0) {

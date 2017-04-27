@@ -38,7 +38,7 @@ public class ScoreMiddleGearCommand extends CommandGroup {
             addSequential(new DriveInchesEncodersCommand(30));
             addSequential(new SetupForGearCommand());
         } else {
-            addSequential(new DriveInchesPIDCommand(0.5, START_TO_MIDDLE_GEAR_DISTANCE), 5.0);
+            addSequential(new DriveInchesPIDCommand(0.5, START_TO_MIDDLE_GEAR_DISTANCE, true), 5.0);
         }
         addSequential(new ScoreGearCommand());
         addSequential(new DriveInchesBasicCommand(-0.7, MIDDLE_GEAR_REVERSE_DISTANCE), 3.0);

@@ -1,22 +1,15 @@
 package com.stuypulse.frc2017.robot;
 
-import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromBoilerGearCommand;
-import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromHPGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromMiddleGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.DoubleSequentialCommand;
 import com.stuypulse.frc2017.robot.commands.auton.MiddleGearMobilityMinimalCommand;
 import com.stuypulse.frc2017.robot.commands.auton.MobilityMinimalCommand;
-import com.stuypulse.frc2017.robot.commands.auton.MobilityToHPCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreBoilerGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreHPGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreMiddleGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreMiddleGearThenHPCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootAndMobilityCommand;
-import com.stuypulse.frc2017.robot.commands.auton.ShootFromMiddleGearCommand;
-import com.stuypulse.frc2017.robot.commands.auton.ShootingFromAllianceWallCommand;
-import com.stuypulse.frc2017.robot.commands.auton.ShootingFromBoilerGearCommand;
 import com.stuypulse.frc2017.robot.cv.BoilerVision;
-import com.stuypulse.frc2017.robot.cv.Cameras;
 import com.stuypulse.frc2017.robot.cv.LiftVision;
 import com.stuypulse.frc2017.robot.subsystems.Blender;
 import com.stuypulse.frc2017.robot.subsystems.Drivetrain;
@@ -28,14 +21,14 @@ import com.stuypulse.frc2017.robot.subsystems.Winch;
 import com.stuypulse.frc2017.util.BoolBox;
 import com.stuypulse.frc2017.util.IRSensor;
 import com.stuypulse.frc2017.util.LEDSignal;
-import com.stuypulse.frc2017.util.PressureSensor;
-import com.stuypulse.frc2017.util.Vector;
 import com.stuypulse.frc2017.util.OrderedSendableChooser;
+import com.stuypulse.frc2017.util.PressureSensor;
+import com.stuypulse.frc2017.util.Sonar;
+import com.stuypulse.frc2017.util.Vector;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -87,6 +80,7 @@ public class Robot extends IterativeRobot {
 
     public static BoolBox stopAutoMovement;
 
+    public static Sonar sonar;
     public static IRSensor irsensor;
 
     /**
@@ -104,6 +98,7 @@ public class Robot extends IterativeRobot {
         hopperflap = new HopperFlap();
 
         irsensor = new IRSensor();
+        sonar = new Sonar();
         pressureSensor = new PressureSensor();
         stopAutoMovement = new BoolBox(false);
         cvFoundGoal = true;

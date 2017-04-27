@@ -21,7 +21,7 @@ public class ScoreHPGearCommand extends CommandGroup {
     public static final double HP_GEAR_REVERSE_DISTANCE = -12;
 
     public ScoreHPGearCommand(boolean score) {
-        addSequential(new DriveInchesPIDCommand(0.5, START_TO_HP_GEAR_TURN_DISTANCE));
+        addSequential(new DriveInchesPIDCommand(0.5, START_TO_HP_GEAR_TURN_DISTANCE, true));
         addSequential(new RotateDegreesGyroCommand(HP_GEAR_TURN_TO_HP_GEAR_ANGLE, true));
 
         // Approach the peg

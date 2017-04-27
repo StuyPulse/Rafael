@@ -34,7 +34,7 @@ public class ScoreMiddleGearThenHPCommand extends CommandGroup {
         // Drive to gear, release trap, drive back, retract gear pusher, close trap.
 
         // Commands mostly duplicative of ScoreMiddleGearCommand:
-        addSequential(new DriveInchesPIDCommand(SPEED, ScoreMiddleGearCommand.START_TO_MIDDLE_GEAR_DISTANCE), 5.0);
+        addSequential(new DriveInchesPIDCommand(SPEED, ScoreMiddleGearCommand.START_TO_MIDDLE_GEAR_DISTANCE, true), 5.0);
         addSequential(new ScoreGearCommand());
         addSequential(new DriveInchesPIDCommand(-SPEED, MIDDLE_GEAR_REVERSE_DISTANCE), 5.0);
         addSequential(new GearTrapTrapGearCommand());

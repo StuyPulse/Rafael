@@ -22,7 +22,7 @@ public class ScoreBoilerGearCommand extends CommandGroup {
     public static final double BOILER_GEAR_REVERSE_DISTANCE = -12;
 
     public ScoreBoilerGearCommand(boolean score) {
-        addSequential(new DriveInchesPIDCommand(0.5, START_TO_BOILER_GEAR_TURN_DISTANCE));
+        addSequential(new DriveInchesPIDCommand(0.5, START_TO_BOILER_GEAR_TURN_DISTANCE, true));
         addSequential(new RotateDegreesGyroCommand(BOILER_GEAR_TURN_TO_BOILER_GEAR_ANGLE, true));
 
         // Approach the peg
