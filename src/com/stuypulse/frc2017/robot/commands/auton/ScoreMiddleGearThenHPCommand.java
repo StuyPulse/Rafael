@@ -1,12 +1,9 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
-import com.stuypulse.frc2017.robot.Robot;
-import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.DriveInchesPIDCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 import com.stuypulse.frc2017.robot.commands.ScoreGearCommand;
-import com.stuypulse.frc2017.robot.commands.cv.SetupForGearCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -21,10 +18,7 @@ public class ScoreMiddleGearThenHPCommand extends CommandGroup {
 
     private static final double SPEED = 0.5;
 
-    private boolean useCV;
-
     public ScoreMiddleGearThenHPCommand() {
-        this.useCV = useCV;
         // To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());
@@ -52,15 +46,5 @@ public class ScoreMiddleGearThenHPCommand extends CommandGroup {
         // Turn and move toward the retrieval zone
         addSequential(new RotateDegreesGyroCommand(90.0, true));
         addSequential(new DriveInchesPIDCommand(SPEED, APPROACH_HP_STATION_DISTANCE));
-    }
-
-    @Override
-    public boolean isFinished() {
-        // If we are in autonomous and CV did not find the goal, terminate this command
-        // rather than dump out a gear.
-        if (useCV && Robot.isAutonomous && !Robot.cvFoundGoal) {
-            return true;
-        }
-        return super.isFinished();
     }
 }
