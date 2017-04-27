@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class ScoreMiddleGearCommand extends CommandGroup {
-    public static final double START_TO_MIDDLE_GEAR_DISTANCE = 88;//114.3;
+    public static final double START_TO_MIDDLE_GEAR_DISTANCE = 69;
     public static final double MIDDLE_GEAR_REVERSE_DISTANCE = -12;
     private boolean useCV;
 
