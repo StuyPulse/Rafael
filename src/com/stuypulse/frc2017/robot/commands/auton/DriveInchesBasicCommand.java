@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveInchesBasicCommand extends Command {
 
-    private double speed;
-    private double inches;
+    private final double speed;
+    private final double inches;
 
     // TODO: once encoder issues are resolved `encodersInitial` should not
     // be necessary (issue is encoders not properly reseting)
