@@ -26,7 +26,7 @@ public class ScoreHPGearCommand extends CommandGroup {
         double extra; // extra distance to go due to field irregularities, based on alliance color
         if (RobotMap.ALLIANCE == DriverStation.Alliance.Red) {
             direction = 1;
-            extra = 0.0;
+            extra = 3.375;
         } else {
             direction = -1;
             extra = 3.0;

@@ -9,6 +9,7 @@ import com.stuypulse.frc2017.robot.commands.auton.ScoreBoilerGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreHPGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreMiddleGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootAndMobilityCommand;
+import com.stuypulse.frc2017.robot.commands.auton.TestHPInitialMotionCommand;
 import com.stuypulse.frc2017.robot.cv.BoilerVision;
 import com.stuypulse.frc2017.robot.cv.LiftVision;
 import com.stuypulse.frc2017.robot.subsystems.Blender;
