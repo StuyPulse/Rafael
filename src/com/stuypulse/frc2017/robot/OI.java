@@ -93,7 +93,7 @@ public class OI {
 
         // PID testing bindings
         driverPad.getTopButton().whenPressed(new RunAutoCommand(new DriveInchesPIDCommand()));
-        driverPad.getRightButton().whenPressed(new RunAutoCommand(new RotateDegreesPIDCommand()));
+        //driverPad.getRightButton().whenPressed(new RunAutoCommand(new RotateDegreesPIDCommand()));
 
         ////////////////////////////////////////////////////////////////////////
         // Operator Pad Bindings ///////////////////////////////////////////////
