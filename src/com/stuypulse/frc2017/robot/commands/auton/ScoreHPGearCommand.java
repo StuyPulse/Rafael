@@ -42,8 +42,8 @@ public class ScoreHPGearCommand extends CommandGroup {
             addSequential(new DriveInchesEncodersCommand(HP_GEAR_REVERSE_DISTANCE), 1.5);
             addSequential(new GearTrapTrapGearCommand());
 
-            addSequential(new TurnCommand(direction * -HP_GEAR_TURN_TO_HP_GEAR_ANGLE, 1.0, 0.7));
-            addSequential(new DriveInchesBasicCommand(1.0, 100.0));
+            addSequential(new RotateDegreesGyroCommand(direction * -HP_GEAR_TURN_TO_HP_GEAR_ANGLE), 2.0);
+            addSequential(new DriveInchesEncodersCommand(100.0));
         }
     }
 
