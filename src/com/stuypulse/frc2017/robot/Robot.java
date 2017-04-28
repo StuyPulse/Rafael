@@ -1,5 +1,6 @@
 package com.stuypulse.frc2017.robot;
 
+import com.stuypulse.frc2017.robot.commands.GyroRotationalCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromMiddleGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.DoubleSequentialCommand;
 import com.stuypulse.frc2017.robot.commands.auton.MiddleGearMobilityMinimalCommand;
@@ -125,8 +126,7 @@ public class Robot extends IterativeRobot {
 
         SmartDashboard.putNumber("lift-camera-tilt-degs", 0.0);
 
-        SmartDashboard.putNumber("cv tolerance", 2.0);
-        SmartDashboard.putNumber("tolerance-vary-scalar", 0.0);
+        SmartDashboard.putNumber("cv tolerance", GyroRotationalCommand.DEFAULT_TOLERANCE);
         SmartDashboard.putNumber("max-on-target", 10000.0);
 
         SmartDashboard.putNumber("autorotate-speed", 0.35);

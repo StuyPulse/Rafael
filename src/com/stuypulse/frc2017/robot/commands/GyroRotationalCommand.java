@@ -22,7 +22,9 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
 
     private int onTargetCounter;
     private boolean gentleRotate;
+    public static final double DEFAULT_TOLERANCE = 2.0;
     private double tolerance;
+    private boolean tolerancePreset;
 
     private double lastMotorValue;
 
@@ -33,7 +35,8 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.drivetrain);
-        tolerance = 1.0;
+        tolerance = DEFAULT_TOLERANCE;
+        tolerancePreset = false;
     }
 
     public GyroRotationalCommand(boolean gentle) {
@@ -42,7 +45,8 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
         // eg. requires(chassis);
         requires(Robot.drivetrain);
         gentleRotate = gentle;
-        tolerance = 1.0;
+        tolerance = DEFAULT_TOLERANCE;
+        tolerancePreset = false;
     }
 
     public GyroRotationalCommand(boolean gentle, double tolerance) {
@@ -51,6 +55,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
         requires(Robot.drivetrain);
         gentleRotate = gentle;
         this.tolerance = tolerance;
+        tolerancePreset = true;
     }
 
     public void setUseSignalLights(boolean use) {
@@ -71,6 +76,10 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
                 return;
             }
             Robot.drivetrain.resetGyro();
+
+            if (!tolerancePreset) {
+                tolerance = SmartDashboard.getNumber("cv tolerance", DEFAULT_TOLERANCE);
+            }
 
             lastMotorValue = 0.0;
 
@@ -150,8 +159,6 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
     @Override
     protected boolean isFinished() {
         try {
-            tolerance = SmartDashboard.getNumber("cv tolerance", 2.0) + SmartDashboard.getNumber("tolerance-vary-scalar", 0.5) * lastMotorValue;
-
             if (abort || cancelCommand || getForceStopped()) {
                 printEndInfo("isFinished");
                 return true;
