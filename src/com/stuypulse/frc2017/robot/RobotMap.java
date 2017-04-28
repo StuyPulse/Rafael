@@ -22,7 +22,7 @@ public interface RobotMap {
     // public static int rangefinderModule = 1;
 
     // Hardcoded before each match for auton
-    public static final DriverStation.Alliance ALLIANCE = DriverStation.Alliance.Red;
+    public static final DriverStation.Alliance ALLIANCE = DriverStation.Alliance.Blue;
 
     ////////////////////////////////////////////////////////////////////////////
     // CAMERA PORTS: ///////////////////////////////////////////////////////////
