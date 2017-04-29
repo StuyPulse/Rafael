@@ -190,11 +190,11 @@ public class Robot extends IterativeRobot {
         } else {
             hpGearAuto = new ScoreHPGearCommand(true);
         }
-        autonChooser.addDefault("Only Score HUMAN-PLAYER gear (No CV)", hpGearAuto);
+        autonChooser.addObject("Only Score HUMAN-PLAYER gear (No CV)", hpGearAuto);
         autonChooser.addObject("Only APPROACH HUMAN-PLAYER gear", new ScoreHPGearCommand(false));
         //autonChooser.addObject("Score HUMAN-PLAYER gear THEN Approach HP Station",
         //        new DoubleSequentialCommand(new ScoreHPGearCommand(true), new ApproachHPFromHPGearCommand()));
-        autonChooser.addObject("Only Score MIDDLE Gear (No CV)", new ScoreMiddleGearCommand(false));
+        autonChooser.addDefault("Only Score MIDDLE Gear (No CV)", new ScoreMiddleGearCommand(false));
 
         // Leaving middle-then-approach-hp because it does *score* the gear, so we could
         // hypothetically try the approach-hp if we really need it.
