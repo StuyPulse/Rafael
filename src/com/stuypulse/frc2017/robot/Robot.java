@@ -7,9 +7,9 @@ import com.stuypulse.frc2017.robot.commands.auton.MiddleGearMobilityMinimalComma
 import com.stuypulse.frc2017.robot.commands.auton.MobilityMinimalCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreBoilerGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreHPGearCommand;
+import com.stuypulse.frc2017.robot.commands.auton.ScoreHPGearRedCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreMiddleGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ShootAndMobilityCommand;
-import com.stuypulse.frc2017.robot.commands.auton.TestHPInitialMotionCommand;
 import com.stuypulse.frc2017.robot.cv.BoilerVision;
 import com.stuypulse.frc2017.robot.cv.LiftVision;
 import com.stuypulse.frc2017.robot.subsystems.Blender;
@@ -123,7 +123,7 @@ public class Robot extends IterativeRobot {
 
     private void setupSmartDashboardFields() {
         SmartDashboard.putNumber("Shooter speed", RobotMap.SHOOTER_IDEAL_SPEED);
-        SmartDashboard.putNumber("gyro-rotate-degs", 5.0);
+        SmartDashboard.putNumber("gyro-rotate-degs", 60.0);
 
         SmartDashboard.putNumber("lift-camera-tilt-degs", 0.0);
 
@@ -184,7 +184,13 @@ public class Robot extends IterativeRobot {
         autonChooser.addObject("Minimal Mobility", new MobilityMinimalCommand());
         autonChooser.addObject("Minimal Mobility From Middle Gear Start", new MiddleGearMobilityMinimalCommand());
         //autonChooser.addObject("Only Mobility To HP Station", new MobilityToHPCommand());
-        autonChooser.addDefault("Only Score HUMAN-PLAYER gear (No CV)", new ScoreHPGearCommand(true));
+        Command hpGearAuto;
+        if (RobotMap.ALLIANCE == DriverStation.Alliance.Red) {
+            hpGearAuto = new ScoreHPGearRedCommand(true);
+        } else {
+            hpGearAuto = new ScoreHPGearCommand(true);
+        }
+        autonChooser.addDefault("Only Score HUMAN-PLAYER gear (No CV)", hpGearAuto);
         autonChooser.addObject("Only APPROACH HUMAN-PLAYER gear", new ScoreHPGearCommand(false));
         //autonChooser.addObject("Score HUMAN-PLAYER gear THEN Approach HP Station",
         //        new DoubleSequentialCommand(new ScoreHPGearCommand(true), new ApproachHPFromHPGearCommand()));
