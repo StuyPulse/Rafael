@@ -184,6 +184,7 @@ public class Robot extends IterativeRobot {
         autonChooser.addObject("Minimal Mobility", new MobilityMinimalCommand());
         autonChooser.addObject("Minimal Mobility From Middle Gear Start", new MiddleGearMobilityMinimalCommand());
         //autonChooser.addObject("Only Mobility To HP Station", new MobilityToHPCommand());
+
         Command hpGearAuto;
         if (RobotMap.ALLIANCE == DriverStation.Alliance.Red) {
             hpGearAuto = new ScoreHPGearRedCommand(true);
@@ -191,7 +192,15 @@ public class Robot extends IterativeRobot {
             hpGearAuto = new ScoreHPGearCommand(true);
         }
         autonChooser.addObject("Only Score HUMAN-PLAYER gear (No CV)", hpGearAuto);
-        autonChooser.addObject("Only APPROACH HUMAN-PLAYER gear", new ScoreHPGearCommand(false));
+
+        Command hpScoreAuto;
+        if (RobotMap.ALLIANCE == DriverStation.Alliance.Red) {
+            hpScoreAuto = new ScoreHPGearRedCommand(false);
+        } else {
+            hpScoreAuto = new ScoreHPGearCommand(false);
+        }
+
+        autonChooser.addObject("Only APPROACH HUMAN-PLAYER gear", hpScoreAuto);
         //autonChooser.addObject("Score HUMAN-PLAYER gear THEN Approach HP Station",
         //        new DoubleSequentialCommand(new ScoreHPGearCommand(true), new ApproachHPFromHPGearCommand()));
         autonChooser.addDefault("Only Score MIDDLE Gear (No CV)", new ScoreMiddleGearCommand(false));
