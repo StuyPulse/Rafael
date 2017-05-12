@@ -1,5 +1,6 @@
 package com.stuypulse.frc2017.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -19,6 +20,9 @@ public interface RobotMap {
     // number and the module. For example you with a rangefinder:
     // public static int rangefinderPort = 1;
     // public static int rangefinderModule = 1;
+
+    // Hardcoded before each match for auton
+    public static final DriverStation.Alliance ALLIANCE = DriverStation.Alliance.Blue;
 
     ////////////////////////////////////////////////////////////////////////////
     // CAMERA PORTS: ///////////////////////////////////////////////////////////
@@ -68,10 +72,7 @@ public interface RobotMap {
     int GEAR_SHIFT_SOLENOID_PORT = 0;
     int BALL_GATE_SOLENOID_PORT = 1;
     int GEAR_TRAP_SOLENOID_PORT = 2;
-    // The gear coverer (which obstructs balls from entering gear mechanism)
-    // and gear pusher are on a double solenoid
-    int GEAR_COVERER_SOLENOID_PORT = 3;
-    int GEAR_PUSHER_SOLENOID_PORT = 4;
+    int GEAR_PUSHER_SOLENOID_PORT = 3;
 
     ////////////////////////////////////////////////////////////////////////////
     // PCMS: ///////////////////////////////////////////////////////////////////
@@ -131,7 +132,12 @@ public interface RobotMap {
     double EQUATION_FACTOR = 12.23368994;
     double EQUATION_EXPONENT = -0.9779601588;
     double CONVERSION_FACTOR_CM_TO_INCHES = 0.393701;
-    
+
+    // Sonar:
+    double SONAR_INSET_INCHES = 2.0; // TODO: set (distance from sonar to frame perimeter)
+    int SONAR_TRIGGER_PIN = 2;
+    int SONAR_ECHO_PIN = 3;
+
     ////////////////////////////////////////////////////////////////////////////
     // PRESSURE SENSOR: ////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////

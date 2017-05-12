@@ -83,7 +83,6 @@ public abstract class EncoderDrivingCommand extends AutoMovementCommand {
                 speed = Math.min(1.0, speed);
             }
             speed *= Math.signum(initialInchesToMove);
-            System.out.println("Speed: " + speed);
             Robot.drivetrain.tankDrive(speed, speed);
         } catch (Exception e) {
             System.out.println("Error in execute in EncoderDrivingCommand:");

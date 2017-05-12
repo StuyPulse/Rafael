@@ -10,21 +10,18 @@ import edu.wpi.first.wpilibj.command.Command;
 public class TurnCommand extends Command {
     private double angle;
     private double speed;
-    private double time;
 
-    public TurnCommand(double angle, double time, double speed) {
+    public TurnCommand(double angle, double speed) {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.drivetrain);
         this.angle = angle;
         this.speed = speed;
-        this.time = time;
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
         Robot.drivetrain.resetGyro();
-        setTimeout(time);
         if (angle > 0) {
             Robot.drivetrain.tankDrive(speed, -speed);
         } else {
@@ -40,7 +37,10 @@ public class TurnCommand extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return Math.abs(Robot.drivetrain.gyroAngle()) >= Math.abs(angle) || isTimedOut();
+        if (angle >= 0) {
+            return Robot.drivetrain.gyroAngle() > angle;
+        }
+        return Robot.drivetrain.gyroAngle() < angle;
     }
 
     // Called once after isFinished returns true
@@ -53,5 +53,6 @@ public class TurnCommand extends Command {
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+        Robot.drivetrain.stop();
     }
 }

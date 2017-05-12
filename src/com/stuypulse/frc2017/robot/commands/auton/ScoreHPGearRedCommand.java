@@ -15,23 +15,15 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class ScoreHPGearCommand extends CommandGroup {
-    public static final double START_TO_HP_GEAR_TURN_DISTANCE = 74.0;
+public class ScoreHPGearRedCommand extends CommandGroup {
+    public static final double START_TO_HP_GEAR_TURN_DISTANCE = 79.375;
     public static final double HP_GEAR_TURN_TO_HP_GEAR_ANGLE = 60.0;
     public static final double AFTER_TURN_TO_HP_GEAR_DISTANCE = 16.0;
     public static final double HP_GEAR_REVERSE_DISTANCE = -24.0;
 
-    public ScoreHPGearCommand(boolean score) {
-        int direction;
-        double extra; // extra distance to go due to field irregularities, based on alliance color
-        if (RobotMap.ALLIANCE == DriverStation.Alliance.Red) {
-            direction = 1;
-            extra = 3.375;
-        } else {
-            direction = -1;
-            extra = 3.0;
-        }
-        addSequential(new DriveInchesPIDCommand(0.5, START_TO_HP_GEAR_TURN_DISTANCE + extra));
+    public ScoreHPGearRedCommand(boolean score) {
+        int direction = 1;
+        addSequential(new DriveInchesPIDCommand(0.5, START_TO_HP_GEAR_TURN_DISTANCE));
         addSequential(new RotateDegreesGyroCommand(direction * HP_GEAR_TURN_TO_HP_GEAR_ANGLE));
 
         // Approach the peg

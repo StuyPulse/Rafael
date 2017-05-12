@@ -21,6 +21,12 @@ public class RotateDegreesGyroCommand extends GyroRotationalCommand {
         angleIsPreset = true;
     }
 
+    public RotateDegreesGyroCommand(double angle, double tolerance) {
+        super(false, tolerance);
+        this.angle = angle;
+        angleIsPreset = true;
+    }
+
     public void setDesiredAngle(double angle) {
         this.angle = angle;
     }

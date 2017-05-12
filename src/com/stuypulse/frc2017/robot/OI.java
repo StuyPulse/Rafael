@@ -2,9 +2,6 @@ package com.stuypulse.frc2017.robot;
 
 import com.stuypulse.frc2017.robot.commands.BlenderSpinBackwardCommand;
 import com.stuypulse.frc2017.robot.commands.BlenderSpinCommand;
-import com.stuypulse.frc2017.robot.commands.BlenderStopCommand;
-import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
-import com.stuypulse.frc2017.robot.commands.DriveInchesPIDCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainLowGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherPushGearCommand;
@@ -13,7 +10,6 @@ import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
 import com.stuypulse.frc2017.robot.commands.HopperFlapToggleCommand;
 import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
-import com.stuypulse.frc2017.robot.commands.RotateDegreesPIDCommand;
 import com.stuypulse.frc2017.robot.commands.ScoreGearCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateIdealSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateMinimumSpeedCommand;
@@ -21,10 +17,7 @@ import com.stuypulse.frc2017.robot.commands.ShooterAccelerateReverseSpeedCommand
 import com.stuypulse.frc2017.robot.commands.ShooterStopCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStartMotorCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStopMotorCommand;
-import com.stuypulse.frc2017.robot.commands.cv.ProcessTestImageCommand;
-import com.stuypulse.frc2017.robot.commands.cv.RotateToLiftCommand;
 import com.stuypulse.frc2017.robot.commands.cv.RunAutoCommand;
-import com.stuypulse.frc2017.robot.commands.cv.SetupForGearCommand;
 import com.stuypulse.frc2017.util.Gamepad;
 
 /**
@@ -92,8 +85,8 @@ public class OI {
         //driverPad.getStartButton().whenPressed(new ProcessTestImageCommand());
 
         // PID testing bindings
-        //driverPad.getRightButton().whenPressed(new RunAutoCommand(new DriveInchesPIDCommand()));
-        //driverPad.getTopButton().whenPressed(new RunAutoCommand(new RotateDegreesPIDCommand()));
+        //driverPad.getTopButton().whenPressed(new RunAutoCommand(new DriveInchesPIDCommand()));
+        //driverPad.getRightButton().whenPressed(new RunAutoCommand(new RotateDegreesGyroCommand()));
 
         ////////////////////////////////////////////////////////////////////////
         // Operator Pad Bindings ///////////////////////////////////////////////

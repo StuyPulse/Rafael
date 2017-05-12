@@ -15,7 +15,7 @@ public class DriveInchesPIDCommand extends PIDCommand {
     private double distance;
     private boolean auto;
 
-    private double encoderOffset; // jank impending
+    private double encoderOffset;
 
     private PIDController controller;
 

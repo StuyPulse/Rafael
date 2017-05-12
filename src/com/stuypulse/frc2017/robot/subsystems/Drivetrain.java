@@ -86,6 +86,7 @@ public class Drivetrain extends Subsystem {
         tankDrive(0, 0);
     }
 
+    // TODO: UNITS MUST BE COMMENTED. (Degrees; positive is clockwise)
     public double gyroAngle() {
         return gyro.getAngle();
     }
