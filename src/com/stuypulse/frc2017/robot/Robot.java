@@ -1,6 +1,7 @@
 package com.stuypulse.frc2017.robot;
 
 import com.stuypulse.frc2017.robot.commands.GyroRotationalCommand;
+import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromHPGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ApproachHPFromMiddleGearCommand;
 import com.stuypulse.frc2017.robot.commands.auton.DoubleSequentialCommand;
 import com.stuypulse.frc2017.robot.commands.auton.MiddleGearMobilityMinimalCommand;
@@ -209,6 +210,9 @@ public class Robot extends IterativeRobot {
         // hypothetically try the approach-hp if we really need it.
         autonChooser.addObject("Score MIDDLE Gear THEN Approach HP Station",
                 new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ApproachHPFromMiddleGearCommand()));
+        autonChooser.addObject("Score HP Gear THEN Approach HP Station",
+                new DoubleSequentialCommand(new ScoreHPGearCommand(true), new ApproachHPFromHPGearCommand()));
+
         //autonChooser.addObject("Score MIDDLE Gear THEN Shoot",
         //        new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ShootFromMiddleGearCommand()));
         autonChooser.addObject("Only Score BOILER Gear (No CV)", new ScoreBoilerGearCommand(true));
