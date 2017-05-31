@@ -1,6 +1,5 @@
 package com.stuypulse.frc2017.robot.commands.auton;
 
-import com.stuypulse.frc2017.robot.Robot;
 import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.DriveInchesEncodersCommand;
 import com.stuypulse.frc2017.robot.commands.DriveInchesPIDCommand;
@@ -21,7 +20,7 @@ public class ScoreHPGearCommand extends CommandGroup {
     public static final double AFTER_TURN_TO_HP_GEAR_DISTANCE = 16.0;
     public static final double HP_GEAR_REVERSE_DISTANCE = -24.0;
 
-    public ScoreHPGearCommand(boolean score) {
+    public ScoreHPGearCommand(boolean score, boolean useCV) {
         int direction;
         double extra; // extra distance to go due to field irregularities, based on alliance color
         if (RobotMap.ALLIANCE == DriverStation.Alliance.Red) {
@@ -33,6 +32,11 @@ public class ScoreHPGearCommand extends CommandGroup {
         }
         addSequential(new DriveInchesPIDCommand(0.5, START_TO_HP_GEAR_TURN_DISTANCE + extra));
         addSequential(new RotateDegreesGyroCommand(direction * HP_GEAR_TURN_TO_HP_GEAR_ANGLE));
+
+        // Extra CV rotation
+        if (useCV) {
+            addSequential(new SetupForGearCommand());
+        }
 
         // Approach the peg
         addSequential(new DriveInchesPIDCommand(0.5, AFTER_TURN_TO_HP_GEAR_DISTANCE), 2.0);

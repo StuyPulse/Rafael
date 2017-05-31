@@ -190,7 +190,7 @@ public class Robot extends IterativeRobot {
         if (RobotMap.ALLIANCE == DriverStation.Alliance.Red) {
             hpGearAuto = new ScoreHPGearRedCommand(true);
         } else {
-            hpGearAuto = new ScoreHPGearCommand(true);
+            hpGearAuto = new ScoreHPGearCommand(true, false);
         }
         autonChooser.addObject("Only Score HUMAN-PLAYER gear (No CV)", hpGearAuto);
 
@@ -198,25 +198,27 @@ public class Robot extends IterativeRobot {
         if (RobotMap.ALLIANCE == DriverStation.Alliance.Red) {
             hpScoreAuto = new ScoreHPGearRedCommand(false);
         } else {
-            hpScoreAuto = new ScoreHPGearCommand(false);
+            hpScoreAuto = new ScoreHPGearCommand(false, false);
         }
+        autonChooser.addObject("Only APPROACH HUMAN-PLAYER gear (No CV)", hpScoreAuto);
 
-        autonChooser.addObject("Only APPROACH HUMAN-PLAYER gear", hpScoreAuto);
         //autonChooser.addObject("Score HUMAN-PLAYER gear THEN Approach HP Station",
         //        new DoubleSequentialCommand(new ScoreHPGearCommand(true), new ApproachHPFromHPGearCommand()));
-        autonChooser.addDefault("Only Score MIDDLE Gear (No CV)", new ScoreMiddleGearCommand(false));
+
+        //FIXME: ORIGINAL DEFAULT.SET THE FOLLOWING TO DEFAULT AFTER TESTING
+        autonChooser.addObject("Only Score MIDDLE Gear (No CV)", new ScoreMiddleGearCommand(false));
 
         // Leaving middle-then-approach-hp because it does *score* the gear, so we could
         // hypothetically try the approach-hp if we really need it.
         autonChooser.addObject("Score MIDDLE Gear THEN Approach HP Station",
                 new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ApproachHPFromMiddleGearCommand()));
         autonChooser.addObject("Score HP Gear THEN Approach HP Station",
-                new DoubleSequentialCommand(new ScoreHPGearCommand(true), new ApproachHPFromHPGearCommand()));
+                new DoubleSequentialCommand(new ScoreHPGearCommand(true, true), new ApproachHPFromHPGearCommand()));
 
         //autonChooser.addObject("Score MIDDLE Gear THEN Shoot",
         //        new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ShootFromMiddleGearCommand()));
-        autonChooser.addObject("Only Score BOILER Gear (No CV)", new ScoreBoilerGearCommand(true));
-        autonChooser.addObject("Only APPROACH BOILER Gear", new ScoreBoilerGearCommand(false));
+        autonChooser.addObject("Only Score BOILER Gear (No CV)", new ScoreBoilerGearCommand(true, false));
+        autonChooser.addObject("Only APPROACH BOILER Gear", new ScoreBoilerGearCommand(false, false));
         //autonChooser.addObject("Score BOILER Gear THEN Approach HP Station",
         //        new DoubleSequentialCommand(new ScoreBoilerGearCommand(true), new ApproachHPFromBoilerGearCommand()));
         //autonChooser.addObject("Score BOILER Gear THEN Shoot",

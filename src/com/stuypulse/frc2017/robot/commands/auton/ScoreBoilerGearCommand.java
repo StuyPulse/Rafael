@@ -21,7 +21,7 @@ public class ScoreBoilerGearCommand extends CommandGroup {
     public static final double AFTER_TURN_TO_BOILER_GEAR_DISTANCE = 16.0;
     public static final double BOILER_GEAR_REVERSE_DISTANCE = -24.0;
 
-    public ScoreBoilerGearCommand(boolean score) {
+    public ScoreBoilerGearCommand(boolean score, boolean useCV) {
         int direction;
         if (RobotMap.ALLIANCE == DriverStation.Alliance.Red) {
             direction = 1;
@@ -33,6 +33,11 @@ public class ScoreBoilerGearCommand extends CommandGroup {
 
         // Approach the peg
         addSequential(new DriveInchesPIDCommand(0.5, AFTER_TURN_TO_BOILER_GEAR_DISTANCE));
+
+        // Extra CV rotation
+        if (useCV) {
+            addSequential(new SetupForGearCommand());
+        }
 
         if (score) {
             addSequential(new ScoreGearCommand());
