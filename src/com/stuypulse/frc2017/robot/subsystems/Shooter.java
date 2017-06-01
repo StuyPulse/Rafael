@@ -26,6 +26,7 @@ public class Shooter extends Subsystem {
         shooterMotorA = new CANTalon(RobotMap.SHOOTER_MOTOR_A_PORT);
         shooterMotorB = new CANTalon(RobotMap.SHOOTER_MOTOR_B_PORT);
         shooterAssistMotor = new CANTalon(RobotMap.SHOOTER_ASSIST_MOTOR_PORT);
+        //Initializing the variable with the port(9)
         shooterMotorA.enableBrakeMode(false);
         shooterMotorB.enableBrakeMode(false);
         shooterMotorA.setInverted(true);
@@ -48,6 +49,9 @@ public class Shooter extends Subsystem {
         shooterMotorA.set(speed);
         shooterMotorB.set(speed);
         shooterAssistMotor.set(speed);
+        //This sets the speed of the motor to the same speed that the shooter is operating at.
+        //If the shooter is running backwards, so will this thing.
+        //If the shooter is running at the minimum speed (0.3), this motor will as well.
     }
 
     // cut current to motor so it stops eventually, but doesn't apply brakes
@@ -55,6 +59,7 @@ public class Shooter extends Subsystem {
         shooterMotorA.set(0.0);
         shooterMotorB.set(0.0);
         shooterAssistMotor.set(0.0);
+        //Stops the motor when this method is run in the various commands.
     }
 
     public void resetEncoder() {
