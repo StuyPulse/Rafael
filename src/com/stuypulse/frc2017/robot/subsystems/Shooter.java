@@ -20,10 +20,12 @@ public class Shooter extends Subsystem {
     // sole purpose of doubling torque.
     private CANTalon shooterMotorA;
     private CANTalon shooterMotorB;
+    private CANTalon shooterAssistMotor; 
 
     public Shooter() {
         shooterMotorA = new CANTalon(RobotMap.SHOOTER_MOTOR_A_PORT);
         shooterMotorB = new CANTalon(RobotMap.SHOOTER_MOTOR_B_PORT);
+        shooterAssistMotor = new CANTalon(RobotMap.SHOOTER_ASSIST_MOTOR_PORT);
         shooterMotorA.enableBrakeMode(false);
         shooterMotorB.enableBrakeMode(false);
         shooterMotorA.setInverted(true);
@@ -45,12 +47,14 @@ public class Shooter extends Subsystem {
     public void setSpeed(double speed) {
         shooterMotorA.set(speed);
         shooterMotorB.set(speed);
+        shooterAssistMotor.set(speed);
     }
 
     // cut current to motor so it stops eventually, but doesn't apply brakes
     public void stop() {
         shooterMotorA.set(0.0);
         shooterMotorB.set(0.0);
+        shooterAssistMotor.set(0.0);
     }
 
     public void resetEncoder() {

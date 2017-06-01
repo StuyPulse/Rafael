@@ -60,6 +60,7 @@ public interface RobotMap {
     // Shooter
     int SHOOTER_MOTOR_A_PORT = 7;
     int SHOOTER_MOTOR_B_PORT = 8;
+    int SHOOTER_ASSIST_MOTOR_PORT = 9;
 
     int SHOOTER_ENCODER_PULSES_PER_REVOLUTION = 1024;
 
