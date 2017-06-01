@@ -50,6 +50,7 @@ public class Robot extends IterativeRobot {
     public static GearTrap geartrap;
     public static Shooter shooter;
     public static Blender blender;
+    public static Blender blenderfeeder;
     public static Winch winch;
     public static HopperFlap hopperflap;
 
@@ -93,6 +94,7 @@ public class Robot extends IterativeRobot {
         drivetrain = new Drivetrain();
         shooter = new Shooter();
         blender = new Blender();
+        blenderfeeder = new Blender();
         geartrap = new GearTrap();
         gearpusher = new GearPusher();
         winch = new Winch();

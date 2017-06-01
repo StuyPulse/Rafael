@@ -17,7 +17,7 @@ public class Blender extends Subsystem {
     public static final int CURRENTS_TO_RECORD = 15;
 
     private static CANTalon blenderMotor;
-
+    private static CANTalon blenderFeeder;
     // Values of current going to blenderMotor for past CURRENTS_TO_RECORD ticks
     private static double[] currentValues;
 
@@ -26,6 +26,7 @@ public class Blender extends Subsystem {
 
     public Blender() {
         blenderMotor = new CANTalon(RobotMap.BLENDER_MOTOR_PORT);
+        blenderFeeder = new CANTalon(RobotMap.BLENDER_FEEDER_PORT);
         blenderMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
         blenderMotor.configEncoderCodesPerRev(RobotMap.BLENDER_ENCODER_PULSES_PER_REVOLUTION);
         currentValues = new double[CURRENTS_TO_RECORD];
@@ -46,18 +47,22 @@ public class Blender extends Subsystem {
 
     public void run() {
         blenderMotor.set(RobotMap.BLENDER_MOTOR_SPEED);
+        blenderFeeder.set(1.0);
     }
 
     public void runBackwards() {
         blenderMotor.set(-1.0 * RobotMap.BLENDER_MOTOR_SPEED);
+        blenderFeeder.set(-1.0);
     }
 
     public void setUnjamSpeed() {
         blenderMotor.set(RobotMap.BLENDER_MOTOR_UNJAM_SPEED);
+        blenderFeeder.set(0.0);
     }
 
     public void stop() {
         blenderMotor.set(0.0);
+        blenderFeeder.set(0.0);
     }
 
     public boolean isMotorJammed() {
