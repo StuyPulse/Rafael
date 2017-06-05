@@ -9,7 +9,6 @@ import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
 import com.stuypulse.frc2017.robot.commands.HopperFlapToggleCommand;
-import com.stuypulse.frc2017.robot.commands.RotateDegreesGyroCommand;
 import com.stuypulse.frc2017.robot.commands.ScoreGearCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateIdealSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateMinimumSpeedCommand;
@@ -17,7 +16,8 @@ import com.stuypulse.frc2017.robot.commands.ShooterAccelerateReverseSpeedCommand
 import com.stuypulse.frc2017.robot.commands.ShooterStopCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStartMotorCommand;
 import com.stuypulse.frc2017.robot.commands.WinchStopMotorCommand;
-import com.stuypulse.frc2017.robot.commands.cv.RunAutoCommand;
+import com.stuypulse.frc2017.robot.commands.auton.ScoreHPGearCommand;
+import com.stuypulse.frc2017.robot.commands.cv.SetupForGearCommand;
 import com.stuypulse.frc2017.util.Gamepad;
 
 /**
@@ -83,6 +83,10 @@ public class OI {
         //driverPad.getDPadUp().whenPressed(new SetupForGearCommand());
         //driverPad.getDPadRight().whenPressed(new RunAutoCommand(new RotateToLiftCommand()));
         //driverPad.getStartButton().whenPressed(new ProcessTestImageCommand());
+
+        driverPad.getDPadLeft().whenPressed( new ScoreHPGearCommand(true, false));
+        driverPad.getDPadRight().whenPressed( new ScoreHPGearCommand(true, true));
+        driverPad.getDPadUp().whenPressed(new SetupForGearCommand());
 
         // PID testing bindings
         //driverPad.getTopButton().whenPressed(new RunAutoCommand(new DriveInchesPIDCommand()));

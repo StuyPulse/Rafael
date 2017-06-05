@@ -138,6 +138,7 @@ public abstract class GyroRotationalCommand extends AutoMovementCommand {
                 System.out.println("STALL (speed " + Robot.drivetrain.avgAbsEncoderSpeed() + ") motor value originally "+ speed);
                 speed += SmartDashboard.getNumber("autorotate-stall-motor-boost", 0.1);
             }
+            System.out.println("ANGLE TO ROTATE: " + degreesToMove());
 
             speed = Math.min(1.0, speed);
             printInfo(speed, baseSpeed, turnLeft);

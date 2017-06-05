@@ -35,7 +35,7 @@ public class SetupForGearCommand extends CommandGroup {
         addSequential(new RotateToLiftCommand());
         //addSequential(new RotateToLiftCommand(true));
 
-        addSequential(new DriveToPegCommand());
+        //addSequential(new DriveToPegCommand());
         addSequential(new ResetForceStopCommand());
     }
 

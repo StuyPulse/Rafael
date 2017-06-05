@@ -131,7 +131,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("cv tolerance", GyroRotationalCommand.DEFAULT_TOLERANCE);
         SmartDashboard.putNumber("max-on-target", 10000.0);
 
-        SmartDashboard.putNumber("autorotate-speed", 0.425);
+        SmartDashboard.putNumber("autorotate-speed", 0.425); // 0.425
         SmartDashboard.putNumber("autorotate-range", 0.25);
         SmartDashboard.putNumber("autorotate-counter-threshold", 40.0);
         SmartDashboard.putNumber("autorotate-stall-motor-boost", 0.08);
@@ -143,7 +143,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("left-speed-scale", 1.0);
         SmartDashboard.putNumber("angle-offset", -1.0);
 
-        SmartDashboard.putNumber("auto-drive-base-speed", 0.45);
+        SmartDashboard.putNumber("auto-drive-base-speed", 0.45); // 0.45
         SmartDashboard.putNumber("auto-drive-range", 0.4);
         SmartDashboard.putNumber("auto-drive-ramp-max-speed", 0.3);
         SmartDashboard.putNumber("auto-drive-dist-for-max-speed", 5 * 12.0);
@@ -192,7 +192,7 @@ public class Robot extends IterativeRobot {
         } else {
             hpGearAuto = new ScoreHPGearCommand(true, false);
         }
-        autonChooser.addObject("Only Score HUMAN-PLAYER gear (No CV)", hpGearAuto);
+        autonChooser.addDefault("Only Score HUMAN-PLAYER gear (No CV)", hpGearAuto);
 
         Command hpScoreAuto;
         if (RobotMap.ALLIANCE == DriverStation.Alliance.Red) {

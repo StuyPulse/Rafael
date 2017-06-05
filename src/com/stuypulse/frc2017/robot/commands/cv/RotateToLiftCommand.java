@@ -29,7 +29,8 @@ public class RotateToLiftCommand extends GyroRotationalCommand {
         boolean foundGoal = cvReading != null;
         Robot.cvFoundGoal = foundGoal;
         if (foundGoal) {
-            System.out.println(cvReading);
+            System.out.println("CV READING: " + cvReading);
+            System.out.println("CV ANGLE: " + cvReading.getDegrees());
             return cvReading.getDegrees() + SmartDashboard.getNumber("angle-offset", 0.0);
         }
         System.out.println("No reading");
