@@ -50,7 +50,6 @@ public class Robot extends IterativeRobot {
     public static GearTrap geartrap;
     public static Shooter shooter;
     public static Blender blender;
-    public static Blender blenderfeeder;
     public static Winch winch;
     public static HopperFlap hopperflap;
 

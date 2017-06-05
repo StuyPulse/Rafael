@@ -28,9 +28,11 @@ public class Blender extends Subsystem {
         blenderMotor = new CANTalon(RobotMap.BLENDER_MOTOR_PORT);
         blenderFeeder = new CANTalon(RobotMap.BLENDER_FEEDER_PORT);
         blenderMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
+        blenderFeeder.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
         blenderMotor.configEncoderCodesPerRev(RobotMap.BLENDER_ENCODER_PULSES_PER_REVOLUTION);
         currentValues = new double[CURRENTS_TO_RECORD];
         blenderMotor.enableBrakeMode(true);
+        blenderFeeder.enableBrakeMode(true);
         isJammed = false;
     }
 
@@ -43,6 +45,7 @@ public class Blender extends Subsystem {
 
     public void joystickDrive(double speed) {
     	blenderMotor.set(speed);
+    	blenderFeeder.set(speed);
     }
 
     public void run() {
