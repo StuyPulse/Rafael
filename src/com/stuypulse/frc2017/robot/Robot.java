@@ -93,7 +93,6 @@ public class Robot extends IterativeRobot {
         drivetrain = new Drivetrain();
         shooter = new Shooter();
         blender = new Blender();
-        blenderfeeder = new Blender();
         geartrap = new GearTrap();
         gearpusher = new GearPusher();
         winch = new Winch();
