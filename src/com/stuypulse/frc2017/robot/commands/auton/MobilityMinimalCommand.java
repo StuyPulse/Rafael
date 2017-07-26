@@ -29,7 +29,7 @@ public class MobilityMinimalCommand extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
 
-        addSequential(new DriveInchesEncodersCommand(MOBILITY_TO_BASELINE_DISTANCE));
+        addSequential(new DriveInchesEncodersCommand(MOBILITY_TO_BASELINE_DISTANCE), 3.0);
 
     }
 

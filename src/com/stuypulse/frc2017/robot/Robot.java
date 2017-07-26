@@ -194,7 +194,7 @@ public class Robot extends IterativeRobot {
         } else {
             hpGearAuto = new ScoreHPGearCommand(true, SmartDashboard.getBoolean("use-cv", false));
         }
-        autonChooser.addDefault("Only Score HUMAN-PLAYER gear", hpGearAuto);
+        autonChooser.addObject("Only Score HUMAN-PLAYER gear", hpGearAuto);
 
         Command hpScoreAuto;
         if (RobotMap.ALLIANCE == DriverStation.Alliance.Red) {
@@ -208,7 +208,7 @@ public class Robot extends IterativeRobot {
         //        new DoubleSequentialCommand(new ScoreHPGearCommand(true), new ApproachHPFromHPGearCommand()));
 
         //FIXME: ORIGINAL DEFAULT.SET THE FOLLOWING TO DEFAULT AFTER TESTING
-        autonChooser.addObject("Only Score MIDDLE Gear (No CV)", new ScoreMiddleGearCommand(false));
+        autonChooser.addDefault("Only Score MIDDLE Gear (No CV)", new ScoreMiddleGearCommand(false));
 
         // Leaving middle-then-approach-hp because it does *score* the gear, so we could
         // hypothetically try the approach-hp if we really need it.
@@ -343,7 +343,7 @@ public class Robot extends IterativeRobot {
         blender.checkForJam();
         irsensor.gearLEDSignalControl();
         pressureSensor.pressureLEDSignalControl();
-        updateSmartDashboardOutputs();
+        updateSmartDashboardOutputs();        
     }
 
     /**
