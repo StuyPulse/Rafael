@@ -142,6 +142,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("autorotate-stall-speed-threshold", 50.0);
         SmartDashboard.putNumber("left-speed-scale", 1.0);
         SmartDashboard.putNumber("angle-offset", -1.0);
+        
+        SmartDashboard.putBoolean("use-cv", false);
 
         SmartDashboard.putNumber("auto-drive-base-speed", 0.45); // 0.45
         SmartDashboard.putNumber("auto-drive-range", 0.4);
@@ -190,17 +192,17 @@ public class Robot extends IterativeRobot {
         if (RobotMap.ALLIANCE == DriverStation.Alliance.Red) {
             hpGearAuto = new ScoreHPGearRedCommand(true);
         } else {
-            hpGearAuto = new ScoreHPGearCommand(true, false);
+            hpGearAuto = new ScoreHPGearCommand(true, SmartDashboard.getBoolean("use-cv", false));
         }
-        autonChooser.addDefault("Only Score HUMAN-PLAYER gear (No CV)", hpGearAuto);
+        autonChooser.addDefault("Only Score HUMAN-PLAYER gear", hpGearAuto);
 
         Command hpScoreAuto;
         if (RobotMap.ALLIANCE == DriverStation.Alliance.Red) {
             hpScoreAuto = new ScoreHPGearRedCommand(false);
         } else {
-            hpScoreAuto = new ScoreHPGearCommand(false, false);
+            hpScoreAuto = new ScoreHPGearCommand(false, SmartDashboard.getBoolean("use-cv", false));
         }
-        autonChooser.addObject("Only APPROACH HUMAN-PLAYER gear (No CV)", hpScoreAuto);
+        autonChooser.addObject("Only APPROACH HUMAN-PLAYER gear", hpScoreAuto);
 
         //autonChooser.addObject("Score HUMAN-PLAYER gear THEN Approach HP Station",
         //        new DoubleSequentialCommand(new ScoreHPGearCommand(true), new ApproachHPFromHPGearCommand()));
@@ -217,8 +219,8 @@ public class Robot extends IterativeRobot {
 
         //autonChooser.addObject("Score MIDDLE Gear THEN Shoot",
         //        new DoubleSequentialCommand(new ScoreMiddleGearCommand(true), new ShootFromMiddleGearCommand()));
-        autonChooser.addObject("Only Score BOILER Gear (No CV)", new ScoreBoilerGearCommand(true, false));
-        autonChooser.addObject("Only APPROACH BOILER Gear", new ScoreBoilerGearCommand(false, false));
+        autonChooser.addObject("Only Score BOILER Gear", new ScoreBoilerGearCommand(true, SmartDashboard.getBoolean("use-cv", false)));
+        autonChooser.addObject("Only APPROACH BOILER Gear", new ScoreBoilerGearCommand(false, SmartDashboard.getBoolean("use-cv", false)));
         //autonChooser.addObject("Score BOILER Gear THEN Approach HP Station",
         //        new DoubleSequentialCommand(new ScoreBoilerGearCommand(true), new ApproachHPFromBoilerGearCommand()));
         //autonChooser.addObject("Score BOILER Gear THEN Shoot",
