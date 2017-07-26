@@ -12,19 +12,25 @@ public class Winch extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-    private CANTalon winchMotor;
+    private CANTalon winchMotorA;
+    private CANTalon winchMotorB;
+
 
     public Winch() {
-        winchMotor = new CANTalon(RobotMap.WINCH_MOTOR_PORT);
-        winchMotor.enableBrakeMode(true);
+        winchMotorA = new CANTalon(RobotMap.WINCH_MOTOR_PORT_A);
+        winchMotorA.enableBrakeMode(true);
+        winchMotorB = new CANTalon(RobotMap.WINCH_MOTOR_PORT_B);
+        winchMotorB.enableBrakeMode(true);
     }
 
     public void startWinch() {
-        winchMotor.set(RobotMap.WINCH_MOTOR_SPEED);
+        winchMotorA.set(RobotMap.WINCH_MOTOR_SPEED);
+        winchMotorB.set(RobotMap.WINCH_MOTOR_SPEED);
     }
 
     public void stopWinch() {
-        winchMotor.set(0.0);
+        winchMotorA.set(0.0);
+        winchMotorB.set(0.0);
     }
 
     @Override
@@ -34,6 +40,6 @@ public class Winch extends Subsystem {
     }
 
     public double getMotorCurrent() {
-        return winchMotor.getOutputCurrent();
+        return winchMotorA.getOutputCurrent();
     }
 }
