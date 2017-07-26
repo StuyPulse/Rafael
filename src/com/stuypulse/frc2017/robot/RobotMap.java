@@ -56,7 +56,7 @@ public interface RobotMap {
     // Blender
     int BLENDER_MOTOR_PORT = 6;
     int BLENDER_ENCODER_PULSES_PER_REVOLUTION = 1024; // TODO: Test value
-
+    int BLENDER_FEEDER_PORT = 9;
     // Shooter
     // DISABLED
     int SHOOTER_MOTOR_A_PORT = -1;//7;
@@ -102,7 +102,7 @@ public interface RobotMap {
     double BLENDER_CURRENT_THRESHOLD_FOR_JAM = 23; //Amperes
 
     double BLENDER_DEGREES_PER_PULSE_THRESHOLD_FOR_JAM = -1.0; //TODO: Find a suitable value for this.
-
+    
     // Shooter
     double SHOOTER_IDEAL_SPEED = 0.9;
     double SHOOTER_MAXIMUM_SPEED = 1.0;
