@@ -70,6 +70,7 @@ public class DriveInchesPIDCommand extends PIDCommand {
         }
         // This should be converted to a graph (LinePlot) when testing
         SmartDashboard.putNumber("PID DriveInches OUTPUT", returnPIDInput());
+        SmartDashboard.putNumber("Gyro angle", Robot.drivetrain.gyroAngle());
         /*System.out.println("[DriveInchesPIDCommand#" + "execute()" + "] "
                 + "\n encoderDistance: " + getActualEncoderDistance() 
                 + "\n distance final: " + distance 
