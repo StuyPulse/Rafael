@@ -102,14 +102,15 @@ public interface RobotMap {
     double BLENDER_CURRENT_THRESHOLD_FOR_JAM = 23; //Amperes
 
     double BLENDER_DEGREES_PER_PULSE_THRESHOLD_FOR_JAM = -1.0; //TODO: Find a suitable value for this.
-    
+
     // Shooter
     double SHOOTER_IDEAL_SPEED = 0.9;
     double SHOOTER_MAXIMUM_SPEED = 1.0;
     double SHOOTER_MINIMUM_SPEED = 0.3;
 
     // Winch
-    double WINCH_MOTOR_SPEED = 1.0;
+    double WINCH_MOTOR_SPEED_FAST = 1.0;
+    double WINCH_MOTOR_SPEED_SLOW = 0.5;
 
     ////////////////////////////////////////////////////////////////////////////
     // LEDS: ///////////////////////////////////////////////////////////////////

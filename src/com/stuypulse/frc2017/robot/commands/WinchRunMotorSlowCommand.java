@@ -5,11 +5,11 @@ import com.stuypulse.frc2017.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Depricated. Winch stops inside winchStart command at end()
+ *
  */
-public class WinchStopMotorCommand extends Command {
+public class WinchRunMotorSlowCommand extends Command {
 
-    public WinchStopMotorCommand() {
+    public WinchRunMotorSlowCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.winch);
@@ -18,7 +18,7 @@ public class WinchStopMotorCommand extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.winch.stopWinch();
+        Robot.winch.startWinchSlow();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -29,12 +29,13 @@ public class WinchStopMotorCommand extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return true;
+        return !Robot.oi.operatorPad.getRightTrigger().get();
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.winch.stopWinch();
     }
 
     // Called when another command which requires one or more of the same

@@ -23,9 +23,14 @@ public class Winch extends Subsystem {
         winchMotorB.enableBrakeMode(true);
     }
 
-    public void startWinch() {
-        winchMotorA.set(RobotMap.WINCH_MOTOR_SPEED);
-        winchMotorB.set(RobotMap.WINCH_MOTOR_SPEED);
+    public void startWinchFast() {
+        winchMotorA.set(RobotMap.WINCH_MOTOR_SPEED_FAST);
+        winchMotorB.set(RobotMap.WINCH_MOTOR_SPEED_FAST);
+    }
+
+    public void startWinchSlow() {
+        winchMotorA.set(RobotMap.WINCH_MOTOR_SPEED_SLOW);
+        winchMotorB.set(RobotMap.WINCH_MOTOR_SPEED_SLOW);
     }
 
     public void stopWinch() {

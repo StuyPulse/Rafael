@@ -14,8 +14,8 @@ import com.stuypulse.frc2017.robot.commands.ShooterAccelerateIdealSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateMinimumSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateReverseSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterStopCommand;
-import com.stuypulse.frc2017.robot.commands.WinchStartMotorCommand;
-import com.stuypulse.frc2017.robot.commands.WinchStopMotorCommand;
+import com.stuypulse.frc2017.robot.commands.WinchRunMotorFastCommand;
+import com.stuypulse.frc2017.robot.commands.WinchRunMotorSlowCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreHPGearCommand;
 import com.stuypulse.frc2017.robot.commands.cv.SetupForGearCommand;
 import com.stuypulse.frc2017.util.Gamepad;
@@ -111,20 +111,22 @@ public class OI {
         operatorPad.getDPadUp().whenPressed(new ShooterAccelerateIdealSpeedCommand());
         operatorPad.getDPadLeft().whenPressed(new ShooterAccelerateMinimumSpeedCommand());
 
-        // Ball scoring:
-        operatorPad.getRightBumper().whileHeld(new BlenderSpinBackwardCommand());
-        operatorPad.getRightTrigger().whileHeld(new BlenderSpinCommand());
+        // Ball scoring: We're not using it for china :(
+        //operatorPad.getRightBumper().whileHeld(new BlenderSpinBackwardCommand());
+        //operatorPad.getRightTrigger().whileHeld(new BlenderSpinCommand());
         // NOTE: We use whileHeld here, and do not specify a whenReleased,
         // because the default command of the blender runs off of joystick
         // output. When one of these commands isn't running, control of the
         // blender goes to the joystick.
 
         // Climbing:
-        operatorPad.getLeftTrigger().whenPressed(new WinchStartMotorCommand());
-        operatorPad.getLeftTrigger().whenReleased(new WinchStopMotorCommand());
+        operatorPad.getLeftTrigger().whenPressed(new WinchRunMotorFastCommand());
+        operatorPad.getRightTrigger().whenPressed(new WinchRunMotorSlowCommand());
+        //depricated down below: ends in command
+        //operatorPad.getLeftTrigger().whenReleased(new WinchStopMotorCommand());
 
         // Flaps
-        operatorPad.getLeftBumper().whenPressed(new HopperFlapToggleCommand());
+        // depricated operatorPad.getLeftBumper().whenPressed(new HopperFlapToggleCommand());
     }
 
     public boolean driverIsOverriding() {
