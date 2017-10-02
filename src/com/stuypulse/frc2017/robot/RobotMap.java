@@ -59,8 +59,8 @@ public interface RobotMap {
     int BLENDER_FEEDER_PORT = 9;
     // Shooter
     // DISABLED
-    int SHOOTER_MOTOR_A_PORT = -1;//7;
-    int SHOOTER_MOTOR_B_PORT = -1;//8;
+    int SHOOTER_MOTOR_A_PORT = 0;
+    int SHOOTER_MOTOR_B_PORT = 5;
 
     int SHOOTER_ENCODER_PULSES_PER_REVOLUTION = 1024;
 

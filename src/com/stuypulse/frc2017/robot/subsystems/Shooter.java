@@ -22,20 +22,19 @@ public class Shooter extends Subsystem {
     private CANTalon shooterMotorB;
 
     public Shooter() {
-        /* DISABLED shooterMotorA = new CANTalon(RobotMap.SHOOTER_MOTOR_A_PORT);
+        shooterMotorA = new CANTalon(RobotMap.SHOOTER_MOTOR_A_PORT);
         shooterMotorB = new CANTalon(RobotMap.SHOOTER_MOTOR_B_PORT);
         shooterMotorA.enableBrakeMode(false);
         shooterMotorB.enableBrakeMode(false);
         shooterMotorA.setInverted(true);
         shooterMotorB.setInverted(true);
         shooterMotorA.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
-        */
-        
+
         //shooterMotorA.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         //shooterMotorA.changeControlMode(TalonControlMode.Speed);
         //shooterMotorB.changeControlMode(TalonControlMode.Speed);
 
-        // DISABLED shooterMotorA.configEncoderCodesPerRev(RobotMap.SHOOTER_ENCODER_PULSES_PER_REVOLUTION);
+        shooterMotorA.configEncoderCodesPerRev(RobotMap.SHOOTER_ENCODER_PULSES_PER_REVOLUTION);
     }
 
     @Override
@@ -45,46 +44,46 @@ public class Shooter extends Subsystem {
     }
 
     public void setSpeed(double speed) {
-        //shooterMotorA.set(speed);
-        //shooterMotorB.set(speed);
+        shooterMotorA.set(speed);
+        shooterMotorB.set(speed);
     }
 
     // cut current to motor so it stops eventually, but doesn't apply brakes
     public void stop() {
-        //shooterMotorA.set(0.0);
-        //shooterMotorB.set(0.0);
+        shooterMotorA.set(0.0);
+        shooterMotorB.set(0.0);
     }
 
     public void resetEncoder() {
-        /*shooterMotorA.reset();
+        shooterMotorA.reset();
         shooterMotorA.enable();
-        shooterMotorA.set(0.0);*/
+        shooterMotorA.set(0.0);
     }
 
     public double getDistance() {
-        return 0;//shooterMotorA.getPosition();
+        return shooterMotorA.getPosition();
 
     }
 
     public double getSpeed() {
-        return 0;//shooterMotorA.getEncVelocity();
+        return shooterMotorA.getEncVelocity();
         //return shooterMotorA.getSpeed();
     }
 
     public double getCurrentShooterMotorA() {
-        return 0;//shooterMotorA.getOutputCurrent();
+        return shooterMotorA.getOutputCurrent();
     }
 
     public double getCurrentShooterMotorB() {
-        return 0;//shooterMotorB.getOutputCurrent();
+        return shooterMotorB.getOutputCurrent();
     }
 
     // set motor PID values
     public void setPIDF(double p, double i, double d, double f) {
-        /*shooterMotorA.setPID(p, i, d);
+        shooterMotorA.setPID(p, i, d);
         shooterMotorA.setF(f);
         shooterMotorB.setPID(p, i, d);
-        shooterMotorB.setF(f);*/
+        shooterMotorB.setF(f);
     }
 
 }
