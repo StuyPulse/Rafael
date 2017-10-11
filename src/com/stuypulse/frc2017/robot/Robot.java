@@ -26,6 +26,7 @@ import com.stuypulse.frc2017.util.LEDSignal;
 import com.stuypulse.frc2017.util.OrderedSendableChooser;
 import com.stuypulse.frc2017.util.PressureSensor;
 import com.stuypulse.frc2017.util.Vector;
+import com.stuypulse.frc2017.util.recorder.ExampleGhostOI;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -60,6 +61,7 @@ public class Robot extends IterativeRobot {
     public static PressureSensor pressureSensor;
 
     public static OI oi;
+    public static ExampleGhostOI ghostOI;
 
     public static OrderedSendableChooser<Command> autonChooser;
 
@@ -106,6 +108,7 @@ public class Robot extends IterativeRobot {
         isAutonomous = false;
 
         oi = new OI();
+        ghostOI = new ExampleGhostOI();
 
         ledPressureSensingSignal = new LEDSignal(RobotMap.PRESSURE_LED_PORT, RobotMap.PRESSURE_LED_ON_VALUE);
         ledGearSensingSignal = new LEDSignal(RobotMap.GEAR_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);

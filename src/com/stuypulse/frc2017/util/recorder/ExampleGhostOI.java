@@ -1,5 +1,7 @@
-package com.stuypulse.frc2017.robot;
+package com.stuypulse.frc2017.util.recorder;
 
+import com.stuypulse.frc2017.robot.Robot;
+import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainLowGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherPushGearCommand;
@@ -15,50 +17,23 @@ import com.stuypulse.frc2017.robot.commands.WinchRunMotorFastCommand;
 import com.stuypulse.frc2017.robot.commands.WinchRunMotorSlowCommand;
 import com.stuypulse.frc2017.robot.commands.auton.ScoreHPGearCommand;
 import com.stuypulse.frc2017.robot.commands.cv.SetupForGearCommand;
-import com.stuypulse.frc2017.util.Gamepad;
-import com.stuypulse.frc2017.util.recorder.commands.examples.ExamplePlaybackCommand;
-import com.stuypulse.frc2017.util.recorder.commands.examples.ExampleRecordCommand;
+import com.stuypulse.frc2017.util.recorder.commands.examples.GhostBlenderJoystickDriveCommand;
+import com.stuypulse.frc2017.util.recorder.commands.examples.GhostDrivetrainPiotrDriveCommand;
 
 /**
- * This class is the glue that binds the controls on the physical operator
- * interface to the commands and command groups that allow control of the robot.
+ * I literally just CTRL+C CTRL+V'd our entire OI,
+ * and replaced Gamepad with GhostGamepad
+ * 
+ * I also made duplicates of all Default commands
+ * and added them using "addDefaultCommand"
  */
-public class OI {
-    //// CREATING BUTTONS
-    // One type of button is a joystick button which is any button on a
-    // joystick.
-    // You create one by telling it which joystick it's on and which button
-    // number it is.
-    // Joystick stick = new Joystick(port);
-    // Button button = new JoystickButton(stick, buttonNumber);
+public class ExampleGhostOI extends GhostOI {
 
-    // There are a few additional built in buttons you can use. Additionally,
-    // by subclassing Button you can create custom triggers and bind those to
-    // commands the same as any other Button.
+    public GhostGamepad driverPad, operatorPad;
 
-    //// TRIGGERING COMMANDS WITH BUTTONS
-    // Once you have a button, it's trivial to bind it to a button in one of
-    // three ways:
-
-    // Start the command when the button is pressed and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenPressed(new ExampleCommand());
-
-    // Run the command while the button is being held down and interrupt it once
-    // the button is released.
-    // button.whileHeld(new ExampleCommand());
-
-    // Start the command when the button is released and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenReleased(new ExampleCommand());
-
-    public Gamepad driverPad;
-    public Gamepad operatorPad;
-
-    public OI() {
-        driverPad = new Gamepad(RobotMap.DRIVER_PAD_PORT);
-        operatorPad = new Gamepad(RobotMap.OPERATOR_PAD_PORT);
-
+    public ExampleGhostOI() {
+        driverPad = new GhostGamepad(RobotMap.DRIVER_PAD_PORT);
+        operatorPad = new GhostGamepad(RobotMap.OPERATOR_PAD_PORT);
         ////////////////////////////////////////////////////////////////////////
         // Driver Pad Bindings /////////////////////////////////////////////////
 
@@ -127,16 +102,9 @@ public class OI {
         // Flaps
         // depricated operatorPad.getLeftBumper().whenPressed(new HopperFlapToggleCommand());
 
-        /// RECORDING using recorderlib
-        operatorPad.getLeftBumper().whenPressed(new ExampleRecordCommand());
-        operatorPad.getRightBumper().whenPressed(new ExamplePlaybackCommand());
-    }
+        // ADD DEFAULTS: This is the only thing besides the default OI code
+        addDefaultCommand(new GhostDrivetrainPiotrDriveCommand(), Robot.drivetrain);
+        addDefaultCommand(new GhostBlenderJoystickDriveCommand(), Robot.blender);
 
-    public boolean driverIsOverriding() {
-        double joysticksMax = Math.max(Math.abs(driverPad.getLeftY()),
-                Math.max(Math.abs(driverPad.getLeftX()),
-                        Math.max(Math.abs(driverPad.getRightY()),
-                                Math.abs(driverPad.getRightX()))));
-        return joysticksMax > 0.2;
     }
 }
