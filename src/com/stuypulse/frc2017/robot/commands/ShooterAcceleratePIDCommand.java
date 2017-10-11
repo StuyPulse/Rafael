@@ -1,5 +1,6 @@
 package com.stuypulse.frc2017.robot.commands;
 
+import com.ctre.CANTalon.TalonControlMode;
 import com.stuypulse.frc2017.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -23,11 +24,15 @@ public class ShooterAcceleratePIDCommand extends Command {
         this(0.0);
         auto = true;
     }
-    
+
     // Called just before this Command runs the first time
     protected void initialize() {
+        // Set up motor
+        Robot.shooter.changeControlMode(TalonControlMode.Speed);
+        Robot.shooter.setFollowerMode(true);
         if (auto) {
             speed = SmartDashboard.getNumber("pid-shooter-speed", 0.0);
+            System.out.println("SHOOTER SPEED: " + speed +", yes this in fact is working");
         }
 
         Robot.shooter.setPIDF(
@@ -43,6 +48,7 @@ public class ShooterAcceleratePIDCommand extends Command {
     protected void execute() {
         // Log
         SmartDashboard.putNumber("PID ShooterAccelerate OUTPUT", (Robot.shooter.getSpeed() - speed));
+        System.out.println("SPD: " + Robot.shooter.getSpeed());
     }
 
     // Must be interrupted
@@ -53,10 +59,14 @@ public class ShooterAcceleratePIDCommand extends Command {
     // Called once after isFinished returns true
     protected void end() {
         Robot.shooter.stop();
+        // Reset motor
+        Robot.shooter.changeControlMode(TalonControlMode.PercentVbus);
+        Robot.shooter.setFollowerMode(false);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+        end();
     }
 }
