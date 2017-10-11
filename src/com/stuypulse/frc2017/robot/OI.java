@@ -1,19 +1,15 @@
 package com.stuypulse.frc2017.robot;
 
-import com.stuypulse.frc2017.robot.commands.BlenderSpinBackwardCommand;
-import com.stuypulse.frc2017.robot.commands.BlenderSpinCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainHighGearCommand;
 import com.stuypulse.frc2017.robot.commands.DriveTrainLowGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherPushGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearPusherRetractGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapReleaseGearCommand;
 import com.stuypulse.frc2017.robot.commands.GearTrapTrapGearCommand;
-import com.stuypulse.frc2017.robot.commands.HopperFlapToggleCommand;
 import com.stuypulse.frc2017.robot.commands.ScoreGearCommand;
-import com.stuypulse.frc2017.robot.commands.ShooterAccelerateIdealSpeedCommand;
+import com.stuypulse.frc2017.robot.commands.ShooterAccelerateMaximumSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateMinimumSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAcceleratePIDCommand;
-import com.stuypulse.frc2017.robot.commands.ShooterAccelerateReverseSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterStopCommand;
 import com.stuypulse.frc2017.robot.commands.WinchRunMotorFastCommand;
 import com.stuypulse.frc2017.robot.commands.WinchRunMotorSlowCommand;
@@ -108,7 +104,7 @@ public class OI {
 
         // Shooter:
         operatorPad.getDPadDown().whenPressed(new ShooterStopCommand());
-        operatorPad.getDPadRight().whenPressed(new ShooterAccelerateReverseSpeedCommand());
+        operatorPad.getDPadRight().whenPressed(new ShooterAccelerateMaximumSpeedCommand());
         operatorPad.getDPadUp().whenPressed(new ShooterAcceleratePIDCommand());
         // REMOVED FOR PID operatorPad.getDPadUp().whenPressed(new ShooterAccelerateIdealSpeedCommand());
         operatorPad.getDPadLeft().whenPressed(new ShooterAccelerateMinimumSpeedCommand());
