@@ -28,7 +28,13 @@ public class Shooter extends Subsystem {
         shooterMotorB.enableBrakeMode(false);
         shooterMotorA.setInverted(true);
         shooterMotorB.setInverted(true);
+
+        // reverse closed loop (ex. PID) output
+        shooterMotorA.reverseOutput(true);
+        shooterMotorB.reverseOutput(true);
+
         shooterMotorA.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
+        shooterMotorB.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
 
         //shooterMotorA.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         //shooterMotorA.changeControlMode(TalonControlMode.Speed);
@@ -45,13 +51,15 @@ public class Shooter extends Subsystem {
 
     public void setSpeed(double speed) {
         shooterMotorA.set(speed);
-        shooterMotorB.set(speed);
+        // If shooterMotorB is a follower, by default it will mimic A's shooter value
+        if (shooterMotorB.getControlMode() != TalonControlMode.Follower) {
+            shooterMotorB.set(speed);
+        }
     }
 
     // cut current to motor so it stops eventually, but doesn't apply brakes
     public void stop() {
-        shooterMotorA.set(0.0);
-        shooterMotorB.set(0.0);
+        setSpeed(0);
     }
 
     public void resetEncoder() {
@@ -79,11 +87,29 @@ public class Shooter extends Subsystem {
     }
 
     // set motor PID values
+    // run setFollowerMode(true) if you want this to work!
     public void setPIDF(double p, double i, double d, double f) {
         shooterMotorA.setPID(p, i, d);
         shooterMotorA.setF(f);
         shooterMotorB.setPID(p, i, d);
         shooterMotorB.setF(f);
+    }
+
+    // Changes control mode (PercentVBus or Speed, ect...)
+    public void changeControlMode(TalonControlMode mode){
+        shooterMotorA.changeControlMode(mode);
+        shooterMotorB.changeControlMode(mode);
+    }
+
+    // For PID. Whether Motor B mimics motor A
+    public void setFollowerMode(boolean follower) {
+        if (follower) {
+            shooterMotorB.changeControlMode(TalonControlMode.Follower);
+            shooterMotorB.set(RobotMap.SHOOTER_MOTOR_A_PORT);
+        } else {
+            shooterMotorB.changeControlMode(shooterMotorA.getControlMode());
+            shooterMotorB.set(0); // TODO: Is this necessary?
+        }
     }
 
 }
