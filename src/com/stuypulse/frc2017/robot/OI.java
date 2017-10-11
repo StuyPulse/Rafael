@@ -12,6 +12,7 @@ import com.stuypulse.frc2017.robot.commands.HopperFlapToggleCommand;
 import com.stuypulse.frc2017.robot.commands.ScoreGearCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateIdealSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateMinimumSpeedCommand;
+import com.stuypulse.frc2017.robot.commands.ShooterAcceleratePIDCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterAccelerateReverseSpeedCommand;
 import com.stuypulse.frc2017.robot.commands.ShooterStopCommand;
 import com.stuypulse.frc2017.robot.commands.WinchRunMotorFastCommand;
@@ -108,7 +109,8 @@ public class OI {
         // Shooter:
         operatorPad.getDPadDown().whenPressed(new ShooterStopCommand());
         operatorPad.getDPadRight().whenPressed(new ShooterAccelerateReverseSpeedCommand());
-        operatorPad.getDPadUp().whenPressed(new ShooterAccelerateIdealSpeedCommand());
+        operatorPad.getDPadUp().whenPressed(new ShooterAcceleratePIDCommand());
+        // REMOVED FOR PID operatorPad.getDPadUp().whenPressed(new ShooterAccelerateIdealSpeedCommand());
         operatorPad.getDPadLeft().whenPressed(new ShooterAccelerateMinimumSpeedCommand());
 
         // Ball scoring: We're not using it for china :(
