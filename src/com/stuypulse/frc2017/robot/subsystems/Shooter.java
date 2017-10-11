@@ -30,8 +30,8 @@ public class Shooter extends Subsystem {
         shooterMotorB.setInverted(true);
 
         // reverse closed loop (ex. PID) output
-        shooterMotorA.reverseOutput(true);
-        shooterMotorB.reverseOutput(true);
+        //shooterMotorA.reverseOutput(true);
+        //shooterMotorB.reverseOutput(true);
 
         shooterMotorA.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
         shooterMotorB.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
