@@ -35,6 +35,7 @@ public abstract class RecorderRecordCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        System.out.println("[RecorderRecordCommand] START RECORDING");
         recorder.startRecording();
     }
 
@@ -45,6 +46,7 @@ public abstract class RecorderRecordCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+        System.out.println("[RecorderRecordCommand] STOP RECORDING");
         recorder.stopRecording();
         GhostJoystickData[] datas = recorder.getAllData(); // datas, cause screw grammar rules
         // TODO: Take this data and put it into JSON or another file format
@@ -60,6 +62,8 @@ public abstract class RecorderRecordCommand extends Command {
                 writer.object();
                 writer.value("timestamp", dp.timestamp);
                 writer.array("buttonData");
+                // BECAUSE JOYSTICKS START AT 1, we add an extra element as an offset
+                writer.value(0);
                 for (boolean val : dp.buttonData) {
                     writer.value(val);
                 }
@@ -79,7 +83,7 @@ public abstract class RecorderRecordCommand extends Command {
         writer.end(); // end initial object creation
         String result = writer.done();
 
-        FileIO.writeFile(result, fileToSave);
+        FileIO.writeFile(result, "/home/lvuser/" + fileToSave);
     }
 
     // Called when another command which requires one or more of the same

@@ -107,8 +107,8 @@ public class Robot extends IterativeRobot {
         cvFoundGoal = true;
         isAutonomous = false;
 
-        oi = new OI();
         ghostOI = new ExampleGhostOI();
+        oi = new OI();
 
         ledPressureSensingSignal = new LEDSignal(RobotMap.PRESSURE_LED_PORT, RobotMap.PRESSURE_LED_ON_VALUE);
         ledGearSensingSignal = new LEDSignal(RobotMap.GEAR_LED_PORT, RobotMap.GEAR_LED_ON_VALUE);

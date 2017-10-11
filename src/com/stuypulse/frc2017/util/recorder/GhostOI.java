@@ -38,6 +38,10 @@ public class GhostOI {
     // and offers no disadvantages.
     private LinkedList<CommandSubsystemWrapper> defaultCommands;
 
+    public GhostOI() {
+        defaultCommands = new LinkedList<CommandSubsystemWrapper>();
+    }
+    
     /**
      * void addDefaultCommand(Command command)
      * 

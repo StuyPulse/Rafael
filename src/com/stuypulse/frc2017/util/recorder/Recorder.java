@@ -173,7 +173,7 @@ public class Recorder {
                 buttonData = new boolean[gJoystick.getButtonCount()];
                 axisData = new double[gJoystick.getAxisCount()];
                 for (int bPort = 0; bPort < buttonData.length; bPort++) {
-                    buttonData[bPort] = gJoystick.getRawButton(bPort);
+                    buttonData[bPort] = gJoystick.getRawButton(bPort + 1);
                 }
                 for (int aPort = 0; aPort < axisData.length; aPort++) {
                     axisData[aPort] = gJoystick.getRawAxis(aPort);

@@ -17,7 +17,7 @@ public class ExampleRecordCommand extends RecorderRecordCommand {
     @Override
     protected boolean isFinished() {
         // Stop when we've pressed the dpad
-        return Robot.oi.driverPad.getRawDPadDown();
+        return Robot.oi.operatorPad.getRawLeftButton();
     }
 
 }

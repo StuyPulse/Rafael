@@ -32,7 +32,7 @@ public class GhostJoystick {
         axi = new double[host.getAxisCount()];
 
         for (int i = 0; i < host.getButtonCount(); i++) {
-            buttons[i] = new GhostButton(i, this);
+            buttons[i] = new GhostButton(i + 1, this);
         }
     }
 
@@ -43,7 +43,7 @@ public class GhostJoystick {
         axi = new double[axisCount];
 
         for (int i = 0; i < buttonCount; i++) {
-            buttons[i] = new GhostButton(i, this);
+            buttons[i] = new GhostButton(i + 1, this);
         }
     }
 
@@ -52,7 +52,7 @@ public class GhostJoystick {
     }
 
     public GhostButton getButton(int port) {
-        return buttons[port];
+        return buttons[port - 1];
     }
 
     public boolean getRawButton(int port) {
@@ -96,7 +96,7 @@ public class GhostJoystick {
         // Set our button + axis values to our host values 
         //   if we are set to mirror our host
         if (mirrorHost) {
-            for (int bPort = 0; bPort < host.getButtonCount(); bPort++) {
+            for (int bPort = 1; bPort <= host.getButtonCount(); bPort++) {
                 setButtonValue(bPort, host.getRawButton(bPort));
             }
             for (int aPort = 0; aPort < host.getAxisCount(); aPort++) {

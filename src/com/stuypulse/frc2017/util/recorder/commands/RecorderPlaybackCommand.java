@@ -21,17 +21,22 @@ import edu.wpi.first.wpilibj.command.Command;
  * mimicking joystick inputs
  */
 public class RecorderPlaybackCommand extends Command {
+    private String fileToLoad;
+    private GhostOI oi;
+    private GhostJoystick[] gJoysticks;
 
     private GhostJoystickData[] joystickData;
-
-    private GhostOI oi;
 
     // Timestamp for when this command began
     private double timeStart;
 
     public RecorderPlaybackCommand(String fileToLoad, GhostOI oi, GhostJoystick... gJoysticks) {
+        this.fileToLoad = fileToLoad;
         this.oi = oi;
+        this.gJoysticks = gJoysticks;
+    }
 
+    private void loadData() {
         // This hashmap is made to easily find a joystick by its port.
         //     it is only used here, to construct our joystickData array
         HashMap<Integer, GhostJoystick> portToJoystick = new HashMap<Integer, GhostJoystick>();
@@ -40,7 +45,7 @@ public class RecorderPlaybackCommand extends Command {
         }
 
         try {
-            JsonObject obj = JsonParser.object().from(FileIO.readFile(fileToLoad));
+            JsonObject obj = JsonParser.object().from(FileIO.readFile("/home/lvuser/" + fileToLoad));
             JsonArray jsonJoysticks = obj.getArray("joysticks");
 
             joystickData = new GhostJoystickData[jsonJoysticks.size()];
@@ -60,7 +65,7 @@ public class RecorderPlaybackCommand extends Command {
                     double timestamp = jsonFrame.getDouble("timestamp");
 
                     JsonArray jsonButtons = jsonFrame.getArray("buttonData");
-                    for (int b = 0; b < jsonButtons.size(); b++) {
+                    for (int b = 1; b <= jsonButtons.size(); b++) {
                         boolean buttonState = jsonButtons.getBoolean(b);
                         targetStick.setButtonValue(b, buttonState);
                     }
@@ -85,9 +90,11 @@ public class RecorderPlaybackCommand extends Command {
             cancel();
         }
     }
-
+    
     // Called just before this Command runs the first time
     protected void initialize() {
+        System.out.println("[RecorderRecordCommand] START PLAYBACK");
+        loadData();
         timeStart = Timer.getFPGATimestamp();
         // just to be safe, we make sure none of the joysticks mirror
         for (GhostJoystickData data : joystickData) {
@@ -134,6 +141,7 @@ public class RecorderPlaybackCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+        System.out.println("[RecorderRecordCommand] STOP PLAYBACK");
         oi.cancelAllDefaultCommands();
     }
 
