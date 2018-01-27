@@ -1,15 +1,17 @@
-package com.stuypulse.frc2017.robot.subsystems;
+ package com.stuypulse.frc2017.robot.subsystems;
 
-import com.ctre.CANTalon;
-import com.ctre.CANTalon.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.PIDInterface;
 import com.kauailabs.navx.frc.AHRS;
 import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.DrivetrainPiotrDriveCommand;
-
-import edu.wpi.first.wpilibj.RobotDrive;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
  *
@@ -20,35 +22,34 @@ public class Drivetrain extends Subsystem {
     /**
      * Talon for left top motor. Has encoder on it.
      */
-    private CANTalon leftTopMotor;
+    private WPI_TalonSRX leftTopMotor;
     /**
      * Talon for right top motor. Has encoder on it.
      */
-    private CANTalon rightTopMotor;
-
-    private CANTalon leftBottomMotor;
-    private CANTalon rightBottomMotor;
-
+    private WPI_TalonSRX rightTopMotor;
+    /**/
+    private WPI_TalonSRX leftBottomMotor;
+    private WPI_TalonSRX rightBottomMotor;
     private Solenoid gearShift;
-
-    private RobotDrive robotDrive;
-
+    
+    private DifferentialDrive differentialDrive;
+    private SpeedControllerGroup leftSpeedController;
+    private SpeedControllerGroup rightSpeedController;
     private boolean shifted;
-    private AHRS gyro;
-
+    private AHRS gyro;  
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
     public Drivetrain() {
-        leftTopMotor = new CANTalon(RobotMap.LEFT_TOP_MOTOR_PORT);
-        rightTopMotor = new CANTalon(RobotMap.RIGHT_TOP_MOTOR_PORT);
-        leftBottomMotor = new CANTalon(RobotMap.LEFT_BOTTOM_MOTOR_PORT);
-        rightBottomMotor = new CANTalon(RobotMap.RIGHT_BOTTOM_MOTOR_PORT);
+        leftTopMotor = new WPI_TalonSRX(RobotMap.LEFT_TOP_MOTOR_PORT);
+        rightTopMotor = new WPI_TalonSRX(RobotMap.RIGHT_TOP_MOTOR_PORT);
+        leftBottomMotor = new WPI_TalonSRX(RobotMap.LEFT_BOTTOM_MOTOR_PORT);
+        rightBottomMotor = new WPI_TalonSRX(RobotMap.RIGHT_BOTTOM_MOTOR_PORT);
 
-        leftTopMotor.enableBrakeMode(true);
-        rightTopMotor.enableBrakeMode(true);
-        leftBottomMotor.enableBrakeMode(true);
-        rightBottomMotor.enableBrakeMode(true);
+        leftTopMotor.setNeutralMode(NeutralMode.Brake);
+        rightTopMotor.setNeutralMode(NeutralMode.Brake);
+        leftBottomMotor.setNeutralMode(NeutralMode.Brake);
+        rightBottomMotor.setNeutralMode(NeutralMode.Brake);
 
         leftTopMotor.setInverted(true);
         rightTopMotor.setInverted(true);
@@ -57,16 +58,13 @@ public class Drivetrain extends Subsystem {
 
         gearShift = new Solenoid(RobotMap.GEAR_SHIFT_SOLENOID_PORT);
 
-        leftTopMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-        rightTopMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-
         shifted = false;
 
-        robotDrive = new RobotDrive(leftBottomMotor, leftTopMotor, rightBottomMotor, rightTopMotor);
+        differentialDrive = new DifferentialDrive(leftSpeedController, rightSpeedController);
 
         //Encoders are located on the top motors on either of the motor complexes located on the left/right hemispheres.
-        leftTopMotor.configEncoderCodesPerRev(RobotMap.DRIVETRAIN_ENCODERS_PULSES_PER_REVOLUTION);
-        rightTopMotor.configEncoderCodesPerRev(RobotMap.DRIVETRAIN_ENCODERS_PULSES_PER_REVOLUTION);
+        leftTopMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, RobotMap.DRIVETRAIN_ENCODERS_PULSES_PER_REVOLUTION, 0);
+        rightTopMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, RobotMap.DRIVETRAIN_ENCODERS_PULSES_PER_REVOLUTION, 0);
 
         gyro = new AHRS(SPI.Port.kMXP);
         resetGyro();
@@ -79,13 +77,13 @@ public class Drivetrain extends Subsystem {
     }
 
     public void tankDrive(double left, double right) {
-        robotDrive.tankDrive(left, right);
+        differentialDrive.tankDrive(left, right);
     }
 
     public void stop() {
         tankDrive(0, 0);
     }
-
+    
     // TODO: UNITS MUST BE COMMENTED. (Degrees; positive is clockwise)
     public double gyroAngle() {
         return gyro.getAngle();
@@ -96,37 +94,41 @@ public class Drivetrain extends Subsystem {
     }
 
     public void resetEncoders() {
-        leftTopMotor.reset();
+        leftTopMotor.reset()
         rightTopMotor.reset();
         leftTopMotor.enable();
         rightTopMotor.enable();
-        leftTopMotor.setPosition(0);
-        rightTopMotor.setPosition(0);
+        leftTopMotor.setSelectedSensorPosition(0,0,0);
+        rightTopMotor.setSelectedSensorPosition(0,0,0);
     }
 
     public double encoderDistance() {
         return Math.max(leftEncoderDistance(), rightEncoderDistance());
     }
 
+    //getSelectedSensorPosition parameter replaced with 0. getPosition previously
+    //for CANTalon did not have a parameter.
     public double leftEncoderDistance() {
-        return (leftTopMotor.getPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION)
+        return (leftTopMotor.getSelectedSensorPosition(0) * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION)
                 / RobotMap.DRIVETRAIN_ENCODERS_FACTOR;
     }
 
     public double rightEncoderDistance() {
         // Distance is scaled by -1.0 because right encoder was reporting
         // incorrect (negated) values
-        return -1.0 * (rightTopMotor.getPosition() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION)
+        return -1.0 * (rightTopMotor.getSelectedSensorPosition(0) * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION)
                 / RobotMap.DRIVETRAIN_ENCODERS_FACTOR;
     }
 
+    
+   //getSelectedSensorVelocity is set to 0. Replaced by CANTalon's getSpeed, which had no parameter.
     public double leftEncoderSpeed() {
-        return (leftTopMotor.getSpeed() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION)
+        return (leftTopMotor.getSelectedSensorVelocity(0) * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION)
         / RobotMap.DRIVETRAIN_ENCODERS_FACTOR;
     }
 
     public double rightEncoderSpeed() {
-        return -1.0 * (rightTopMotor.getSpeed() * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION)
+        return -1.0 * (rightTopMotor.getSelectedSensorVelocity(0) * RobotMap.DRIVETRAIN_ENCODERS_INCHES_PER_REVOLUTION)
         / RobotMap.DRIVETRAIN_ENCODERS_FACTOR;
     }
 
