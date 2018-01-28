@@ -2,6 +2,7 @@ package com.stuypulse.frc2017.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.BlenderJoystickDriveCommand;
@@ -78,7 +79,7 @@ public class Blender extends Subsystem {
             arraySum += currentValues[arrayCounter];
         }
         double currentArithmeticMean = arraySum / currentValues.length;
-        double blenderDegreesPerPulse = blenderMotor.getSensorCollection()
+        double blenderDegreesPerPulse = blenderMotor.getSensorCollection().getAnalogInVel();
         //Checks whether the average is over the threshold for not jammed.
         boolean isCurrentHigh = currentArithmeticMean > RobotMap.BLENDER_CURRENT_THRESHOLD_FOR_JAM;
         boolean isSpeedHigh = blenderDegreesPerPulse > RobotMap.BLENDER_DEGREES_PER_PULSE_THRESHOLD_FOR_JAM;

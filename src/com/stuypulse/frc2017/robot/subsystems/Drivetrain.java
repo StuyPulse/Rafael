@@ -94,10 +94,6 @@ public class Drivetrain extends Subsystem {
     }
 
     public void resetEncoders() {
-        leftTopMotor.reset()
-        rightTopMotor.reset();
-        leftTopMotor.enable();
-        rightTopMotor.enable();
         leftTopMotor.setSelectedSensorPosition(0,0,0);
         rightTopMotor.setSelectedSensorPosition(0,0,0);
     }

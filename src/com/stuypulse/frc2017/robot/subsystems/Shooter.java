@@ -54,9 +54,8 @@ public class Shooter extends Subsystem {
     }
 
     public void resetEncoder() {
-        shooterMotorA.reset();
-        shooterMotorA.enable();
-        shooterMotorA.set(0.0);
+        shooterMotorA.setSelectedSensorPosition(0,0,0);
+        shooterMotorB.setSelectedSensorPosition(0,0,0);
     }
 
     public double getDistance() {
