@@ -13,6 +13,7 @@ import java.util.LinkedHashMap;
 
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
@@ -35,6 +36,7 @@ import edu.wpi.first.wpilibj.tables.ITable;
  * @param <V>
  *            The type of the values to be stored
  */
+
 public class OrderedSendableChooser<V> implements Sendable {
 
     /**
@@ -118,14 +120,12 @@ public class OrderedSendableChooser<V> implements Sendable {
         return m_map.getOrDefault(selected, m_map.get(m_defaultChoice));
     }
 
-    @Override
     public String getSmartDashboardType() {
         return "String Chooser";
     }
 
     private ITable m_table;
 
-    @Override
     public void initTable(ITable table) {
         m_table = table;
         if (table != null) {
@@ -136,8 +136,37 @@ public class OrderedSendableChooser<V> implements Sendable {
         }
     }
 
-    @Override
     public ITable getTable() {
         return m_table;
+    }
+
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void setName(String name) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public String getSubsystem() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void setSubsystem(String subsystem) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void initSendable(SendableBuilder builder) {
+        // TODO Auto-generated method stub
+        
     }
 }

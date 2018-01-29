@@ -178,7 +178,10 @@ public class Robot extends IterativeRobot {
 
     }
 
+    // As of 2018, OrderedSendableChooser functionality has been affected
+    // due to the deprecation of "import edu.wpi.first.wpilibj.tables.ITable;
     private void setupAutonChooser() {
+        
         autonChooser = new OrderedSendableChooser<Command>();
         autonChooser.addObject("Do Nothing", new CommandGroup());
         autonChooser.addObject("Minimal Mobility", new MobilityMinimalCommand());
