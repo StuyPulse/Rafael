@@ -23,7 +23,6 @@ import com.stuypulse.frc2017.robot.subsystems.Winch;
 import com.stuypulse.frc2017.util.BoolBox;
 import com.stuypulse.frc2017.util.IRSensor;
 import com.stuypulse.frc2017.util.LEDSignal;
-import com.stuypulse.frc2017.util.OrderedSendableChooser;
 import com.stuypulse.frc2017.util.PressureSensor;
 import com.stuypulse.frc2017.util.Vector;
 
@@ -34,6 +33,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -61,7 +61,7 @@ public class Robot extends IterativeRobot {
 
     public static OI oi;
 
-    public static OrderedSendableChooser<Command> autonChooser;
+    private static SendableChooser<Command> autonChooser = new SendableChooser<>();
 
     /**
      * This controls whether automatic functionality like extending the gear
@@ -182,7 +182,7 @@ public class Robot extends IterativeRobot {
     }
 
     private void setupAutonChooser() {
-        autonChooser = new OrderedSendableChooser<Command>();
+        autonChooser = new SendableChooser<Command>();
         autonChooser.addObject("Do Nothing", new CommandGroup());
         autonChooser.addObject("Minimal Mobility", new MobilityMinimalCommand());
         autonChooser.addObject("Minimal Mobility From Middle Gear Start", new MiddleGearMobilityMinimalCommand());

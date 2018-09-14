@@ -1,11 +1,13 @@
 package com.stuypulse.frc2017.robot.subsystems;
 
-import com.ctre.CANTalon;
-import com.ctre.CANTalon.FeedbackDevice;
 import com.stuypulse.frc2017.robot.RobotMap;
 import com.stuypulse.frc2017.robot.commands.BlenderJoystickDriveCommand;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
+
 
 /**
  *
@@ -16,8 +18,8 @@ public class Blender extends Subsystem {
 
     public static final int CURRENTS_TO_RECORD = 15;
 
-    private static CANTalon blenderMotor;
-    private static CANTalon blenderFeeder;
+    private static WPI_TalonSRX blenderMotor;
+    private static WPI_TalonSRX blenderFeeder;
     // Values of current going to blenderMotor for past CURRENTS_TO_RECORD ticks
     private static double[] currentValues;
 
@@ -25,14 +27,15 @@ public class Blender extends Subsystem {
     private boolean isJammed;
 
     public Blender() {
-        blenderMotor = new CANTalon(RobotMap.BLENDER_MOTOR_PORT);
-        blenderFeeder = new CANTalon(RobotMap.BLENDER_FEEDER_PORT);
-        blenderMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
-        blenderFeeder.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
-        blenderMotor.configEncoderCodesPerRev(RobotMap.BLENDER_ENCODER_PULSES_PER_REVOLUTION);
+        blenderMotor = new WPI_TalonSRX(RobotMap.BLENDER_MOTOR_PORT);
+        blenderFeeder = new WPI_TalonSRX(RobotMap.BLENDER_FEEDER_PORT);
+        //TODO: FIX THE ENCODERS ASAP, I'M PATHETIC AND DON'T KNOW HOW TO DO THIS
+        //blenderMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
+        //blenderFeeder.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
+        //blenderMotor.configEncoderCodesPerRev(RobotMap.BLENDER_ENCODER_PULSES_PER_REVOLUTION);
         currentValues = new double[CURRENTS_TO_RECORD];
-        blenderMotor.enableBrakeMode(true);
-        blenderFeeder.enableBrakeMode(true);
+        blenderMotor.setNeutralMode(NeutralMode.Brake);
+        blenderFeeder.setNeutralMode(NeutralMode.Brake);
         isJammed = false;
     }
 
@@ -87,7 +90,7 @@ public class Blender extends Subsystem {
             arraySum += currentValues[arrayCounter];
         }
         double currentArithmeticMean = arraySum / currentValues.length;
-        double blenderDegreesPerPulse = blenderMotor.getAnalogInVelocity();
+        double blenderDegreesPerPulse = blenderMotor.getSelectedSensorVelocity(0);
         //Checks whether the average is over the threshold for not jammed.
         boolean isCurrentHigh = currentArithmeticMean > RobotMap.BLENDER_CURRENT_THRESHOLD_FOR_JAM;
         boolean isSpeedHigh = blenderDegreesPerPulse > RobotMap.BLENDER_DEGREES_PER_PULSE_THRESHOLD_FOR_JAM;

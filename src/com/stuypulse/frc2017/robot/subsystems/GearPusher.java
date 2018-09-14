@@ -2,8 +2,6 @@ package com.stuypulse.frc2017.robot.subsystems;
 
 import com.stuypulse.frc2017.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 

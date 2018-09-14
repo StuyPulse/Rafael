@@ -1,6 +1,8 @@
 package com.stuypulse.frc2017.robot.subsystems;
 
-import com.ctre.CANTalon;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+//import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.stuypulse.frc2017.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -12,15 +14,16 @@ public class Winch extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-    private CANTalon winchMotorA;
-    private CANTalon winchMotorB;
+    private WPI_TalonSRX winchMotorA;
+    private WPI_TalonSRX winchMotorB;
 
 
     public Winch() {
-        winchMotorA = new CANTalon(RobotMap.WINCH_MOTOR_PORT_A);
-        winchMotorA.enableBrakeMode(true);
-        winchMotorB = new CANTalon(RobotMap.WINCH_MOTOR_PORT_B);
-        winchMotorB.enableBrakeMode(true);
+        winchMotorA = new WPI_TalonSRX(RobotMap.WINCH_MOTOR_PORT_A);
+        winchMotorB = new WPI_TalonSRX(RobotMap.WINCH_MOTOR_PORT_B);
+        
+        winchMotorA.setNeutralMode(NeutralMode.Brake);
+        winchMotorB.setNeutralMode(NeutralMode.Brake);
     }
 
     public void startWinchFast() {
